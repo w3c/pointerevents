@@ -53,7 +53,7 @@
 
     <section id="sotd">
         <div style="color:red">This document is currently an editor's draft.</div>
-		<div>Current bugs and issues are managed in <a href="https://www.w3.org/Bugs/Public/describecomponents.cgi?product=PointerEventsWG">Bugzilla</a>. Actions to be completed are tracked in <a href="https://www.w3.org/2012/pointerevents/track/">Tracker</a>.</div>
+		<div>Current bugs and issues are managed in <a href="https://www.w3.org/Bugs/Public/describecomponents.cgi?product=PointerEventsWG">Bugzilla</a>. Action items to be completed are tracked in <a href="https://www.w3.org/2012/pointerevents/track/">Tracker</a>.</div>
     </section>
 
     <section id="intro" class="informative">
@@ -436,17 +436,17 @@
 </section>
 <section>
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
-		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MUST map generic pointer input to mouse events for compatibility with this content. Unless otherwise noted, the target of any mapped mouse event MUST be the same as the target for the pointer event from which it was mapped.</p>
+		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. Unless otherwise noted, the target of any mapped mouse event MAY be the same as the target for the pointer event from which it was mapped.</p>
 		<p>Authors can prevent the production of compatibility mouse events by cancelling the <code>pointerdown</code> event. </p>
+		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> event (see the note below).</p>
 		<section class="note">
-			<p><i>This section is non-normative</i></p>
 			<p>The <code>click</code> event is defined in [[!DOM-LEVEL-3-EVENTS]] and is not considered a <a title="compatibility mouse events" class="internalDFN" href="#dfn-compatibility-mouse-events">compatibility mouse event</a> as it is typically tied to user interface activation.</p>
 			<p>In user agents that support firing <code>click</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> is fired or not.  Because it is not a compatibility mouse event, user agents typically fire <code>click</code> for all pointing devices, including pointers that are not primary pointers.
 		</section>
 		</div>
 		<section>
 			<h2>Mapping for devices that support hover</h2>
-			<div>Whenever a user agent is to dispatch a pointer event from for device that supports hover, it MUST run the following steps:
+			<div>Whenever a user agent is to dispatch a pointer event from for device that supports hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>Dispatch the pointer event.</li>
@@ -483,7 +483,7 @@
 				<li>The input can hover independently of activation (e.g. moving a mouse cursor without any buttons pressed)</li>
 				<li>The input will likely produce the <code>mousemove</code> event on an element before clicking it</li>
 			</ul>
-			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event from a device that does not support hover, it MUST run the following steps:
+			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event from a device that does not support hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then dispatch a <code>mousemove</code> event.</li>
