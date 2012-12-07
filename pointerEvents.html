@@ -253,6 +253,24 @@
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseout</code></td>
 					</tr>
 					<tr>
+						<td><code>pointerenter</code></td>
+						<td>Sync</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td><code>Document</code>, <code>Element</code></td>
+						<td><code>PointerEvent</code></td>
+						<td>Varies:  when the pointer is primary, all default actions of <code>mouseenter</code></td>
+					</tr>
+					<tr>
+						<td><code>pointerleave</code></td>
+						<td>Sync</td>
+						<td>No</td>
+						<td>Yes</td>
+						<td><code>Document</code>, <code>Element</code></td>
+						<td><code>PointerEvent</code></td>
+						<td>Varies:  when the pointer is primary, all default actions of <code>mouseleave</code></td>
+					</tr>
+					<tr>
 						<td><code>gotpointercapture</code></td>
 						<td>Async</td>
 						<td>Yes</td>
@@ -326,6 +344,16 @@
 			</div>
 		</section>
 		<section>
+			<h3><dfn title="pointerenter">The <code>pointerenter</code> event</dfn></h3>
+			<div>A user agent MUST dispatch this event when a pointing device is moved into the hit test boundaries of an element or one of its descendents, including as a result of a <code>pointerdown</code> event from a device that does not support hover. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</div>
+			<div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
+		</section>
+		<section>
+			<h3><dfn title="pointerleave">The <code>pointerleave</code> event</dfn></h3>
+			<div>A user agent MUST dispatch this event when a pointing device is moved off of the hit test boundaries of an element and all of its descendents, including as a result of a <code>pointerup</code> event from a device that does not support hover. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be dispatched until the pointing device has left the boundaries of the element and the boundaries of all of its children.</div>
+			<div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
+		</section>
+		<section>
 			<h3><dfn title="gotpointercapture">The <code>gotpointercapture</code> event</dfn></h3>
 			<div>A user agent MUST dispatch this event prior to dispatching the first event after pointer capture is set for a pointer. This event is dispatched to the element that is receiving pointer capture. Subsequent events for that pointer will be dispatched to this element. See <code>setPointerCapture()</code>.</div>
 		</section>
@@ -373,6 +401,14 @@
 			<dt>attribute EventHandler onpointerout</dt>
 			<dd>
 				The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerout</code> event type.
+			</dd>
+			<dt>attribute EventHandler onpointerenter</dt>
+			<dd>
+				The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerenter</code> event type.
+			</dd>
+			<dt>attribute EventHandler onpointerleave</dt>
+			<dd>
+				The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerleave</code> event type.
 			</dd>
 			<dt>attribute EventHandler ongotpointercapture</dt>
 			<dd>
