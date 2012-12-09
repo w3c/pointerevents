@@ -112,7 +112,7 @@
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
-					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 0.
+					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 1 when in the <a title="active buttons" class="internalDFN">active buttons</a> state and 0 otherwise.
 				</dd>
 				<dt>readonly attribute long tiltX</dt>
 				<dd>
@@ -476,7 +476,7 @@
 	Pointer capture allows the events for a particular pointer to be retargeted to a particular element other than the normal hit-test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
 	<figure>
 		<img src="slider.png" alt="Custom Volume Slider">
-		<figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture is used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
+		<figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
 	</figure>
 	</div>
 	
