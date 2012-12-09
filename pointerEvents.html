@@ -108,7 +108,6 @@
 				<dt>readonly attribute long height</dt>
 				<dd>
 					The height (magnitude on the Y axis), in physical screen pixels, of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value MAY be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
-					<div class="issue">Physical screen pixels may be ineffective. For example, the physical size of the contact cannot be surmised due to varying pixel densities of devices (which are not always reported by the user agent). Further, it is generally impossible or difficult to correlate this back to CSS pixels in the document (which often are not at a fixed ratio to screen pixels due to zoom).</div>
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
@@ -133,7 +132,6 @@
 				<dt>readonly attribute long pointerType</dt>
 				<dd>
 					Indicates the device type that caused the event (mouse, pen, touch, etc.). Possible values are defined as constants on the <code>PointerEvent</code> interface.
-					<div class="issue">Should this be a string rather than enumerated constants? What about extensibility?</div>
 				</dd>
 				<dt>readonly attribute unsigned long long hwTimestamp</dt>
 				<dd>
