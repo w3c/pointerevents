@@ -370,13 +370,12 @@
 			<dt>void setPointerCapture(long pointerId)</dt>
 			<dd>
 				<p>Sets pointer capture for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element. </p>
-				<p>If the <code>pointerId</code> provided as the method's argument does not match any of the active pointers, then the user agent MUST throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</p>
+				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 			<dt>void releasePointerCapture(long pointerId)</dt>
 			<dd>
 				<p>Releases pointer capture for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. </p>
-				<p>If the <code>pointerId</code> provided as the method's argument does not match any of the active pointers, then the user agent MUST throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</p>
-				<p>If pointer capture has not been set for the <code>pointerId</code> provided, then this method fails silently.</p>
+				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 			<dt>attribute EventHandler onpointerdown</dt>
 			<dd>
@@ -468,6 +467,44 @@
 			</ul>
 		
 		<p>During the execution of the behavior (after sending the <code>pointercancel</code> and <code>pointerout</code> events), the user agent MUST NOT dispatch subsequent pointer events for the pointer.</p>
+	</section>
+</section>
+<section>
+<h1><dfn title="Pointer Capture">Pointer Capture</dfn></h1>
+	<div class="informative">
+	<p>
+	Pointer capture allows the events for a particular pointer to be retargeted to a particular element other than the normal hit-test result of the pointer's location while it is down (in the <a title="active buttons state" class="internalDFN">active buttons</a> state). This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
+	<figure>
+		<img src="slider.png" alt="Custom Volume Slider">
+		<figcaption>Example of a slider control that chooses a value by sliding the thumb element back and forth</figcaption>
+	</figure>
+	</div>
+	
+	<section>
+		<h2>Setting Pointer Capture</h2>
+		Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:
+		<ol>
+			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+			<li>If the pointer is not in the <a title="active buttons state" class="internalDFN">active buttons</a> state, then terminate these steps.</li>
+			<li>Until pointer capture is released, set the <code>target</code> property of all future pointer and compatibility mouse events for the specified <code>pointerId</code> to the <code>Element</code> on which this method was invoked.</li>
+			<li>Until pointer capture is released, set the <code>relatedTarget</code> property of all future pointer and compatibility mouse events for the specified <code>pointerId</code> to <code>null</code>.</li>
+			<li>Fire a <code>gotpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
+		</ol>
+	</section>
+	
+	<section>
+		<h2>Releasing Pointer Capture</h2>
+		Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:
+		<ol>
+			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+			<li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
+			<li>For all future pointer and compatibility mouse events for the specified <code>pointerId</code>, resume setting the <code>target</code> property to the hit-test results (out of scope for this specification) for the pointer.</li>
+			<li>Fire a <code>lostpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
+		</ol>
+	</section>
+	<section>
+		<h2>Implicit Release of Pointer Capture</h2>
+		Immediately after firing the <code>pointerup</code> event, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> event just dispatched.
 	</section>
 </section>
 <section>
