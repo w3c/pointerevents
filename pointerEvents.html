@@ -18,7 +18,9 @@
           // only "name" is required
           editors:  [
               { name: "Jacob Rossi",
-                company: "Microsoft Corporation", companyURL: "http://www.microsoft.com/" }
+                company: "Microsoft Corporation", companyURL: "http://www.microsoft.com/" },
+			  { name: "Matt Brubeck",
+                company: "Mozilla", companyURL: "http://www.mozilla.org/" }
           ],
 
           //authors:  [
@@ -80,22 +82,6 @@
        <h2><code>PointerEvent</code> Interface</h2>
        <div>
 			<dl class="idl" title="[Constructor] interface PointerEvent : MouseEvent">
-				<dt>const unsigned short POINTER_TYPE_UNAVAILABLE = 0x00000001</dt>
-				<dd>
-					Value for <code>pointerType</code> when the device type being used cannot be detected by the user agent.
-				</dd>
-				<dt>const unsigned short POINTER_TYPE_TOUCH = 0x00000002</dt>
-				<dd>
-					Value for <code>pointerType</code> when the device being used can be detected and is a touchscreen.
-				</dd>
-				<dt>const unsigned short POINTER_TYPE_PEN = 0x00000003</dt>
-				<dd>
-					Value for <code>pointerType</code> when the device being used can be detected and is a pen stylus.
-				</dd>
-				<dt>const unsigned short POINTER_TYPE_MOUSE = 0x00000004</dt>
-				<dd>
-					Value for <code>pointerType</code> when the device being used can be detected and is a mouse.
-				</dd>
 				<dt>readonly attribute long pointerId</dt>
 				<dd>
 					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a title="active pointer" class="internalDFN">active pointers</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
@@ -129,9 +115,21 @@
 						<figcaption>Negative <code>tiltY</code>.</figcaption>
 					</figure>
 				</dd>
-				<dt>readonly attribute long pointerType</dt>
+				<dt>readonly attribute DOMString pointerType</dt>
 				<dd>
-					Indicates the device type that caused the event (mouse, pen, touch, etc.). Possible values are defined as constants on the <code>PointerEvent</code> interface.
+					<p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to fire a pointer event for a mouse, pen stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
+					<table class="simple">
+						<thead>
+							<tr><th>Pointer Device Type</th><th><code>pointerType</code> Value</th></tr>
+						</thead>
+						<tbody>
+							<tr><td>Mouse</td><td><code>mouse</code></td></tr>
+							<tr><td>Pen Stylus</td><td><code>pen</code></td></tr>
+							<tr><td>Touch Contact</td><td><code>touch</code></td></tr>
+						</tbody>
+					</table>
+					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string.</p>
+					<section class="note">See <a href="#examples" class="internalDFN" title="examples">Example 2</a> in the appendix for sample code.</section>
 				</dd>
 				<dt>readonly attribute unsigned long long hwTimestamp</dt>
 				<dd>
@@ -626,18 +624,17 @@ window.addEventListener('load', function() {
 window.addEventListener("pointerdown", detectInputType, false);
 function detectInputType(event) {
 	switch(event.pointerType) {
-		case event.POINTER_TYPE_MOUSE:
+		case "mouse":
 			alert("You used a mouse!");
 			break;
-		case event.POINTER_TYPE_PEN:
+		case "pen":
 			alert("You used a pen stylus!");
 			break;
-		case event.POINTER_TYPE_TOUCH:
+		case "touch":
 			alert("You used touch!");
 			break;	
-		case event.POINTER_TYPE_UNAVAILABLE:
+		default:
 			alert("Not sure what device was used!");
-			break;
 	}
 }</pre>
 <pre class="example" title="Resizing an element to match the contact geometry">
