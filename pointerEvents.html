@@ -291,7 +291,7 @@
 		<section>
 			<h3><dfn title="pointerdown">The <code>pointerdown</code> event</dfn></h3>
 			<div><p>A user agent MUST dispatch this event when a pointer enters the <a title="active buttons state" class="internalDFN">active buttons state</a>. For mouse, this is when the the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
-			<p>For input devices that do not support hover, a user agent MUST also fire a <code>pointerover</code> event proceeding the <code>pointerdown</code> event.</p>
+			<p>For input devices that do not support hover, a user agent MUST also fire a <code>pointerover</code> event preceding the <code>pointerdown</code> event.</p>
 			</div>
 			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are dispatched differently than <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
 		</section>
