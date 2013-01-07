@@ -128,7 +128,7 @@
 							<tr><td>Touch Contact</td><td><code>touch</code></td></tr>
 						</tbody>
 					</table>
-					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string.</p>
+					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
 					<section class="note">See <a href="#examples" class="internalDFN" title="examples">Example 2</a> in the appendix for sample code.</section>
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
