@@ -131,11 +131,6 @@
 					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string.</p>
 					<section class="note">See <a href="#examples" class="internalDFN" title="examples">Example 2</a> in the appendix for sample code.</section>
 				</dd>
-				<dt>readonly attribute unsigned long long hwTimestamp</dt>
-				<dd>
-					A timestamp, in microseconds, of the pointer event as reported by hardware.  The origin time (e.g. <code>hwTimestamp</code> equals 0) is hardware and/or operating system dependent. If the hardware does not provide a high resolution timestamp, then the value MUST be 0.
-					<div class="note">This value is typically determined by using the hardware's high-resolution performance counter.</div>
-				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
 					Indicates if the pointer represents the <a title="primary pointer" class="internalDFN">primary pointer</a>.
