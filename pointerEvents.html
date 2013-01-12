@@ -466,6 +466,7 @@
 			<tr><th>Computed value:</th><td>Same as specified value.</td></tr>
 		</table>
 		<div>The <code>touch-action</code> CSS property determines whether touch input MAY  trigger default behavior supplied by user agent.  This includes, but is not limited to, behaviors such as panning or zooming.</div>
+		<p>When a user touches an element, that element's <code>touch-action</code> property determines the default touch behaviors permitted for that contact, like panning or zooming. The touch behavior is then performed on the nearest ancestor element that is capable of that behavior, unless an intermediate ancestor element specifies that the behavior is not permitted.</p>
 		<p>Values have the following meanings:</p>
 			<dl>
 				<dt>auto</dt><dd>The user agent MAY determine the permitted touch behaviors, such as panning and zooming manipulations of the viewport, for touches that begin on the element.</dd>
