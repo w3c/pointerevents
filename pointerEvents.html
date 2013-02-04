@@ -128,7 +128,7 @@
 						</tbody>
 					</table>
 					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
-					<section class="note">See <a href="#examples" class="internalDFN" title="examples">Example 2</a> in the appendix for sample code.</section>
+					<section class="note">See the <a href="#examples" class="internalDFN" title="examples">examples</a> in the appendix for sample code.</section>
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
@@ -180,7 +180,7 @@
 			</section>
 		</section>
 		<section>
-			<h3><code>PointerEvent</code> Constructor</code></h3>
+			<h3><code>PointerEvent</code> Constructor</h3>
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
 				<dt>long pointerId = 0</dt>
 					<dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
@@ -199,7 +199,7 @@
 				<dt>boolean isPrimary = false</dt>
 					<dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
 			</dl>
-			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!UI-EVENTS]]. See <a href="#examples" class="internalDFN" title="examples">Example 4</a> for sample code demonstrating how to dispatch an untrusted pointer event.</div>
+			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!UI-EVENTS]]. See the <a href="#examples" class="internalDFN" title="examples">examples</a> for sample code demonstrating how to dispatch an untrusted pointer event.</div>
 		</section>	
      </section>
 	 <section>
@@ -457,7 +457,7 @@
 		<h2>The <code>touch-action</code> CSS property</h2>
 		<table class="simple">
 			<tr><th>Name:</th><td><code>touch-action</code></td></tr>
-			<tr><th>Value:</th><td><code>auto</code> | <code>none</code></td></tr>
+			<tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [<code>pan-x</code> || <code>pan-y</code>]</td></tr>
 			<tr><th>Initial:</th><td><code>auto</code></td></tr>
 			<tr><th>Applies to:</th><td>block-level elements, SVG elements</td></tr>
 			<tr><th>Inherited:</th><td>no</td></tr>
@@ -470,11 +470,14 @@
 			
 			<p>Values have the following meanings:</p>
 			<dl>
-				<dt>auto</dt><dd>The user agent MAY determine the permitted touch behaviors, such as panning and zooming manipulations of the viewport, for touches that begin on the element.</dd>
+				<dt>auto</dt><dd>The user agent MAY determine any permitted touch behaviors, such as panning and zooming manipulations of the viewport, for touches that begin on the element.</dd>
 				<dt>none</dt><dd>Touches that begin on the element MUST NOT trigger default touch behaviors.</dd>
+				<dt>pan-x</dt><dd>The user agent MAY consider touches that begin on the element only for the purposes of horizontally scrolling the element's nearest ancestor with horizontally scrollable content.</dd>
+				<dt>pan-y</dt><dd>The user agent MAY consider touches that begin on the element only for the purposes of vertically scrolling the element's nearest ancestor with vertically scrollable content.</dd>
 			</dl>
+			<section class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</section>
 			
-			<p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property and the default touch behaviors on the element and its ancestors.  To determine the effect of a touch, find the nearest ancestor (starting from the element itself) that either has a default touch behavior or that has a value of <code>none</code> for the <code>touch-action</code> property.  If that element has a value of <code>none</code>, do nothing.  Otherwise, allow the element to start considering the touch for the purposes of executing a default touch behavior.</p>
+			<p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property and the default touch behaviors on the element and its ancestors. To determine the effect of a touch, find the nearest ancestor (starting from the element itself) that has a default touch behavior.  Then examine the <code>touch-action</code> property of each element between the hit tested element and the element with the default touch behavior (including both the hit tested element and the element with the default touch behavior).  If the <code>touch-action</code> property of any of those elements disallows the default touch behavior, do nothing.  Otherwise allow the element to start considering the touch for the purposes of executing a default touch behavior.</p>
 
 			<p>During the execution of a behavior, the user agent MUST NOT dispatch subsequent pointer events for the pointer. The user agent MUST dispatch a <code>pointercancel</code> (and subsequently a <code>pointerout</code> event) whenever all of the following are true, in order to end the stream of events for the pointer:</p>
 			<ul>
@@ -482,6 +485,35 @@
 				<li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
 				<li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
 			</ul>
+<pre class="example" title="Disallowing all touch behaviors">
+&lt;div style=&quot;touch-action: none;&quot;&gt;
+    This element receives pointer events for all touches.
+&lt;/div&gt;
+</pre>
+<pre class="example" title="Allowing horizontal panning only">
+&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
+    This element receives pointer events when not panning in the horizontal direction.
+&lt;/div&gt;
+</pre>
+<pre class="example" title="Child regions that disallow touch behaviors">
+&lt;div style=&quot;overflow: auto;&quot;&gt;
+    &lt;div style=&quot;touch-action: none;&quot;&gt;
+        This element receives pointer events for all touches.
+    &lt;/div&gt;
+    &lt;div&gt;
+        Touches on this element MAY be consumed for manipulating the parent.
+    &lt;/div&gt;
+&lt;/div&gt;	
+</pre>
+<pre class="example" title="Intermediate parent that disallows touch behaviors">
+&lt;div style=&quot;overflow: auto;&quot;&gt;
+    &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
+        &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
+            This element receives pointer events for all touches because it allows only horizontal panning yet an intermediate ancestor (between it an the pannable element) only allows horizontal panning. Therefore, no touch behaviors are allowed.
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;	
+</pre>
 		</div>
 	</section>
 </section>
