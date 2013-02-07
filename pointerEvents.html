@@ -572,7 +572,7 @@
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>Dispatch the pointer event.</li>
-					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag.</li>
+					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the pointer event dispatched was <code>pointerover</code>,
 						<ol>
 							<li>dispatch a <code>mouseover</code> event, and</li>
@@ -585,7 +585,7 @@
 							<li>if the pointer has been moved out of the boundaries of an element and all of its descendants then dispatch a <code>mouseleave</code> event.</li>
 						</ol>
 					</li>
-					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set and the pointer event dispatched was:
+					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
 							<li><code>pointerdown</code>, then dispatch a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then dispatch a <code>mousemove</code> event.</li>
@@ -593,7 +593,7 @@
 							<li><code>pointercancel</code>, then dispatch a <code>mouseup</code> event <b>at the <code>window</code>.</b></li>
 						</ul>
 					</li>
-					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag.</li>
+					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 				</ol>
 			</div>
 			<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code> and <code>mouseout</code> events are never prevented (even if the pointer is down).</section>
@@ -610,7 +610,7 @@
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then dispatch a <code>mousemove</code> event.</li>
 					<li>Dispatch the pointer event.</li>
-					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag.</li>
+					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the pointer event dispatched was <code>pointerover</code>,
 						<ol>
 							<li>dispatch a <code>mouseover</code> event, and</li>
@@ -623,7 +623,7 @@
 							<li>if the pointer has been moved out of the boundaries of an element and all of its descendants then dispatch a <code>mouseleave</code> event.</li>
 						</ol>
 					</li>
-					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set and the pointer event dispatched was:
+					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
 							<li><code>pointerdown</code>, then dispatch a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then dispatch a <code>mousemove</code> event.</li>
@@ -631,7 +631,7 @@
 							<li><code>pointercancel</code>, then dispatch a <code>mouseup</code> event <b>at the <code>window</code>.</b></li>
 						</ul>
 					</li>
-					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag.</li>
+					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 				</ol>
 			</div>
 			<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code> and <code>mouseout</code> events are never prevented (even if the pointer is down).</section>
