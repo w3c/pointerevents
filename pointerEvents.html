@@ -88,15 +88,15 @@
 				</dd>
 				<dt>readonly attribute long width</dt>
 				<dd>
-					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value MAY be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
 				<dt>readonly attribute long height</dt>
 				<dd>
-					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value MAY be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
-					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 1 when in the <a title="active buttons" class="internalDFN">active buttons</a> state and 0 otherwise.
+					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 0.5 when in the <a title="active buttons" class="internalDFN">active buttons</a> state and 0 otherwise.
 				</dd>
 				<dt>readonly attribute long tiltX</dt>
 				<dd>
