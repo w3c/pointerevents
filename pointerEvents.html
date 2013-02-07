@@ -554,7 +554,7 @@
 	</section>
 	<section>
 		<h2>Implicit Release of Pointer Capture</h2>
-		Immediately after firing the <code>pointerup</code> event, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> event just dispatched.
+		Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or<code>pointercancel</code> event just dispatched.
 	</section>
 </section>
 <section>
