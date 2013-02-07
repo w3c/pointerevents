@@ -175,6 +175,7 @@
 					<dt>primary touch input</dt><dd>A pointer representing touch input is considered the <i>primary touch input</i> if its <code>pointerdown</code> event was dispatched when no other active pointers representing touch input existed.</dd>
 					<dt>primary pen input</dt><dd>A pointer representing pen input is considered the <i>primary pen input</i> if its <code>pointerdown</code> event was dispatched when no other active pointers representing pen input existed.</dd>
 				</dl>
+				<div class="note">When two or more pointer device types are being used concurrently, multiple pointers are considered primary. For example, a touch contact and a mouse cursor moved simultaneously will produce pointers that are both considered primary.</div>
 				<div class="note">In some platforms, the primary pointer is determined using all active pointers on the device including those not targeted at the user agent (e.g. in another application). This means it is possible for the user agent to fire pointer events in which no pointer is marked as the primary pointer.  For example, if the first touch interaction is targeted outside the user agent and a secondary (multi-touch) touch interaction is targeted inside the user agent, then the user agent fires pointer events for the second contact with a value of <code>false</code> for <code>isPrimary</code>.</div>
 				
 			</section>
