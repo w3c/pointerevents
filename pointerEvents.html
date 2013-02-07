@@ -356,6 +356,7 @@
 					<li>A pointing device is moved out of the hit test boundaries of an element</li>
 					<li>After firing the <code>pointerup</code> event for a device that does not support hover</li>
 					<li>After firing the <code>pointercancel</code> event</li>
+					<li>When a pen stylus leaves the hover range detectable by the digitizer</li>
 				</ul>
 			</div>
 		</section>
@@ -366,7 +367,7 @@
 		</section>
 		<section>
 			<h3><dfn title="pointerleave">The <code>pointerleave</code> event</dfn></h3>
-			<div>A user agent MUST dispatch this event when a pointing device is moved off of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> event from a device that does not support hover. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be dispatched until the pointing device has left the boundaries of the element and the boundaries of all of its children.</div>
+			<div>A user agent MUST dispatch this event when a pointing device is moved off of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> event from a device that does not support hover. This event MUST also dispatch when a pen stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be dispatched until the pointing device has left the boundaries of the element and the boundaries of all of its children.</div>
 			<div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
 		</section>
 		<section>
@@ -574,17 +575,13 @@
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>Dispatch the pointer event.</li>
 					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
-					<li>If the pointer event dispatched was <code>pointerover</code>,
-						<ol>
-							<li>dispatch a <code>mouseover</code> event, and</li>
-							<li>if the pointer has been moved onto the boundaries of an element or one of its descendants then dispatch a <code>mouseenter</code> event.</li>
-						</ol>
-					</li>
-					<li>If the pointer event dispatched was <code>pointerout</code>
-						<ol>
-							<li>dispatch a <code>mouseout</code> event, and</li>
-							<li>if the pointer has been moved out of the boundaries of an element and all of its descendants then dispatch a <code>mouseleave</code> event.</li>
-						</ol>
+					<li>If the pointer event dispatched was: 
+						<ul>
+							<li><code>pointerover</code>, then dispatch a <code>mouseover</code> event.</li>
+							<li><code>pointerout</code>, then dispatch a <code>mouseout</code> event.</li>
+							<li><code>pointerenter</code>, then dispatch a <code>mouseenter</code> event.</li>
+							<li><code>pointerleave</code>, then dispatch a <code>pointerleave</code> event.</li>
+						</ul>
 					</li>
 					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
@@ -612,19 +609,14 @@
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then dispatch a <code>mousemove</code> event.</li>
 					<li>Dispatch the pointer event.</li>
 					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
-					<li>If the pointer event dispatched was <code>pointerover</code>,
-						<ol>
-							<li>dispatch a <code>mouseover</code> event, and</li>
-							<li>if the pointer has been moved onto the boundaries of an element or one of its descendants then dispatch a <code>mouseenter</code> event.</li>
-						</ol>
-					</li>
-					<li>If the pointer event dispatched was <code>pointerout</code>
-						<ol>
-							<li>dispatch a <code>mouseout</code> event, and</li>
-							<li>if the pointer has been moved out of the boundaries of an element and all of its descendants then dispatch a <code>mouseleave</code> event.</li>
-						</ol>
-					</li>
-					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
+					<li>If the pointer event dispatched was: 
+						<ul>
+							<li><code>pointerover</code>, then dispatch a <code>mouseover</code> event.</li>
+							<li><code>pointerout</code>, then dispatch a <code>mouseout</code> event.</li>
+							<li><code>pointerenter</code>, then dispatch a <code>mouseenter</code> event.</li>
+							<li><code>pointerleave</code>, then dispatch a <code>pointerleave</code> event.</li>
+						</ul>
+					</li>					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
 							<li><code>pointerdown</code>, then dispatch a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then dispatch a <code>mousemove</code> event.</li>
