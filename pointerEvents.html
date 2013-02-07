@@ -603,6 +603,8 @@
 				<li>The input can hover independently of activation (e.g. moving a mouse cursor without any buttons pressed)</li>
 				<li>The input will likely produce the <code>mousemove</code> event on an element before clicking it</li>
 			</ul>
+			<section class="note">Hover is sometimes used to toggle the visibility of UI elements in content designed for mouse (e.g. "hover menus"). This content is often incompatible with devices that do not support hover. This specification does not define a mapping or behavior for compatibility with this scenario. It will be considered in a future version of the specification.
+			</section>
 			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event from a device that does not support hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
