@@ -147,6 +147,34 @@ var event = new PointerEvent("pointerover",
 eventTarget.dispatchEvent(event); 
 </pre>
 </section>
+	<section class="informative">
+		<h1>Glossary</h1>
+		<dl>
+			<dt><dfn>active buttons state</dfn></dt>
+				<dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when the pen has physical contact with the digitizer.</dd> 
+			<dt><dfn>active pointer</dfn></dt>
+				<dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events, then that pointer is still considered active. Examples:
+					<ul>
+						<li>A mouse connected to the device is always active.</li>
+						<li>A touch contact on the screen is considered active.</li>
+						<li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
+					</ul>
+					<div class="note">In some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. another application).</div>
+				</dd>
+			<dt><dfn>cancelled event</dfn></dt>
+				<dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[!DOM-LEVEL-3-EVENTS]] and [[!HTML5]].</dd>
+			<dt><dfn>contact geometry</dfn></dt>
+				<dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
+			<dt><dfn>digitizer</dfn></dt>
+				<dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that sense input from touch contact or a pen stylus.</dd>
+			<dt><dfn>hit test</dfn></dt>
+				<dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
+			<dt><dfn>pointer</dfn></dt>
+				<dd>A hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen, such as a mouse, pen, or touch contact.</dd>
+			<dt><dfn>user agent</dfn></dt>
+				<dd>A program, such as a browser or content authoring tool, normally running on a client machine, which acts on a user's behalf in retrieving, interpreting, executing, presenting, or creating content.</dd>
+		</dl>
+	</section>
    <section>
      <h1>Pointer Events and Interfaces</h1>
      <section>
@@ -458,12 +486,12 @@ eventTarget.dispatchEvent(event);
 		<dl class="idl" title="partial interface Element">
 			<dt>void setPointerCapture(long pointerId)</dt>
 			<dd>
-				<p>Sets pointer capture for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element. </p>
+				<p>Sets pointer capture for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
 				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 			<dt>void releasePointerCapture(long pointerId)</dt>
 			<dd>
-				<p>Releases pointer capture for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. </p>
+				<p>Releases pointer capture for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
 				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 			<dt>attribute EventHandler onpointerdown</dt>
@@ -642,7 +670,7 @@ eventTarget.dispatchEvent(event);
 		</div>
 		<section>
 			<h2>Mapping for devices that support hover</h2>
-			<div>Whenever a user agent is to dispatch a pointer event from for device that supports hover, it MAY run the following steps:
+			<div>Whenever a user agent is to dispatch a pointer event for a device that supports hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>Dispatch the pointer event.</li>
@@ -652,7 +680,7 @@ eventTarget.dispatchEvent(event);
 							<li><code>pointerover</code>, then dispatch a <code>mouseover</code> event.</li>
 							<li><code>pointerout</code>, then dispatch a <code>mouseout</code> event.</li>
 							<li><code>pointerenter</code>, then dispatch a <code>mouseenter</code> event.</li>
-							<li><code>pointerleave</code>, then dispatch a <code>pointerleave</code> event.</li>
+							<li><code>pointerleave</code>, then dispatch a <code>mouseleave</code> event.</li>
 						</ul>
 					</li>
 					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
@@ -677,7 +705,7 @@ eventTarget.dispatchEvent(event);
 			</ul>
 			<section class="note">Hover is sometimes used to toggle the visibility of UI elements in content designed for mouse (e.g. "hover menus"). This content is often incompatible with devices that do not support hover. This specification does not define a mapping or behavior for compatibility with this scenario. It will be considered in a future version of the specification.
 			</section>
-			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event from a device that does not support hover, it MAY run the following steps:
+			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event for a device that does not support hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then dispatch a <code>mousemove</code> event.</li>
@@ -688,14 +716,15 @@ eventTarget.dispatchEvent(event);
 							<li><code>pointerover</code>, then dispatch a <code>mouseover</code> event.</li>
 							<li><code>pointerout</code>, then dispatch a <code>mouseout</code> event.</li>
 							<li><code>pointerenter</code>, then dispatch a <code>mouseenter</code> event.</li>
-							<li><code>pointerleave</code>, then dispatch a <code>pointerleave</code> event.</li>
+							<li><code>pointerleave</code>, then dispatch a <code>mouseleave</code> event.</li>
 						</ul>
-					</li>					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
+					</li>					
+					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
 							<li><code>pointerdown</code>, then dispatch a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then dispatch a <code>mousemove</code> event.</li>
 							<li><code>pointerup</code>, then dispatch a <code>mouseup</code> event.</li>
-							<li><code>pointercancel</code>, then dispatch a <code>mouseup</code> event <b>at the <code>window</code>.</b></li>
+							<li><code>pointercancel</code>, then dispatch a <code>mouseup</code> event at the <code>window</code>.</b></li>
 						</ul>
 					</li>
 					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
@@ -704,32 +733,6 @@ eventTarget.dispatchEvent(event);
 			<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code> and <code>mouseout</code> events are never prevented (even if the pointer is down).</section>
 
 		</section>
-	</section>
-	<section>
-		<h1>Glossary</h1>
-		<dl>
-			<dt><dfn>active buttons state</dfn></dt>
-				<dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when the pen has physical contact with the digitizer.</dd> 
-			<dt><dfn>active pointer</dfn></dt>
-				<dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events, then that pointer is still considered active. Examples:
-					<ul>
-						<li>A mouse connected to the device is always active.</li>
-						<li>A touch contact on the screen is considered active.</li>
-						<li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
-					</ul>
-					<div class="note">In some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. another application).</div>
-				</dd>
-			<dt><dfn>cancelled event</dfn></dt>
-				<dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[!DOM-LEVEL-3-EVENTS]] and [[!HTML5]].</dd>
-			<dt><dfn>contact geometry</dfn></dt>
-				<dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
-			<dt><dfn>digitizer</dfn></dt>
-				<dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that sense input from touch contact or a pen stylus.</dd>
-			<dt><dfn>pointer</dfn></dt>
-				<dd>A hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen, such as a mouse, pen, or touch contact.</dd>
-			<dt><dfn>user agent</dfn></dt>
-				<dd>A program, such as a browser or content authoring tool, normally running on a client machine, which acts on a user's behalf in retrieving, interpreting, executing, presenting, or creating content.</dd>
-		</dl>
 	</section>
     <section class='appendix'>
       <h1>Acknowledgements</h1>
