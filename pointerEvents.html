@@ -60,7 +60,7 @@
       <h1>Introduction</h1>
       <div><p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[!DOM-LEVEL-3-EVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, like touchscreens or pen input. Event types have been proposed for handling each of these forms of input individually. However, that approach requires a step function in opportunity cost to authors when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a title="user agent" class="internalDFN">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
 	  
-	  <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a title="pointer" class="internalDFN">pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easy to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easy authoring for cross-device pointer input while still allowing for device-specific handling when necessary. An additional key goal is to enable multi-threaded user agents to handle default touch actions, such as scrolling, without blocking on script execution.</p>
+	  <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a title="pointer" class="internalDFN">pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling when necessary. An additional key goal is to enable multi-threaded user agents to handle default touch actions, such as scrolling, without blocking on script execution.</p>
 	  <figure>
 		<img src="pointer.png" alt="Pointer input combines input from mouse, pen, touch, etc.">
 		<figcaption>A pointer is a hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen.</figcaption>
@@ -68,11 +68,84 @@
 	  
 	  <p>The events for handling generic pointer input look a lot like those for mouse: pointerdown, pointermove, pointerup, pointerover, pointerout, etc. This facilitates easy content migration from Mouse Events to Pointer Events.
 		Pointer Events provide all the usual properties present in Mouse Events (client coordinates, target element, button states, etc.) in addition to new properties for other forms of input: pressure, contact geometry, tilt, etc. So authors can easily code to Pointer Events to share logic between different input types where it makes sense, and customize for a particular type of input only where necessary to get the best experience.</p>
-
 	  </div>
     </section>
 <section id="conformance">
 
+</section>
+<section class="informative">
+	<h1>Examples</h1>
+	<p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
+<pre class="example" title="Basic HTML5 Canvas painting application">
+&lt;style&gt;
+  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
+  that all events are given to the application instead. */
+  
+  html { 
+    touch-action: none; 
+  }
+&lt;/style&gt;
+
+&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+
+&lt;script type='text/javascript'&gt;
+window.addEventListener('load', function() {
+  var canvas = document.getElementById("drawSurface"),
+  context = canvas.getContext("2d");
+  if (window.navigator.pointerEnabled) {
+    canvas.addEventListener("pointermove", paint, false);
+	if(window.navigator.maxTouchPoints>1)
+		alert("Your user agent and hardware support multi-touch!");
+  } 
+  else {
+	//Provide fallback for user agents that do not support Pointer Events
+    canvas.addEventListener("mousemove", paint, false);
+  }
+  function paint(event) {
+	if(event.buttons>0)
+		context.fillRect(event.clientX, event.clientY, 5, 5);
+  }
+});
+&lt;/script&gt;
+</pre>
+<pre class="example" title="Detecting the type of input from a user">
+window.addEventListener("pointerdown", detectInputType, false);
+function detectInputType(event) {
+	switch(event.pointerType) {
+		case "mouse":
+			alert("You used a mouse!");
+			break;
+		case "pen":
+			alert("You used a pen stylus!");
+			break;
+		case "touch":
+			alert("You used touch!");
+			break;	
+		default:
+			alert("Not sure what device was used!");
+	}
+}</pre>
+<pre class="example" title="Resizing an element to match the contact geometry">
+&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+&lt;script&gt;
+window.addEventListener("pointerdown", checkPointerSize, false);
+function checkPointerSize(event) {
+	event.target.style.width = event.width + "px";
+	event.target.style.height = event.height + "px";
+}
+&lt;/script&gt;
+</pre>
+<pre class="example" title="Dispatching an untrusted pointer event">
+var event = new PointerEvent("pointerover",
+   {bubbles: true, 
+    cancelable: true, 
+    pointerId: 42,
+    pointerType: "pen",
+    clientX: 300,
+    clientY: 500
+    });
+eventTarget.dispatchEvent(event); 
+</pre>
 </section>
    <section>
      <h1>Pointer Events and Interfaces</h1>
@@ -561,10 +634,10 @@
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
 		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. Unless otherwise noted, the target of any mapped mouse event MAY be the same as the target for the pointer event from which it was mapped.</p>
 		<p>Authors can prevent the production of compatibility mouse events by cancelling the <code>pointerdown</code> event. </p>
-		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> event (see the note below).</p>
+		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
 		<section class="note">
-			<p>The <code>click</code> event is defined in [[!DOM-LEVEL-3-EVENTS]] and is not considered a <a title="compatibility mouse events" class="internalDFN" href="#dfn-compatibility-mouse-events">compatibility mouse event</a> as it is typically tied to user interface activation.</p>
-			<p>In user agents that support firing <code>click</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> is fired or not.  Because it is not a compatibility mouse event, user agents typically fire <code>click</code> for all pointing devices, including pointers that are not primary pointers.
+			<p>The <code>click</code> event, defined in [[DOM-LEVEL-3-EVENTS]], and the <code>contextmenu</code> event, defined in [[HTML5]], are not considered <a title="compatibility mouse events" class="internalDFN" href="#dfn-compatibility-mouse-events">compatibility mouse events</a> as they are typically tied to user interface activation and are dispatched by other input devices, like keyboards.</p>
+			<p>In user agents that support firing <code>click</code> and/or <code>contextmenu</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> and/or <code>contextmenu</code> are fired or not.  Because they are not compatibility mouse events, user agents typically fire <code>click</code> and <code>contextmenu</code> for all pointing devices, including pointers that are not primary pointers.
 		</section>
 		</div>
 		<section>
@@ -632,80 +705,6 @@
 
 		</section>
 	</section>
-<section class="informative">
-	<h1>Examples</h1>
-	<p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
-<pre class="example" title="Basic HTML5 Canvas painting application">
-&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
-  that all events are given to the application instead. */
-  
-  html { 
-    touch-action: none; 
-  }
-&lt;/style&gt;
-
-&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
-
-&lt;script type='text/javascript'&gt;
-window.addEventListener('load', function() {
-  var canvas = document.getElementById("drawSurface"),
-  context = canvas.getContext("2d");
-  if (window.navigator.pointerEnabled) {
-    canvas.addEventListener("pointermove", paint, false);
-	if(window.navigator.maxTouchPoints>1)
-		alert("Your user agent and hardware support multi-touch!");
-  } 
-  else {
-	//Provide fallback for user agents that do not support Pointer Events
-    canvas.addEventListener("mousemove", paint, false);
-  }
-  function paint(event) {
-	if(event.buttons>0)
-		context.fillRect(event.clientX, event.clientY, 5, 5);
-  }
-});
-&lt;/script&gt;
-</pre>
-<pre class="example" title="Detecting the type of input from a user">
-window.addEventListener("pointerdown", detectInputType, false);
-function detectInputType(event) {
-	switch(event.pointerType) {
-		case "mouse":
-			alert("You used a mouse!");
-			break;
-		case "pen":
-			alert("You used a pen stylus!");
-			break;
-		case "touch":
-			alert("You used touch!");
-			break;	
-		default:
-			alert("Not sure what device was used!");
-	}
-}</pre>
-<pre class="example" title="Resizing an element to match the contact geometry">
-&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
-&lt;script&gt;
-window.addEventListener("pointerdown", checkPointerSize, false);
-function checkPointerSize(event) {
-	event.target.style.width = event.width + "px";
-	event.target.style.height = event.height + "px";
-}
-&lt;/script&gt;
-</pre>
-<pre class="example" title="Dispatching an untrusted pointer event">
-var event = new PointerEvent("pointerover",
-   {bubbles: true, 
-    cancelable: true, 
-    pointerId: 42,
-    pointerType: "pen",
-    clientX: 300,
-    clientY: 500
-    });
-eventTarget.dispatchEvent(event); 
-</pre>
-</section>
 	<section>
 		<h1>Glossary</h1>
 		<dl>
