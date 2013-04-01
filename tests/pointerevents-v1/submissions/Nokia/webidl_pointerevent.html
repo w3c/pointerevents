@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<!-- 
+     Test cases for Pointer Events v1 spec
+
+     These test test the Web IDL of the PointerEvent event.
+
+     This document references Test Assertions (abbrev TA below) written by Cathy Chan
+     http://www.w3.org/wiki/PointerEvents/TestAssertions
+-->
+
+<head>
+  <title>PointerEvent Web IDL test</title>
+  <meta name="viewport" content="width=device-width">
+  <script src="http://w3c-test.org/resources/testharness.js"></script>
+  <script>
+    setup({explicit_done: true});
+
+    // Check a PointerEvent's attributes for existence and proper type
+    // Also check that each of the event's TouchList objects are valid
+    // TA: 1.{1,2}
+    function check_PointerEvent(ev) {
+        test(function() {
+           assert_true(ev instanceof PointerEvent, "event is a PointerEvent event");
+        }, ev.type + " event is a PointerEvent event");
+        [
+          ["long", "pointerId"],
+          ["long", "width"],
+          ["long", "height"],
+          ["float", "pressure"],
+          ["long", "tiltX"],
+          ["long", "tiltY"],
+          ["DOMString", "pointerType"],
+          ["boolean", "isPrimary"],
+        ].forEach(function(attr) {
+            var type = attr[0];
+            var name = attr[1];
+
+            // existence check
+            test(function() {
+                assert_true(name in ev, name + " attribute in " + ev.type + " event");
+            }, ev.type + "." + name + " attribute exists");
+
+            // type check
+            switch(type) {
+            case "boolean":
+                test(function() {
+                    assert_equals(typeof ev[name], "boolean", name + " attribute of type boolean");
+                }, ev.type + "." + name + " attribute is of type boolean");
+                break;
+            case "float":
+                test(function() {
+                    assert_equals(typeof ev[name], "number", name + " attribute of type float");
+                }, ev.type + "." + name + " attribute is of type number (float)");
+                break;
+            case "long":
+                test(function() {
+                    assert_equals(typeof ev[name], "number", name + " attribute of type long");
+                }, ev.type + "." + name + " attribute is of type number (long)");
+                break;
+            case "DOMString":
+                test(function() {
+                    assert_equals(typeof ev[name], "DOMString", name + " attribute of type DOMString");
+                }, ev.type + "." + name + " attribute is of type DOMString");
+                break;
+            default:
+                break;
+            }
+       }); 
+    }
+    
+    function run() {
+      var target0 = document.getElementById("target0");
+
+      on_event(target0, "PointerDown", function onPointerDown(ev) {
+          ev.preventDefault();
+          check_PointerEvent(ev);
+      }, "PointerDown tests OK ...");
+    }
+</script>
+
+<style>
+  div {
+    margin: 0em;
+    padding: 2em;
+  }
+  #target0 {
+    background: yellow;
+    border: 1px solid orange;
+  }
+</style>
+
+</head>
+<body onload="run()">
+  <h1>PointerEvents: check Web IDL of PointerEvent event</h1>
+  <div id="target0">
+    Touch this box with one finger (or other pointing device) ...
+  </div>
+
+  <div id="log"></div>
+</body>
+</html>
