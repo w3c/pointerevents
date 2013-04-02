@@ -187,6 +187,7 @@ eventTarget.dispatchEvent(event);
 				<dd>
 					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a title="active pointer" class="internalDFN">active pointers</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
 					<p>If the device producing the event is a mouse, then the <code>pointerId</code> MUST be 1.  Device types other than mouse MUST NOT have a <code>pointerId</code> of 1.</p>
+					<section class="note">The pointerId selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, values are not guaranteed to be monotonically increasing.</section>
 				</dd>
 				<dt>readonly attribute long width</dt>
 				<dd>
