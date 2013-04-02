@@ -484,10 +484,18 @@ eventTarget.dispatchEvent(event);
    </section>
 </section>
 <section>
-	<h2>Extensions to the <code>Window</code>, <code>Document</code>, and <code>Element</code> interfaces</h2>
+	<h2>Extensions to the <code>Element</code> interface</h2>
+	<p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[!HTML5]], to facilitate the setting and releasing of pointer capture.</p>
 	<div>
-
-		<dl class="idl" title="[NoInterfaceObject] interface PointerEventTarget">
+		<dl class="idl" title="partial interface Element">
+			<dt>attribute EventHandler ongotpointercapture</dt>
+			<dd>
+				The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
+			</dd>
+			<dt>attribute EventHandler onlostpointercapture</dt>
+			<dd>
+				The event handler IDL attribute (see [[!HTML5]]) for the <code>lostpointercapture</code> event type.
+			</dd>
 			<dt>void setPointerCapture(long pointerId)</dt>
 			<dd>
 				<p>Sets pointer capture for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
@@ -498,6 +506,13 @@ eventTarget.dispatchEvent(event);
 				<p>Releases pointer capture for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
 				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
+		</dl>
+</section>
+<section>
+	<h2>Extensions to the <code>GlobalEventHandlers</code> interface</h2>
+	<p>The following section describes extensions to the existing <code>GlobalEventHandlers</code> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
+		<dl class="idl" title="partial interface GlobalEventHandlers">
+
 			<dt>attribute EventHandler onpointerdown</dt>
 			<dd>
 				The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerdown</code> event type.
@@ -530,21 +545,8 @@ eventTarget.dispatchEvent(event);
 			<dd>
 				The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerleave</code> event type.
 			</dd>
-			<dt>attribute EventHandler ongotpointercapture</dt>
-			<dd>
-				The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
-			</dd>
-			<dt>attribute EventHandler onlostpointercapture</dt>
-			<dd>
-				The event handler IDL attribute (see [[!HTML5]]) for the <code>lostpointercapture</code> event type.
-			</dd>
 		</dl>
 	</div>
-<section><h2>Pointer Event Targets</h2>
-<div class="idl" title="Window implements PointerEventTarget"></div>
-<div class="idl" title="Document implements PointerEventTarget"></div>
-<div class="idl" title="Element implements PointerEventTarget"></div>
-</section>
 </section>
 
 <section>
