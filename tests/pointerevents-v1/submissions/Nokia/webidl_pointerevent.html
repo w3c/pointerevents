@@ -81,6 +81,10 @@
     function run() {
       var target0 = document.getElementById("target0");
 
+      // Set up a timeout so that if the UA doesn't support PointerEvents,
+      // the framework will report "NOT RUN"
+      var test_pe = async_test("This User Agent does Not support PointerEvents.");
+
       on_event(target0, "PointerDown", function onPointerDown(ev) {
           ev.preventDefault();
           check_PointerEvent(ev);
