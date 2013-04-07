@@ -472,11 +472,11 @@ eventTarget.dispatchEvent(event);
 		</section>
 		<section>
 			<h3><dfn title="gotpointercapture">The <code>gotpointercapture</code> event</dfn></h3>
-			<div>A user agent MUST dispatch this event prior to dispatching the first event after pointer capture is set for a pointer. This event is dispatched to the element that is receiving pointer capture. Subsequent events for that pointer will be dispatched to this element. See <code>setPointerCapture()</code>.</div>
+			<div>A user agent MUST asynchronously dispatch this event prior to dispatching the first event after pointer capture is set for a pointer. This event is dispatched to the element that is receiving pointer capture. Subsequent events for that pointer will be dispatched to this element. See <code>setPointerCapture()</code>.</div>
 		</section>
 		<section>
 			<h3><dfn title="lostpointercapture">The <code>lostpointercapture</code> event</dfn></h3>
-			<div>A user agent MUST dispatch this event after pointer capture is released for a pointer. This event MUST be dispatched prior to any subsequent events for the pointer after capture was released. This event is dispatched to the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See <code>releasePointerCapture()</code>.</div>
+			<div>A user agent MUST asynchronously dispatch this event after pointer capture is released for a pointer. This event MUST be dispatched prior to any subsequent events for the pointer after capture was released. This event is dispatched to the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See <code>releasePointerCapture()</code>.</div>
 		</section>
    </section>
 </section>
