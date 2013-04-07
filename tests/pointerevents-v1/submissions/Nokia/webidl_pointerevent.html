@@ -16,25 +16,34 @@
   <script>
     setup({explicit_done: true});
 
-    // Check a PointerEvent's attributes for existence and proper type
-    // Also check that each of the event's TouchList objects are valid
+    // Check a PointerEvent's atrributes for conformance to WebIDL: attribute exists,
+    // has proper type and if the attribute is "readonly", it cannot be changed.
     // TA: 1.{1,2}
     function check_PointerEvent(ev) {
         test(function() {
            assert_true(ev instanceof PointerEvent, "event is a PointerEvent event");
         }, ev.type + " event is a PointerEvent event");
+
         [
-          ["long", "pointerId"],
-          ["long", "width"],
-          ["long", "height"],
-          ["float", "pressure"],
-          ["long", "tiltX"],
-          ["long", "tiltY"],
-          ["DOMString", "pointerType"],
-          ["boolean", "isPrimary"],
+          ["readonly", "long", "pointerId"],
+          ["readonly", "long", "width"],
+          ["readonly", "long", "height"],
+          ["readonly", "float", "pressure"],
+          ["readonly", "long", "tiltX"],
+          ["readonly", "long", "tiltY"],
+          ["readonly", "DOMString", "pointerType"],
+          ["readonly", "boolean", "isPrimary"],
         ].forEach(function(attr) {
-            var type = attr[0];
-            var name = attr[1];
+            var readonly = attr[0];
+            var type = attr[1];
+            var name = attr[2];
+
+            // readonly check
+            if (readonly === "readonly") {
+                test(function() {
+                    assert_readonly(ev.type, name, ev.type + "." + name + " cannot be changed");
+                }, ev.type + "." + name + " is readonly");
+            }
 
             // existence check
             test(function() {
@@ -71,6 +80,10 @@
     
     function run() {
       var target0 = document.getElementById("target0");
+
+      // Set up a timeout so that if the UA doesn't support PointerEvents,
+      // the framework will report "NOT RUN"
+      var test_pe = async_test("This User Agent does Not support PointerEvents.");
 
       on_event(target0, "PointerDown", function onPointerDown(ev) {
           ev.preventDefault();
