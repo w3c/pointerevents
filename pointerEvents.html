@@ -182,7 +182,7 @@ eventTarget.dispatchEvent(event);
      <section>
        <h2><code>PointerEvent</code> Interface</h2>
        <div>
-			<dl class="idl" title="[Constructor(DOMString type, optional PointerEventInit eventInitDict)] interface PointerEvent : MouseEvent">
+			<dl class="idl" title="[Constructor(DOMString type, optional PointerEventInit eventInitDict)] interface PointerEvent : MouseEvent" data-merge="PointerEventInit">
 				<dt>readonly attribute long pointerId</dt>
 				<dd>
 					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a title="active pointer" class="internalDFN">active pointers</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
@@ -238,6 +238,25 @@ eventTarget.dispatchEvent(event);
 					Indicates if the pointer represents the <a title="primary pointer" class="internalDFN">primary pointer</a>.
 				</dd>
 			</dl>
+			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
+				<dt>long pointerId = 0</dt>
+					<dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>long width = 0</dt>
+					<dd>Initializes the <code>width</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>long height = 0</dt>
+					<dd>Initializes the <code>height</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>float pressure = 0</dt>
+					<dd>Initializes the <code>pressure</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>long tiltX = 0</dt>
+					<dd>Initializes the <code>tiltX</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>long tiltY = 0</dt>
+					<dd>Initializes the <code>tiltY</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>DOMString pointerType = ""</dt>
+					<dd>Initializes the <code>pointerType</code> property of the <code>PointerEvent</code> object.</dd>
+				<dt>boolean isPrimary = false</dt>
+					<dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
+			</dl>
+			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!UI-EVENTS]]. See the <a href="#examples" class="internalDFN" title="examples">examples</a> for sample code demonstrating how to dispatch an untrusted pointer event.</div>
 	    </div>
 	    <section>
 			<h2>Button States</h2>
@@ -283,28 +302,6 @@ eventTarget.dispatchEvent(event);
 				
 			</section>
 		</section>
-		<section>
-			<h3><code>PointerEvent</code> Constructor</h3>
-			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
-				<dt>long pointerId = 0</dt>
-					<dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long width = 0</dt>
-					<dd>Initializes the <code>width</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long height = 0</dt>
-					<dd>Initializes the <code>height</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>float pressure = 0</dt>
-					<dd>Initializes the <code>pressure</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long tiltX = 0</dt>
-					<dd>Initializes the <code>tiltX</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long tiltY = 0</dt>
-					<dd>Initializes the <code>tiltY</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>DOMString pointerType = ""</dt>
-					<dd>Initializes the <code>pointerType</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>boolean isPrimary = false</dt>
-					<dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
-			</dl>
-			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!UI-EVENTS]]. See the <a href="#examples" class="internalDFN" title="examples">examples</a> for sample code demonstrating how to dispatch an untrusted pointer event.</div>
-		</section>	
      </section>
 	 <section>
 		<h2>Pointer Event Types</h2>
