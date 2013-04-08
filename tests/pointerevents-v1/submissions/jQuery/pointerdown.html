@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<!--
+	Test cases for Pointer Events v1 spec
+
+	This document references Test Assertions (abbrev TA below) written by Cathy Chan
+	http://www.w3.org/wiki/PointerEvents/TestAssertions
+-->
+<head>
+	<title>Pointer Events pointerdown Tests</title>
+	<meta name="viewport" content="width=device-width">
+	<script src="http://w3c-test.org/resources/testharness.js"></script>
+	<script>
+		setup({ explicit_done: true });
+
+		// Copied from Nokia WebIDL submission
+		// Check a PointerEvent's attributes for conformance to WebIDL: attribute exists,
+		// has proper type and if the attribute is "readonly", it cannot be changed.
+		// TA: 1.1, 1.2
+		function check_PointerEvent(ev) {
+			test(function() {
+				assert_true(ev instanceof PointerEvent, "event is a PointerEvent event");
+			}, ev.type + " event is a PointerEvent event");
+
+			[
+				["readonly", "long", "pointerId"],
+				["readonly", "long", "width"],
+				["readonly", "long", "height"],
+				["readonly", "float", "pressure"],
+				["readonly", "long", "tiltX"],
+				["readonly", "long", "tiltY"],
+				["readonly", "DOMString", "pointerType"],
+				["readonly", "boolean", "isPrimary"],
+			].forEach(function(attr) {
+				var readonly = attr[0];
+				var type = attr[1];
+				var name = attr[2];
+
+				// readonly check
+				if (readonly === "readonly") {
+					test(function() {
+						assert_readonly(ev.type, name, ev.type + "." + name + " cannot be changed");
+					}, ev.type + "." + name + " is readonly");
+				}
+
+				// existence check
+				test(function() {
+					assert_true(name in ev, name + " attribute in " + ev.type + " event");
+				}, ev.type + "." + name + " attribute exists");
+
+				// type check
+				switch(type) {
+				case "boolean":
+					test(function() {
+						assert_equals(typeof ev[name], "boolean", name + " attribute of type boolean");
+					}, ev.type + "." + name + " attribute is of type boolean");
+					break;
+				case "float":
+					test(function() {
+						assert_equals(typeof ev[name], "number", name + " attribute of type float");
+					}, ev.type + "." + name + " attribute is of type number (float)");
+					break;
+				case "long":
+					test(function() {
+						assert_equals(typeof ev[name], "number", name + " attribute of type long");
+					}, ev.type + "." + name + " attribute is of type number (long)");
+					break;
+				case "DOMString":
+					test(function() {
+						assert_equals(typeof ev[name], "DOMString", name + " attribute of type DOMString");
+					}, ev.type + "." + name + " attribute is of type DOMString");
+					break;
+				default:
+					break;
+				}
+			});
+		}
+
+		function run() {
+			var target0 = document.getElementById("target0");
+			var test_pointerdown = async_test("pointerdown event received");
+			var pointerover_event;
+
+			on_event(target0, "pointerover", function(event) {
+				pointerover_event = event;
+				check_PointerEvent(event);
+			});
+
+			// TA: 2.1, 2.2, 2.3
+			on_event(target0, "pointerdown", function(event) {
+				check_PointerEvent(event);
+
+				// TA: 2.4
+				test_pointerdown.step(function() {
+					assert_equals(event.pointerType, pointerover_event.pointerType,
+						"pointerType is same for pointerover and pointerdown");
+					assert_equals(event.isPrimary, pointerover_event.isPrimary,
+						"isPrimary is same for pointerover and pointerdown");
+				});
+
+				test_pointerdown.done();
+			});
+		}
+	</script>
+	<style>
+		div {
+			margin: 0em;
+			padding: 2em;
+		}
+		#target0 {
+			background: yellow;
+			border: 1px solid orange;
+		}
+	</style>
+</head>
+<body onload="run()">
+	<h1>Pointer Events pointerdown Tests</h1>
+	<div id="target0">
+		Start with your pointing device outside of this box, then click here.
+	</div>
+	<div id="log"></div>
+</body>
+</html>
