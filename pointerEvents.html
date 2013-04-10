@@ -282,7 +282,7 @@ eventTarget.dispatchEvent(event);
 		</section>
 		<section>
 			<h2><dfn title="primary pointer">The Primary Pointer</dfn></h2>
-			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each event type.  Only a primary pointer will produce <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers.
+			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each pointer type.  Only a primary pointer will produce <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers.
 			<section>
 				<h3>Determining the primary pointer</h3>
 				<div>When dispatching a pointer event, a pointer is considered primary if:
