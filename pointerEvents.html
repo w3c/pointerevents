@@ -649,6 +649,8 @@ eventTarget.dispatchEvent(event);
 			<li>Until pointer capture is released, set the <code>relatedTarget</code> property of all future pointer and compatibility mouse events for the specified <code>pointerId</code> to <code>null</code>.</li>
 			<li>Fire a <code>gotpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
 		</ol>
+		<div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
+</div>
 	</section>
 	
 	<section>
