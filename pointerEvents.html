@@ -9,10 +9,7 @@
           specStatus:           "ED",
           shortName:            "pointerevents",
           noIDLSorting:         true,
-
           edDraftURI:           "https://dvcs.w3.org/hg/pointerevents/raw-file/tip/pointerEvents.html",
-
-          extraCSS:             ["https://dev.w3.org/2009/dap/ReSpec.js/css/respec.css"],
 
           // editors, add as many as you like
           // only "name" is required
@@ -91,10 +88,10 @@
 &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
 
 &lt;script type='text/javascript'&gt;
-window.addEventListener('load', function() {
   var canvas = document.getElementById("drawSurface"),
   context = canvas.getContext("2d");
-  if (window.navigator.pointerEnabled) {
+  
+  if (window.PointerEvent) {
     canvas.addEventListener("pointermove", paint, false);
 	if(window.navigator.maxTouchPoints>1)
 		alert("Your user agent and hardware support multi-touch!");
@@ -103,15 +100,16 @@ window.addEventListener('load', function() {
 	//Provide fallback for user agents that do not support Pointer Events
     canvas.addEventListener("mousemove", paint, false);
   }
+  
   function paint(event) {
 	if(event.buttons>0)
 		context.fillRect(event.clientX, event.clientY, 5, 5);
   }
-});
 &lt;/script&gt;
 </pre>
 <pre class="example" title="Detecting the type of input from a user">
 window.addEventListener("pointerdown", detectInputType, false);
+
 function detectInputType(event) {
 	switch(event.pointerType) {
 		case "mouse":
@@ -131,6 +129,7 @@ function detectInputType(event) {
 &lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
 &lt;script&gt;
 window.addEventListener("pointerdown", checkPointerSize, false);
+
 function checkPointerSize(event) {
 	event.target.style.width = event.width + "px";
 	event.target.style.height = event.height + "px";
@@ -550,8 +549,6 @@ eventTarget.dispatchEvent(event);
 	<div>
 	<p>The <code>Navigator</code> interface is defined in [[!HTML5]]. This specification extends the <code>Navigator</code> interface to provide device and feature detection support.</p>
 		<dl class="idl" title="partial interface Navigator">
-			<dt>readonly attribute boolean pointerEnabled</dt>
-			<dd>Indicates if the browser will fire pointer events for pointing input.</dd>
 			<dt>readonly attribute long maxTouchPoints</dt>
 			<dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
 			<p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> is <code>10</code>.</p>
