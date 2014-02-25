@@ -463,7 +463,7 @@ eventTarget.dispatchEvent(event);
 		<section>
 			<h3><dfn title="pointerdown">The <code>pointerdown</code> event</dfn></h3>
 			<div><p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a title="active buttons state" class="internalDFN">active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
-			<p>For input devices that do not support hover, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> event followed by a <code>pointerenter</code> event prior to dispatching the <code>pointerdown</code> event.</p>
+			<p>For input devices that do not support hover, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> followed by a pointer event named <code>pointerenter</code> prior to dispatching the <code>pointerdown</code> event.</p>
 			<p>Authors can prevent the production of <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a> by cancelling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). </p>
 			</div>
 			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
@@ -471,7 +471,7 @@ eventTarget.dispatchEvent(event);
 		<section>
 			<h3><dfn title="pointerup">The <code>pointerup</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a title="active buttons state" class="internalDFN">active buttons</a> state. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the pen is removed from physical contact with the digitizer.
-			<p>For input devices that do not support hover, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> event followed by a <code>pointerleave</code> event after dispatching the <code>pointerup</code> event.</p>
+			<p>For input devices that do not support hover, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> followed by a pointer event named <code>pointerleave</code> after dispatching the <code>pointerup</code> event.</p>
 			</div>
 			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
 		</section>
