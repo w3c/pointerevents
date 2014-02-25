@@ -368,6 +368,24 @@ eventTarget.dispatchEvent(event);
 				</thead>
 				<tbody>
 					<tr>
+						<td><code>pointerover</code></td>
+						<td>Sync</td>
+						<td>Yes</td>
+						<td>Yes</td>
+						<td><code>Document</code>, <code>Element</code></td>
+						<td><code>PointerEvent</code></td>
+						<td>Varies:  when the pointer is primary, all default actions of <code>mouseover</code></td>
+					</tr>
+					<tr>
+						<td><code>pointerenter</code></td>
+						<td>Sync</td>
+						<td>No</td>
+						<td>No</td>
+						<td><code>Document</code>, <code>Element</code></td>
+						<td><code>PointerEvent</code></td>
+						<td>Varies:  when the pointer is primary, all default actions of <code>mouseenter</code></td>
+					</tr>
+					<tr>
 						<td><code>pointerdown</code></td>
 						<td>Sync</td>
 						<td>Yes</td>
@@ -375,6 +393,15 @@ eventTarget.dispatchEvent(event);
 						<td><code>Document</code>, <code>Element</code></td>
 						<td><code>PointerEvent</code></td>
 						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event plus firing of <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a></td>
+					</tr>
+					<tr>
+						<td><code>pointermove</code></td>
+						<td>Sync</td>
+						<td>Yes</td>
+						<td>Yes</td>
+						<td><code>Document</code>, <code>Element</code></td>
+						<td><code>PointerEvent</code></td>
+						<td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
 					</tr>
 					<tr>
 						<td><code>pointerup</code></td>
@@ -395,24 +422,6 @@ eventTarget.dispatchEvent(event);
 						<td>None</td>
 					</tr>
 					<tr>
-						<td><code>pointermove</code></td>
-						<td>Sync</td>
-						<td>Yes</td>
-						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
-						<td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
-					</tr>
-					<tr>
-						<td><code>pointerover</code></td>
-						<td>Sync</td>
-						<td>Yes</td>
-						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
-						<td>Varies:  when the pointer is primary, all default actions of <code>mouseover</code></td>
-					</tr>
-					<tr>
 						<td><code>pointerout</code></td>
 						<td>Sync</td>
 						<td>Yes</td>
@@ -420,15 +429,6 @@ eventTarget.dispatchEvent(event);
 						<td><code>Document</code>, <code>Element</code></td>
 						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseout</code></td>
-					</tr>
-					<tr>
-						<td><code>pointerenter</code></td>
-						<td>Sync</td>
-						<td>No</td>
-						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
-						<td>Varies:  when the pointer is primary, all default actions of <code>mouseenter</code></td>
 					</tr>
 					<tr>
 						<td><code>pointerleave</code></td>
@@ -459,14 +459,28 @@ eventTarget.dispatchEvent(event);
 					</tr>
 				</tbody>
 			</table>
+		<p>In the case of the <a href="#the-primary-pointer">primary pointer</a>, these events (with the exception of <code>pointercancel</code>, <code>gotpointercapture</code>, and <code>lostpointercapture</code> may also fire compatibility mouse events.</p>
+		</section>
+		<section>
+			<h3><dfn title="pointerover">The <code>pointerover</code> event</dfn></h3>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for devices that do not support hover (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</div>
+		</section>
+		<section>
+			<h3><dfn title="pointerenter">The <code>pointerenter</code> event</dfn></h3>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that does not support hover (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</div>
+			<div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
 		</section>
 		<section>
 			<h3><dfn title="pointerdown">The <code>pointerdown</code> event</dfn></h3>
 			<div><p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a title="active buttons state" class="internalDFN">active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
+            <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
 			<p>For input devices that do not support hover, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> followed by a pointer event named <code>pointerenter</code> prior to dispatching the <code>pointerdown</code> event.</p>
-			<p>Authors can prevent the production of <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a> by cancelling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). </p>
+			<div class="note">Authors can prevent the firing of <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a> by cancelling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). This sets the PREVENT MOUSE EVENT FLAG on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
 			</div>
-			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
+		</section>
+		<section>
+			<h3><dfn title="pointermove">The <code>pointermove</code> event</dfn></h3>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates, button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>).</div>
 		</section>
 		<section>
 			<h3><dfn title="pointerup">The <code>pointerup</code> event</dfn></h3>
@@ -496,14 +510,6 @@ eventTarget.dispatchEvent(event);
 			</div>
 		</section>
 		<section>
-			<h3><dfn title="pointermove">The <code>pointermove</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates, button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>).</div>
-		</section>
-		<section>
-			<h3><dfn title="pointerover">The <code>pointerover</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for devices that do not support hover (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</div>
-		</section>
-		<section>
 			<h3><dfn title="pointerout">The <code>pointerout</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> when any of the following occurs:
 				<ul>
@@ -513,11 +519,6 @@ eventTarget.dispatchEvent(event);
 					<li>When a pen stylus leaves the hover range detectable by the digitizer</li>
 				</ul>
 			</div>
-		</section>
-		<section>
-			<h3><dfn title="pointerenter">The <code>pointerenter</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that does not support hover (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</div>
-			<div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
 		</section>
 		<section>
 			<h3><dfn title="pointerleave">The <code>pointerleave</code> event</dfn></h3>
