@@ -3,6 +3,7 @@
   <head>
     <title>Pointer Events</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common.js' class='remove'></script>
     <script type="text/javascript" class='remove'>
       var respecConfig = {
@@ -480,7 +481,7 @@ eventTarget.dispatchEvent(event);
 		</section>
 		<section>
 			<h3><dfn title="pointermove">The <code>pointermove</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates, button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>).</div>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates. Additionally, when a pointer changes button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification then a user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code>.</div>
 		</section>
 		<section>
 			<h3><dfn title="pointerup">The <code>pointerup</code> event</dfn></h3>
