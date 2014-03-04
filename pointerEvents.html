@@ -776,7 +776,7 @@ eventTarget.dispatchEvent(event);
 			This requires that user agents provide a different mapping for these types of input devices. Whenever a user agent is to dispatch a pointer event for a device that does not support hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
-					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event.</li>
+					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
 					<li>Dispatch the pointer event.</li>
 					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="cancelled event" class="internalDFN">cancelled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the pointer event dispatched was: 
