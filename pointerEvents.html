@@ -59,7 +59,7 @@
     <style>
         .issue {background: #fcc !important;}
         pre.idl::before, pre.example::before { font-family: sans-serif !important; }
-        ol>li { margin-bottom: 1em; }
+        ol:not([data-class='note-list'])>li { margin-bottom: 1em; }
     </style>
   </head>
   <body>
@@ -799,7 +799,38 @@ eventTarget.dispatchEvent(event);
 				</ol>
 			</div>
 			<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</section>
-
+			<section class="note">
+			<p>The activation of an element (<code>click</code>) with a primary pointer (e.g. single finger, stylus, or mouse) would typically produce the following event sequence:</p>
+			<ol data-class="note-list">
+				<li><code>mousemove</code></li>
+				<li><code>pointerover</code></li>
+				<li><code>mouseover</code></li>
+				<li><code>mouseenter</code></li>
+				<li><code>pointerdown</code></li>
+				<li><code>mousedown</code></li>
+				<li>Zero or more <code>pointermove</code> and <code>mousemove</code> events, depending on movement of the pointer</li>
+				<li><code>pointerup</code></li>
+				<li><code>mouseup</code></li>
+				<li><code>click</code></li>
+				<li><code>pointerout</code></li>
+				<li><code>mouseout</code></li>
+				<li><code>mouseleave</code></li>
+			</ol>
+			<p>If, however, the pointerdown event is cancelled during this interaction then the sequence of events would be
+			<ol data-class="note-list">
+				<li><code>mousemove</code></li>
+				<li><code>pointerover</code></li>
+				<li><code>mouseover</code></li>
+				<li><code>mouseenter</code></li>
+				<li><code>pointerdown</code></li>
+				<li>Zero or more <code>pointermove</code> events, depending on movement of the pointer</li>
+				<li><code>pointerup</code></li>
+				<li><code>click</code></li>
+				<li><code>pointerout</code></li>
+				<li><code>mouseout</code></li>
+				<li><code>mouseleave</code></li>
+			</ol>			
+			</section>
 		</section>
 	</section>
     <section class='appendix'>
