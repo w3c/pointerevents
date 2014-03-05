@@ -811,6 +811,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<li><code>mousemove</code></li>
 				<li><code>pointerover</code></li>
 				<li><code>mouseover</code></li>
+				<li><code>pointerenter</code></li>
 				<li><code>mouseenter</code></li>
 				<li><code>pointerdown</code></li>
 				<li><code>mousedown</code></li>
@@ -822,11 +823,12 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<li><code>mouseout</code></li>
 				<li><code>mouseleave</code></li>
 			</ol>
-			<p>If, however, the pointerdown event is cancelled during this interaction then the sequence of events would be
+			<p>If, however, the <code>pointerdown</code> event is cancelled during this interaction then the sequence of events would be:
 			<ol data-class="note-list">
 				<li><code>mousemove</code></li>
 				<li><code>pointerover</code></li>
 				<li><code>mouseover</code></li>
+				<li><code>pointerenter</code></li>
 				<li><code>mouseenter</code></li>
 				<li><code>pointerdown</code></li>
 				<li>Zero or more <code>pointermove</code> events, depending on movement of the pointer</li>
