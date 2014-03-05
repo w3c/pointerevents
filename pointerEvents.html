@@ -625,7 +625,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		<h2>The <code>touch-action</code> CSS property</h2>
 		<table class="simple">
 			<tr><th>Name:</th><td><code>touch-action</code></td></tr>
-			<tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [<code>pan-x</code> || <code>pan-y</code>]</td></tr>
+			<tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [<code>pan-x</code> || <code>pan-y</code> || <code>manipulation</code>]</td></tr>
 			<tr><th>Initial:</th><td><code>auto</code></td></tr>
 			<tr><th>Applies to:</th><td>block-level elements, SVG elements</td></tr>
 			<tr><th>Inherited:</th><td>no</td></tr>
@@ -642,6 +642,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<dt>none</dt><dd>Touches that begin on the element MUST NOT trigger default touch behaviors.</dd>
 				<dt>pan-x</dt><dd>The user agent MAY consider touches that begin on the element only for the purposes of horizontally scrolling the element's nearest ancestor with horizontally scrollable content.</dd>
 				<dt>pan-y</dt><dd>The user agent MAY consider touches that begin on the element only for the purposes of vertically scrolling the element's nearest ancestor with vertically scrollable content.</dd>
+				<dt>manipulation</dt><dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
 			</dl>
 			<section class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</section>
 			<section class="note">The <code>touch-action</code> property is restricted to block-level elements and SVG elements to facilitate low-latency touch actions. Future specifications could extend this API to all elements. Authors can use the <code>display</code> CSS property to make other elements generate a block box for use with <code>touch-action</code>.</section>
