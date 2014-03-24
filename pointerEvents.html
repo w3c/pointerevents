@@ -403,7 +403,8 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Yes</td>
 						<td><code>Document</code>, <code>Element</code></td>
 						<td><code>PointerEvent</code></td>
-						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event plus firing of <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a></td>
+						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event.
+							<br>Cancelling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>.</td>
 					</tr>
 					<tr>
 						<td><code>pointermove</code></td>
