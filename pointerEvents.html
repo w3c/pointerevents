@@ -64,7 +64,7 @@
   </head>
   <body>
     <section id='abstract'>
-      This document defines events and related interfaces for handling hardware agnostic pointer input from devices like a mouse, pen, or touchscreen. For compatibility with existing mouse based content, this specification also describes a mapping to fire [[DOM-LEVEL-3-EVENTS]] Mouse Events for pointer device types other than mouse.
+      This document defines events and related interfaces for handling hardware agnostic pointer input from devices like a mouse, pen, or touchscreen. For compatibility with existing mouse-based content, this specification also describes a mapping to fire [[DOM-LEVEL-3-EVENTS]] Mouse Events for pointer device types other than mouse.
     </section>
 
     <section id="sotd">
@@ -284,7 +284,6 @@ eventTarget.dispatchEvent(event);
 					<dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
 			</dl>
 			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" class="internalDFN" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</div>
-			<div class="note"><code>PointerEvent</code> inherits from <code>MouseEvent</code>, defined in [[DOM-LEVEL-3-EVENTS]] and extended by [[CSSOM-VIEW]].</div>
 	    </div>
 	    <section>
 			<h2>Button States</h2>
