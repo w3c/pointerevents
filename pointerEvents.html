@@ -114,42 +114,43 @@
 &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
 
 &lt;script type='text/javascript'&gt;
-  var canvas = document.getElementById("drawSurface"),
-  context = canvas.getContext("2d");
-  
-  if (window.PointerEvent) {
-    canvas.addEventListener("pointermove", paint, false);
-	if(window.navigator.maxTouchPoints>1)
-		alert("Your user agent and hardware support multi-touch!");
-  } 
-  else {
-	//Provide fallback for user agents that do not support Pointer Events
-    canvas.addEventListener("mousemove", paint, false);
-  }
-  
-  function paint(event) {
-	if(event.buttons>0)
-		context.fillRect(event.clientX, event.clientY, 5, 5);
-  }
+    var canvas = document.getElementById("drawSurface"),
+    context = canvas.getContext("2d");
+
+    if (window.PointerEvent) {
+        canvas.addEventListener("pointermove", paint, false);
+        if(window.navigator.maxTouchPoints>1)
+    	   /* User agent and hardware support multi-touch */
+    } 
+    else {
+        //Provide fallback for user agents that do not support Pointer Events
+        canvas.addEventListener("mousemove", paint, false);
+    }
+
+    function paint(event) {
+        if(event.buttons>0)
+    	   context.fillRect(event.clientX, event.clientY, 5, 5);
+    }
 &lt;/script&gt;
 </pre>
 <pre class="example" title="Detecting the type of input from a user">
 window.addEventListener("pointerdown", detectInputType, false);
 
 function detectInputType(event) {
-	switch(event.pointerType) {
-		case "mouse":
-			alert("You used a mouse!");
-			break;
-		case "pen":
-			alert("You used a pen stylus!");
-			break;
-		case "touch":
-			alert("You used touch!");
-			break;	
-		default:
-			alert("Not sure what device was used!");
-	}
+    switch(event.pointerType) {
+        case "mouse":
+            /* mouse input detected */
+            break;
+        case "pen":
+            /* pen/stylus input detected */
+            break;
+        case "touch":
+            /* touch input detected */
+            break;	
+        default:
+            /* pointerType is empty (could not be detected) 
+            or UA-specific custom type */
+    }
 }</pre>
 <pre class="example" title="Resizing an element to match the contact geometry">
 &lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
@@ -157,8 +158,8 @@ function detectInputType(event) {
 window.addEventListener("pointerdown", checkPointerSize, false);
 
 function checkPointerSize(event) {
-	event.target.style.width = event.width + "px";
-	event.target.style.height = event.height + "px";
+    event.target.style.width = event.width + "px";
+    event.target.style.height = event.height + "px";
 }
 &lt;/script&gt;
 </pre>
