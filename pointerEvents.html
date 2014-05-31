@@ -705,7 +705,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 <h1><dfn title="Pointer Capture">Pointer Capture</dfn></h1>
 	<div class="informative">
 	<p>
-	Pointer capture allows the events for a particular pointer to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
+	Pointer capture allows the events for a particular pointer (including any compatibility mouse events) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
 	<figure>
 		<img src="slider.png" alt="Custom Volume Slider">
 		<figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
