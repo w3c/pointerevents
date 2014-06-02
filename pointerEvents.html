@@ -259,7 +259,9 @@ eventTarget.dispatchEvent(event);
 						</tbody>
 					</table>
 					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
-					<section class="note">See the <a href="#examples" class="internalDFN" title="examples">examples</a> in the appendix for sample code.</section>
+					<section class="note">
+                    See <a href="#examples" class="internalDFN" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.
+                    </section>
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
