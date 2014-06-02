@@ -717,6 +717,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:
 		<ol>
 			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+            <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
 			<li>If the pointer is not in the <a title="active buttons state" class="internalDFN">active buttons</a> state, then terminate these steps.</li>
 			<li>For the specified <code>pointerId</code>, set the <dfn>pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
 			<li>Fire a <code>gotpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
@@ -733,13 +734,14 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			<li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
 			<li>If the <a>pointer capture target override</a> for the specified <code>pointerId</code> is not the <code>Element</code> on which this method was invoked, then terminate these steps.</li>
 			<li>For the specified <code>pointerId</code>, clear the <a>pointer capture target override</a>, if set.</li>
-			<li>Fire a <code>lostpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
+			<li>Fire a Pointer Event named <code>lostpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
 		</ol>
 	</section>
 	<section>
-		<h2>Implicit Release of Pointer Capture</h2>
-		Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or<code>pointercancel</code> event just dispatched.
-	</section>
+        <h2>Implicit Release of Pointer Capture</h2>
+        <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or<code>pointercancel</code> event just dispatched.</p>
+        <p>If the <a>pointer capture target override</a> node is removed from the document tree, clear the <a>pending pointer capture</a> and <a>pointer capture target override</a> nodes and fire a Pointer Event named <code>lostpointercapture</code> at the document.</p>
+    </section>
 </section>
 <section>
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
