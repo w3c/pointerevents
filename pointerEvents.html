@@ -217,11 +217,11 @@ eventTarget.dispatchEvent(event);
 					
 					<section class="note">The <code>pointerId</code> selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, values are not guaranteed to be monotonically increasing.</section>
 				</dd>
-				<dt>readonly attribute long width</dt>
+				<dt>readonly attribute double width</dt>
 				<dd>
 					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
-				<dt>readonly attribute long height</dt>
+				<dt>readonly attribute double height</dt>
 				<dd>
 					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
