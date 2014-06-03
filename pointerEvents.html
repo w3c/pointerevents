@@ -271,9 +271,9 @@ eventTarget.dispatchEvent(event);
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
 				<dt>long pointerId = 0</dt>
 					<dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long width = 0</dt>
+				<dt>double width = 0</dt>
 					<dd>Initializes the <code>width</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>long height = 0</dt>
+				<dt>double height = 0</dt>
 					<dd>Initializes the <code>height</code> property of the <code>PointerEvent</code> object.</dd>
 				<dt>float pressure = 0</dt>
 					<dd>Initializes the <code>pressure</code> property of the <code>PointerEvent</code> object.</dd>
@@ -759,7 +759,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 <section>
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
 		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. </p>
-        <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's parent node at the time it left the tree (meaning, a new even path is built for the mouse event).</p>
+        <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
 		<p>Authors can prevent the production of certain compatibility mouse events by cancelling the <code>pointerdown</code> event. </p>
 		<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</section>
 		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
