@@ -373,6 +373,19 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				</li>
 				<li>Otherwise, fire the event to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
 			</ul>
+            <h4>Process Pending Pointer Capture</h4>
+            <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+            <ol>
+                <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.</li>
+                <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture</a> node. 
+                    <ul>
+                        <li>Further, if the <a>pointer capture target override</a> is not set, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has recieved <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
+                    </ul>
+                </li>
+                <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
+            </ol>
+
+
 		</section>
 		<section class="informative">
 			<h3>List of Pointer Events</h3>
@@ -543,11 +556,11 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		</section>
 		<section>
 			<h3><dfn title="gotpointercapture">The <code>gotpointercapture</code> event</dfn></h3>
-			<div>A user agent MUST <a>queue a task</a> to <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>gotpointercapture</code> prior to firing the first pointer event after pointer capture is set for a pointer. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See <a href="#setting-pointer-capture">Setting Pointer Capture</a>.</div>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>gotpointercapture</code> when an element receives pointer capture. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See the <a href="#setting-pointer-capture">Setting Pointer Capture</a> and <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> sections.</div>
 		</section>
 		<section>
 			<h3><dfn title="lostpointercapture">The <code>lostpointercapture</code> event</dfn></h3>
-			<div>A user agent MUST <a>queue a task</a> to <a href="#firing-events-using-the-pointerevent-interface">fire a pointer</a> event named <code>lostpointercapture</code> after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See <a href="#releasing-pointer-capture">Releasing Pointer Capture</a> and <a href="#implicit-release-of-pointer-capture">Implicit Release of Pointer Capture</a>.</div>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer</a> event named <code>lostpointercapture</code> after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a href="#releasing-pointer-capture">Releasing Pointer Capture</a>, <a href="#implicit-release-of-pointer-capture">Implicit Release of Pointer Capture</a>, and <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> sections.</div>
 		</section>
    </section>
 </section>
@@ -721,8 +734,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
             <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
 			<li>If the pointer is not in the <a title="active buttons state" class="internalDFN">active buttons</a> state, then terminate these steps.</li>
-			<li>For the specified <code>pointerId</code>, set the <dfn>pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
-			<li>Fire a <code>gotpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
+			<li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
 		</ol>
 		<div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
 </div>
@@ -735,8 +747,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
 			<li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
 			<li>If the <a>pointer capture target override</a> for the specified <code>pointerId</code> is not the <code>Element</code> on which this method was invoked, then terminate these steps.</li>
-			<li>For the specified <code>pointerId</code>, clear the <a>pointer capture target override</a>, if set.</li>
-			<li>Fire a Pointer Event named <code>lostpointercapture</code> event at the <code>Element</code> on which this method was invoked.</li>
+			<li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
 		</ol>
 	</section>
 	<section>
