@@ -758,7 +758,8 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 </section>
 <section>
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
-		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. Unless otherwise noted, the target of any mapped mouse event MAY be the same as the target for the pointer event from which it was mapped.</p>
+		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. </p>
+        <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's parent node at the time it left the tree (meaning, a new even path is built for the mouse event).</p>
 		<p>Authors can prevent the production of certain compatibility mouse events by cancelling the <code>pointerdown</code> event. </p>
 		<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</section>
 		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
@@ -782,7 +783,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 							<li><code>pointerenter</code>, then fire a <code>mouseenter</code> event.</li>
 							<li><code>pointerleave</code>, then fire a <code>mouseleave</code> event.</li>
 						</ul>
-					</li>
+                    </li>
 					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
 						<ul>
 							<li><code>pointerdown</code>, then fire a <code>mousedown</code> event.</li>
