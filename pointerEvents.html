@@ -749,6 +749,10 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			<li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
 		</ol>
 	</section>
+  <section>
+        <h2>Implicit Set of Pointer Capture</h2>
+        <div class="note">Some user agents implement their own implicit pointer capture behaviour - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behaviour, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
+  </section>
 	<section>
         <h2>Implicit Release of Pointer Capture</h2>
         <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or<code>pointercancel</code> event just dispatched.</p>
