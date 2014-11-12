@@ -1372,12 +1372,32 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
     </section>
 	<section class="appendix informative" id="revision-history">
 		<!--OddPage--><h2 role="heading" id="h2_revision-history"><span class="secno">B. </span>Revision History</h2><p><em>This section is non-normative.</em></p>
-		<p>The following is an informative summary of substantial and major editorial changes between publications of this specification. A complete revision history of the Editor's Drafts of this specification can be found <a href="https://dvcs.w3.org/hg/pointerevents/log/0b155c9163fb/pointerEvents.html">here</a>.</p>	
+		<p>The following is an informative summary of substantial and major editorial changes between publications of this specification. A complete revision history of the Editor's Drafts of this specification can be found <a href="https://dvcs.w3.org/hg/pointerevents/shortlog">here</a>.</p>	
 		<h2 id="changes-since-the-09-may-2013-candidate-recommendation">Changes Since the 09 May 2013 Candidate Recommendation</h2>
 		<ul>
 			<li><a href="http://lists.w3.org/Archives/Public/public-pointer-events/2013OctDec/0028.html">Mail</a> - Clarified pointerover/pointerout behavior with pointer capture</li>
 			<li><a href="http://lists.w3.org/Archives/Public/public-pointer-events/2013OctDec/0010.html">Mail</a> - Clarified maxTouchPoints behavior on platforms with less granular information</li>
+
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=22890">22890</a> - It is not clear why navigator.pointerEnabled is needed</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24348">24348</a> -  pointerdown/pointerup/pointercancel on non-hover devices</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/1667331a62ff">Mail</a> - addresses comments from Anne van Kesteren</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24346">24346</a> - Clarifications on Pointer Events Types section</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=21951">21951</a> - [CR] pointermove dispatching when button state changes</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24706">24706</a> - Clarify when setPointerCapture is supposed to work</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/018f1b69c985">Action </a> - Add manipulation to the touch-action property</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24772">24772</a> - releasePointerCapture() should fail if called from a node that doesn't currently capture the pointer</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24921">24921</a> - Clarification of "Default Action" for pointerdown wrt compat mouse events</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/7ce32047480b">Issue</a> - Touch-action to SVG elements</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/c979a3e19faa">Action</a> - Update spec to reflect 11-feb-2014 discussion of action-68</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=21749">21749</a> - Setting a capture on an offshore element</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=25758">25758</a> - Change PointerEvent width and height to double</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24971">24971</a> - Should got/lostpointercapture be dispatched asynchronously or synchronously</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24923">24923</a> - What should happen to the mouse events if pointer event listener removes the target from document or hides it?</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/0467403d9e5e">Action</a> - Fix proximal target for capture evts in non-normative list of pointer event types per group discussion</li>
+			<li><a href="https://dvcs.w3.org/hg/pointerevents/rev/3c757c7ca2d9">Action</a> - List capture events as sync/async per group discussion</li>
+			<li><a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=26888">26888</a> - Add "pointerleave" to section 9.1</li>
 		</ul>
+
 		<h2 id="changes-since-the-19-february-2013-last-call-draft">Changes Since the 19 February 2013 Last Call Draft</h2>
 		<ul>
 			<li><a href="http://lists.w3.org/Archives/Public/public-pointer-events/2013JanMar/0110.html">Mail</a> - Examples moved to front of spec</li>
