@@ -638,7 +638,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		<dl class="idl" title="partial interface Navigator">
 			<dt>readonly attribute long maxTouchPoints</dt>
 			<dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
-			<p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> is <code>10</code>.</p>
+			<p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> should be <code>10</code>.</p>
 			</dd>
 		</dl>
 		<div class="note"><code>maxTouchPoints</code> is often used to ensure that the interaction model of the content can be recognized by the current hardware. UI affordances can be provided to users with less capable hardware. On platforms where the precise number of touch points is not known, the minimum number guaranteed to be recognized is provided. Therefore, it is possible for the number of recognized touch points to exceed the value of <code>maxTouchPoints</code>.</div>
