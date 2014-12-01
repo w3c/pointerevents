@@ -101,7 +101,7 @@
 <section class="informative">
 	<h1>Examples</h1>
 	<p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
-<pre class="example" title="Basic HTML5 Canvas painting application">
+<pre id="example_1" class="example" title="Basic HTML5 Canvas painting application">
 &lt;style&gt;
   /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
   that all events on the canvas element are given to the application instead. */
@@ -133,7 +133,7 @@
     }
 &lt;/script&gt;
 </pre>
-<pre class="example" title="Detecting the type of input from a user">
+<pre id="example_2" class="example" title="Detecting the type of input from a user">
 window.addEventListener("pointerdown", detectInputType, false);
 
 function detectInputType(event) {
@@ -152,7 +152,7 @@ function detectInputType(event) {
             or UA-specific custom type */
     }
 }</pre>
-<pre class="example" title="Resizing an element to match the contact geometry">
+<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
 &lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
 &lt;script&gt;
 window.addEventListener("pointerdown", checkPointerSize, false);
@@ -163,7 +163,7 @@ function checkPointerSize(event) {
 }
 &lt;/script&gt;
 </pre>
-<pre class="example" title="Firing an untrusted pointer event from script">
+<pre id="example_4" class="example" title="Firing an untrusted pointer event from script">
 var event = new PointerEvent("pointerover",
    {bubbles: true, 
     cancelable: true, 
@@ -260,7 +260,7 @@ eventTarget.dispatchEvent(event);
 					</table>
 					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
 					<section class="note">
-                    See <a href="#examples" class="internalDFN" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.
+                    See <a href="#example_2" class="internalDFN" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.
                     </section>
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
@@ -680,17 +680,17 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
 				<li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
 			</ul>
-<pre class="example" title="Disallowing all touch behaviors">
+<pre id="example_5" class="example" title="Disallowing all touch behaviors">
 &lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all touches.
 &lt;/div&gt;
 </pre>
-<pre class="example" title="Allowing horizontal panning only">
+<pre id="example_6" class="example" title="Allowing horizontal panning only">
 &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;
 </pre>
-<pre class="example" title="Child regions that disallow touch behaviors">
+<pre id="example_7" class="example" title="Child regions that disallow touch behaviors">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all touches.
@@ -700,7 +700,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
     &lt;/div&gt;
 &lt;/div&gt;	
 </pre>
-<pre class="example" title="Intermediate parent that disallows touch behaviors">
+<pre id="example_8" class="example" title="Intermediate parent that disallows touch behaviors">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
