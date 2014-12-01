@@ -188,7 +188,7 @@ eventTarget.dispatchEvent(event);
 						<li>A touch contact on the screen is considered active.</li>
 						<li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
 					</ul>
-					<div class="note">In some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. another application).</div>
+					<div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
 				</dd>
 			<dt><dfn>canceled event</dfn></dt>
 				<dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[!DOM-LEVEL-3-EVENTS]] and [[!HTML5]].</dd>
@@ -331,7 +331,7 @@ eventTarget.dispatchEvent(event);
 				<div class="note" id="multiple-primary-pointers">When two or more pointer device types are being used concurrently, multiple pointers (one for each <code>pointerType</code>) are considered primary. For example, a touch contact and a mouse cursor moved simultaneously will produce pointers that are both considered primary.</div>
 				<div class="note">In the case where there are multiple <a href="#the-primary-pointer">primary pointers</a>, 
 these pointers will all produce <a href="#compatibility-mapping-with-mouse-events">compatibility mouse events</a>.</div>
-				<div class="note">In some platforms, the primary pointer is determined using all active pointers on the device, including those not targeted at the user agent (e.g. in another application). This means it is possible for the user agent to fire pointer events in which no pointer is marked as a primary pointer.  For example, if the first touch interaction is targeted outside the user agent and a secondary (multi-touch) touch interaction is targeted inside the user agent, then the user agent may fire pointer events for the second contact with a value of <code>false</code> for <code>isPrimary</code>.</div>
+				<div class="note">On some platforms, the primary pointer is determined using all active pointers on the device, including those not targeted at the user agent (e.g. in another application). This means it is possible for the user agent to fire pointer events in which no pointer is marked as a primary pointer.  For example, if the first touch interaction is targeted outside the user agent and a secondary (multi-touch) touch interaction is targeted inside the user agent, then the user agent may fire pointer events for the second contact with a value of <code>false</code> for <code>isPrimary</code>.</div>
 				
 			</section>
 		</section>
