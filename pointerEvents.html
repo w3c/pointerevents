@@ -762,7 +762,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 </section>
 <section>
 		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
-		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes the algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. </p>
+		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes an algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. </p>
         <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
 		<p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event. </p>
 		<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</section>
