@@ -756,7 +756,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
         <section>
         <h3>Implicit Release of Pointer Capture</h3>
         <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
-        <p>If the <a>pointer capture target override</a> is removed from the document tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a Pointer Event named <code>lostpointercapture</code> at the document.</p>
+        <p>When the <a>pointer capture target override</a> is removed from the document tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a Pointer Event named <code>lostpointercapture</code> at the document.</p>
         </section>
     </section>
 </section>
