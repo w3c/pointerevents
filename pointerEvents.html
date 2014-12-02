@@ -182,7 +182,7 @@ eventTarget.dispatchEvent(event);
 			<dt><dfn>active buttons state</dfn></dt>
 				<dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when the pen has physical contact with the digitizer.</dd> 
 			<dt><dfn>active pointer</dfn></dt>
-				<dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events, then that pointer is still considered active. Examples:
+				<dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
 					<ul>
 						<li>A mouse connected to the device is always active.</li>
 						<li>A touch contact on the screen is considered active.</li>
