@@ -393,7 +393,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			<p>The following table provides a summary of the event types defined in this specification.</p>
 			<table class="parameters">
 				<thead><tr>
-					<th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Trusted proximal event target types</th><th>Event object interface</th><th>Default Action</th></tr>
+					<th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
 				</thead>
 				<tbody>
 					<tr>
@@ -401,8 +401,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseover</code></td>
 					</tr>
 					<tr>
@@ -410,8 +408,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>No</td>
 						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseenter</code></td>
 					</tr>
 					<tr>
@@ -419,9 +415,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
-						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event.
+						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
 							<br>Canceling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>.</td>
 					</tr>
 					<tr>
@@ -429,8 +423,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
 					</tr>
 					<tr>
@@ -438,8 +430,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
 					</tr>
 					<tr>
@@ -447,8 +437,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>None</td>
 					</tr>
 					<tr>
@@ -456,8 +444,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>Yes</td>
 						<td>Yes</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseout</code></td>
 					</tr>
 					<tr>
@@ -465,8 +451,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync</td>
 						<td>No</td>
 						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>Varies:  when the pointer is primary, all default actions of <code>mouseleave</code></td>
 					</tr>
 					<tr>
@@ -474,8 +458,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync/Async</td>
 						<td>Yes</td>
 						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>None</td>
 					</tr>
 					<tr>
@@ -483,8 +465,6 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Sync/Async</td>
 						<td>Yes</td>
 						<td>No</td>
-						<td><code>Document</code>, <code>Element</code></td>
-						<td><code>PointerEvent</code></td>
 						<td>None</td>
 					</tr>
 				</tbody>
