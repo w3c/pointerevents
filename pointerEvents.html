@@ -560,12 +560,12 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			</dd>
 			<dt>void setPointerCapture(long pointerId)</dt>
 			<dd>
-				<p>Sets pointer capture for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its active buttons state for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
+				<p><a href="#setting-pointer-capture">Sets pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its active buttons state for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
 				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 			<dt>void releasePointerCapture(long pointerId)</dt>
 			<dd>
-				<p>Releases pointer capture for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
+				<p><a href="#releasing-pointer-capture">Releases pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
 				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
 			</dd>
 		</dl>
