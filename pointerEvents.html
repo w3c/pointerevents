@@ -725,7 +725,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		<h2>Releasing Pointer Capture</h2>
 		Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:
 		<ol>
-			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
 			<li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
 			<li>If the <a>pointer capture target override</a> for the specified <code>pointerId</code> is not the <code>Element</code> on which this method was invoked, then terminate these steps.</li>
 			<li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
