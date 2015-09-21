@@ -97,9 +97,9 @@
 
     <section id="intro" class="informative">
       <h1>Introduction</h1>
-      <div><p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[!DOM-LEVEL-3-EVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a title="user agent" class="internalDFN">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
+      <div><p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[!DOM-LEVEL-3-EVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
 	  
-	  <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a title="pointer" class="internalDFN">pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
+	  <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
 	  <p> An additional key goal is to enable multi-threaded user agents to handle default touch actions, such as scrolling, without blocking on script execution.</p>
 	  <div class="note">
 		<p>While this specification defines a unified event model for a variety pointer inputs, this model does not cover other forms of input such as keyboards or keyboard-like interfaces (for instance, a screenreader or similar assistive technology running on a touchscreen-only device, which allows users sequential navigation through focusable controls and elements). While user agents might choose to also generate pointer events in response to these interfaces, this scenario is not covered in this specification.</p>
@@ -113,7 +113,7 @@
 	  
 	  <p>The events for handling generic pointer input look a lot like those for mouse: pointerdown, pointermove, pointerup, pointerover, pointerout, etc. This facilitates easy content migration from Mouse Events to Pointer Events.
 		Pointer Events provide all the usual properties present in Mouse Events (client coordinates, target element, button states, etc.) in addition to new properties for other forms of input: pressure, contact geometry, tilt, etc. So authors can easily code to Pointer Events to share logic between different input types where it makes sense, and customize for a particular type of input only where necessary to get the best experience.</p>
-	  <p>While Pointer Events are sourced from a variety of input devices, they are not defined as being generated from some other set of device-specific events. While possible and encouraged for compatibility, this spec does not require other device-specific events be supported (e.g. mouse events, touch events, etc.).  A user agent could support pointer events without supporting any other device events. For compatibility with content written to mouse-specific events, this specification does provide an optional section describing how to generate compatibility mouse events based on pointer input from devices other than a mouse.</p>
+	  <p>While Pointer Events are sourced from a variety of input devices, they are not defined as being generated from some other set of device-specific events. While possible and encouraged for compatibility, this spec does not require other device-specific events be supported (e.g. mouse events, touch events, etc.).  A user agent could support pointer events without supporting any other device events. For compatibility with content written to mouse-specific events, this specification does provide an optional section describing how to generate <a>compatibility mouse events</a> based on pointer input from devices other than a mouse.</p>
 	  <div class="note informative">
 	  This specification does not provide any advice on the expected behavior of user agents that support both Pointer Events and <a href="http://www.w3.org/TR/touch-events/">Touch Events</a>. For more information on the relationship between these two specifications, see the <a href="http://www.w3.org/community/touchevents/">Touch Events Community Group</a>.
 	  </div>
@@ -238,21 +238,21 @@ eventTarget.dispatchEvent(event);
 			<dl class="idl" title="[Constructor(DOMString type, optional PointerEventInit eventInitDict)] interface PointerEvent : MouseEvent" data-merge="PointerEventInit">
 				<dt>readonly attribute long pointerId</dt>
 				<dd>
-					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a title="active pointer" class="internalDFN">active pointers</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
+					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
 					
 					<section class="note">The <code>pointerId</code> selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, values are not guaranteed to be monotonically increasing.</section>
 				</dd>
 				<dt>readonly attribute double width</dt>
 				<dd>
-					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a>user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
 				<dt>readonly attribute double height</dt>
 				<dd>
-					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a title="contact geometry" class="internalDFN">contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a title="user agent" class="internalDFN">user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a>user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
-					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 0.5 when in the <a title="active buttons" class="internalDFN" href="#dfn-active-buttons-state">active buttons state</a> and 0 otherwise.
+					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure, including but not limited to mouse, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.
 				</dd>
 				<dt>readonly attribute long tiltX</dt>
 				<dd>
@@ -285,12 +285,12 @@ eventTarget.dispatchEvent(event);
 					</table>
 					<p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
 					<section class="note">
-                    See <a href="#example_2" class="internalDFN" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.
+                    See <a href="#example_2" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.
                     </section>
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
-					Indicates if the pointer represents the <a title="primary pointer" class="internalDFN">primary pointer</a> of this pointer type.
+					Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.
 				</dd>
 			</dl>
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
@@ -311,14 +311,14 @@ eventTarget.dispatchEvent(event);
 				<dt>boolean isPrimary = false</dt>
 					<dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
 			</dl>
-			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" class="internalDFN" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</div>
+			<div> The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</div>
 			<div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[DOM-LEVEL-3-EVENTS]] and extended by [[CSSOM-VIEW]].</div>
 	    </div>
 	    <section>
 			<h2>Button States</h2>
 			<section>
-				<h3><dfn title="chorded buttons">Chorded Button Interactions</dfn></h3>
-				<div><p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[!DOM-LEVEL-3-EVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a title="chorded buttons" class="internalDFN">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p> 
+				<h3><dfn>Chorded Button Interactions</dfn></h3>
+				<div><p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[!DOM-LEVEL-3-EVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a data-lt="Chorded Button Interactions">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p> 
 <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the [[!DOM-LEVEL-3-EVENTS]] <code>MouseEvent</code> interface. In order to facilitate differentiating button state transitions in any pointer event (and not just <code>pointerdown</code> and <code>pointerup</code>), the <code>button</code> property takes on a new value when no mouse buttons are depressed:</p>
 				<table class="simple">
 					<thead><tr><th>Device Button State</th><th><code>button</code></th><th><code>buttons</code></th></tr></thead>
@@ -337,8 +337,8 @@ eventTarget.dispatchEvent(event);
 			</section>
 		</section>
 		<section>
-			<h2><dfn title="primary pointer">The Primary Pointer</dfn></h2>
-			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each pointer type.  Only a primary pointer will produce <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers (however, see the note below on <a href="#multiple-primary-pointers">multiple primary pointers</a>).
+			<h2><dfn>The Primary Pointer</dfn></h2>
+			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each pointer type.  Only a primary pointer will produce <a>compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers (however, see the note below on <a href="#multiple-primary-pointers">multiple primary pointers</a>).
 			<section>
 				<h3>Determining the primary pointer</h3>
 				<div>When firing a pointer event, a pointer is considered primary if:
@@ -354,7 +354,7 @@ eventTarget.dispatchEvent(event);
 				</dl>
 				<div class="note" id="multiple-primary-pointers">When two or more pointer device types are being used concurrently, multiple pointers (one for each <code>pointerType</code>) are considered primary. For example, a touch contact and a mouse cursor moved simultaneously will produce pointers that are both considered primary.</div>
 				<div class="note">In the case where there are multiple <a href="#the-primary-pointer">primary pointers</a>, 
-these pointers will all produce <a href="#compatibility-mapping-with-mouse-events">compatibility mouse events</a>.</div>
+these pointers will all produce <a>compatibility mouse events</a>.</div>
 				<div class="note">On some platforms, the primary pointer is determined using all active pointers on the device, including those not targeted at the user agent (e.g. in another application). This means it is possible for the user agent to fire pointer events in which no pointer is marked as a primary pointer.  For example, if the first touch interaction is targeted outside the user agent and a secondary (multi-touch) touch interaction is targeted inside the user agent, then the user agent may fire pointer events for the second contact with a value of <code>false</code> for <code>isPrimary</code>.</div>
 				
 			</section>
@@ -440,7 +440,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 						<td>Yes</td>
 						<td>Yes</td>
 						<td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
-							<br>Canceling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a>.</td>
+							<br>Canceling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a>compatibility mouse events</a>.</td>
 					</tr>
 					<tr>
 						<td><code>pointermove</code></td>
@@ -493,38 +493,38 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 					</tr>
 				</tbody>
 			</table>
-		<p>In the case of the <a href="#the-primary-pointer">primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire compatibility mouse events.</p>
+		<p>In the case of the <a href="#the-primary-pointer">primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
 		</section>
 		<section>
-			<h3><dfn title="pointerover">The <code>pointerover</code> event</dfn></h3>
+			<h3><dfn>The <code>pointerover</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</div>
 		</section>
 		<section>
-			<h3><dfn title="pointerenter">The <code>pointerenter</code> event</dfn></h3>
+			<h3><dfn>The <code>pointerenter</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</div>
 			<div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
 		</section>
 		<section>
-			<h3><dfn title="pointerdown">The <code>pointerdown</code> event</dfn></h3>
-			<div><p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a title="active buttons state" class="internalDFN">active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
-            <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
+			<h3><dfn>The <code>pointerdown</code> event</dfn></h3>
+			<div><p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
+            <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions">chorded buttons</a> for more information.</div>
 			<p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> followed by a pointer event named <code>pointerenter</code> prior to dispatching the <code>pointerdown</code> event.</p>
-			<div class="note">Authors can prevent the firing of certain <a title="compatibility mouse events" class="internalDFN">compatibility mouse events</a> by canceling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). This sets the PREVENT MOUSE EVENT FLAG on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
+			<div class="note">Authors can prevent the firing of certain <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a> by canceling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). This sets the PREVENT MOUSE EVENT FLAG on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
 			</div>
 		</section>
 		<section>
-			<h3><dfn title="pointermove">The <code>pointermove</code> event</dfn></h3>
+			<h3><dfn>The <code>pointermove</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates. Additionally, when a pointer changes button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification then a user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code>.</div>
 		</section>
 		<section>
-			<h3><dfn title="pointerup">The <code>pointerup</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a title="active buttons state" class="internalDFN">active buttons</a> state. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a title="digitizer" class="internalDFN">digitizer</a>. For pen, this is when the pen is removed from physical contact with the digitizer.
+			<h3><dfn>The <code>pointerup</code> event</dfn></h3>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from physical contact with the digitizer.
 			<p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> followed by a pointer event named <code>pointerleave</code> after dispatching the <code>pointerup</code> event.</p>
 			</div>
-			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions" class="internalDFN">chorded buttons</a> for more information.</div>
+			<div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions">chorded buttons</a> for more information.</div>
 		</section>
 		<section>
-			<h3><dfn title="pointercancel">The <code>pointercancel</code> event</dfn></h3>
+			<h3><dfn>The <code>pointercancel</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointercancel</code> in the following circumstances:
 				<ul>
 					<li>The user agent has determined that a pointer is unlikely to continue to produce events (for example, because of a hardware event).</li>
@@ -544,7 +544,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			</div>
 		</section>
 		<section>
-			<h3><dfn title="pointerout">The <code>pointerout</code> event</dfn></h3>
+			<h3><dfn>The <code>pointerout</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> when any of the following occurs:
 				<ul>
 					<li>A pointing device is moved out of the hit test boundaries of an element.</li>
@@ -555,16 +555,16 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			</div>
 		</section>
 		<section>
-			<h3><dfn title="pointerleave">The <code>pointerleave</code> event</dfn></h3>
+			<h3><dfn>The <code>pointerleave</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code> and <code><a href="#the-pointercancel-event">pointercancel</a></code>). User agents MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pen stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</div>
 			<div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
 		</section>
 		<section>
-			<h3><dfn title="gotpointercapture">The <code>gotpointercapture</code> event</dfn></h3>
+			<h3><dfn>The <code>gotpointercapture</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>gotpointercapture</code> when an element receives pointer capture. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See the <a href="#setting-pointer-capture">Setting Pointer Capture</a> and <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> sections.</div>
 		</section>
 		<section>
-			<h3><dfn title="lostpointercapture">The <code>lostpointercapture</code> event</dfn></h3>
+			<h3><dfn>The <code>lostpointercapture</code> event</dfn></h3>
 			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer</a> event named <code>lostpointercapture</code> after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a href="#releasing-pointer-capture">Releasing Pointer Capture</a>, <a href="#implicit-release-of-pointer-capture">Implicit Release of Pointer Capture</a>, and <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> sections.</div>
 		</section>
    </section>
@@ -584,13 +584,13 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 			</dd>
 			<dt>void setPointerCapture(long pointerId)</dt>
 			<dd>
-				<p><a href="#setting-pointer-capture">Sets pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its active buttons state for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
-				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
+				<p><a href="#setting-pointer-capture">Sets pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
 			</dd>
 			<dt>void releasePointerCapture(long pointerId)</dt>
 			<dd>
-				<p><a href="#releasing-pointer-capture">Releases pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>.</p>
-				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture" class="internalDFN">Pointer Capture</a>.</div>
+				<p><a href="#releasing-pointer-capture">Releases pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+				<div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
 			</dd>
 		</dl>
 </section>
@@ -731,10 +731,10 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 	</section>
 </section>
 <section>
-<h1><dfn title="Pointer Capture">Pointer Capture</dfn></h1>
+<h1><dfn>Pointer Capture</dfn></h1>
 	<div class="informative">
 	<p>
-	Pointer capture allows the events for a particular pointer (including any compatibility mouse events) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
+	Pointer capture allows the events for a particular pointer (including any <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a>) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
 	<figure>
 		<img src="slider.png" alt="Custom Volume Slider">
 		<figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
@@ -745,9 +745,9 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		<h2>Setting Pointer Capture</h2>
 		Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:
 		<ol>
-			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
             <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
-			<li>If the pointer is not in the <a title="active buttons state" class="internalDFN">active buttons</a> state, then terminate these steps.</li>
+			<li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
 			<li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
 		</ol>
 		<div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
@@ -758,7 +758,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 		<h2>Releasing Pointer Capture</h2>
 		Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:
 		<ol>
-			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a title="active pointer" class="internalDFN">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+			<li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
 			<li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
 			<li>If the <a>pointer capture target override</a> for the specified <code>pointerId</code> is not the <code>Element</code> on which this method was invoked, then terminate these steps.</li>
 			<li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
@@ -775,14 +775,14 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
     </section>
 </section>
 <section>
-		<h1><dfn title="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
+		<h1><dfn lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
 		<div><p>The vast majority of web content existing today codes only to Mouse Events. The following describes an algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content. </p>
         <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
 		<p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event. </p>
 		<section class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</section>
 		<p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
 		<section class="note">
-			<p>The <code>click</code> event, defined in [[DOM-LEVEL-3-EVENTS]], and the <code>contextmenu</code> event, defined in [[HTML5]], are not considered <a title="compatibility mouse events" class="internalDFN" href="#dfn-compatibility-mouse-events">compatibility mouse events</a> as they are typically tied to user interface activation and are fired from other input devices, like keyboards.</p>
+			<p>The <code>click</code> event, defined in [[DOM-LEVEL-3-EVENTS]], and the <code>contextmenu</code> event, defined in [[HTML5]], are not considered <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a> as they are typically tied to user interface activation and are fired from other input devices, like keyboards.</p>
 			<p>In user agents that support firing <code>click</code> and/or <code>contextmenu</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> and/or <code>contextmenu</code> are fired or not.  Because they are not compatibility mouse events, user agents typically fire <code>click</code> and <code>contextmenu</code> for all pointing devices, including pointers that are not primary pointers.</p>
 			<p>The relative ordering of these high-level events (<code>click</code>, <code>contextmenu</code>, <code>focus</code>, <code>blur</code>, etc.) with pointer events is undefined and varies between user agents. For example, in some user agents <code>contextmenu</code> will often follow a <code>pointerup</code>, in others it'll often precede a <code>pointerup</code> or <code>pointercancel</code>, and in some situations it may be fired without any corresponding pointer event (such as a keyboard shortcut).</p>
 		</section>
@@ -793,7 +793,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>Dispatch the pointer event.</li>
-					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="canceled event" class="internalDFN">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
+					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the pointer event dispatched was: 
 						<ul>
 							<li><code>pointerover</code>, then fire a <code>mouseover</code> event.</li>
@@ -828,7 +828,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
 					<li>Dispatch the pointer event.</li>
-					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a title="canceled event" class="internalDFN">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
+					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the pointer event dispatched was: 
 						<ul>
 							<li><code>pointerover</code>, then fire a <code>mouseover</code> event.</li>
@@ -867,7 +867,7 @@ these pointers will all produce <a href="#compatibility-mapping-with-mouse-event
 				<li><code>pointerleave</code></li>
 				<li><code>mouseleave</code></li>
 			</ol>
-			<p>If, however, the <code>pointerdown</code> event is canceled during this interaction then the sequence of events would be:
+			<p>If, however, the <code>pointerdown</code> event is <a data-lt="canceled event">canceled</a> during this interaction then the sequence of events would be:
 			<ol data-class="note-list">
 				<li><code>mousemove</code></li>
 				<li><code>pointerover</code></li>
