@@ -106,7 +106,7 @@
 		  
 		<p>In the first instance, authors are encouraged to provide equivalent functionality for all forms of input by responding to high-level events such as <code>focus</code>, <code>blur</code> and <code>click</code>. However, when using low-level events (such as Pointer Events), authors are encouraged to ensure that all types of input are supported. In the case of keyboards and keyboard-like interfaces, this might require the addition of explicit keyboard event handling. See <a href="http://www.w3.org/TR/WCAG20/#keyboard-operation">WCAG 2.0 Guideline 2.1</a> for further details.</p>
 	  </div>
-	<figure>
+	<figure id="figurue_martini_glass">
 		<img src="pointer.png" alt="Pointer input combines input from mouse, pen, touch, etc.">
 		<figcaption>A pointer is a hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen.</figcaption>
 	  </figure>
@@ -257,7 +257,7 @@ eventTarget.dispatchEvent(event);
 				<dt>readonly attribute long tiltX</dt>
 				<dd>
 					<p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
-					<figure>
+					<figure id="figure_tiltX">
 						<img src="tiltX_600px.png" alt="tiltX explanation diagram">
 						<figcaption>Positive <code>tiltX</code>.</figcaption>
 					</figure>
@@ -265,7 +265,7 @@ eventTarget.dispatchEvent(event);
 				<dt>readonly attribute long tiltY</dt>
 				<dd>
 					The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.
-					<figure>
+					<figure id="figure_tiltY">
 						<img src="tiltY_600px.png" alt="tiltY explanation diagram">
 						<figcaption>Negative <code>tiltY</code>.</figcaption>
 					</figure>
@@ -736,7 +736,7 @@ these pointers will all produce <a>compatibility mouse events</a>.</div>
 	<div class="informative">
 	<p>
 	Pointer capture allows the events for a particular pointer (including any <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a>) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
-	<figure>
+	<figure id="figure_slider">
 		<img src="slider.png" alt="Custom Volume Slider">
 		<figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
 	</figure>
