@@ -319,26 +319,46 @@ eventTarget.dispatchEvent(event);
 			<section>
 				<h3><dfn>Chorded Button Interactions</dfn></h3>
 				<div><p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[!DOM-LEVEL-3-EVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a data-lt="Chorded Button Interactions">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p> 
-<p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the [[!DOM-LEVEL-3-EVENTS]] <code>MouseEvent</code> interface. In order to facilitate differentiating button state transitions in any pointer event (and not just <code>pointerdown</code> and <code>pointerup</code>), the <code>button</code> property takes on a new value when no mouse buttons are depressed:</p>
+<p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the [[!DOM-LEVEL-3-EVENTS]] <code>MouseEvent</code> interface, but with a change in semantics and values, as outlined in the following sections.</p></div>
+				<section class="note">The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> should follow [[!DOM-LEVEL-3-EVENTS]].</section>
+			</section>
+			<section>
+				<h3>The <code>button</code> property</h3>
+				<div><p>To identify button state transitions in any pointer event (and not just <code>pointerdown</code> and <code>pointerup</code>), the <code>button</code> property indicates the device button whose state-change fired the event.</p></div>
 				<table class="simple">
-					<thead><tr><th>Device Button State</th><th><code>button</code></th><th><code>buttons</code></th></tr></thead>
+					<thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
 					<tbody>
-						<tr><td><b>Mouse move with no buttons pressed</b></td><td>-1</td><td>0</td></tr>
-						<tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>0</td><td>1</td></tr>
-						<tr><td>Middle Mouse</td><td>1</td><td>4</td></tr>
-						<tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td><td>2</td></tr>
-						<tr><td>X1 (back) Mouse</td><td>3</td><td>8</td></tr>
-						<tr><td>X2 (forward) Mouse</td><td>4</td><td>16</td></tr>
-						<tr><td>Pen contact with eraser button pressed</td><td>5</td><td>32</td></tr>
+						<tr><td>Neither buttons nor touch/pen contact changed since last event</td><td>-1</td></tr>
+						<tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>0</td></tr>
+						<tr><td>Middle Mouse</td><td>1</td></tr>
+						<tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+						<tr><td>X1 (back) Mouse</td><td>3</td></tr>
+						<tr><td>X2 (forward) Mouse</td><td>4</td></tr>
+						<tr><td>Pen contact with eraser button pressed</td><td>5</td></tr>
 					</tbody>
 				</table>
-				<section class="note">These values only apply when firing pointer events. This specification does not alter the values of <code>button</code> or <code>buttons</code> used when firing mouse events. See [[DOM-LEVEL-3-EVENTS]] for the values when firing mouse events.</section>
-				</div>
+				<section class="note">During a mouse drag, the value of the <code>button</code> property in a <code>pointermove</code> event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the <code>pontermove</code> events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</section>
+			</section>
+			<section>
+				<h3>The <code>buttons</code> property</h3>
+				<div><p>The <code>buttons</code> property gives the current state of the device buttons (same as in <code>MouseEvent</code>, but with an expanded set of possible values).</p></div>
+				<table class="simple">
+					<thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
+					<tbody>
+						<tr><td><b>Mouse move with no buttons pressed</b></td><td>0</td></tr>
+						<tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>1</td></tr>
+						<tr><td>Middle Mouse</td><td>4</td></tr>
+						<tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+						<tr><td>X1 (back) Mouse</td><td>8</td></tr>
+						<tr><td>X2 (forward) Mouse</td><td>16</td></tr>
+						<tr><td>Pen contact with eraser button pressed</td><td>32</td></tr>
+					</tbody>
+				</table>
 			</section>
 		</section>
 		<section>
 			<h2><dfn>The Primary Pointer</dfn></h2>
-			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each pointer type.  Only a primary pointer will produce <a>compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers (however, see the note below on <a href="#multiple-primary-pointers">multiple primary pointers</a>).
+			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of active pointers for each pointer type.  Only a primary pointer will produce <a>compatibility mouse events</a>. Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers (however, see the note below on <a href="#multiple-primary-pointers">multiple primary pointers</a>).</p></div>
 			<section>
 				<h3>Determining the primary pointer</h3>
 				<div>When firing a pointer event, a pointer is considered primary if:
@@ -364,7 +384,7 @@ these pointers will all produce <a>compatibility mouse events</a>.</div>
 		<h2>Pointer Event Types</h2>
 		<section>
 			<h3>Firing events using the <code>PointerEvent</code> interface</h3>
-			To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
+			<div><p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p></div>
 			
 			<p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is
 				<ul>
