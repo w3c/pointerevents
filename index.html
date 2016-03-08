@@ -252,7 +252,7 @@ eventTarget.dispatchEvent(event);
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
-					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively.  For hardware that does not support pressure (such as most traditional mouse and trackpad inputs), the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.
+					The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware that does not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.
 				</dd>
 				<dt>readonly attribute long tiltX</dt>
 				<dd>
