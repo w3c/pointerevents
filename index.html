@@ -701,6 +701,8 @@ these pointers will all produce <a>compatibility mouse events</a>.</div>
         <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
         <li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
       </ul>
+
+      <section class="note">Once a touch action has been started, and the user agent has already determined whether or not the action should be handled as a user agent touch behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the touch action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default touch behavior for that touch for as long as that pointer is active.</section>
 			
 			<p>Values have the following meanings:</p>
 			<dl>
