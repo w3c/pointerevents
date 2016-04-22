@@ -364,15 +364,17 @@ eventTarget.dispatchEvent(event);
 				<h3>Determining the primary pointer</h3>
 				<div>When firing a pointer event, a pointer is considered primary if:
 					<ul>
-						<li>The pointer represents a mouse device.</li>
+						<li>The pointer represents a primary mouse input.</li>
 						<li>The pointer represents a primary touch input.</li>
 						<li>The pointer represents a primary pen input.</li>
 					</ul>
 				</div>
 				<dl>
+					<dt>primary mouse input</dt><dd>A pointer representing mouse input is considered the <i>primary mouse input</i> if it dispatched any pointer events (such as <code>pointerdown</code> or <code>pointermove</code>) when no other active pointers representing a mouse input existed. However, see the note about <a href="#multiple-mouse-inputs">multiple mouse inputs</a>.</dd>
 					<dt>primary touch input</dt><dd>A pointer representing touch input is considered the <i>primary touch input</i> if its <code>pointerdown</code> event was dispatched when no other active pointers representing touch input existed.</dd>
 					<dt>primary pen input</dt><dd>A pointer representing pen input is considered the <i>primary pen input</i> if its <code>pointerdown</code> event was dispatched when no other active pointers representing pen input existed.</dd>
 				</dl>
+				<div class="note" id="multiple-mouse-inputs">Current operating systems and user agents don't usually have a concept of multiple mouse inputs. When more than one mouse device is present (for instance, on a laptop with both a trackpad and an external mouse), all mouse devices are generally treated as a single device - movements on any of the devices are translated to movement of a single mouse pointer, and there is no distinction between button presses on different mouse devices. For this reason, there will usually only be a single mouse pointer, and that pointer will be primary.</div>
 				<div class="note" id="multiple-primary-pointers">When two or more pointer device types are being used concurrently, multiple pointers (one for each <code>pointerType</code>) are considered primary. For example, a touch contact and a mouse cursor moved simultaneously will produce pointers that are both considered primary.</div>
 				<div class="note">In the case where there are multiple <a href="#the-primary-pointer">primary pointers</a>, 
 these pointers will all produce <a>compatibility mouse events</a>.</div>
