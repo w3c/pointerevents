@@ -213,7 +213,7 @@ eventTarget.dispatchEvent(event);
 						<li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
 					</ul>
 					<div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
-					<div class="note">Each active pointer should have the same id in the scope of at least the <a href="https://www.w3.org/TR/html51/browsers.html#top-level-browsing-context">top-level browsing context</a>.</div>
+					<div class="note">Each active pointer should have the same id in the scope of at least the <a href="https://www.w3.org/TR/html51/browsers.html#top-level-browsing-context">top-level browsing context</a> (as defined by [[!HTML5]]).</div>
 				</dd>
 			<dt><dfn>canceled event</dfn></dt>
 				<dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[!DOM-LEVEL-3-EVENTS]] and [[!HTML5]].</dd>
@@ -239,7 +239,7 @@ eventTarget.dispatchEvent(event);
 			<dl class="idl" title="[Constructor(DOMString type, optional PointerEventInit eventInitDict)] interface PointerEvent : MouseEvent" data-merge="PointerEventInit">
 				<dt>readonly attribute long pointerId</dt>
 				<dd>
-					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> in the <a href="https://www.w3.org/TR/html51/browsers.html#top-level-browsing-context">top-level browsing context</a> at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
+					<p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> in the <a href="https://www.w3.org/TR/html5/browsers.html#top-level-browsing-context">top-level browsing context</a> (as defined by [[!HTML5]]) at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
 					
 					<section class="note">The <code>pointerId</code> selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, values are not guaranteed to be monotonically increasing.</section>
 				</dd>
