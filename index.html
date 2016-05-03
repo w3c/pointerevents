@@ -290,7 +290,7 @@ eventTarget.dispatchEvent(event);
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
-					Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.
+					Indicates if the pointer represents the <a data-lt="The Primary Pointer">primary pointer</a> of this pointer type.
 				</dd>
 			</dl>
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
@@ -507,7 +507,7 @@ eventTarget.dispatchEvent(event);
 					</tr>
 				</tbody>
 			</table>
-		<p>In the case of the <a href="#the-primary-pointer">primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
+		<p>In the case of the <a data-lt="The Primary Pointer">primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
 		</section>
 		<section>
 			<h3><dfn>The <code>pointerover</code> event</dfn></h3>
@@ -808,15 +808,15 @@ eventTarget.dispatchEvent(event);
 		</section>
 		</div>
 		<section>
-			<h2 id="tracking-legacy-mouse-pos">Tracking the effective position of the legacy mouse pointer</h2>
+			<h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
 			<div>
-			<p>While only <a href="#the-primary-pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own stream of compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[!DOM-LEVEL-3-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn id="dfn-legacy-mouse-pos">effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
-			<p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, the user agent MAY run the following steps:</p>
+			<p>While only the <a data-lt="The Primary Pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[!DOM-LEVEL-3-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
+			<p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, the user agent SHOULD run the following steps:</p>
 			<ol>
 				<li>Let <code>T</code> be the target of the pointer event being dispatched.</li>
-				<li>If <code>T</code> is equal to current <a href="#dfn-legacy-mouse-pos" class="internalDFN">effective legacy mouse pointer position</a>, terminate these steps.</li>
-				<li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[!DOM-LEVEL-3-EVENTS]] for a mouse moving from the current <a href="#dfn-legacy-mouse-pos" class="internalDFN">effective legacy mouse pointer position</a> to <code>T</code>.</li>
-				<li>Set <a href="#dfn-legacy-mouse-pos" class="internalDFN">effective legacy mouse pointer position</a> to <code>T</code>.</li>
+				<li>If <code>T</code> is equal to current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a>, terminate these steps.</li>
+				<li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[!DOM-LEVEL-3-EVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>.</li>
+				<li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>.</li>
 				</ol>
 			</div>
 		</section>
@@ -825,7 +825,7 @@ eventTarget.dispatchEvent(event);
 			<div>Whenever a user agent is to dispatch a pointer event for a device that supports hover, it MAY run the following steps:
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
-					<li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a href="#tracking-legacy-mouse-pos">Tracking the effective position of the legacy mouse pointer</a>.</li>
+					<li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
 					<li>Dispatch the pointer event.</li>
 					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
@@ -853,7 +853,7 @@ eventTarget.dispatchEvent(event);
 				<ol>
 					<li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
 					<li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
-					<li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a href="#tracking-legacy-mouse-pos">Tracking the effective position of the legacy mouse pointer</a>.</li>
+					<li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
 					<li>Dispatch the pointer event.</li>
 					<li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
 					<li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
