@@ -92,10 +92,6 @@
       The features in this specification extend or modify those found in [[PointerEvents]], a W3C Recomendation that describes events and related interfaces for handling hardware agnostic pointer input from devices including a mouse, pen, touchscreen, etc. For compatibility with existing mouse based content, this specification also describes a mapping to fire [[DOM-LEVEL-3-EVENTS]] Mouse Events for other pointer device types. 
     </section>
 
-    <section id="sotd">
-        <div><span style="color:red">This document is currently an editor's draft.</span> Current bugs and issues are managed in <a href="https://github.com/w3c/pointerevents/issues">GitHub</a>. Action items to be completed are tracked in <a href="https://www.w3.org/2012/pointerevents/track/">Tracker</a>.</div>
-    </section>
-
     <section id="intro" class="informative">
       <h1>Introduction</h1>
       <div><p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[!DOM-LEVEL-3-EVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
