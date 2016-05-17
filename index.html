@@ -811,13 +811,13 @@ eventTarget.dispatchEvent(event);
 			<h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
 			<div>
 			<p>While only the <a data-lt="Primary Pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[!DOM-LEVEL-3-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
-			<p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, the user agent SHOULD run the following steps:</p>
+			<p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
 			<ol>
-				<li>Let <code>T</code> be the target of the pointer event being dispatched.</li>
-				<li>If <code>T</code> is equal to current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a>, terminate these steps.</li>
-				<li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[!DOM-LEVEL-3-EVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>.</li>
+				<li>Let <code>T</code> be the target of the <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event being dispatched. For the <code>pointerleave</code> event, unset <code>T</code>.</li>
+				<li>If <code>T</code> and current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> are both unset or they are uqual, terminate these steps.</li>
+				<li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[!DOM-LEVEL-3-EVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>. Consider an unset value of either current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> or <code>T</code> as an out-of-window mouse position.</li>
 				<li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>.</li>
-				</ol>
+			</ol>
 			</div>
 		</section>
 		<section>
@@ -833,7 +833,7 @@ eventTarget.dispatchEvent(event);
 							<li><code>pointerdown</code>, then fire a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then fire a <code>mousemove</code> event.</li>
 							<li><code>pointerup</code>, then fire a <code>mouseup</code> event.</li>
-							<li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <b><code>window</code>.</b></li>
+							<li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
 						</ul>
 					</li>
 					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
@@ -861,7 +861,7 @@ eventTarget.dispatchEvent(event);
 							<li><code>pointerdown</code>, then fire a <code>mousedown</code> event.</li>
 							<li><code>pointermove</code>, then fire a <code>mousemove</code> event.</li>
 							<li><code>pointerup</code>, then fire a <code>mouseup</code> event.</li>
-							<li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <code>window</code>.</b></li>
+							<li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
 						</ul>
 					</li>
 					<li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
