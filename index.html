@@ -290,7 +290,7 @@ eventTarget.dispatchEvent(event);
 				</dd>
 				<dt>readonly attribute boolean isPrimary</dt>
 				<dd>
-					Indicates if the pointer represents the <a data-lt="The Primary Pointer">primary pointer</a> of this pointer type.
+					Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.
 				</dd>
 			</dl>
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
@@ -357,7 +357,7 @@ eventTarget.dispatchEvent(event);
 			</section>
 		</section>
 		<section>
-			<h2><dfn>The Primary Pointer</dfn></h2>
+			<h2>The <dfn>Primary Pointer</dfn></h2>
 			<div><p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p></div>
 			<ul>
 				<li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
@@ -507,7 +507,7 @@ eventTarget.dispatchEvent(event);
 					</tr>
 				</tbody>
 			</table>
-		<p>In the case of the <a data-lt="The Primary Pointer">primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
+		<p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
 		</section>
 		<section>
 			<h3><dfn>The <code>pointerover</code> event</dfn></h3>
@@ -810,7 +810,7 @@ eventTarget.dispatchEvent(event);
 		<section>
 			<h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
 			<div>
-			<p>While only the <a data-lt="The Primary Pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[!DOM-LEVEL-3-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
+			<p>While only the <a data-lt="Primary Pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[!DOM-LEVEL-3-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
 			<p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, the user agent SHOULD run the following steps:</p>
 			<ol>
 				<li>Let <code>T</code> be the target of the pointer event being dispatched.</li>
