@@ -362,7 +362,7 @@ eventTarget.dispatchEvent(event);
 			<ul>
 				<li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
 				<li>The first pointer to become active for a particular pointer type (e.g. the first finger to touch the screen in a multi-touch interaction) becomes the primary pointer for that pointer type.</li>
-				<li>Only a primary pointer will produce <a>compatibility mouse events</a>. In the case where there are multiple <a href="#the-primary-pointer">primary pointers</a>, these pointers will all produce <a>compatibility mouse events</a>.</li>
+				<li>Only a primary pointer will produce <a>compatibility mouse events</a>. In the case where there are multiple <a data-lt="Primary Pointer">primary pointers</a>, these pointers will all produce <a>compatibility mouse events</a>.</li>
 			</ul>
 			<div class="note">Authors who desire single-pointer interaction can achieve this by ignoring non-primary pointers (however, see the note below on <a href="#multiple-primary-pointers">multiple primary pointers</a>).</p></div>
 			<div class="note" id="multiple-primary-pointers">When two or more pointer device types are being used concurrently, multiple pointers (one for each <code>pointerType</code>) are considered primary. For example, a touch contact and a mouse cursor moved simultaneously will produce pointers that are both considered primary.</div>
