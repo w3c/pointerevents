@@ -244,11 +244,11 @@ eventTarget.dispatchEvent(event);
 				</dd>
 				<dt>readonly attribute double width</dt>
 				<dd>
-					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a>user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.
 				</dd>
 				<dt>readonly attribute double height</dt>
 				<dd>
-					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For devices which have a contact geometry but the actual geometry is not reported by the hardware, a default value SHOULD be provided by the <a>user agent</a> to approximate the geometry typical of that pointer type. Otherwise, the value MUST be 0.
+					The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.
 				</dd>
 				<dt>readonly attribute float pressure</dt>
 				<dd>
@@ -296,9 +296,9 @@ eventTarget.dispatchEvent(event);
 			<dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
 				<dt>long pointerId = 0</dt>
 					<dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>double width = 0</dt>
+				<dt>double width = 1</dt>
 					<dd>Initializes the <code>width</code> property of the <code>PointerEvent</code> object.</dd>
-				<dt>double height = 0</dt>
+				<dt>double height = 1</dt>
 					<dd>Initializes the <code>height</code> property of the <code>PointerEvent</code> object.</dd>
 				<dt>float pressure = 0</dt>
 					<dd>Initializes the <code>pressure</code> property of the <code>PointerEvent</code> object.</dd>
