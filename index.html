@@ -94,6 +94,10 @@
       The features in this specification extend or modify those found in [[PointerEvents]], a W3C Recomendation that describes events and related interfaces for handling hardware agnostic pointer input from devices including a mouse, pen, touchscreen, etc. For compatibility with existing mouse based content, this specification also describes a mapping to fire [[DOM-LEVEL-3-EVENTS]] Mouse Events for other pointer device types. 
     </section>
 
+    <section id="sotd">
+      <p>This specification is an update to Pointer Events Level 1 which was shipped broadly only by Microsoft Internet Explorer and Microsoft Edge (though two further independent and mostly interoperable implementations were present in pre-release builds of Mozilla Firefox and Google Chrome when the Pointer Events specification was published as a W3C Recommendation). Level 2 includes editorial clarifications, new features and minor breaking changes that address certain limitations and concerns that have been raised about aspects of the design, in an effort to enable wider browser adoption.</p>
+    </section>
+
     <section id="intro" class="informative">
       <h1>Introduction</h1>
       <div><p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[!DOM-LEVEL-3-EVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
