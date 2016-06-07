@@ -274,6 +274,10 @@ eventTarget.dispatchEvent(event);
 						<figcaption>Negative <code>tiltY</code>.</figcaption>
 					</figure>
 				</dd>
+        <dt>readonly attribute long twist</dt>
+        <dd>
+          The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For devices that do not report twist, the value MUST be 0.
+        </dd>
 				<dt>readonly attribute DOMString pointerType</dt>
 				<dd>
 					<p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> for a mouse, pen stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
@@ -310,6 +314,8 @@ eventTarget.dispatchEvent(event);
 					<dd>Initializes the <code>tiltX</code> property of the <code>PointerEvent</code> object.</dd>
 				<dt>long tiltY = 0</dt>
 					<dd>Initializes the <code>tiltY</code> property of the <code>PointerEvent</code> object.</dd>
+        <dt>long twist = 0</dt>
+          <dd>Initializes the <code>twist</code> property of the <code>PointerEvent</code> object.</dd>
 				<dt>DOMString pointerType = ""</dt>
 					<dd>Initializes the <code>pointerType</code> property of the <code>PointerEvent</code> object.</dd>
 				<dt>boolean isPrimary = false</dt>
@@ -532,7 +538,7 @@ eventTarget.dispatchEvent(event);
 		</section>
 		<section>
 			<h3><dfn>The <code>pointermove</code> event</dfn></h3>
-			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates. Additionally, when a pointer changes button state, pressure, tilt, or contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification then a user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code>.</div>
+			<div>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes coordinates. Additionally, when a pointer changes button state, pressure, tilt, twist, or contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification then a user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code>.</div>
 		</section>
 		<section>
 			<h3><dfn>The <code>pointerup</code> event</dfn></h3>
