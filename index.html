@@ -422,15 +422,13 @@ eventTarget.dispatchEvent(event);
             <h4>Process Pending Pointer Capture</h4>
             <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
             <ol>
-                <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
-                    <ul>
-                        <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
-                    </ul>
-                </li>
-                <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
-                    <ul>
-                        <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
-                    </ul>
+                <li>If the <a>pointer capture target override</a> for this pointer is not equal to the <a>pending pointer capture target override</a> for this pointer:
+                    <ol>
+                        <li>If the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
+                        <li>If the <a>pointer capture target override</a> is set, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
+                        <li>If the <a>pending pointer capture target override</a> is set, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>.</li>
+                        <li>If the <a>pointer capture target override</a> is not set or is equal to the hit test node for the pointer event which invoked this process, and the hit test node has not received <code>pointerover</code> and <code>pointerenter</code> events yet, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
+                    </ol>
                 </li>
                 <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
             </ol>
