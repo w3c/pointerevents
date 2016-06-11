@@ -388,142 +388,145 @@ eventTarget.dispatchEvent(event);
                 <div class="note">In some cases, it is possible for the user agent to fire pointer events in which no pointer is marked as a primary pointer. For instance, when there are multiple active pointers of a particular type like multi-touch and the primary pointer is removed (e.g. it leaves the screen), there will be no primary pointer events. Also on the platforms where the primary pointer is determined using all active pointers on the device (including those targeted at an application other than the user agent), if the first touch interaction is targeted outside the user agent and a secondary (multi-touch) touch interaction is targeted inside the user agent, then the user agent may fire pointer events for the second contact with a value of <code>false</code> for <code>isPrimary</code>.</div>
                 <div class="note" id="multiple-mouse-inputs">Current operating systems and user agents don't usually have a concept of multiple mouse inputs. When more than one mouse device is present (for instance, on a laptop with both a trackpad and an external mouse), all mouse devices are generally treated as a single device - movements on any of the devices are translated to movement of a single mouse pointer, and there is no distinction between button presses on different mouse devices. For this reason, there will usually only be a single mouse pointer, and that pointer will be primary.</div>
             </section>
+
+            <section>
+                <h2>Firing events using the <code>PointerEvent</code> interface</h2>
+                <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
+                
+                <p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is</p>
+                <ul>
+                    <li><code>pointerdown</code></li>
+                    <li><code>pointerup</code></li>
+                    <li><code>pointercancel</code></li>
+                    <li><code>pointermove</code></li>
+                    <li><code>pointerover</code></li>
+                    <li><code>pointerout</code></li>
+                    <li><code>gotpointercapture</code></li>
+                    <li><code>lostpointercapture</code></li>
+                </ul>
+                <p>Initialize the <code>cancelable</code> attribute for the event to <code>true</code> if the event name is<p>
+                <ul>
+                    <li><code>pointerdown</code></li>
+                    <li><code>pointerup</code></li>
+                    <li><code>pointermove</code></li>
+                    <li><code>pointerover</code></li>
+                    <li><code>pointerout</code></li>
+                </ul>
+                
+                <p>The target object at which the event is fired is determined as follows:
+                <ul>
+                    <li>If the <a>pointer capture target override</a> has been set for the pointer, 
+                        <ul>
+                            <li>Set the <code>relatedTarget</code> attribute of the event to <code>null</code>.</li>
+                            <li>Fire the event to the <a>pointer capture target override</a> object.</li>
+                        </ul>
+                    </li>
+                    <li>Otherwise, fire the event to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
+                </ul>
+
+                <section>
+                    <h3>Process Pending Pointer Capture</h3>
+                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+                    <ol>
+                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
+                            <ul>
+                                <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
+                            </ul>
+                        </li>
+                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
+                            <ul>
+                                <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
+                            </ul>
+                        </li>
+                        <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
+                    </ol>
+                </section>
+            </section>
         </section>
 
         <section>
-            <h2>Pointer Event Types</h2>
-            <h3>Firing events using the <code>PointerEvent</code> interface</h3>
-            <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
-            
-            <p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is</p>
-            <ul>
-                <li><code>pointerdown</code></li>
-                <li><code>pointerup</code></li>
-                <li><code>pointercancel</code></li>
-                <li><code>pointermove</code></li>
-                <li><code>pointerover</code></li>
-                <li><code>pointerout</code></li>
-                <li><code>gotpointercapture</code></li>
-                <li><code>lostpointercapture</code></li>
-            </ul>
-            <p>Initialize the <code>cancelable</code> attribute for the event to <code>true</code> if the event name is<p>
-            <ul>
-                <li><code>pointerdown</code></li>
-                <li><code>pointerup</code></li>
-                <li><code>pointermove</code></li>
-                <li><code>pointerover</code></li>
-                <li><code>pointerout</code></li>
-            </ul>
-            
-            <p>The target object at which the event is fired is determined as follows:
-            <ul>
-                <li>If the <a>pointer capture target override</a> has been set for the pointer, 
-                    <ul>
-                        <li>Set the <code>relatedTarget</code> attribute of the event to <code>null</code>.</li>
-                        <li>Fire the event to the <a>pointer capture target override</a> object.</li>
-                    </ul>
-                </li>
-                <li>Otherwise, fire the event to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
-            </ul>
-            <h4>Process Pending Pointer Capture</h4>
-            <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
-            <ol>
-                <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
-                    <ul>
-                        <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
-                    </ul>
-                </li>
-                <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
-                    <ul>
-                        <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
-                    </ul>
-                </li>
-                <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
-            </ol>
+            <h2>Pointer Event types</h2>
+            <p>The following table provides a summary of the event types defined in this specification.</p>
+            <table class="parameters">
+                <thead><tr>
+                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>pointerover</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>pointerenter</code></td>
+                        <td>Sync</td>
+                        <td>No</td>
+                        <td>No</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>pointerdown</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                        <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
+                            <br>Canceling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a>compatibility mouse events</a>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>pointermove</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                        <td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>pointerup</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                        <td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>pointercancel</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>No</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>pointerout</code></td>
+                        <td>Sync</td>
+                        <td>Yes</td>
+                        <td>Yes</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>pointerleave</code></td>
+                        <td>Sync</td>
+                        <td>No</td>
+                        <td>No</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>gotpointercapture</code></td>
+                        <td>Sync/Async</td>
+                        <td>Yes</td>
+                        <td>No</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><code>lostpointercapture</code></td>
+                        <td>Sync/Async</td>
+                        <td>Yes</td>
+                        <td>No</td>
+                        <td>None</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
 
-            <section class="informative">
-                <h3>List of Pointer Events</h3>
-                <p>The following table provides a summary of the event types defined in this specification.</p>
-                <table class="parameters">
-                    <thead><tr>
-                        <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>pointerover</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>pointerenter</code></td>
-                            <td>Sync</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>pointerdown</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
-                                <br>Canceling this event also sets the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>, which prevents subsequent firing of certain <a>compatibility mouse events</a>.</td>
-                        </tr>
-                        <tr>
-                            <td><code>pointermove</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>pointerup</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
-                        </tr>
-                        <tr>
-                            <td><code>pointercancel</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>No</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>pointerout</code></td>
-                            <td>Sync</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>pointerleave</code></td>
-                            <td>Sync</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>gotpointercapture</code></td>
-                            <td>Sync/Async</td>
-                            <td>Yes</td>
-                            <td>No</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td><code>lostpointercapture</code></td>
-                            <td>Sync/Async</td>
-                            <td>Yes</td>
-                            <td>No</td>
-                            <td>None</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
-            </section>
             <section>
                 <h3><dfn>The <code>pointerover</code> event</dfn></h3>
                 <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</p>
