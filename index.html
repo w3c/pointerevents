@@ -198,6 +198,7 @@ function checkPointerSize(event) {
 var event = new PointerEvent("pointerover",
    {bubbles: true, 
     cancelable: true, 
+    composed: true,
     pointerId: 42,
     pointerType: "pen",
     clientX: 300,
@@ -392,7 +393,9 @@ eventTarget.dispatchEvent(event);
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
                 <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
-                
+
+                <p>Initialize the <code>composed</code> [[!WHATWG-DOM]] attribute to <code>true</code> for any pointer event.</p>
+
                 <p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is</p>
                 <ul>
                     <li><code>pointerdown</code></li>
@@ -449,12 +452,13 @@ eventTarget.dispatchEvent(event);
             <p>The following table provides a summary of the event types defined in this specification.</p>
             <table class="parameters">
                 <thead><tr>
-                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
+                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Composed</th><th>Default Action</th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code>pointerover</code></td>
                         <td>Sync</td>
+                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -464,11 +468,13 @@ eventTarget.dispatchEvent(event);
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
+                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerdown</code></td>
                         <td>Sync</td>
+                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
@@ -479,11 +485,13 @@ eventTarget.dispatchEvent(event);
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>Yes</td>
+                        <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
                     </tr>
                     <tr>
                         <td><code>pointerup</code></td>
                         <td>Sync</td>
+                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
@@ -493,11 +501,13 @@ eventTarget.dispatchEvent(event);
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>No</td>
+                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerout</code></td>
                         <td>Sync</td>
+                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -507,6 +517,7 @@ eventTarget.dispatchEvent(event);
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
+                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -514,6 +525,7 @@ eventTarget.dispatchEvent(event);
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
+                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -521,6 +533,7 @@ eventTarget.dispatchEvent(event);
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
+                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                 </tbody>
@@ -940,6 +953,7 @@ eventTarget.dispatchEvent(event);
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <h3>Changes since the 24 February 2015 Recommendation</h3>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/92">Make all pointer events composed events</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/87">Add digitizer/pen tangential (barrel) pressure</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/79">Add digitizer/pen twist</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/69">Make width/height default to 1, remove UA "guessing"/faking geometry</a></li>
