@@ -348,12 +348,12 @@ eventTarget.dispatchEvent(event);
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
                             <tr><td>Neither buttons nor touch/pen contact changed since last event</td><td>-1</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>0</td></tr>
+                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>0</td></tr>
                             <tr><td>Middle Mouse</td><td>1</td></tr>
-                            <tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+                            <tr><td>Right Mouse,<br>Pen barrel button pressed</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>3</td></tr>
                             <tr><td>X2 (forward) Mouse</td><td>4</td></tr>
-                            <tr><td>Pen contact with eraser button pressed</td><td>5</td></tr>
+                            <tr><td>Pen eraser button pressed</td><td>5</td></tr>
                         </tbody>
                     </table>
                     <div class="note">During a mouse drag, the value of the <code>button</code> property in a <code>pointermove</code> event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the <code>pontermove</code> events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</div>
@@ -365,12 +365,12 @@ eventTarget.dispatchEvent(event);
                         <thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
                         <tbody>
                             <tr><td><b>Mouse move with no buttons pressed</b></td><td>0</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>1</td></tr>
+                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>1</td></tr>
                             <tr><td>Middle Mouse</td><td>4</td></tr>
-                            <tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+                            <tr><td>Right Mouse,<br>Pen barrel button pressed</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>8</td></tr>
                             <tr><td>X2 (forward) Mouse</td><td>16</td></tr>
-                            <tr><td>Pen contact with eraser button pressed</td><td>32</td></tr>
+                            <tr><td>Pen eraser button pressed</td><td>32</td></tr>
                         </tbody>
                     </table>
                 </section>
