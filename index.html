@@ -700,7 +700,8 @@ eventTarget.dispatchEvent(event);
             <h2>The <code>touch-action</code> CSS property</h2>
             <table class="simple">
                 <tr><th>Name:</th><td><code>touch-action</code></td></tr>
-                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
+                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | <code>manipulation</code> | <br>
+                 [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] || <code>pinch-zoom</code> ] </td></tr>
                 <tr><th>Initial:</th><td><code>auto</code></td></tr>
                 <tr><th>Applies to:</th><td>all elements except: non-replaced inline elements, table rows, row groups, table columns, and column groups.</td></tr>
                 <tr><th>Inherited:</th><td>no</td></tr>
@@ -731,10 +732,12 @@ eventTarget.dispatchEvent(event);
                 <dd>Touches that begin on the element MUST NOT trigger default touch behaviors.</dd>
                 <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
                 <dd>
-                    <p>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
+                    <p>The user agent MAY consider touches that begin on the element for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
                     <p>In the case of <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code> and <code>pan-down</code>, the direction is interpreted as the opposite of the physical movement in the screen co-ordinate space. For example, <code>pan-up</code> always corresponds to input event sequences where typically (ignoring situations such as <code>iframe</code> containers with CSS rotation transforms) <code>screenY</code> is increasing (i.e. an interaction where the user moves a touch point down the screen).</p></dd>
+                <dt>pinch-zoom</dt>
+                <dd>The user agent MAY consider touches that begin on the element for the purposes of continuous zooming.  The token "pinch-zoom" is used only for compatibility with the existing implementation in Microsoft Internet Explorer.  The specific user interaction that triggers continuous zooming behavior is implementation-defined.</dd>
                 <dt>manipulation</dt>
-                <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
+                <dd>The user agent MAY consider touches that begin on the element for the purposes of panning and continuous zooming.  This is the shorthand equivalent of <code>pan-x pan-y pinch-zoom</code>.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
             </dl>
             <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
             <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span> (see [[HTML5]]), authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
