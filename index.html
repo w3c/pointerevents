@@ -436,8 +436,9 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
-                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps for the corresponding <code>pointerId</code>:</p>
                     <ol>
+                        <li>Let <code>temporaryPendingPointerCaptureTargetOverride</code> be <a>pending pointer capture target override</a>.
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
                             <ul>
                                 <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
@@ -448,7 +449,7 @@ interface PointerEvent : MouseEvent {
                                 <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
                             </ul>
                         </li>
-                        <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
+                        <li>Set the <dfn>pointer capture target override</dfn> to the <code>temporaryPendingPointerCaptureTargetOverride</code>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
                 </section>
             </section>
@@ -833,7 +834,9 @@ partial interface Navigator {
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
                 <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
+                <li>Let <code>immedateProcess</code> be true if <a>pending pointer capture target override</a> and <a>pointer capture target override</a> for the specified <code>pointerId</code> were the same (i.e. they were both clear or set to the same element.) otherwise false.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
+                <li>If <code>immedateProcess</code> is true do the steps in <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> section.</li>
             </ol>
             <div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
         </section>
@@ -845,7 +848,10 @@ partial interface Navigator {
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
                 <li>If pointer capture is not currently set for the specified pointer, then terminate these steps.</li>
                 <li>If the <a>pointer capture target override</a> for the specified <code>pointerId</code> is not the <code>Element</code> on which this method was invoked, then terminate these steps.</li>
+                <li>Let <code>immedateProcess</code> be true if <a>pending pointer capture target override</a> and <a>pointer capture target override</a> for the specified <code>pointerId</code> were the same (i.e. they were both clear or set to the same element.) otherwise false.
+
                 <li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
+                <li>If <code>immedateProcess</code> is true do the steps in <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> section.</li>
             </ol>
         </section>
         <section>
