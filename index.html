@@ -254,19 +254,19 @@ eventTarget.dispatchEvent(event);
                         </dd>
                     <dt>readonly attribute double width</dt>
                         <dd>
-                            The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.
+                            <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
                         </dd>
                     <dt>readonly attribute double height</dt>
                         <dd>
-                            The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.
+                            <p>The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
                         </dd>
                     <dt>readonly attribute float pressure</dt>
                         <dd>
-                            The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware that does not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.
+                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware that does not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.</p>
                         </dd>
                     <dt>readonly attribute float tangentialPressure</dt>
                         <dd>
-                          The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware that does not support tangential pressure, the value MUST be 0.
+                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware that does not support tangential pressure, the value MUST be 0.</p>
                         </dd>
                     <dt>readonly attribute long tiltX</dt>
                         <dd>
@@ -278,7 +278,7 @@ eventTarget.dispatchEvent(event);
                         </dd>
                     <dt>readonly attribute long tiltY</dt>
                         <dd>
-                            The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.
+                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
                             <figure id="figure_tiltY">
                                 <img src="tiltY_600px.png" alt="tiltY explanation diagram">
                                 <figcaption>Negative <code>tiltY</code>.</figcaption>
@@ -286,7 +286,7 @@ eventTarget.dispatchEvent(event);
                         </dd>
                     <dt>readonly attribute long twist</dt>
                         <dd>
-                            The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For devices that do not report twist, the value MUST be 0.
+                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For devices that do not report twist, the value MUST be 0.</p>
                         </dd>
                     <dt>readonly attribute DOMString pointerType</dt>
                         <dd>
@@ -306,7 +306,7 @@ eventTarget.dispatchEvent(event);
                         </dd>
                     <dt>readonly attribute boolean isPrimary</dt>
                         <dd>
-                            Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.
+                            <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
                         </dd>
                 </dl>
                 <dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
