@@ -245,30 +245,58 @@ eventTarget.dispatchEvent(event);
         <section>
             <h2><code>PointerEvent</code> Interface</h2>
             <div>
-                <dl class="idl" title="[Constructor(DOMString type, optional PointerEventInit eventInitDict)] interface PointerEvent : MouseEvent" data-merge="PointerEventInit">
-                    <dt>readonly attribute long pointerId</dt>
+              <pre class="idl">
+dictionary PointerEventInit : MouseEventInit {
+    long        pointerId = 0;
+    double      width = 1;
+    double      height = 1;
+    float       pressure = 0;
+    float       tangentialPressure = 0;
+    long        tiltX = 0;
+    long        tiltY = 0;
+    long        twist = 0;
+    DOMString   pointerType = "";
+    boolean     isPrimary = false;
+};
+
+[Constructor(DOMString type, optional PointerEventInit eventInitDict)]
+interface PointerEvent : MouseEvent {
+    readonly        attribute long        pointerId;
+    readonly        attribute double      width;
+    readonly        attribute double      height;
+    readonly        attribute float       pressure;
+    readonly        attribute float       tangentialPressure;
+    readonly        attribute long        tiltX;
+    readonly        attribute long        tiltY;
+    readonly        attribute long        twist;
+    readonly        attribute DOMString   pointerType;
+    readonly        attribute boolean     isPrimary;
+};
+              </pre>
+                <dl dfn-for="PointerEvent" link-for="PointerEvent">
+                    <dt><dfn>pointerId<dfn></dt>
                         <dd>
                             <p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> in the <a href="https://www.w3.org/TR/html5/browsers.html#top-level-browsing-context">top-level browsing context</a> (as defined by [[!HTML5]]) at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
                           
                             <div class="note">The <code>pointerId</code> selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, values are not guaranteed to be monotonically increasing.</div>
                         </dd>
-                    <dt>readonly attribute double width</dt>
+                    <dt><dfn>width</dfn></dt>
                         <dd>
                             <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
                         </dd>
-                    <dt>readonly attribute double height</dt>
+                    <dt><dfn>height</dfn></dt>
                         <dd>
                             <p>The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer.  This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
                         </dd>
-                    <dt>readonly attribute float pressure</dt>
+                    <dt><dfn>pressure</dfn></dt>
                         <dd>
                             <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware that does not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise.</p>
                         </dd>
-                    <dt>readonly attribute float tangentialPressure</dt>
+                    <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
                           <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware that does not support tangential pressure, the value MUST be 0.</p>
                         </dd>
-                    <dt>readonly attribute long tiltX</dt>
+                    <dt><dfn>tiltX</dfn></dt>
                         <dd>
                             <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
                             <figure id="figure_tiltX">
@@ -276,7 +304,7 @@ eventTarget.dispatchEvent(event);
                                 <figcaption>Positive <code>tiltX</code>.</figcaption>
                             </figure>
                         </dd>
-                    <dt>readonly attribute long tiltY</dt>
+                    <dt><dfn>tiltY</dfn></dt>
                         <dd>
                             <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
                             <figure id="figure_tiltY">
@@ -284,11 +312,11 @@ eventTarget.dispatchEvent(event);
                                 <figcaption>Negative <code>tiltY</code>.</figcaption>
                             </figure>
                         </dd>
-                    <dt>readonly attribute long twist</dt>
+                    <dt><dfn>twist</dfn></dt>
                         <dd>
                             <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For devices that do not report twist, the value MUST be 0.</p>
                         </dd>
-                    <dt>readonly attribute DOMString pointerType</dt>
+                    <dt><dfn>pointerType</dfn></dt>
                         <dd>
                             <p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> for a mouse, pen stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
                             <table class="simple">
@@ -304,33 +332,12 @@ eventTarget.dispatchEvent(event);
                             <p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
                           <div class="note">See <a href="#example_2" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.</div>
                         </dd>
-                    <dt>readonly attribute boolean isPrimary</dt>
+                    <dt><dfn>isPrimary</dfn></dt>
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
                         </dd>
                 </dl>
-                <dl class="idl" title="dictionary PointerEventInit : MouseEventInit">
-                    <dt>long pointerId = 0</dt>
-                        <dd>Initializes the <code>pointerId</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>double width = 1</dt>
-                        <dd>Initializes the <code>width</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>double height = 1</dt>
-                        <dd>Initializes the <code>height</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>float pressure = 0</dt>
-                        <dd>Initializes the <code>pressure</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>float tangentialPressure = 0</dt>
-                        <dd>Initializes the <code>tangentialPressure</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>long tiltX = 0</dt>
-                        <dd>Initializes the <code>tiltX</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>long tiltY = 0</dt>
-                        <dd>Initializes the <code>tiltY</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>long twist = 0</dt>
-                        <dd>Initializes the <code>twist</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>DOMString pointerType = ""</dt>
-                        <dd>Initializes the <code>pointerType</code> property of the <code>PointerEvent</code> object.</dd>
-                    <dt>boolean isPrimary = false</dt>
-                        <dd>Initializes the <code>isPrimary</code> property of the <code>PointerEvent</code> object.</dd>
-                </dl>
+
                 <p>The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
                 <div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[DOM-LEVEL-3-EVENTS]] and extended by [[CSSOM-VIEW]].</div>
             </div>
@@ -615,21 +622,29 @@ eventTarget.dispatchEvent(event);
         <h2>Extensions to the <code>Element</code> interface</h2>
         <div>
             <p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[!HTML5]], to facilitate the setting and releasing of pointer capture.</p>
-            <dl class="idl" title="partial interface Element">
-                <dt>attribute EventHandler ongotpointercapture</dt>
+            <pre class="idl">
+partial interface Element {
+    attribute EventHandler ongotpointercapture;
+    attribute EventHandler onlostpointercapture;
+  void setPointerCapture (long pointerId);
+  void releasePointerCapture (long pointerId);
+};
+            </pre>
+            <dl dfn-for="Element" link-for="Element">
+                <dt><dfn>ongotpointercapture</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
                 </dd>
-                <dt>attribute EventHandler onlostpointercapture</dt>
+                <dt><dfn>onlostpointercapture</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>lostpointercapture</code> event type.
                 </dd>
-                <dt>void setPointerCapture(long pointerId)</dt>
+                <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
                     <p><a href="#setting-pointer-capture">Sets pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                     <div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
                 </dd>
-                <dt>void releasePointerCapture(long pointerId)</dt>
+                <dt><dfn>releasePointerCapture</dfn></dt>
                 <dd>
                     <p><a href="#releasing-pointer-capture">Releases pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                     <div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
@@ -641,36 +656,48 @@ eventTarget.dispatchEvent(event);
         <h2>Extensions to the <code>GlobalEventHandlers</code> interface</h2>
         <div>
             <p>The following section describes extensions to the existing <code>GlobalEventHandlers</code> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
-            <dl class="idl" title="partial interface GlobalEventHandlers">
-                <dt>attribute EventHandler onpointerdown</dt>
+            <pre class="idl">
+partial interface GlobalEventHandlers {
+    attribute EventHandler onpointerdown;
+    attribute EventHandler onpointermove;
+    attribute EventHandler onpointerup;
+    attribute EventHandler onpointercancel;
+    attribute EventHandler onpointerover;
+    attribute EventHandler onpointerout;
+    attribute EventHandler onpointerenter;
+    attribute EventHandler onpointerleave;
+};
+            </pre>
+            <dl dfn-for="GlobalEventHandlers" link-for="GlobalEventHandlers">
+                <dt><dfn>onpointerdown</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerdown</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointermove</dt>
+                <dt><dfn>onpointermove</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointermove</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointerup</dt>
+                <dt><dfn>onpointerup</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerup</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointercancel</dt>
+                <dt><dfn>onpointercancel</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointercancel</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointerover</dt>
+                <dt><dfn>onpointerover</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerover</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointerout</dt>
+                <dt><dfn>onpointerout</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerout</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointerenter</dt>
+                <dt><dfn>onpointerenter</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerenter</code> event type.
                 </dd>
-                <dt>attribute EventHandler onpointerleave</dt>
+                <dt><dfn>onpointerleave</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerleave</code> event type.
                 </dd>
@@ -682,8 +709,13 @@ eventTarget.dispatchEvent(event);
         <h2>Extensions to the <code>Navigator</code> interface</h2>
         <div>
             <p>The <code>Navigator</code> interface is defined in [[!HTML5]]. This specification extends the <code>Navigator</code> interface to provide device detection support.</p>
-            <dl class="idl" title="partial interface Navigator">
-                <dt>readonly attribute long maxTouchPoints</dt>
+            <pre class="idl">
+partial interface Navigator {
+    readonly  attribute long maxTouchPoints;
+};
+            </pre>
+            <dl dfn-for="Navigator" link-for="Navigator">
+                <dt><dfn>maxTouchPoints</dfn></dt>
                 <dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
                 <p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> should be <code>10</code>.</p>
                 </dd>
