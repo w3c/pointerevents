@@ -212,7 +212,7 @@ eventTarget.dispatchEvent(event);
         <h1>Glossary</h1>
         <dl>
             <dt><dfn>active buttons state</dfn></dt>
-                <dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when the pen has physical contact with the digitizer.</dd> 
+                <dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when either the pen has physical contact with the digitizer, or at least one button is depressed while hovering.</dd>
             <dt><dfn>active pointer</dfn></dt>
                 <dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
                     <ul>
@@ -356,12 +356,12 @@ interface PointerEvent : MouseEvent {
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
                             <tr><td>Neither buttons nor touch/pen contact changed since last event</td><td>-1</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>0</td></tr>
+                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>0</td></tr>
                             <tr><td>Middle Mouse</td><td>1</td></tr>
-                            <tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+                            <tr><td>Right Mouse,<br>Pen barrel button</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>3</td></tr>
                             <tr><td>X2 (forward) Mouse</td><td>4</td></tr>
-                            <tr><td>Pen contact with eraser button pressed</td><td>5</td></tr>
+                            <tr><td>Pen eraser button</td><td>5</td></tr>
                         </tbody>
                     </table>
                     <div class="note">During a mouse drag, the value of the <code>button</code> property in a <code>pointermove</code> event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the <code>pontermove</code> events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</div>
@@ -372,13 +372,13 @@ interface PointerEvent : MouseEvent {
                     <table class="simple">
                         <thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
                         <tbody>
-                            <tr><td><b>Mouse move with no buttons pressed</b></td><td>0</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact (with no modifier buttons pressed)</td><td>1</td></tr>
+                            <tr><td><b>Mouse moved with no buttons pressed</b>,<br> Pen moved while hovering with no buttons pressed</td><td>0</td></tr>
+                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>1</td></tr>
                             <tr><td>Middle Mouse</td><td>4</td></tr>
-                            <tr><td>Right Mouse,<br>Pen contact with barrel button pressed</td><td>2</td></tr>
+                            <tr><td>Right Mouse,<br>Pen barrel button</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>8</td></tr>
                             <tr><td>X2 (forward) Mouse</td><td>16</td></tr>
-                            <tr><td>Pen contact with eraser button pressed</td><td>32</td></tr>
+                            <tr><td>Pen eraser button</td><td>32</td></tr>
                         </tbody>
                     </table>
                 </section>
@@ -558,7 +558,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3><dfn>The <code>pointerdown</code> event</dfn></h3>
-                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the stylus makes physical contact with the digitizer.</p>
+                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the pen either makes physical contact with the digitizer without any button depressed, or transitions from no buttons depressed to at least one button depressed while hovering.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions">chorded buttons</a> for more information.</div>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> followed by a pointer event named <code>pointerenter</code> prior to dispatching the <code>pointerdown</code> event.</p>
                 <div class="note">Authors can prevent the firing of certain <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a> by canceling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). This sets the PREVENT MOUSE EVENT FLAG on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
@@ -569,7 +569,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3><dfn>The <code>pointerup</code> event</dfn></h3>
-                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from physical contact with the digitizer.</p>
+                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, a user agent MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> followed by a pointer event named <code>pointerleave</code> after dispatching the <code>pointerup</code> event.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions">chorded buttons</a> for more information.</div>
             </section>
