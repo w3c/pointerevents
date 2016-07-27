@@ -121,7 +121,7 @@
         <p>While Pointer Events are sourced from a variety of input devices, they are not defined as being generated from some other set of device-specific events. While possible and encouraged for compatibility, this spec does not require other device-specific events be supported (e.g. mouse events, touch events, etc.).  A user agent could support pointer events without supporting any other device events. For compatibility with content written to mouse-specific events, this specification does provide an optional section describing how to generate <a>compatibility mouse events</a> based on pointer input from devices other than a mouse.</p>
 
         <div class="note informative">
-            <p>This specification does not provide any advice on the expected behavior of user agents that support both Pointer Events and <a href="http://www.w3.org/TR/touch-events/">Touch Events</a>. For more information on the relationship between these two specifications, see the <a href="http://www.w3.org/community/touchevents/">Touch Events Community Group</a>.</p>
+            <p>This specification does not provide any advice on the expected behavior of user agents that support both Touch Events (as defined in [[TOUCH-EVENTS]]) and Pointer Events. For more information on the relationship between these two specifications, see the <a href="http://www.w3.org/community/touchevents/">Touch Events Community Group</a>.</p>
         </div>
 
     </section>
@@ -926,6 +926,9 @@ partial interface Navigator {
                 </li>
                 <li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
             </ol>
+            <div class="note">
+                <p>If the user agent supports both Touch Events (as defined in [[TOUCH-EVENTS]]) and Pointer Events, generation of compatibility mouse events as described in this section is not very web compatible. In this scenario gesture based generation of compatiblity mouse events for primary PointerEvents is better. For more information see [[TOUCH-EVENTS]].</p>
+            </div>
             <div class="note">
                 <p>The activation of an element (<code>click</code>) with a primary pointer that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (e.g. single finger on a touchscreen) would typically produce the following event sequence:</p>
                 <ol data-class="note-list">
