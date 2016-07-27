@@ -927,7 +927,7 @@ partial interface Navigator {
                 <li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
             </ol>
             <div class="note">
-                <p>If the user agent supports both Touch Events (as defined in [[TOUCH-EVENTS]]) and Pointer Events, generation of compatibility mouse events as described in this section is not very web compatible. In this scenario gesture based generation of compatiblity mouse events for primary PointerEvents is better. For more information see [[TOUCH-EVENTS]].</p>
+                <p>If the user agent supports both Touch Events (as defined in [[TOUCH-EVENTS]]) and Pointer Events, the user agent SHOULD NOT generate compatibility mouse events as described in this section as it is likely to introduce compatibility problems for sites that expect mouse events to be generated in accordance with the <a href="https://www.w3.org/TR/touch-events/#mouse-events">model</a> outlined in [[TOUCH-EVENTS]].</p>
             </div>
             <div class="note">
                 <p>The activation of an element (<code>click</code>) with a primary pointer that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (e.g. single finger on a touchscreen) would typically produce the following event sequence:</p>
