@@ -423,6 +423,8 @@ interface PointerEvent : MouseEvent {
                     <li><code>pointerout</code></li>
                 </ul>
                 
+                <p>Run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code> if it is not <code>gotpointercapture</code> or <code>lostpointercapture</code>.
+
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, 
@@ -436,7 +438,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
-                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+                    <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
                             <ul>
@@ -546,7 +548,7 @@ interface PointerEvent : MouseEvent {
                 </tbody>
             </table>
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
-            <p>For all PointerEvents in the table above, <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail">detail</a> attribute defined in [[!DOM-LEVEL-3-EVENTS]] SHOULD be 0.</p>
+            <p>For all PointerEvents in the table above, <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> attribute defined in [[!DOM-LEVEL-3-EVENTS]] SHOULD be 0. For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that causes the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
 
             <section>
                 <h3><dfn>The <code>pointerover</code> event</dfn></h3>
@@ -854,7 +856,7 @@ partial interface Navigator {
             <div class="note">Some user agents implement their own implicit pointer capture behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
             <section>
                 <h3>Implicit Release of Pointer Capture</h3>
-                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
+                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run step 4 in <a href="#releasing-pointer-capture">Releasing Pointer Capture</a> with the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
                 <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
             </section>
         </section>
