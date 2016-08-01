@@ -625,10 +625,11 @@ interface PointerEvent : MouseEvent {
             <p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[!HTML5]], to facilitate the setting and releasing of pointer capture.</p>
             <pre class="idl">
 partial interface Element {
-    attribute EventHandler ongotpointercapture;
-    attribute EventHandler onlostpointercapture;
+  attribute EventHandler ongotpointercapture;
+  attribute EventHandler onlostpointercapture;
   void setPointerCapture (long pointerId);
   void releasePointerCapture (long pointerId);
+  boolean hasPointerCapture (long pointerId);
 };
             </pre>
             <dl dfn-for="Element" link-for="Element">
@@ -642,13 +643,16 @@ partial interface Element {
                 </dd>
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#setting-pointer-capture">Sets pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
-                    <div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
+                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                 </dd>
                 <dt><dfn>releasePointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#releasing-pointer-capture">Releases pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
-                    <div class="note">See <a href="#dfn-pointer-capture" title="pointer capture">Pointer Capture</a>.</div>
+                    <p><a href="#releasing-pointer-capture">Releases</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+                </dd>
+                <dt><dfn>hasPointerCapture</dfn></dt>
+                <dd>
+                    <p>Indicates whether the element on which this method is invoked has <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code>.  In particular, returns <code>true</code> if the <a>pending pointer capture target override</a> for <code>pointerId</code> is set to the element on which this method is invoked, and <code>false</code> otherwise.</p>
+                    <div class="note">This method will return true immediately after a call to <a>setPointerCapture</a>, even though that element will not yet have received a <a>gotpointercapture event</a>.  As a result it can be useful to detecting <a>implicit pointer capture</a> from inside of a <a>pointerdown event</a> listener.</div>
                 </dd>
             </dl>
         </div>
@@ -851,7 +855,7 @@ partial interface Navigator {
         </section>
         <section>
             <h2>Implicit Pointer Capture</h2>
-            <div class="note">Some user agents implement their own implicit pointer capture behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
+            <div class="note">Some user agents implement their own <dfn>implicit pointer capture</dfn> behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
             <section>
                 <h3>Implicit Release of Pointer Capture</h3>
                 <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
