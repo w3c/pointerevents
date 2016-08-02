@@ -856,13 +856,15 @@ partial interface Navigator {
             </ol>
         </section>
         <section>
-            <h2>Implicit Pointer Capture</h2>
-            <div class="note">Some user agents implement their own <dfn>implicit pointer capture</dfn> behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
-            <section>
-                <h3>Implicit Release of Pointer Capture</h3>
-                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
-                <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
-            </section>
+            <h2><dfn>Implicit Pointer Capture</dfn></h2>
+            Some input devices (such as touchscreens) implement a "direct manipulation" metaphor where a pointer is intended to act primarily on the UI element it became active upon (providing a physical illusion of direct contact, instead of indirect contact via a cursor that conceptually floats above the UI). Such devices are identified by the <a href="https://wicg.github.io/InputDeviceCapabilities/#dom-inputdevicecapabilities-pointermovementscrolls">InputDeviceCapabilities.pointerMovementScrolls property</a> and should have "implicit pointer capture" behavior. In particular, they should behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners.  The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred.  If <a data-lt="Element.releasePointerCapture">releasePointerCapture</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture event</a> will be dispatched to the target (as normal) indicating that capture is active.
+            <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on movement events without explicit developer opt-in.</div>
+            <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
+        </section>
+        <section>
+            <h3>Implicit Release of Pointer Capture</h3>
+            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
+            <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
         </section>
     </section>
     <section>
