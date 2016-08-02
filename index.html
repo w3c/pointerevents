@@ -428,11 +428,13 @@ interface PointerEvent : MouseEvent {
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, 
                         <ul>
                             <li>Set the <code>relatedTarget</code> attribute of the event to <code>null</code>.</li>
-                            <li>Fire the event to the <a>pointer capture target override</a> object.</li>
+                            <li>Set the target to the <a>pointer capture target override</a> object.</li>
                         </ul>
                     </li>
-                    <li>Otherwise, fire the event to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
+                    <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
+
+                <p>Fire the event to the determined target.
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
