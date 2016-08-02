@@ -652,7 +652,7 @@ partial interface Element {
                 <dt><dfn>hasPointerCapture</dfn></dt>
                 <dd>
                     <p>Indicates whether the element on which this method is invoked has <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code>.  In particular, returns <code>true</code> if the <a>pending pointer capture target override</a> for <code>pointerId</code> is set to the element on which this method is invoked, and <code>false</code> otherwise.</p>
-                    <div class="note">This method will return true immediately after a call to <a>setPointerCapture</a>, even though that element will not yet have received a <a>gotpointercapture event</a>.  As a result it can be useful to detecting <a>implicit pointer capture</a> from inside of a <a>pointerdown event</a> listener.</div>
+                    <div class="note">This method will return true immediately after a call to <a>setPointerCapture</a>, even though that element will not yet have received a <a>gotpointercapture event</a>.  As a result it can be useful for detecting <a>implicit pointer capture</a> from inside of a <a>pointerdown event</a> listener.</div>
                 </dd>
             </dl>
         </div>
