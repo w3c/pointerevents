@@ -132,40 +132,34 @@
     <section class="informative">
         <h1>Examples</h1>
         <p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
-<pre id="example_1" class="example" title="Basic HTML5 Canvas painting application">
-&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
-  that all events on the canvas element are given to the application instead. */
-  
-  canvas { 
-    touch-action: none; 
-  }
-&lt;/style&gt;
+<pre id="example_1" class="example" title="Feature detection and event binding">
+<code>/* Bind to either Pointer Events or traditional touch/mouse */
 
-&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+if (window.PointerEvent) {
+    // if Pointer Events are supported, only listen to pointer events
+    target.addEventListener("pointerdown", function(e) {
+        // if necessary, apply separate logic based on e.pointerType
+        // for different touch/pen/mouse behavior
+        ...
+    });
+    ...
+} else {
+    // traditional touch/mouse event handlers
+    target.addEventListener('touchstart', function(e) {
+        // prevent compatibility mouse events and click
+        e.preventDefault();
+        ...
+    });
+    ...
+    target.addEventListener('mousedown', ...);
+    ...
+}
 
-&lt;script type='text/javascript'&gt;
-    var canvas = document.getElementById("drawSurface"),
-    context = canvas.getContext("2d");
-
-    if (window.PointerEvent) {
-        canvas.addEventListener("pointermove", paint, false);
-        if(window.navigator.maxTouchPoints>1)
-           /* User agent and hardware support multi-touch */
-    } 
-    else {
-        //Provide fallback for user agents that do not support Pointer Events
-        canvas.addEventListener("mousemove", paint, false);
-    }
-
-    function paint(event) {
-        if(event.buttons>0)
-           context.fillRect(event.clientX, event.clientY, 5, 5);
-    }
-&lt;/script&gt;
+// additional event listeners for keyboard handling
+...</code>
 </pre>
 <pre id="example_2" class="example" title="Detecting the type of input from a user">
-window.addEventListener("pointerdown", detectInputType, false);
+<code>window.addEventListener("pointerdown", detectInputType);
 
 function detectInputType(event) {
     switch(event.pointerType) {
@@ -182,29 +176,62 @@ function detectInputType(event) {
             /* pointerType is empty (could not be detected) 
             or UA-specific custom type */
     }
-}</pre>
-<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
-&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+}</code></pre>
+<pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
+<code>&lt;style&gt;
+  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
+  that all events on the canvas element are given to the application instead. */
+  
+  canvas { touch-action: none; }
+&lt;/style&gt;
+
+&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+
 &lt;script&gt;
-window.addEventListener("pointerdown", checkPointerSize, false);
+    var canvas = document.getElementById("drawSurface"),
+    context = canvas.getContext("2d");
+
+    if (window.PointerEvent) {
+        canvas.addEventListener("pointermove", paint);
+        if(window.navigator.maxTouchPoints>1)
+           // user agent and hardware support multi-touch
+           ...
+    } else {
+        // provide fallback for user agents that do not support Pointer Events
+        canvas.addEventListener("mousemove", paint);
+    }
+
+    function paint(event) {
+        if(event.buttons>0)
+           context.fillRect(event.clientX, event.clientY, 5, 5);
+    }
+
+    // additional event listeners/functions for keyboard handling
+    ...
+&lt;/script&gt;</code>
+</pre>
+<pre id="example_4" class="example" title="Resizing an element to match the contact geometry">
+<code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+&lt;script&gt;
+window.addEventListener("pointerdown", checkPointerSize);
 
 function checkPointerSize(event) {
     event.target.style.width = event.width + "px";
     event.target.style.height = event.height + "px";
 }
-&lt;/script&gt;
+&lt;/script&gt;</code>
 </pre>
-<pre id="example_4" class="example" title="Firing an untrusted pointer event from script">
-var event = new PointerEvent("pointerover",
-   {bubbles: true, 
+<pre id="example_5" class="example" title="Firing an untrusted pointer event from script">
+<code>var event = new PointerEvent("pointerover",
+  { bubbles: true, 
     cancelable: true, 
     composed: true,
     pointerId: 42,
     pointerType: "pen",
     clientX: 300,
     clientY: 500
-    });
-eventTarget.dispatchEvent(event); 
+  });
+eventTarget.dispatchEvent(event);</code>
 </pre>
     </section>
 
@@ -782,28 +809,28 @@ partial interface Navigator {
                 <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).  For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical scrolling of the document.  When the carousel reaches its right-most extent, it may change its touch-action to <code>pan-y pan-right</code> so that a subsequent pan operation beyond it's extent can scroll the document within the viewport if possible.  It's not possible to change the behavior of a pan in the middle of an operation.</p>
             </div>
             <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
-<pre id="example_5" class="example" title="Disallowing all touch behaviors">
-&lt;div style=&quot;touch-action: none;&quot;&gt;
+<pre id="example_6" class="example" title="Disallowing all touch behaviors">
+<code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all touches.
-&lt;/div&gt;
+&lt;/div&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Allowing horizontal panning only">
-&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
+<pre id="example_7" class="example" title="Allowing horizontal panning only">
+<code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
-&lt;/div&gt;
+&lt;/div&gt;</code>
 </pre>
-<pre id="example_7" class="example" title="Child regions that disallow touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_8" class="example" title="Child regions that disallow touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all touches.
     &lt;/div&gt;
     &lt;div&gt;
         Touches on this element MAY be consumed for manipulating the parent.
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>    
 </pre>
-<pre id="example_8" class="example" title="Intermediate parent that disallows touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_9" class="example" title="Intermediate parent that disallows touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
             This element receives pointer events for all touches because
@@ -812,16 +839,16 @@ partial interface Navigator {
             Therefore, no touch behaviors are allowed.
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>    
 </pre>
-<pre id="example_9" class="example" title="Intermediate parent that restricts allowed touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_10" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
             This element receives pointer events when not panning to the left.
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>   
 </pre>
     </section>
     </section>
