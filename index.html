@@ -400,9 +400,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
                 <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
-
-                <p>For any pointer event initialize the <code>composed</code> ([[!WHATWG-DOM]]) attribute to <code>true</code> and <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> [[!DOM-LEVEL-3-EVENTS]] attribute to 0.</p>
-                <p>Initialize the <code>bubbles</code> and <code>cancelable</code> attributes for the event according to the <a href="#pointer-event-type-table">Pointer Events table</a>.</p>
+                <p>For any pointer event initialize the attributes of the event according to the <a href="#h-pointer-event-types">Pointer Event types</a> section.</p>
                 <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
  
                 <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code>.
@@ -519,6 +517,7 @@ interface PointerEvent : MouseEvent {
                     </tr>
                 </tbody>
             </table>
+            <p>For all pointer events in the table above, <code>composed</code> ([[!WHATWG-DOM]]) attribute SHOULD be <code>true</code> and <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> [[!DOM-LEVEL-3-EVENTS]] attribute SHOULD be 0.</p>
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3><dfn>The <code>pointerover</code> event</dfn></h3>
