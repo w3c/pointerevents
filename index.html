@@ -426,30 +426,9 @@ interface PointerEvent : MouseEvent {
 
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
-                <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
+                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>, and <a href="#h-pointer-event-types">Pointer Event types</a>.</p>
+                <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code>.
 
-                <p>Initialize the <code>composed</code> [[!WHATWG-DOM]] attribute to <code>true</code> for any pointer event.</p>
-
-                <p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is</p>
-                <ul>
-                    <li><code>pointerdown</code></li>
-                    <li><code>pointerup</code></li>
-                    <li><code>pointercancel</code></li>
-                    <li><code>pointermove</code></li>
-                    <li><code>pointerover</code></li>
-                    <li><code>pointerout</code></li>
-                    <li><code>gotpointercapture</code></li>
-                    <li><code>lostpointercapture</code></li>
-                </ul>
-                <p>Initialize the <code>cancelable</code> attribute for the event to <code>true</code> if the event name is<p>
-                <ul>
-                    <li><code>pointerdown</code></li>
-                    <li><code>pointerup</code></li>
-                    <li><code>pointermove</code></li>
-                    <li><code>pointerover</code></li>
-                    <li><code>pointerout</code></li>
-                </ul>
-                
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, 
@@ -465,7 +444,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
-                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+                    <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
                             <ul>
@@ -486,15 +465,14 @@ interface PointerEvent : MouseEvent {
         <section>
             <h2>Pointer Event types</h2>
             <p>The following table provides a summary of the event types defined in this specification.</p>
-            <table class="parameters">
+            <table id="pointer-event-type-table" class="parameters">
                 <thead><tr>
-                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Composed</th><th>Default Action</th></tr>
+                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code>pointerover</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -504,13 +482,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerdown</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
@@ -521,13 +497,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>Yes</td>
-                        <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
                     </tr>
                     <tr>
                         <td><code>pointerup</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
@@ -537,13 +511,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerout</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -553,7 +525,6 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -561,7 +532,6 @@ interface PointerEvent : MouseEvent {
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -569,14 +539,13 @@ interface PointerEvent : MouseEvent {
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                 </tbody>
             </table>
-            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
-            <p>For all PointerEvents in the table above, <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail">detail</a> attribute defined in [[!DOM-LEVEL-3-EVENTS]] SHOULD be 0.</p>
-
+            <p>For all pointer events in the table above, <code>composed</code> ([[!WHATWG-DOM]]) attribute SHOULD be <code>true</code> and <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> [[!DOM-LEVEL-3-EVENTS]] attribute SHOULD be 0.</p>
+            <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
+            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3>The <dfn><code>pointerover</code> event</dfn></h3>
                 <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</p>
@@ -887,7 +856,7 @@ partial interface Navigator {
             <div class="note">Some user agents implement their own <dfn>implicit pointer capture</dfn> behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
             <section>
                 <h3>Implicit Release of Pointer Capture</h3>
-                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
+                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
                 <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
             </section>
         </section>
@@ -1022,6 +991,7 @@ partial interface Navigator {
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <h3>Changes since the 24 February 2015 Recommendation</h3>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/122">Add pointer capture processing follow delayed model except implicit release and set the pointer capture events attributes</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/127">Add hasPointerCapture</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/96">Removed "pen contact" condition on button/buttons</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/92">Make all pointer events composed events</a></li>
