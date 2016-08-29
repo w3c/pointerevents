@@ -132,40 +132,34 @@
     <section class="informative">
         <h1>Examples</h1>
         <p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
-<pre id="example_1" class="example" title="Basic HTML5 Canvas painting application">
-&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
-  that all events on the canvas element are given to the application instead. */
-  
-  canvas { 
-    touch-action: none; 
-  }
-&lt;/style&gt;
+<pre id="example_1" class="example" title="Feature detection and event binding">
+<code>/* Bind to either Pointer Events or traditional touch/mouse */
 
-&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+if (window.PointerEvent) {
+    // if Pointer Events are supported, only listen to pointer events
+    target.addEventListener("pointerdown", function(e) {
+        // if necessary, apply separate logic based on e.pointerType
+        // for different touch/pen/mouse behavior
+        ...
+    });
+    ...
+} else {
+    // traditional touch/mouse event handlers
+    target.addEventListener('touchstart', function(e) {
+        // prevent compatibility mouse events and click
+        e.preventDefault();
+        ...
+    });
+    ...
+    target.addEventListener('mousedown', ...);
+    ...
+}
 
-&lt;script type='text/javascript'&gt;
-    var canvas = document.getElementById("drawSurface"),
-    context = canvas.getContext("2d");
-
-    if (window.PointerEvent) {
-        canvas.addEventListener("pointermove", paint, false);
-        if(window.navigator.maxTouchPoints>1)
-           /* User agent and hardware support multi-touch */
-    } 
-    else {
-        //Provide fallback for user agents that do not support Pointer Events
-        canvas.addEventListener("mousemove", paint, false);
-    }
-
-    function paint(event) {
-        if(event.buttons>0)
-           context.fillRect(event.clientX, event.clientY, 5, 5);
-    }
-&lt;/script&gt;
+// additional event listeners for keyboard handling
+...</code>
 </pre>
 <pre id="example_2" class="example" title="Detecting the type of input from a user">
-window.addEventListener("pointerdown", detectInputType, false);
+<code>window.addEventListener("pointerdown", detectInputType);
 
 function detectInputType(event) {
     switch(event.pointerType) {
@@ -182,29 +176,62 @@ function detectInputType(event) {
             /* pointerType is empty (could not be detected) 
             or UA-specific custom type */
     }
-}</pre>
-<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
-&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+}</code></pre>
+<pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
+<code>&lt;style&gt;
+  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
+  that all events on the canvas element are given to the application instead. */
+  
+  canvas { touch-action: none; }
+&lt;/style&gt;
+
+&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+
 &lt;script&gt;
-window.addEventListener("pointerdown", checkPointerSize, false);
+    var canvas = document.getElementById("drawSurface"),
+    context = canvas.getContext("2d");
+
+    if (window.PointerEvent) {
+        canvas.addEventListener("pointermove", paint);
+        if(window.navigator.maxTouchPoints>1)
+           // user agent and hardware support multi-touch
+           ...
+    } else {
+        // provide fallback for user agents that do not support Pointer Events
+        canvas.addEventListener("mousemove", paint);
+    }
+
+    function paint(event) {
+        if(event.buttons>0)
+           context.fillRect(event.clientX, event.clientY, 5, 5);
+    }
+
+    // additional event listeners/functions for keyboard handling
+    ...
+&lt;/script&gt;</code>
+</pre>
+<pre id="example_4" class="example" title="Resizing an element to match the contact geometry">
+<code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+&lt;script&gt;
+window.addEventListener("pointerdown", checkPointerSize);
 
 function checkPointerSize(event) {
     event.target.style.width = event.width + "px";
     event.target.style.height = event.height + "px";
 }
-&lt;/script&gt;
+&lt;/script&gt;</code>
 </pre>
-<pre id="example_4" class="example" title="Firing an untrusted pointer event from script">
-var event = new PointerEvent("pointerover",
-   {bubbles: true, 
+<pre id="example_5" class="example" title="Firing an untrusted pointer event from script">
+<code>var event = new PointerEvent("pointerover",
+  { bubbles: true, 
     cancelable: true, 
     composed: true,
     pointerId: 42,
     pointerType: "pen",
     clientX: 300,
     clientY: 500
-    });
-eventTarget.dispatchEvent(event); 
+  });
+eventTarget.dispatchEvent(event);</code>
 </pre>
     </section>
 
@@ -399,30 +426,9 @@ interface PointerEvent : MouseEvent {
 
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
-                <p>To <dfn>fire a pointer event name e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>.</p>
+                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a>, and <a href="#h-pointer-event-types">Pointer Event types</a>.</p>
+                <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code>.
 
-                <p>Initialize the <code>composed</code> [[!WHATWG-DOM]] attribute to <code>true</code> for any pointer event.</p>
-
-                <p>Initialize the <code>bubbles</code> attribute for the event to <code>true</code> if the event name is</p>
-                <ul>
-                    <li><code>pointerdown</code></li>
-                    <li><code>pointerup</code></li>
-                    <li><code>pointercancel</code></li>
-                    <li><code>pointermove</code></li>
-                    <li><code>pointerover</code></li>
-                    <li><code>pointerout</code></li>
-                    <li><code>gotpointercapture</code></li>
-                    <li><code>lostpointercapture</code></li>
-                </ul>
-                <p>Initialize the <code>cancelable</code> attribute for the event to <code>true</code> if the event name is<p>
-                <ul>
-                    <li><code>pointerdown</code></li>
-                    <li><code>pointerup</code></li>
-                    <li><code>pointermove</code></li>
-                    <li><code>pointerover</code></li>
-                    <li><code>pointerout</code></li>
-                </ul>
-                
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, 
@@ -440,7 +446,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
-                    <p>Whenever a user agent is to fire a Pointer Event that is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, it must first run these steps:</p>
+                    <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
                             <ul>
@@ -461,15 +467,14 @@ interface PointerEvent : MouseEvent {
         <section>
             <h2>Pointer Event types</h2>
             <p>The following table provides a summary of the event types defined in this specification.</p>
-            <table class="parameters">
+            <table id="pointer-event-type-table" class="parameters">
                 <thead><tr>
-                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Composed</th><th>Default Action</th></tr>
+                    <th>Event Type</th><th>Sync/Async</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code>pointerover</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -479,13 +484,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerdown</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
@@ -496,13 +499,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>Yes</td>
-                        <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mousemove</code></td>
                     </tr>
                     <tr>
                         <td><code>pointerup</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>Varies:  when the pointer is primary, all default actions of <code>mouseup</code></td>
@@ -512,13 +513,11 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
                         <td><code>pointerout</code></td>
                         <td>Sync</td>
-                        <td>Yes</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>None</td>
@@ -528,7 +527,6 @@ interface PointerEvent : MouseEvent {
                         <td>Sync</td>
                         <td>No</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -536,7 +534,6 @@ interface PointerEvent : MouseEvent {
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                     <tr>
@@ -544,14 +541,13 @@ interface PointerEvent : MouseEvent {
                         <td>Sync/Async</td>
                         <td>Yes</td>
                         <td>No</td>
-                        <td>Yes</td>
                         <td>None</td>
                     </tr>
                 </tbody>
             </table>
-            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code>, and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
-            <p>For all PointerEvents in the table above, <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail">detail</a> attribute defined in [[!DOM-LEVEL-3-EVENTS]] SHOULD be 0.</p>
-
+            <p>For all pointer events in the table above, <code>composed</code> ([[!WHATWG-DOM]]) attribute SHOULD be <code>true</code> and <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> [[!DOM-LEVEL-3-EVENTS]] attribute SHOULD be 0.</p>
+            <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
+            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3>The <dfn><code>pointerover</code> event</dfn></h3>
                 <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</p>
@@ -784,28 +780,28 @@ partial interface Navigator {
                 <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).  For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical scrolling of the document.  When the carousel reaches its right-most extent, it may change its touch-action to <code>pan-y pan-right</code> so that a subsequent pan operation beyond it's extent can scroll the document within the viewport if possible.  It's not possible to change the behavior of a pan in the middle of an operation.</p>
             </div>
             <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
-<pre id="example_5" class="example" title="Disallowing all touch behaviors">
-&lt;div style=&quot;touch-action: none;&quot;&gt;
+<pre id="example_6" class="example" title="Disallowing all touch behaviors">
+<code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all touches.
-&lt;/div&gt;
+&lt;/div&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Allowing horizontal panning only">
-&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
+<pre id="example_7" class="example" title="Allowing horizontal panning only">
+<code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
-&lt;/div&gt;
+&lt;/div&gt;</code>
 </pre>
-<pre id="example_7" class="example" title="Child regions that disallow touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_8" class="example" title="Child regions that disallow touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all touches.
     &lt;/div&gt;
     &lt;div&gt;
         Touches on this element MAY be consumed for manipulating the parent.
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>    
 </pre>
-<pre id="example_8" class="example" title="Intermediate parent that disallows touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_9" class="example" title="Intermediate parent that disallows touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
             This element receives pointer events for all touches because
@@ -814,16 +810,16 @@ partial interface Navigator {
             Therefore, no touch behaviors are allowed.
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>    
 </pre>
-<pre id="example_9" class="example" title="Intermediate parent that restricts allowed touch behaviors">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
+<pre id="example_10" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
             This element receives pointer events when not panning to the left.
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;    
+&lt;/div&gt;</code>   
 </pre>
     </section>
     </section>
@@ -866,7 +862,7 @@ partial interface Navigator {
         </section>
         <section>
             <h3>Implicit Release of Pointer Capture</h3>
-            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST run the steps as if the <code>releasePointerCapture()</code> method has been called with an argument equal to the <code>pointerId</code> property of the <code>pointerup</code> or <code>pointercancel</code> event just dispatched.</p>
+            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
             <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
         </section>
     </section>
@@ -1000,6 +996,7 @@ partial interface Navigator {
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <h3>Changes since the 24 February 2015 Recommendation</h3>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/122">Add pointer capture processing follow delayed model except implicit release and set the pointer capture events attributes</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/127">Add hasPointerCapture</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/96">Removed "pen contact" condition on button/buttons</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/92">Make all pointer events composed events</a></li>
