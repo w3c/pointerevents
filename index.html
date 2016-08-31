@@ -431,11 +431,7 @@ interface PointerEvent : MouseEvent {
 
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
-                    <li>If the <a>pointer capture target override</a> has been set for the pointer, 
-                        <ul>
-                            <li>Set the <code>relatedTarget</code> attribute of the event to <code>null</code>.</li>
-                            <li>Set the target to the <a>pointer capture target override</a> object.</li>
-                        </ul>
+                    <li>If the <a>pointer capture target override</a> has been set for the pointer, set the target to <a>pointer capture target override</a> object. This may cause some boundary events as this is the same as pointer leaving its previous target and entering this new target.
                     </li>
                     <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
@@ -449,14 +445,8 @@ interface PointerEvent : MouseEvent {
                     <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
-                            <ul>
-                                <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
-                            </ul>
                         </li>
                         <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
-                            <ul>
-                                <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
-                            </ul>
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
@@ -840,7 +830,6 @@ partial interface Navigator {
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
-            <div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
         </section>
     
         <section>
