@@ -431,30 +431,23 @@ interface PointerEvent : MouseEvent {
 
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
-                    <li>If the <a>pointer capture target override</a> has been set for the pointer, 
-                        <ul>
-                            <li>Set the <code>relatedTarget</code> attribute of the event to <code>null</code>.</li>
-                            <li>Set the target to the <a>pointer capture target override</a> object.</li>
-                        </ul>
-                    </li>
+                    <li>If the <a>pointer capture target override</a> has been set for the pointer, set the target to <a>pointer capture target override</a> object.</li>
                     <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
 
+                <p>If this is a <code>pointerdown</code> event, the associated device is a direct manipulation device and the target is an <code>Element</code>, then <a href="setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
+                
                 <p>Fire the event to the determined target.
+
+                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target and if they are different targets boundary events should be dispatched first. When the capture is released the same scenario may happen as the pointer is leaving the capturing node and entering the hit-test target.</div>
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
                     <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
-                            <ul>
-                                <li>Further, if the <a>pending pointer capture target override</a> is not set and, the <a>pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, then fire a pointer event named <code>pointerover</code> and a pointer event named <code>pointerenter</code> at the hit test node.</li>
-                            </ul>
                         </li>
                         <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
-                            <ul>
-                                <li>Further, if the <a>pointer capture target override</a> is not set and, the <a>pending pointer capture target override</a> is not equal to the hit test node for the pointer event which invoked this process, and the hit test node has received <code>pointerover</code> and <code>pointerenter</code> events, then fire a pointer event named <code>pointerout</code> and a pointer event named <code>pointerleave</code> at the hit test node.</li>
-                            </ul>
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
@@ -838,7 +831,6 @@ partial interface Navigator {
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
-            <div class="note">When pointer capture is set, <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>, and <code>pointerleave</code> events are only generated when crossing the boundary of the element that has capture as other elements can no longer be targeted by the pointer. This has the effect of suppressing these events on all other elements.</div>
         </section>
     
         <section>
@@ -851,13 +843,16 @@ partial interface Navigator {
             </ol>
         </section>
         <section>
-            <h2>Implicit Pointer Capture</h2>
-            <div class="note">Some user agents implement their own <dfn>implicit pointer capture</dfn> behavior - for instance, for touch interactions, a user agent could automatically capture the pointer as part of an interaction on a form control (such as a button) to improve user interaction (allowing some finger movement to stray outside of the form control itself during the interaction). As part of this behavior, user agents typically fire <code>gotpointercapture</code> and <code>lostpointercapture</code> events, even though no explicit pointer capture functions (<code>setPointerCapture</code> and <code>releasePointerCapture</code>) were called.</div>
-            <section>
-                <h3>Implicit Release of Pointer Capture</h3>
-                <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
-                <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
-            </section>
+            <h2><dfn>Implicit Pointer Capture</dfn></h2>
+            <p>Some input devices (such as touchscreens) implement a "direct manipulation" metaphor where a pointer is intended to act primarily on the UI element it became active upon (providing a physical illusion of direct contact, instead of indirect contact via a cursor that conceptually floats above the UI). Such devices are identified by the <a href="https://wicg.github.io/InputDeviceCapabilities/#dom-inputdevicecapabilities-pointermovementscrolls">InputDeviceCapabilities.pointerMovementScrolls property</a> and should have "implicit pointer capture" behavior as follows.</p>
+            <p>Direct manipulation devices should behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners.  The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred.  If <a data-lt="Element.releasePointerCapture">releasePointerCapture</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture event</a> will be dispatched to the target (as normal) indicating that capture is active.</p>
+            <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on touch movement events without explicit developer opt-in (consistent with the performance properties of existing dominant native and web APIs for touch input).</div>
+            <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
+        </section>
+        <section>
+            <h3>Implicit Release of Pointer Capture</h3>
+            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
+            <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
         </section>
     </section>
     <section>
