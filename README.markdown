@@ -7,6 +7,3 @@ Implementation status:
 - Gecko: [In development](https://platform-status.mozilla.org/#pointer-events)
 - WebKit: [Opposition](https://lists.webkit.org/pipermail/webkit-dev/2012-December/023050.html)
 
-The [reduce-hit-tests branch](https://github.com/w3c/pointerevents/tree/reduce-hit-tests) contains a [proposal](https://rawgit.com/w3c/pointerevents/reduce-hit-tests/index.html#implicit-pointer-capture) with a [few changes](https://github.com/w3c/pointerevents/compare/gh-pages...reduce-hit-tests) to address a [performance concern raised by the Chrome team](https://github.com/w3c/pointerevents/issues/8). 
-   
-
