@@ -233,16 +233,6 @@ function checkPointerSize(event) {
   });
 eventTarget.dispatchEvent(event);</code>
 </pre>
-<pre id="example_6" class="example" title="Drawing using coalesced events">
-<code>window.addEventListener("pointermove", function(event) {
-  var listOfAllEvents = event.getCoalescedEvents();
-  listOfAllEvents.push(event);
-  for (let e of listOfAllEvents) {
-    // Draw point for event e
-  }
-});
-</code>
-</pre>
     </section>
 
     <section class="informative">
@@ -308,8 +298,6 @@ interface PointerEvent : MouseEvent {
     readonly        attribute long        twist;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
-
-    sequence&lt;PointerEvent> getCoalescedEvents();
 };
               </pre>
                 <dl dfn-for="PointerEvent" link-for="PointerEvent">
@@ -374,10 +362,6 @@ interface PointerEvent : MouseEvent {
                     <dt><dfn>isPrimary</dfn></dt>
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
-                        </dd>
-                    <dt><dfn>getCoalescedEvents</dfn></dt>
-                        <dd>
-                            <p>Returns a sequence of all <code>PointerEvents</code> that were coalesced into the (original) event. The following attributes of the coalesced events will always have the same value as the original event: <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, and particularly <code>target</code>. But other attributes might be different. The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]). So the first event will have the smallest <code>timeStamp</code>. Also the original event's <code>timeStamp</code> will be greater than or equal to the last event's <code>timeStamp</code> in the sequence. None of the events in the sequence will have coalesced events. When an event has no coalesed event this function returns an empty sequence.</p>
                         </dd>
                 </dl>
 
