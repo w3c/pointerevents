@@ -16,6 +16,8 @@
           companyURL:  "https://www.google.com/"
         }],
         shortName: "PointerEvent Level 2 Extensions",
+        wg:        "Pointer Events Working Group",
+        wgURI:     "https://www.w3.org/2012/pointerevents/",
         otherLinks: [{
           key: 'Participation',
           data: [
@@ -40,20 +42,20 @@ The features in this specification extend or modify those found in <a href="http
 
     <section id='sotd'>
       <p>
-        This proposal was first introduced in this <a href="https://discourse.wicg.io/t/new-event-for-non-primary-button-click/1527">discourse</a>.
+        This proposal intends to add new functionalities to a future version of the <a href="https://w3c.github.io/pointerevents/index.html">Pointer Events Level 2</a>.
       </p>
     </section>
 
     <section id='intro' class='informative'>
       <h2>Introduction</h2>
       <p>
-        This document mainly contains the new APIs that may not make it to Pointer Event Level 2 spec. So we iterate over these new APIs to make them ready for the next version.
+        This document reflects incubation for APIs which are intended to be part of a future version of the Pointer Events specification. They are not yet broadly supported by implementations.
       </p>
       <p>
-	One of the APIs that are added in this document exposes all the events that were coalesced into a single event. Coalescing events into a single event enables user agents to prevent processing of the events that don’t get a chance to update the frame content visually. Basically if the javascript handlers process the events and update the screen contents faster than refresh rate only the last update will be rendered and shown in the next frame. However, some applications like drawing apps might want to take advantage of the a precise history of events as user moves the pointer on the screen to be able to draw smoother and better looking curves. So we needed an API to expose the coalesced events along with the event that was dispatched to the javascript. 
+	The <code>getCoalescedEvents</code> API (similar to Android <a href="https://developer.android.com/reference/android/view/MotionEvent.html#getHistoricalX(int, int)">getHistorical</a> APIs and iOS <a href="https://developer.xamarin.com/api/member/MonoTouch.UIKit.UIEvent.GetCoalescedTouches/p/MonoTouch.UIKit.UITouch/">GetCoalescedTouches</a> API) exposes all the events that were coalesced into a single event. Coalescing events into a single event enables user agents to prevent processing of the events that don’t get a chance to update the frame content visually. Basically if the javascript handlers process the events and update the screen contents faster than refresh rate only the last update will be rendered and shown in the next frame. However, some applications like drawing apps may want to take advantage of the precise history of events as user moves the pointer on the screen to be able to draw smoother and better looking curves. This API can be used in those scenarios to get all the coalesced events from the event that was dispatched to the javascript.
       </p>
     </section>
-    <section dfn-for="extensions-to-pointerevents-interface">
+    <section>
       <h2>Extensions to the <code>PointerEvent</code> interface</h2>
       <p>
         The following section describes extensions to the existing <a href="https://w3c.github.io/pointerevents/index.html#pointerevent-interface"><code>PointerEvent</code> interface</a>.
@@ -61,7 +63,7 @@ The features in this specification extend or modify those found in <a href="http
       <div>
           <pre class="idl">
 partial dictionary PointerEventInit {
-    sequence&lt;PointerEventInit> coalescedEventInits = [];
+    sequence&lt;PointerEvent> coalescedEvents = [];
 };
 
 partial interface PointerEvent {
@@ -71,12 +73,42 @@ partial interface PointerEvent {
           <dl dfn-for="PointerEvent" link-for="PointerEvent">
               <dt><dfn>getCoalescedEvents</dfn></dt>
               <dd>
-                  <p> Returns a sequence of all <code>PointerEvents</code> that were coalesced into the received event. The following attributes of the coalesced events will always have the same value as the received event: <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, and particularly <code>target</code>. But other attributes might be different. The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]). So the first event will have the smallest <code>timeStamp</code>. Also the received event's <code>timeStamp</code> will be greater than or equal to the last event's <code>timeStamp</code> in the sequence. None of the events in the sequence will have coalesced events. When an event has no coalesed event, this function returns an empty sequence.</p>
+                  <p>Returns a sequence of all <code>PointerEvents</code> that were coalesced into the received <code>pointermove</code> event. The following attributes of the coalesced events will always have the same value as the received event: <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, and particularly <code>target</code>. But other attributes might be different. The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]). So the first event will have the smallest <code>timeStamp</code>. The received event's attributes will be initalized in a way that is best representative of all the coalesced events. For example It's <code>timeStamp</code> will be equal to the last event's <code>timeStamp</code> in the sequence and it's <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]]) will be the sum of that of all the coalesced events. None of the events in the sequence will have coalesced events and <code>getCoalescedEvents</code> returns an empty sequence for them. This API always returns at least one coalesced event for <code>pointermove</code> events and an empty list for other types of <code>PointerEvents</code>.</p>
               </dd>
           </dl>
-          <p>The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. The <coalescedEventInits> will be used to create coalesced PointerEvents of the generated untrusted synthetic pointer event. The number of coalesced events will be the same as <code>coalescedEventInits</code> list and all of their attributes will be have the same values as the generated event unstrusted synthetic pointer event except those that have a different value in their coalescedEventInits entry. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
-          </p>
       </div>
+    </section>
+
+    <section>
+      <h2>Timing of coalesced event firing</h2>
+      <p>Coalescing events only happens for <code>pointermove</code> events. All the coalesced events should be fired before the next frame or before any <code>pointerup</code>, <code>pointerdown</code>, <code>pointercancel</code> events. Note that user agents don't need to hit-test all the coalesced events as all of them will have the same target as the dispatched event.</p>
+      <p>When the user agent dispatches any <code>PointerEvent</code> it MUST dispatch an event for every <code>pointerId</code> that has any coalesced events so far at that point with the correct relative ordering.</p>
+      <p>Here is an example of the actual events happening in one frame with increasing <code>timestamps</code> and the dispatched events by the user agent:
+        <table class="parameters">
+          <thead>
+            <tr><th>Actual events</th><th>Dispatched events</th> </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=1</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=1</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointerdown</code> with <code>pointerId</code>=1</td><td>
+                <code>pointermove</code> with <code>pointerId</code>=1 and two coalesced events<br>
+                <code>pointermove</code> with <code>pointerId</code>=2 and four coalesced events<br>
+                <code>pointerdown</code> with <code>pointerId</code>=1 and zero coalesced events<br>
+            </td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointermove</code> with <code>pointerId</code>=2</td><td></td></tr>
+            <tr><td><code>pointerup</code> with <code>pointerId</code>=1</td><td>
+                <code>pointermove</code> with <code>pointerId</code>=2 and two coalesced events<br>
+                <code>pointerup</code> with <code>pointerId</code>=1 and zero coalesced events<br>
+            </td></tr>
+          </tbody>
+        </table>
+      </p>
     </section>
 
     <section class="informative">
@@ -85,31 +117,28 @@ partial interface PointerEvent {
       be used</p>
 <pre id="example_1" class="example" title="Creating an untrusted pointer event with coalesced events from script">
 <code>
-var event = new PointerEvent("pointerover",
-  { bubbles: true,
-    cancelable: true,
-    composed: true,
-    pointerId: 42,
-    pointerType: "pen",
-    clientX: 300, 
-    clientY: 500,
-    coalescedEventInits: [{clientX 505}, {clientX: 305, clientY: 505}]
-  });
-// event.getCoalescedEvents().length is 2
-// event.clientX is 300
-// event.clientY is 500
-// event.getCoalescedEvents()[0].clientX is 300
-// event.getCoalescedEvents()[0].clientY is 505
-// event.getCoalescedEvents()[1].clientX is 305
-// event.getCoalescedEvents()[1].clientY is 505
+var pointerEventInitDict =
+{
+  bubbles: true,
+  cancelable: true,
+  composed: true,
+  pointerId: 42,
+  pointerType: "pen",
+  clientX: 300,
+  clientY: 500,
+});
+
+var p1 = new PointerEvent("pointermove", pointerEventInitDict);
+pointerEventInitDict.clientX += 10;
+var p2 = new PointerEvent("pointermove", pointerEventInitDict);
+pointerEventInitDict.coalescedEvents = [p1, p2];
+var event = new PointerEvent("pointermove", PointerEventInitDict);
 </code>
 </pre>
 <pre id="example_2" class="example" title="Drawing using coalesced events">
 <code>window.addEventListener("pointermove", function(event) {
-  var listOfAllEvents = event.getCoalescedEvents();
-  listOfAllEvents.push(event);
-  for (let e of listOfAllEvents) {
-    // Draw point for event e
+  for (let e of event.getCoalescedEvents()) {
+    drawPoint(e.pageX, e.pageY)
   }
 });
 </code>
