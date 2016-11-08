@@ -883,7 +883,7 @@ partial interface Navigator {
             <p>Whenever a user agent is to dispatch a pointer event for a device that supports hover, it SHOULD run the following steps:</p>
             <ol>
                 <li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
-                <li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
+                <li>If the pointer event to be is dispatched is a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
                 <li>Dispatch the pointer event.</li>
                 <li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
                 <li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
@@ -909,7 +909,7 @@ partial interface Navigator {
             <ol>
                 <li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
                 <li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
-                <li>If the pointer event to be is dispatched is <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
+                <li>If the pointer event to be is dispatched is a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
                 <li>Dispatch the pointer event.</li>
                 <li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <i>PREVENT MOUSE EVENT</i> flag for this <code>pointerType</code>.</li>
                 <li>If the <i>PREVENT MOUSE EVENT</i> flag is <b>not</b> set for this <code>pointerType</code> and the pointer event dispatched was:
@@ -930,8 +930,8 @@ partial interface Navigator {
                 <ol data-class="note-list">
                     <li><code>mousemove</code></li>
                     <li><code>pointerover</code></li>
-                    <li><code>mouseover</code></li>
                     <li><code>pointerenter</code></li>
+                    <li><code>mouseover</code></li>
                     <li><code>mouseenter</code></li>
                     <li><code>pointerdown</code></li>
                     <li><code>mousedown</code></li>
@@ -940,24 +940,24 @@ partial interface Navigator {
                     <li><code>mouseup</code></li>
                     <li><code>click</code></li>
                     <li><code>pointerout</code></li>
-                    <li><code>mouseout</code></li>
                     <li><code>pointerleave</code></li>
+                    <li><code>mouseout</code></li>
                     <li><code>mouseleave</code></li>
                 </ol>
                 <p>If, however, the <code>pointerdown</code> event is <a data-lt="canceled event">canceled</a> during this interaction then the sequence of events would be:</p>
                 <ol data-class="note-list">
                     <li><code>mousemove</code></li>
                     <li><code>pointerover</code></li>
-                    <li><code>mouseover</code></li>
                     <li><code>pointerenter</code></li>
+                    <li><code>mouseover</code></li>
                     <li><code>mouseenter</code></li>
                     <li><code>pointerdown</code></li>
                     <li>Zero or more <code>pointermove</code> events, depending on movement of the pointer</li>
                     <li><code>pointerup</code></li>
                     <li><code>click</code></li>
                     <li><code>pointerout</code></li>
-                    <li><code>mouseout</code></li>
                     <li><code>pointerleave</code></li>
+                    <li><code>mouseout</code></li>
                     <li><code>mouseleave</code></li>
                 </ol>            
             </div>
