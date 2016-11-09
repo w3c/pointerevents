@@ -634,7 +634,7 @@ partial interface Element {
                 </dd>
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                 </dd>
                 <dt><dfn>releasePointerCapture</dfn></dt>
                 <dd>
