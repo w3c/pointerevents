@@ -439,7 +439,7 @@ interface PointerEvent : MouseEvent {
                 
                 <p>Fire the event to the determined target.
 
-                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target and if they are different targets boundary events should be dispatched first. When the capture is released the same scenario may happen as the pointer is leaving the capturing node and entering the hit-test target.</div>
+                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target and if they are different targets boundary events should be dispatched first. When the capture is released the same scenario may happen as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
                     <h3>Process Pending Pointer Capture</h3>
@@ -541,11 +541,11 @@ interface PointerEvent : MouseEvent {
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3>The <dfn><code>pointerover</code> event</dfn></h3>
-                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</p>
+                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target. A user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>).</p>
             </section>
             <section>
                 <h3>The <dfn><code>pointerenter</code> event</dfn></h3>
-                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
+                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
             </section>
             <section>
@@ -588,7 +588,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointerout</code> event</dfn></h3>
                 <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerout</code> when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved out of the hit test boundaries of an element.</li>
+                    <li>A pointing device is moved out of the hit test boundaries of an element. Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target.</li>
                     <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code>).</li>
                     <li>After firing the <code>pointercancel</code> event  (see <code><a href="#the-pointercancel-event">pointercancel</a></code>).</li>
                     <li>When a pen stylus leaves the hover range detectable by the digitizer.</li>
@@ -596,7 +596,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn><code>pointerleave</code> event</dfn></h3>
-                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code> and <code><a href="#the-pointercancel-event">pointercancel</a></code>). User agents MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pen stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
+                <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code> and <code><a href="#the-pointercancel-event">pointercancel</a></code>). Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target. User agents MUST also <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointerleave</code> when a pen stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[DOM-LEVEL-3-EVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
             </section>
             <section>
@@ -634,7 +634,7 @@ partial interface Element {
                 </dd>
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. Subsequent events for the pointer MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                 </dd>
                 <dt><dfn>releasePointerCapture</dfn></dt>
                 <dd>
