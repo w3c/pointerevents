@@ -616,22 +616,12 @@ interface PointerEvent : MouseEvent {
             <p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[!HTML5]], to facilitate the setting and releasing of pointer capture.</p>
             <pre class="idl">
 partial interface Element {
-  attribute EventHandler ongotpointercapture;
-  attribute EventHandler onlostpointercapture;
   void setPointerCapture (long pointerId);
   void releasePointerCapture (long pointerId);
   boolean hasPointerCapture (long pointerId);
 };
             </pre>
             <dl dfn-for="Element" link-for="Element">
-                <dt><dfn>ongotpointercapture</dfn></dt>
-                <dd>
-                    The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
-                </dd>
-                <dt><dfn>onlostpointercapture</dfn></dt>
-                <dd>
-                    The event handler IDL attribute (see [[!HTML5]]) for the <code>lostpointercapture</code> event type.
-                </dd>
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
                     <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
@@ -654,6 +644,8 @@ partial interface Element {
             <p>The following section describes extensions to the existing <code>GlobalEventHandlers</code> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
             <pre class="idl">
 partial interface GlobalEventHandlers {
+    attribute EventHandler ongotpointercapture;
+    attribute EventHandler onlostpointercapture;
     attribute EventHandler onpointerdown;
     attribute EventHandler onpointermove;
     attribute EventHandler onpointerup;
@@ -665,6 +657,14 @@ partial interface GlobalEventHandlers {
 };
             </pre>
             <dl dfn-for="GlobalEventHandlers" link-for="GlobalEventHandlers">
+                <dt><dfn>ongotpointercapture</dfn></dt>
+                <dd>
+                    The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
+                </dd>
+                <dt><dfn>onlostpointercapture</dfn></dt>
+                <dd>
+                    The event handler IDL attribute (see [[!HTML5]]) for the <code>lostpointercapture</code> event type.
+                </dd>
                 <dt><dfn>onpointerdown</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>pointerdown</code> event type.
