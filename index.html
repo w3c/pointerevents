@@ -764,6 +764,7 @@ partial interface Navigator {
                 <dt>manipulation</dt>
                 <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
             </dl>
+            <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[!COMPAT]].</div>
             <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
             <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span> (see [[HTML5]]), authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
             <div class="note">
