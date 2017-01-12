@@ -365,7 +365,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                 </dl>
 
-                <p>The <code>PointerEventInit</code> dictionary is used by the <code>PointerEvent</code> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
+                <p>The <dfn><code>PointerEventInit</code></dfn> dictionary is used by the <dfn><code>PointerEvent</code></dfn> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the <code>MouseEventInit</code> dictionary defined in [[!DOM-LEVEL-3-EVENTS]]. The steps for constructing an event are defined in [[!DOM4]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
                 <div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[DOM-LEVEL-3-EVENTS]] and extended by [[CSSOM-VIEW]].</div>
             </div>
             <section>
@@ -611,7 +611,7 @@ interface PointerEvent : MouseEvent {
     </section>
 
     <section>
-        <h2>Extensions to the <code>Element</code> interface</h2>
+        <h2>Extensions to the <dfn><code>Element</code></dfn> interface</h2>
         <div>
             <p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[!HTML5]], to facilitate the setting and releasing of pointer capture.</p>
             <pre class="idl">
@@ -641,7 +641,7 @@ partial interface Element {
     <section>
         <h2>Extensions to the <code>GlobalEventHandlers</code> interface</h2>
         <div>
-            <p>The following section describes extensions to the existing <code>GlobalEventHandlers</code> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
+            <p>The following section describes extensions to the existing <dfn><code>GlobalEventHandlers</code></dfn> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
             <pre class="idl">
 partial interface GlobalEventHandlers {
     attribute EventHandler ongotpointercapture;
@@ -704,7 +704,7 @@ partial interface GlobalEventHandlers {
     <section>
         <h2>Extensions to the <code>Navigator</code> interface</h2>
         <div>
-            <p>The <code>Navigator</code> interface is defined in [[!HTML5]]. This specification extends the <code>Navigator</code> interface to provide device detection support.</p>
+            <p>The <dfn><code>Navigator</code></dfn> interface is defined in [[!HTML5]]. This specification extends the <code>Navigator</code> interface to provide device detection support.</p>
             <pre class="idl">
 partial interface Navigator {
     readonly  attribute long maxTouchPoints;
