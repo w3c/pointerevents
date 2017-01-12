@@ -300,7 +300,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute boolean     isPrimary;
 };
               </pre>
-                <dl dfn-for="PointerEvent" link-for="PointerEvent">
+                <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
                     <dt><dfn>pointerId<dfn></dt>
                         <dd>
                             <p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> in the <a href="https://www.w3.org/TR/html5/browsers.html#top-level-browsing-context">top-level browsing context</a> (as defined by [[!HTML5]]) at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
@@ -621,7 +621,7 @@ partial interface Element {
   boolean hasPointerCapture (long pointerId);
 };
             </pre>
-            <dl dfn-for="Element" link-for="Element">
+            <dl data-dfn-for="Element" data-link-for="Element">
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
                     <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
@@ -656,7 +656,7 @@ partial interface GlobalEventHandlers {
     attribute EventHandler onpointerleave;
 };
             </pre>
-            <dl dfn-for="GlobalEventHandlers" link-for="GlobalEventHandlers">
+            <dl data-dfn-for="GlobalEventHandlers" data-link-for="GlobalEventHandlers">
                 <dt><dfn>ongotpointercapture</dfn></dt>
                 <dd>
                     The event handler IDL attribute (see [[!HTML5]]) for the <code>gotpointercapture</code> event type.
@@ -710,7 +710,7 @@ partial interface Navigator {
     readonly  attribute long maxTouchPoints;
 };
             </pre>
-            <dl dfn-for="Navigator" link-for="Navigator">
+            <dl data-dfn-for="Navigator" data-link-for="Navigator">
                 <dt><dfn>maxTouchPoints</dfn></dt>
                 <dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
                 <p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> should be <code>10</code>.</p>
