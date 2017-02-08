@@ -853,6 +853,7 @@ partial interface Navigator {
         <section>
             <h3>Implicit Release of Pointer Capture</h3>
             <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
+            <div class="note">If user agent supports firing <code>click</code> event (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>) and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired, <code>click</code> should precede <code>lostpointercapture</code>.</div>
             <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
         </section>
     </section>
