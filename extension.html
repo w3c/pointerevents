@@ -8,7 +8,7 @@
     <script class='remove'>
       var respecConfig = {
         specStatus: "CG-DRAFT",
-        edDraftURI: "https://w3c.github.io/pointerevents/extensions.html",
+        edDraftURI: "https://w3c.github.io/pointerevents/extension.html",
         editors: [{
           name:        "Navid Zolghadr",
           url:         "https://github.com/NavidZ",
@@ -125,13 +125,13 @@ var pointerEventInitDict =
   pointerType: "pen",
   clientX: 300,
   clientY: 500,
-});
+};
 
 var p1 = new PointerEvent("pointermove", pointerEventInitDict);
 pointerEventInitDict.clientX += 10;
 var p2 = new PointerEvent("pointermove", pointerEventInitDict);
 pointerEventInitDict.coalescedEvents = [p1, p2];
-var event = new PointerEvent("pointermove", PointerEventInitDict);
+var event = new PointerEvent("pointermove", pointerEventInitDict);
 </code>
 </pre>
 <pre id="example_2" class="example" title="Drawing using coalesced events">
