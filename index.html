@@ -721,6 +721,7 @@ partial interface Navigator {
         <h1>Declaring candidate regions for default touch behaviors</h1>
         <p>For touch input, the default action of any and all pointer events MUST NOT be a manipulation of the viewport (e.g. panning or zooming).</p>
         <div class="note">Touch manipulations are intentionally not a default action of pointer events. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</div>
+        <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and pan/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to pan using a stylus. This section applies to these scenarios as well (despite the specification's use of "touch").</div>
         <section>
             <h2>The <code>touch-action</code> CSS property</h2>
             <table class="simple">
@@ -735,6 +736,8 @@ partial interface Navigator {
             </table>
 
             <p>The <code>touch-action</code> CSS property determines whether touch input MAY  trigger default behavior supplied by user agent.  This includes, but is not limited to, behaviors such as panning or zooming.</p>
+
+            <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for other pointer types, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
 
             <p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property and the default touch behaviors on the element and its ancestors.  A touch behavior is supported if allowed by the <code>touch-action</code> properties of all elements between the hit tested element and it's nearest ancestor with the default touch behavior (including both the hit tested element and the element with the default touch behavior).</p>
 
