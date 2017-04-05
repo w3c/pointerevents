@@ -12,9 +12,7 @@ This repo holds the sources for the [Pointer Events](https://w3c.github.io/point
 
 # Implementation status:
 - EdgeHTML: [Shipped](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/pointerevents)
+- Blink: [Shipped](https://www.chromestatus.com/feature/4504699138998272)
 - Suggested polyfill: [jQuery PEP](https://github.com/jquery/PEP)
-- Blink: [Behind a flag & dev-channel experiment](https://www.chromestatus.com/features/4504699138998272), [approved to ship in Chrome 55](https://bugs.chromium.org/p/chromium/issues/detail?id=196799).
 - Gecko: [In development](https://platform-status.mozilla.org/#pointer-events)
 - WebKit: [Opposition](https://lists.webkit.org/pipermail/webkit-dev/2012-December/023050.html)
-
-
