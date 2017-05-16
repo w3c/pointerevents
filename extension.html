@@ -73,7 +73,22 @@ partial interface PointerEvent {
           <dl dfn-for="PointerEvent" link-for="PointerEvent">
               <dt><dfn>getCoalescedEvents</dfn></dt>
               <dd>
-                  <p>Returns a sequence of all <code>PointerEvents</code> that were coalesced into the dispatched <code>pointermove</code> event. When the event is created by the user agent the following attributes of the coalesced events will always have the same value as the dispatched event: <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, <code>isTrusted</code>. Also since these coalesced events are not going to be dispatched by themselves their <code>cancelable</code> and <code>bubbles</code> attributes are false. In addition to that, the other attibutes related to the <a href="https://www.w3.org/TR/uievents/#event-flow">event dispatch algorithm</a> (e.g. <code>target</code>, <code>currentTarget</code>, <code>eventPhase</code>) will have their default value and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing. But other attributes might be different. The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]). So the first event will have the smallest <code>timeStamp</code>. The dispatched event's attributes will be initalized in a way that is best representative of all the coalesced events. For example its <code>timeStamp</code> will be equal to the last event's <code>timeStamp</code> in the sequence and its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]]) will be the sum of those of all the coalesced events. None of the events in the sequence will have (nested) coalesced events, so <code>getCoalescedEvents</code> returns an empty sequence for them. This API always returns at least one coalesced event for <code>pointermove</code> events and an empty list for other types of <code>PointerEvents</code>.</p>
+                  <p>Returns a sequence of all <code>PointerEvents</code> that were coalesced into the dispatched <code>pointermove</code> event.
+When the event is created by the user agent the following attributes of the coalesced events will always have the same value as the dispatched event:
+<code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, <code>isTrusted</code>, <code>target</code>.
+Also since these coalesced events are not going to be dispatched by themselves their <code>cancelable</code> and <code>bubbles</code> attributes are false.
+In addition to that, the other attibutes related to the <a href="https://www.w3.org/TR/uievents/#event-flow">event dispatch algorithm</a>
+(e.g. <code>currentTarget</code>, <code>eventPhase</code>) will have their default value
+and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing.
+Note that this rule doesn't apply to <code>target</code> and it should still be the same as the dispatched event's <code>target</code>.
+This guarantees the attributes like <code>offsetX</code>, <code>offsetY</code> (which are commonly used by drawing applications) to be calculated correctly for the coalesced events.
+The rest of the attributes might be different from the dispatched event.
+The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
+So the first event will have the smallest <code>timeStamp</code>.
+The dispatched event's attributes will be initalized in a way that is best representative of all the coalesced events.
+For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]]) COULD be the sum of those of all the coalesced events.
+None of the events in the sequence will have (nested) coalesced events, so <code>getCoalescedEvents</code> returns an empty sequence for them.
+This API always returns at least one coalesced event for <code>pointermove</code> events and an empty list for other types of <code>PointerEvents</code>.</p>
               </dd>
           </dl>
       </div>
