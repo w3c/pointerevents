@@ -81,7 +81,7 @@ In addition to that, the other attibutes related to the <a href="https://www.w3.
 (e.g. <code>currentTarget</code>, <code>eventPhase</code>) will have their default value
 and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing.
 Note that this rule doesn't apply to <code>target</code> and it should still be the same as the dispatched event's <code>target</code>.
-This guarantees the attributes like <code>offsetX</code>, <code>offsetY</code> (which are commonly used by drawing applications) to be calculated correctly for the coalesced events.
+This guarantees the attributes like <code>offsetX</code>, <code>offsetY</code> ([[!CSSOM-VIEW]]) which are commonly used by drawing applications to be calculated correctly for the coalesced events.
 The rest of the attributes might be different from the dispatched event.
 The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
 So the first event will have the smallest <code>timeStamp</code>.
