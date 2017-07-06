@@ -768,7 +768,7 @@ partial interface Navigator {
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
             <dd>
               <p>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
-              <p>In the case of <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code> and <code>pan-down</code>, the direction is interpreted as the opposite of the physical movement in the client co-ordinate space. For example, <code>pan-up</code> corresponds to input event sequences where typically <code>screenY</code> is increasing (i.e. an interaction where the user moves a touch point down the screen) when the element has no effective CSS transforms. If the element is effectively rotated by 90 degrees counter-clockwise, <code>pan-up</code> would then correspond to input event sequences where <code>screenX</code> is increasing.</p></dd>
+              <p>In the case of <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code> and <code>pan-down</code>, the direction is interpreted as the opposite of the physical movement in the local coordinate space. For example, <code>pan-up</code> corresponds to input event sequences where typically <code>screenY</code> is increasing (i.e. an interaction where the user moves a touch point down the screen) when the element has no effective CSS transforms. If the element is effectively rotated by 90 degrees counter-clockwise, <code>pan-up</code> would then correspond to input event sequences where <code>screenX</code> is increasing.</p></dd>
             <dt>manipulation</dt>
             <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
           </dl>
@@ -837,6 +837,7 @@ partial interface Navigator {
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
                 <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If this method is invoked while the page has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
@@ -871,6 +872,8 @@ there will be no need for the <code>pointercancel</code>.</div>
             <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree,
 clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes
 and fire a PointerEvent named <code>lostpointercapture</code> corresponding to the captured pointer at the document.</p>
+            <p>When a pointer lock ([[!PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
+
         </section>
     </section>
     <section>
