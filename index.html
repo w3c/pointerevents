@@ -861,10 +861,12 @@ partial interface Navigator {
         <section>
             <h3>Implicit Release of Pointer Capture</h3>
             <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
-            <p>Immediately before firing <code>dragstart</code> event [[!HTML]],
-a user agent MUST clear the <a>pending pointer capture target override</a> for the pointer that caused the drag operation,
-and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code>
-before the <code>dragstart</code> event if necessary.</p>
+            <p>Immediately before <a href="https://html.spec.whatwg.org/multipage/dnd.html#initiate-the-drag-and-drop-operation">drag operation starts</a> [[!HTML]],
+a user agent MUST send a <code>pointercancel</code> for the pointer that caused the drag operation.
+This <code>pointercancel</code> will follow the paragraph above regarding releasing the capture.</p>
+<div class="note">If the drag operation initiation is prevented through any means
+(e.g. calling <code<preventDefault</code> the <code>dragstart</code> event)
+there will be no need for the <code>pointercancel</code>.</div>
             <p>If the user agent supports firing the <code>click</code> event (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>) and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired, <code>click</code> should be fired before <code>lostpointercapture</code>.</p>
             <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
         </section>
