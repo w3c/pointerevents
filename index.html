@@ -868,7 +868,9 @@ This <code>pointercancel</code> will follow the paragraph above regarding releas
 (e.g. calling <code<preventDefault</code> the <code>dragstart</code> event)
 there will be no need for the <code>pointercancel</code>.</div>
             <p>If the user agent supports firing the <code>click</code> event (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>) and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired, <code>click</code> should be fired before <code>lostpointercapture</code>.</p>
-            <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree, clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes and fire a PointerEvent named <code>lostpointercapture</code> at the document.</p>
+            <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree,
+clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes
+and fire a PointerEvent named <code>lostpointercapture</code> corresponding to the captured pointer at the document.</p>
         </section>
     </section>
     <section>
