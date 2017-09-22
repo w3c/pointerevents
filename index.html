@@ -284,7 +284,7 @@ dictionary PointerEventInit : MouseEventInit {
     boolean     isPrimary = false;
 };
 
-[Constructor(DOMString type, optional PointerEventInit eventInitDict)]
+[Constructor(DOMString type, optional PointerEventInit eventInitDict), Exposed=Window]
 interface PointerEvent : MouseEvent {
     readonly        attribute long        pointerId;
     readonly        attribute double      width;
@@ -1010,6 +1010,7 @@ and fire a PointerEvent named <code>lostpointercapture</code> corresponding to t
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <h3>Changes since the 24 February 2015 Recommendation</h3>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/218">Add [Exposed=Window] to Constructor</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/138">Don't send boundary events during capture</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/129">Implicit capture for direct manipulation pointing devices</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/122">Add pointer capture processing follow delayed model except implicit release and set the pointer capture events attributes</a></li>
