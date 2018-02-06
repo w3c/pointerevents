@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pointer Events - Level 2</title>
+    <title>Pointer Events</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <script type="text/javascript" src='https://www.w3.org/Tools/respec/respec-w3c-common.js' class='remove'></script>
@@ -11,32 +11,27 @@
           shortName:            "pointerevents2",
           noIDLSorting:         true,
           edDraftURI:           "https://w3c.github.io/pointerevents/",
-          license:              "w3c-software-doc",
-
+          github: "https://github.com/w3c/pointerevents/",
+          testSuiteURI: "https://wpt.fyi/pointerevents/",
+          subtitle: "Level 2",
           // editors, add as many as you like
           // only "name" is required
           editors:  [
               { name: "Matt Brubeck",
-                company: "Mozilla", companyURL: "https://www.mozilla.org/" },
+                company: "Mozilla", companyURL: "https://www.mozilla.org/",
+                w3cid: '45617' },
               { name: "Rick Byers",
-                company: "Google", companyURL: "https://www.google.com/" },
+                company: "Google", companyURL: "https://www.google.com/" ,
+                w3cid: '55724' },
               { name: "Patrick H. Lauke",
-                company: "The Paciello Group", companyURL: "https://www.paciellogroup.com/" }
+                company: "The Paciello Group", companyURL: "https://www.paciellogroup.com/",
+                w3cid: '35129' }
           ],
           
           otherLinks: [{
-            key: 'Repository and Participation',
+            key: 'Mailing list',
             data: [
                 {
-                    value: 'We are on github.',
-                    href: 'https://github.com/w3c/pointerevents/'
-                }, {
-                    value: 'File a bug/issue.',
-                    href: 'https://github.com/w3c/pointerevents/issues'
-                }, {
-                    value: 'Commit history.',
-                    href: 'https://github.com/w3c/pointerevents/commits'
-                }, {
                     value: 'Mailing list archive.',
                     href: 'https://lists.w3.org/Archives/Public/public-pointer-events/'
                 }
@@ -755,7 +750,7 @@ partial interface Navigator {
           <h2>Determining supported touch behavior</h2>
           <p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property, and the default touch behaviors of the element and its ancestors, as follows:</p>
           <ul>
-            <li>A touch behavior <dfn lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coodinate.</li>
+            <li>A touch behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coodinate.</li>
             <li>A touch behavior is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest ancestor with the default touch behavior (including both the hit tested element and the element with the default touch behavior).</li>
             <li>Once a touch action has been started, and the user agent has already determined whether or not the action should be handled as a user agent touch behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the touch action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default touch behavior for that touch for as long as that pointer is active.</li>
           </ul>
@@ -876,7 +871,7 @@ and fire a PointerEvent named <code>lostpointercapture</code> corresponding to t
         </section>
     </section>
     <section>
-        <h1><dfn lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
+        <h1><dfn data-lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
         <p>The vast majority of web content existing today codes only to Mouse Events. The following describes an algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content.</p>
         <p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
         <div class="note">
