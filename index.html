@@ -965,6 +965,30 @@ and fire a PointerEvent named <code>lostpointercapture</code> corresponding to t
             </div>
         </section>
     </section>
+    <section>
+        <h2>Security and privacy considerations</h2>
+        <p>This appendix discusses security and privacy considerations for Pointer Events implementations. The discussion is limited to security and privacy issues that arise directly from implementation of the event model, APIs and events defined in this specification.</p>
+        <p>Many of the event types defined in this specification are dispatched in response to user actions. This allows malicious event listeners to gain access to information users would typically consider confidential, e.g., the exact path/movement of a user's mouse/stylus/finger while interacting with a page.</p>
+        <p>Pointer events contain additional information (where supported by the user's device), such as the angle or tilt at which a pen input is held, the geometry of the contact surface, and the pressure exerted on the stylus or touch screen. Information about angle, tilt, geometry and pressure are directly related to sensors on the user's device, meaning that this specification allows an origin access to these sensors.</p>
+        <p>This sensor data, as well as the ability to determine the type of input mechanism (mouse, touch, pen) used, may be used to infer characteristics of a user, or of the user's device and environment. This information can also be potentially used for the purposes of building a user profile and/or attempting to "fingerprint" and track a particular user.</p>
+        <p>Beyond these considerations, the working group believes that this specification:</p>
+        <ul>
+            <li>Does not expose personally-identifiable information.</li>
+            <li>Does not deal with high-value data.</li>
+            <li>Does not introduce new state for an origin that persists across browsing sessions.</li>
+            <li>Does not expose persistent, cross-origin state to the web.</li>
+            <li>Does not expose any other data to an origin that it doesn’t currently have access to.</li>
+            <li>Does not enable new script execution/loading mechanisms.</li>
+            <li>Does not allow an origin access to a user’s location.</li>
+            <li>Does not require any special handling when the user agent is in "incognito" mode.</li>
+            <li>Does not allow an origin access to other devices.</li>
+            <li>Does not allow an origin control over a user agent’s native UI.</li>
+            <li>Does not expose temporary identifiers to the web.</li>
+            <li>Does not distinguish between behavior in first-party and third-party contexts.</li>
+            <li>Does not persist data to a user’s local device.</li>
+            <li>Does not allow downgrading default security characteristics.</li>
+        </ul>
+    </section>
     <section class="appendix">
         <h1>Acknowledgments</h1>
         <p>Many thanks to lots of people for their proposals and recommendations, some of which are incorporated into this document. The group's Chair acknowledges contributions from the following past and present group members and participants:
