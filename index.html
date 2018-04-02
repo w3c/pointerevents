@@ -824,7 +824,7 @@ partial interface Navigator {
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
                 <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If this method is invoked while the page has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If this method is invoked while the document has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
