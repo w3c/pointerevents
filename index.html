@@ -713,7 +713,7 @@ partial interface Navigator {
             <h2>The <code>touch-action</code> CSS property</h2>
             <table class="simple">
                 <tr><th>Name:</th><td><code>touch-action</code></td></tr>
-                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
+                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ <code>pan-x</code> || <code>pan-y</code> ] | <code>manipulation</code></td></tr>
                 <tr><th>Initial:</th><td><code>auto</code></td></tr>
                 <tr><th>Applies to:</th><td>all elements except: non-replaced inline elements, table rows, row groups, table columns, and column groups.</td></tr>
                 <tr><th>Inherited:</th><td>no</td></tr>
@@ -755,20 +755,15 @@ partial interface Navigator {
             <dd>The user agent MAY determine any permitted touch behaviors, such as panning and zooming of the viewport, for touches that begin on the element.</dd>
             <dt>none</dt>
             <dd>Touches that begin on the element MUST NOT trigger default touch behaviors.</dd>
-            <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
+            <dt>pan-x<br>pan-y</dt>
             <dd>
               <p>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
-              <p>In the case of <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code> and <code>pan-down</code>, the direction is interpreted as the opposite of the physical movement in the local coordinate space. For example, <code>pan-up</code> corresponds to input event sequences where typically <code>screenY</code> is increasing (i.e. an interaction where the user moves a touch point down the screen) when the element has no effective CSS transforms. If the element is effectively rotated by 90 degrees counter-clockwise, <code>pan-up</code> would then correspond to input event sequences where <code>screenX</code> is increasing.</p></dd>
             <dt>manipulation</dt>
             <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
           </dl>
           <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[!COMPAT]].</div>
           <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
           <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span> (see [[HTML5]]), authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
-          <div class="note">
-            <p>The direction-specific pan values are useful for customizing overscroll behavior.  For example, to implement a simple pull-to-refresh effect the document's touch-action can be set to <code>pan-x pan-down</code> whenever the scroll position is 0 and <code>pan-x pan-y</code> otherwise.  This allows pointer event handlers to define the behavior for upward scrolls that start from the top of the document.</p>
-            <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).  For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical scrolling of the document.  When the carousel reaches its right-most extent, it may change its touch-action to <code>pan-y pan-right</code> so that a subsequent pan operation beyond its extent can scroll the document within the viewport if possible.  It's not possible to change the behavior of a pan in the middle of an operation.</p>
-          </div>
           <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
 <pre id="example_6" class="example" title="Disallowing all touch behaviors">
@@ -802,15 +797,6 @@ partial interface Navigator {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code>    
-</pre>
-<pre id="example_10" class="example" title="Intermediate parent that restricts allowed touch behaviors">
-<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
-    &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
-        &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
-            This element receives pointer events when not panning to the left.
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code>   
 </pre>
     </section>
     <section class="informative">
@@ -1047,7 +1033,6 @@ and fire a PointerEvent named <code>lostpointercapture</code> corresponding to t
             <li><a href="https://github.com/w3c/pointerevents/pull/36">Add the missing pointerover/enter events</a> to the "Process Pending Pointer Capture" section</li>
             <li><a href="https://github.com/w3c/pointerevents/pull/34">Clarify the button value for mouse drag</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/24">Fix the <code>touch-action</code> processing model for zoom scenarios</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/13">Add direction-specific <code>touch-action</code> values</a> (<code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code>) and clarified behavior of existing <code>pan-x</code> and <code>pan-y</code> values.</li>
         </ul>
     </section>
     <!-- appendix -->

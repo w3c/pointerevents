@@ -126,6 +126,47 @@ This API always returns at least one coalesced event for <code>pointermove</code
       </p>
     </section>
 
+    <section>
+      <h2>Additional <code>touch-action</code> values</h2>
+      <p>This section augments the <a href="https://w3c.github.io/pointerevents/#the-touch-action-css-property">definition of <code>touch-action</code></a>
+         from [[!pointerevents2]] to add the <code>pan-left</code>, <code>pan-left</code>, <code>pan-up</code>, <code>pan-down</code> values.
+         <table class="simple">
+           <tr><th>Name:</th><td><code>touch-action</code></td></tr>
+           <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
+           <tr><th>Initial:</th><td><code>auto</code></td></tr>
+           <tr><th>Applies to:</th><td>all elements except: non-replaced inline elements, table rows, row groups, table columns, and column groups.</td></tr>
+           <tr><th>Inherited:</th><td>no</td></tr>
+           <tr><th>Percentages:</th><td>N/A</td></tr>
+           <tr><th>Media:</th><td>visual</td></tr>
+           <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
+        </table>
+      </p>
+      <p>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that
+         starts in any of the directions specified by all of the listed values.
+         Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed.
+         In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.
+         In the case of <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code> and <code>pan-down</code>,
+         the direction is interpreted as the opposite of the physical movement in the local coordinate space.
+         For example, <code>pan-up</code> corresponds to input event sequences where typically <code>screenY</code>
+         is increasing (i.e. an interaction where the user moves a touch point down the screen)
+         when the element has no effective CSS transforms.
+         If the element is effectively rotated by 90 degrees counter-clockwise,
+         <code>pan-up</code> would then correspond to input event sequences where <code>screenX</code> is increasing.
+     </p>
+     <div class="note">The direction-specific pan values are useful for customizing overscroll behavior.
+       For example, to implement a simple pull-to-refresh effect the document's touch-action can be set to <code>pan-x pan-down</code>
+       whenever the scroll position is 0 and <code>pan-x pan-y</code> otherwise.
+       This allows pointer event handlers to define the behavior for upward scrolls that start from the top of the document.
+       <p>The direction-specific pan values can also be used for composing a component that implements custom panning with
+          pointer event handling within an element that scrolls natively (or vice-versa).
+          For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations
+          without interfering with vertical scrolling of the document.
+          When the carousel reaches its right-most extent, it may change its touch-action to <code>pan-y pan-right</code> so that
+          a subsequent pan operation beyond it's extent can scroll the document within the viewport if possible.
+          It's not possible to change the behavior of a pan in the middle of an operation.
+        </p>
+      </div>
+    </section>
     <section class="informative">
       <h2>Examples</h2>
       <p>The following are examples that demonstrate how the APIs in this specification might be used.</p>
@@ -156,6 +197,15 @@ var event = new PointerEvent("pointermove", pointerEventInitDict);
   }
 });
 </code>
+</pre>
+<pre id="example_3" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<code>&lt;div style=&quot;overflow: auto;&quot;&gt;
+    &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
+        &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
+            This element receives pointer events when not panning to the left.
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code>
 </pre>
     </section>
   </body>
