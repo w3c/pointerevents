@@ -826,7 +826,7 @@ partial interface Navigator {
             <p>Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:</p>
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
-                <li>If the <code>Element</code> on which this method is invoked does not participate in its <code>ownerDocument</code>'s tree, throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If the <code>Element</code> on which this method is invoked is not <a href="https://dom.spec.whatwg.org/#connected"></a><code>connected</code></a> ([[!DOM4]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If this method is invoked while the document has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
@@ -1027,6 +1027,7 @@ and fire a PointerEvent named <code>lostpointercapture</code> corresponding to t
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <h3>Changes since the 24 February 2015 Recommendation</h3>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/246">Replace prose about <code>ownerDocument</code> tree with DOM4 concept of <code>connected</code></a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/235">Add security and privacy considerations section</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/234">Added note about legacy attributes <code>fromElement</code> and <code>toElement</code> (inherited from MouseEvents) must be <code>null</code></a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/218">Add [Exposed=Window] to Constructor</a></li>
