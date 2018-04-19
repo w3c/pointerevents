@@ -837,7 +837,14 @@ partial interface Navigator {
         </section>
         <section>
             <h3>Implicit Release of Pointer Capture</h3>
-            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events, a user agent MUST clear the <a>pending pointer capture target override</a> for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched, and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.</p>
+            <p>
+               Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events,
+               a user agent MUST clear the <a>pending pointer capture target override</a>
+               for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched,
+               and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.
+               After running <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps,
+               if the pointer supports hover user agent MUST also send corresponding boundary events if necessary to reflect the current position of the pointer with no capture.
+            </p>
             <p>If the user agent supports firing the <code>click</code> event (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>) and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired, <code>click</code> should be fired before <code>lostpointercapture</code>.</p>
             <p>When the <a>pointer capture target override</a> is removed from its <code>ownerDocument</code>'s tree,
 clear the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes
