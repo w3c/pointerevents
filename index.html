@@ -419,7 +419,7 @@ interface PointerEvent : MouseEvent {
                 
                 <p>Fire the event to the determined target.
 
-                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target and if they are different targets boundary events should be dispatched first. When the capture is released the same scenario may happen as the pointer is leaving the capturing target and entering the hit-test target.</div>
+                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target - and if they are different targets, boundary events should be dispatched first. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
                   <h3>Attributes and Default Actions</h3>
