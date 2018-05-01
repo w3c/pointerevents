@@ -629,7 +629,7 @@ partial interface Element {
         <div>
             <p>The following section describes extensions to the existing <dfn><code>GlobalEventHandlers</code></dfn> interface, defined in [[!HTML5]], to facilitate the event handler registration.</p>
             <pre class="idl">
-partial interface GlobalEventHandlers {
+partial interface mixin GlobalEventHandlers {
     attribute EventHandler ongotpointercapture;
     attribute EventHandler onlostpointercapture;
     attribute EventHandler onpointerdown;
