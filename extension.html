@@ -64,10 +64,12 @@ The features in this specification extend or modify those found in <a href="http
           <pre class="idl">
 partial dictionary PointerEventInit {
     sequence&lt;PointerEvent> coalescedEvents = [];
+    sequence&lt;PointerEvent> predictedEvents = [];
 };
 
 partial interface PointerEvent {
     sequence&lt;PointerEvent> getCoalescedEvents();
+    sequence&lt;PointerEvent> getPredictedEvents();
 };
           </pre>
           <dl dfn-for="PointerEvent" link-for="PointerEvent">
@@ -89,6 +91,22 @@ The dispatched event's attributes will be initalized in a way that is best repre
 For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]]) COULD be the sum of those of all the coalesced events.
 None of the events in the sequence will have (nested) coalesced events, so <code>getCoalescedEvents</code> returns an empty sequence for them.
 This API always returns at least one coalesced event for <code>pointermove</code> events and an empty list for other types of <code>PointerEvents</code>.</p>
+              </dd>
+              <dt><dfn>getPredictedEvents</dfn></dt>
+               <dd>
+                  <p>Returns a sequence of <code>PointerEvents</code> the user agent predicts that will follow the sequence of coalesced events in <code>pointermove</code> event in the future.
+The number of events returned by this API and how far they are from the current timestamp are determined by the user agent and the prediction algorithm it uses.
+This API always returns an empty list for pointerevent types other than <code>pointermove</code>.
+Similar to the coalesced events the following attributes of the predicted events will always have the same value as the dispatched event:
+<code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, <code>isTrusted</code>, <code>target</code>.
+Also <code>cancelable</code> and <code>bubbles</code> attributes will be false and other attibutes related to the <a href="https://www.w3.org/TR/uievents/#event-flow">event dispatch algorithm</a>
+(e.g. <code>currentTarget</code>, <code>eventPhase</code>) will have their default value
+and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing.
+Note that since the <code>target</code> of the predicted events is the same as the dispatched event's <code>target</code>,
+the attributes like <code>offsetX</code>, <code>offsetY</code> ([[!CSSOM-VIEW]]) which are commonly used by drawing applications will be calculated correctly for the predicted events.
+The rest of the attributes might be different from the dispatched event based on the prediction algorithm in user agent.
+The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
+So the first event will have the smallest <code>timeStamp</code> which should still be greater than the last event in the coalesced events.</p>
               </dd>
           </dl>
       </div>
@@ -193,12 +211,26 @@ var event = new PointerEvent("pointermove", pointerEventInitDict);
 <pre id="example_2" class="example" title="Drawing using coalesced events">
 <code>window.addEventListener("pointermove", function(event) {
   for (let e of event.getCoalescedEvents()) {
-    drawPoint(e.pageX, e.pageY)
+    drawPoint(e.pageX, e.pageY);
   }
 });
 </code>
 </pre>
-<pre id="example_3" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<pre id="example_3" class="example" title="Drawing using coalesced events and predicted events">
+<code>
+var predicted_points = [];
+window.addEventListener("pointermove", function(event) {
+  for (let e of predicted_points.reverse())
+    clearPoint(e.pageX, e.pageY);
+  for (let e of event.getCoalescedEvents())
+    drawPoint(e.pageX, e.pageY);
+  predicted_points = event.getPredictedevents();
+  for (let e of predicted_points)
+    drawPoint(e.pageX, e.pageY);
+});
+</code>
+</pre>
+<pre id="example_4" class="example" title="Intermediate parent that restricts allowed touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
