@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Pointer Events Working Group Charter</title>
+
+    <link rel="stylesheet" href="https://www.w3.org/2005/10/w3cdoc.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="https://www.w3.org/Guide/pubrules-style.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.w3.org/2006/02/charter-style.css" />
+    <style type="text/css">
+      ul#navbar {
+        font-size: small;
+      }
+
+
+      dt.spec {
+        font-weight: bold;
+      }
+
+      dt.spec new {
+        background: yellow;
+      }
+
+      ul.out-of-scope > li {
+        font-weight: bold;
+      }
+
+      ul.out-of-scope > li > ul > li{
+        font-weight: normal;
+      }
+
+      .issue {
+        background: cornsilk;
+        font-style: italic;
+      }
+
+      .todo {
+        color: red;
+      }
+
+      footer {
+        font-size: small;
+      }
+
+      th a:link, th a:visited {
+        color: #FFF;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <aside>
+        <ul id="navbar">
+          <li><a href="#scope">Scope</a></li>
+          <li><a href="#deliverables">Deliverables</a></li>
+          <li><a href="#coordination">Coordination</a></li>
+          <li><a href="#participation">Participation</a></li>
+          <li><a href="#communication">Communication</a></li>
+          <li><a href="#decisions">Decision Policy</a></li>
+          <li><a href="#patentpolicy">Patent Policy</a></li>
+          <li><a href="#licensing">Licensing</a></li>
+          <li><a href="#about">About this Charter</a></li>
+        </ul>
+      </aside>
+      <p>
+        <a href="https://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72" /></a>
+
+        <a class="domainlogo" title="domain:int" href="http://w3.org/Interaction/"><img src="http://www.w3.org/Icons/interaction" alt="Interaction Domain"></a>
+      </p>
+    </header>
+
+
+    <main>
+      <h1 id="title">Pointer Events Working Group Charter</h1>
+
+      <p class="mission">The <strong>mission</strong> of the <a href="https://www.w3.org/2012/pointerevents/">Pointer Events Working Group</a> is to provide methods to enable simple device-independent input from pointing devices such as mouse, pen, and multi-touch screen.</p>
+
+      <div class="noprint">
+        <p class="join"><a href="https://www.w3.org/2004/01/pp-impl/59096/join">Join the Pointer Events Working Group.</a></p>
+      </div>
+
+      <section id="details">
+        <table class="summary-table">
+          <tr id="start-date">
+            <th>
+              Start date
+            </th>
+            <td>
+              1 August 2018
+            </td>
+          </tr>
+          <tr id="end-date">
+            <th>
+              End date
+            </th>
+            <td>
+              ??????
+            </td>
+          </tr>
+
+          <tr>
+            <th>Charter extension</th>
+            <td>See <a href="#history">Change History</a>.
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Chairs
+            </th>
+            <td>
+              Patrick H. Lauke (The Paciello Group)
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Team Contacts
+            </th>
+            <td>
+              <a href="mailto:plh@w3.org">Philippe Le Hégaret</a> <i>(0.1 <abbr title="Full-Time Equivalent">FTE</abbr>)</i>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Meeting Schedule
+            </th>
+            <td>
+              <strong>Teleconferences:</strong> topic-specific calls may be held
+              <br />
+              <strong>Face-to-face:</strong> we will meet during the W3C's annual Technical Plenary week; additional face-to-face meetings may be scheduled by consent of the participants, no more than 3 per year.
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <section id="scope" class="scope">
+        <h2>Scope</h2>
+        <p>Web browsers can receive input in a variety of ways including mouse, touch, and pen input. A “pointer” is an abstract form of input that can be any point of contact on a input surface made by a mouse cursor, pen, finger, or multiple fingers.</p>
+
+        <p>Pointer Events provide support for handling mouse, touch, and pen input for web sites and web applications through DOM Events. For example, a content creator using Pointer Events would only have use a single model, rather than separate code paths for mouse events, touch events, and pen-tablet events, making authoring content much more efficient and inclusive.</p>
+
+        <p>This Working Group seeks to enhance the features delivered in the Pointer Events Level 2 Recommendation by exploring changes, such as:</p>
+          <ul>
+            <li>Addition of <a href="https://w3c.github.io/pointerevents/extension.html#additional-touch-action-values">direction-specific values for <code>touch-action</code></a>, giving finer-grained control of panning touch behaviors</li>
+            <li>Support for querying <a href="https://w3c.github.io/pointerevents/extension.html#extensions-to-the-pointerevent-interface">coalesced and predicted pointer events</a></li>
+            <li>Clarifying relationship between pointer events and other behaviors/event models, such as drag and drop</li>
+            <li>Additional clarifications of API behavior and performance optimizations (see <a href="https://github.com/w3c/pointerevents/issues?q=is%3Aissue+is%3Aopen+label%3Afuture-v3">issues marked for future consideration in GitHub</a>)</li>
+          </ul>
+
+        <div id="section-out-of-scope">
+          <h3 id="out-of-scope">Out of Scope</h3>
+            <p>The following features are out of scope, and will not be addressed by this working group.</p>
+
+            <ul class="out-of-scope">
+              <li>Gestures. Examples of out-of-scope gesture functionality and APIs include, but are not limited to, the following:
+                <ul>
+                  <li>Comparisons between pointers to determine an action (e.g., panning for scrollable regions, pinch for zooming, press-and-hold for a mouse right-click).</li>
+                  <li>Comparisons between time stamps of pointers to determine an action.</li>
+                  <li>Comparisons between combinations of pointers and/or their time stamps to determine an action.</li>
+                  <li>Determining an action based on comparison to a threshold (e.g., scroll speed based on a pressure threshold, panning based on distance threshold, press-and-hold based on a timing threshold).</li>
+                  <li>APIs or functionality processing data that is indicative of a confidence level that a pointer is associated with a gesture.</li>
+                </ul>
+              </li>
+
+              <li>Higher level APIs used to convey user intent.
+                <ul>
+                  <li>High-level representational events, which are in the scope of the Web Events and IndieUI working groups.</li>
+                </ul>
+              </li>
+
+              <li>Input targeting methods and disambiguation.
+                <ul>
+                  <li>The algorithms and underlying systems used to determine target elements and pointer location.</li>
+                  <li>Algorithms to determine unintended input (e.g. palm rejection). </li>
+                </ul>
+              </li>
+
+              <li>Equipment used to detect input events.
+                <ul>
+                  <li>Sensors, algorithms, and systems used to detect physical interactions and convert them into input events.</li>
+                </ul>
+              </li>
+
+              <li>Ink and handwriting APIs.</li>
+            </ul>
+        </div>
+
+        <div>
+          <h3>Success Criteria</h3>
+          <p>In order to advance to <a href="https://www.w3.org/2015/Process-20150901/#RecsCR" title="Proposed Recommendation">Proposed Recommendation</a>, each specification is expected to have at least two independent implementations of each of feature defined in the specification.</p>
+          <p>Each specification should contain a section detailing any known security or privacy implications for implementers, Web authors, and end users.</p>
+        </div>
+      </section>
+
+
+
+      <section id="deliverables">
+        <h2>
+          Deliverables
+        </h2>
+        <p>More detailed milestones and updated publication schedules are available on the <a href="https://www.w3.org/wiki/PointerEvents/PubStatus">group publication status page</a>.</p>
+
+        <p><i>Draft state</i> indicates the state of the deliverable at the time of the charter approval. <i>Expected completion</i> indicates when the deliverable is projected to become a Recommendation, or otherwise reach a stable state.</p>
+
+        <div id="normative">
+          <h3>
+            Normative Specifications
+          </h3>
+          <p>
+            The working group will deliver the following W3C normative specifications:
+          </p>
+          <dl>
+            <dt id="pointerevents-v2" class="spec new"><a href="https://w3c.github.io/pointerevents/">Pointer Events Level 3</a></dt>
+            <dd>
+              <p>This specification builds upon the <a href="https://www.w3.org/TR/pointerevents/">Pointer Events Level 2 specification</a>. This specification defines a unified interface for web applications to access event information related to pointing devices. This includes mouse, pen, multi-touch screen, and related input mechanisms. While device-specific information such as pressure or contact geometry might be included in the events, web developers can program against the events without needing to know what type of device created them.</p>
+
+              <p class="draft-status"><b>Draft state:</b> <a href="https://w3c.github.io/pointerevents/">Editor's Draft</a></p>
+
+              <p class="milestone"><b>Expected completion:</b> Q4 2020</p>
+            </dd>
+          </dl>
+        </div>
+
+        <div id="ig-other-deliverables">
+          <h3>
+            Other Deliverables
+          </h3>
+          <p>
+            Other non-normative documents may be created such as:
+          </p>
+          <ul>
+            <li>Use case and requirement documents;</li>
+            <li>Test suite and implementation report for the specification;</li>
+            <li>Primer or Best Practice documents to support web developers when designing applications.</li>
+          </ul>
+        </div>
+      </section>
+
+
+
+      <section id="coordination">
+        <h2>Coordination</h2>
+        <p>For all specifications, this Working Group will seek <a href="https://www.w3.org/Guide/Charter.html#horizontal-review">horizontal review</a> for accessibility, internationalization, performance, privacy, and security with the relevant Working and Interest Groups, and with the <a href="https://www.w3.org/2001/tag/" title="Technical Architecture Group">TAG</a>. Invitation for review must be issued during each major standards-track document transition, including <a href="https://www.w3.org/2015/Process-20150901/#RecsWD" title="First Public Working Draft">FPWD</a> and <a href="https://www.w3.org/2015/Process-20150901/#RecsCR" title="Candidate Recommendation">CR</a>, and should be issued when major changes occur in a specification.</p>
+
+        <p>Additional technical coordination with the following Groups will be made, per the <a href="https://www.w3.org/2015/Process-20150901/#WGCharter">W3C Process Document</a>:</p>
+
+        <div>
+          <h3 id="w3c-coordination">W3C Groups</h3>
+          <dl>
+            <dt><a href="https://www.w3.org/community/touchevents/">Touch Events Community Group</a></dt>
+            <dd>
+            The Touch Events community group was formed by members of the Web Events Working Group (responsible for the Touch Events specification) and the Pointer Events Working Group (responsible for the Pointer Events spec). The group's focus is to determine differences in touch event behavior between browsers.
+            </dd>
+            <dt><a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a></dt>
+            <dd>
+              This Group provides specifications that enable improved client-side application development on the Web, including application programming interfaces (APIs) for client-side development and markup vocabularies for describing and controlling client-side application behavior.
+            </dd>
+            <dt><a href="https://www.w3.org/WAI/APA/">Accessible Platform Architectures (APA) Working Group</a></dt>
+            <dd>
+              The mission of the Accessible Platform Architectures Working Group (APA WG) is to ensure W3C specifications provide support for accessibility to people with disabilities.
+            </dd>
+          </dl>
+
+          <h3 id="external-coordination">External Organizations</h3>
+          <dl>
+            <dt>none</dt> <dd></dd>
+          </dl>
+
+        </div>
+      </section>
+
+
+
+      <section class="participation">
+        <h2 id="participation">
+          Participation
+        </h2>
+        <p>
+          To be successful, this Working Group is expected to have 6 or more active participants for its duration, including representatives from the key implementors of this specification, and active Editors and Test Leads for each specification. The Chairs, specification Editors, and Test Leads are expected to contribute half of a day per week towards the Working Group. There is no minimum requirement for other Participants.
+        </p>
+        <p>
+          The group encourages questions, comments and issues on its public mailing lists and document repositories, as described in <a href='#communication'>Communication</a>.
+        </p>
+        <p>
+          The group also welcomes non-Members to contribute technical submissions for consideration, with the agreement from each participant to Royalty-Free licensing of those submissions under the W3C Patent Policy.
+        </p>
+      </section>
+
+
+
+      <section id="communication">
+        <h2>
+          Communication
+        </h2>
+        <p id="public">
+          Technical discussions for this Working Group are conducted in <a href="https://www.w3.org/2015/Process-20150901/#confidentiality-levels">public</a>. Meeting minutes from teleconference and face-to-face meetings will be archived for public review, and technical discussions and issue tracking will be conducted in a manner that can be both read and written to by the general public. Working Drafts and Editor's Drafts of specifications will be developed on a public repository, and may permit direct public contribution requests.
+        </p>
+        <p>
+          Information about the group (including details about deliverables, issues, actions, status, participants, and meetings) will be available from the <a href="">Pointer Events Working Group home page.</a>
+        </p>
+        <p>
+          Most Pointer Events Working Group teleconferences will focus on discussion of particular specifications, and will be conducted on an as-needed basis.
+        </p>
+        <p>
+          This group primarily conducts its technical work on the public mailing list <a id="public-name" href="mailto:public-pointer-events@w3.org">public-pointer-events@w3.org</a> (<a href="http://lists.w3.org/Archives/Public/public-pointer-events/">archive</a>). The public is invited to post messages to this list. Additional discussion is conducted on <a href="https://github.com/w3c/pointerevents/">Github</a>.
+        </p>
+        <p>
+          The group may use a Member-confidential mailing list for administrative purposes and, at the discretion of the Chairs and members of the group, for member-only discussions in special cases when a participant requests such a discussion.
+        </p>
+      </section>
+
+
+
+      <section id="decisions">
+        <h2>
+          Decision Policy
+        </h2>
+        <p>
+          This group will seek to make decisions through consensus and due process, per the <a href="https://www.w3.org/2015/Process-20150901/policies#Consensus"> W3C Process Document (section 3.3)</a>. Typically, an editor or other participant makes an initial proposal, which is then refined in discussion with members of the group and other reviewers, and consensus emerges with little formal voting being required.</p>
+        <p>
+           However, if a decision is necessary for timely progress, but consensus is not achieved after careful consideration of the range of views presented, the Chairs may call for a group vote, and record a decision along with any objections.
+        </p>
+        <p>
+          To afford asynchronous decisions and organizational deliberation, any resolution (including publication decisions) taken in a face-to-face meeting or teleconference will be considered provisional.
+
+          A call for consensus (CfC) will be issued for all resolutions (for example, via email and/or web-based survey), with a response period from one week to 10 working days, depending on the chair's evaluation of the group consensus on the issue.
+
+          If no objections are raised on the mailing list by the end of the response period, the resolution will be considered to have consensus as a resolution of the Working Group.
+        </p>
+        <p>
+          All decisions made by the group should be considered resolved unless and until new information becomes available, or unless reopened at the discretion of the Chairs or the Director.
+        </p>
+        <p>
+          This charter is written in accordance with the <a href="https://www.w3.org/Consortium/Process/policies#Votes">W3C Process Document (Section 3.4, Votes)</a>, and includes no voting procedures beyond what the Process Document requires.
+        </p>
+      </section>
+
+
+
+      <section id="patentpolicy">
+        <h2>
+          Patent Policy
+        </h2>
+        <p>
+          This Working Group operates under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">W3C Patent Policy</a> (5 February 2004 Version). To promote the widest adoption of Web standards, W3C seeks to issue Recommendations that can be implemented, according to this policy, on a Royalty-Free basis.
+        </p>
+        <p>
+          For more information about disclosure obligations for this group, please see the <a href='https://www.w3.org/2004/01/pp-impl/'>W3C Patent Policy Implementation</a>.
+        </p>
+      </section>
+
+      <section id="licensing">
+        <h2>Licensing</h2>
+        <p>This Working Group will use the <a href="https://www.w3.org/Consortium/Legal/copyright-software">W3C Software and Document license</a> for all its deliverables.</p>
+      </section>
+
+
+
+      <section id="about">
+        <h2>
+          About this Charter
+        </h2>
+        <p>
+          This charter has been created according to <a href="https://www.w3.org/Consortium/Process/groups#GAGeneral">section 5.2</a> of the <a href="https://www.w3.org/Consortium/Process">Process Document</a>. In the event of a conflict between this document or the provisions of any charter and the W3C Process, the W3C Process shall take precedence.
+        </p>
+
+        <section id="history">
+          <h3>
+            Charter History
+          </h3>
+          <p>The following table lists details of all changes from the initial charter, per the <a href="https://www.w3.org/2015/Process-20150901/#CharterReview">W3C Process Document (section 5.2.3)</a>:</p>
+
+          <table class="history">
+            <tbody>
+              <tr>
+                <th>
+                  Charter Period
+                </th>
+                <th>
+                  Start Date
+                </th>
+                <th>
+                  End Date
+                </th>
+                <th>
+                  Changes
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <a href="https://www.w3.org/2012/pointerevents/charter/2012/">Initial Charter</a>
+                </th>
+                <td>
+                  09 November 2012
+                </td>
+                <td>
+                  09 November 2014
+                </td>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <a href="https://www.w3.org/2012/pointerevents/charter/2012/">Charter Extension</a>
+                </th>
+                <td>
+                  24 September 2014
+                </td>
+                <td>
+                  09 May 2015
+                </td>
+                <td>
+                  none
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <a href="https://www.w3.org/2012/pointerevents/charter/2012/">Charter Extension</a>
+                </th>
+                <td>
+                  30 April 2015  
+                </td>
+                <td>
+                  09 November 2015
+                </td>
+                <td>
+                  none
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <a href="https://www.w3.org/2012/pointerevents/charter/2012/">Charter Extension</a>
+                </th>
+                <td>
+                  3 February 2015  
+                </td>
+                <td>
+                  31 March 2016
+                </td>
+                <td>
+                  Added link to <a href="https://www.w3.org/TR/pointerevents/">Pointer Events</a> Recommendation. Changed name of <em>Web Pointer Events</em> to <em>Pointer Events</em>. Patrick H. Lauke appointed as chair. 
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <a class="todo" href="https://lists.w3.org/Archives/Member/w3c-ac-members/2016JanMar/0043.html">Rechartered</a>
+                </th>
+                <td>
+                  15 March 2016
+                </td>
+                <td>
+                  31 January 2018
+                </td>
+                <td>
+                  <p>Added <a href="#pointerevents-v2">Pointer Events Level 2</a> deliverable.</p>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  <a href="">Charter
+                  Extension</a>
+                </th>
+                <td>
+                  30 January 2018
+                </td>
+                <td>
+                  31 July 2018
+                </td>
+                <td>
+                  Updated end date, marked PLH as staff contact instead of Schepers.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+
+    <hr />
+
+    <footer>
+      <address>
+        <i><a href="mailto:plh@w3.org">Philippe Le Hégaret</a></i>
+      </address>
+
+      <p class="copyright">
+        <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©2018
+        <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (
+        <a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>,
+        <a href="http://ev.buaa.edu.cn/">Beihang</a>
+        ), All Rights Reserved.
+
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
+      </p>
+      <p>
+        <!-- $Date: 2018/01/30 22:58:01 $ -->
+      </p>
+    </footer>
+
+  </body>
+</html>
