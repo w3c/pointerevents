@@ -61,16 +61,16 @@ The features in this specification extend or modify those found in <a href="http
       <section>
         <h3>The <dfn><code>pointerrawmove</code> event</dfn></h3>
         <p>A user agent MUST <a href="https://w3c.github.io/pointerevents/index.html#firing-events-using-the-pointerevent-interface">fire a pointer event</a>
-           named <code>pointerrawmove</code> when a pointing device attribute is changed during the capture.
-           Note that the target of such event will always be the captured node.
-           The captured node should expect such an event only after
-           it received <code>gotpointercapture</code> and until it receives <code>lostpointercapture</code>.
+           named <code>pointerrawmove</code> when a pointing device attribute is changed.
            As oppose to <code>pointermove</code> which could be fired once every frame and will have coalesced event data,
            <code>pointerrawmove</code> will get fired as soon as an attribute is changed
            and as frequent as the javascript can handle the events.
-           Note that if javascript is slow, <code>pointerrawmove</code> events can also get coalesced.
+           Because of that the target of <code>pointerrawmove</code> events might be different from the <code>pointermove</code> events
+           due to the fact that <code>pointermove</code> events are being sent once every frame and the final position of the even
+           which is used for finding the target could be different from its coalesced events.
+           Note that if the javascript handlers are slow, <code>pointerrawmove</code> events can also get coalesced.
            The attributes of <code>pointerrawmove</code> are mostly the same as <code>pointermove</code> with the exception of
-           <code>bubbles</code> and <code>cancelable</code> which MUST be false for <code>pointerrawmove</code>.
+           <code>cancelable</code> which MUST be false for <code>pointerrawmove</code>.
            User agent SHOULD not fire <a href="https://w3c.github.io/pointerevents/index.html#dfn-compatibility-mouse-events">compatibility mouse events</a> for <code>pointerrawmove</code>.</p>
       </section>
     </section>
