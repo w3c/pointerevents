@@ -59,14 +59,26 @@ The features in this specification extend or modify those found in <a href="http
       <h2>Extensions to the Pointer Event types</h2>
       <p>Below is the new event type that is added to the <a href="https://w3c.github.io/pointerevents/index.html#pointer-event-types">existing pointer event types</a>.</p>
       <section>
+        <h3>The <dfn><code>pointermove</code> event</dfn></h3>
+        <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
+        Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
+        contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
+        This <code>pointermove</code> that is not caused by button state change MUST be fired only once right before firing an event caused by button state change or
+        <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a>. If there are mutliple changes to these attributes
+        the <code>pointermove</code> events before reaching animation frame callback or a button state change event,
+        these events will get coalesced and will be exposed via <a data-lt="getCoalescedEvents">getCoalescedEvents</a> API for the single dispatched <code>pointermove</code> event.
+        The final coordinates of such events should be used for finding the target of the event.
+      </section>
+      <section>
         <h3>The <dfn><code>pointerrawmove</code> event</dfn></h3>
         <p>A user agent MUST <a href="https://w3c.github.io/pointerevents/index.html#firing-events-using-the-pointerevent-interface">fire a pointer event</a>
-           named <code>pointerrawmove</code> when a pointing device attribute is changed.
-           As oppose to <code>pointermove</code> which could be fired once every frame and will have coalesced event data,
+           named <code>pointerrawmove</code> when a pointing device attribute
+           (i.e. coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
+           As oppose to <code>pointermove</code> which could be delayed until an animation frame for changes in these attributes,
            <code>pointerrawmove</code> will get fired as soon as an attribute is changed
            and as frequent as the javascript can handle the events.
            Because of that the target of <code>pointerrawmove</code> events might be different from the <code>pointermove</code> events
-           due to the fact that <code>pointermove</code> events are being sent once every frame and the final position of the even
+           due to the fact that <code>pointermove</code> events are being coalesced and the final position of the event
            which is used for finding the target could be different from its coalesced events.
            Note that if the javascript handlers are slow, <code>pointerrawmove</code> events can also get coalesced.
            The attributes of <code>pointerrawmove</code> are mostly the same as <code>pointermove</code> with the exception of
@@ -133,7 +145,7 @@ So the first event will have the smallest <code>timeStamp</code> which should st
 
     <section>
       <h2>Timing of coalesced event firing</h2>
-      <p>Coalescing events only happens for <code>pointermove</code> events. All the coalesced events should be fired before the next frame or before any <code>pointerup</code>, <code>pointerdown</code>, <code>pointercancel</code> events. Note that user agents don't need to hit-test all the coalesced events as none of them will have null targets.</p>
+      <p>Coalescing events only happens for <code>pointermove</code> events. All the coalesced events should be fired before the next frame or before any <code>pointerup</code>, <code>pointerdown</code>, <code>pointercancel</code> events. Note that user agents don't need to hit-test all the coalesced events as all of them will have the same target as the dispatched event.</p>
       <p>When the user agent dispatches any <code>PointerEvent</code> it MUST dispatch all the events held back so far for coalescing, regardless of their <code>pointerIds</code>. The ordering of all these dispatched events should be in a way that resemebles the most with the actual events' ordering. For example if a <code>pointerdown</code> event causes the dispatch for the coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code> event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.</p>
       <p>Here is an example of the actual events happening in one frame with increasing <code>timestamps</code> and the events dispatched by the user agent:
         <table class="parameters">
