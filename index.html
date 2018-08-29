@@ -391,7 +391,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h2>The <dfn>Primary Pointer</dfn></h2>
-                <p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
+                <p>In a multi-pointer (e.g. multi-touch) scenario, the <code>isPrimary</code> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
                 <ul>
                     <li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
                     <li>The first pointer to become active for a particular pointer type (e.g. the first finger to touch the screen in a multi-touch interaction) becomes the primary pointer for that pointer type.</li>
@@ -406,7 +406,7 @@ interface PointerEvent : MouseEvent {
 
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
-                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a> and <a href="#h-attributes-and-default-actions">Attributes and Default Actions</a>.</p>
+                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a> and <a href="#attributes-and-default-actions">Attributes and Default Actions</a>.</p>
                 <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code>.
 
                 <p>The target object at which the event is fired is determined as follows:
@@ -423,7 +423,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                   <h3>Attributes and Default Actions</h3>
-                        <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#h-pointer-event-types">Pointer Event types</a>.</p>
+                        <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#pointer-event-types">Pointer Event types</a>.</p>
                         <table id="pointer-event-type-table" class="parameters">
                             <thead><tr>
                                 <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
