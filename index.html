@@ -26,6 +26,9 @@
               { name: "Patrick H. Lauke",
                 company: "The Paciello Group", companyURL: "https://www.paciellogroup.com/",
                 w3cid: '35129' }
+              { name: "Navid Zolghadr",
+                company: "Google", companyURL: "https://www.google.com/" ,
+                w3cid: '92361' }
           ],
           
           otherLinks: [{
@@ -296,15 +299,15 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>pressure</dfn></dt>
                         <dd>
-                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware that does not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise. Note: all <code>pointerup</code> events will have pressure 0.</p>
+                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise. Note: all <code>pointerup</code> events will have pressure 0.</p>
                         </dd>
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
-                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware that does not support tangential pressure, the value MUST be 0.</p>
+                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware and platforms that do not support tangential pressure, the value MUST be 0.</p>
                         </dd>
                     <dt><dfn>tiltX</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt, the value MUST be 0.</p>
                             <figure id="figure_tiltX">
                                 <img src="tiltX_600px.png" alt="tiltX explanation diagram">
                                 <figcaption>Positive <code>tiltX</code>.</figcaption>
@@ -312,7 +315,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>tiltY</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For devices that do not report tilt, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt, the value MUST be 0.</p>
                             <figure id="figure_tiltY">
                                 <img src="tiltY_600px.png" alt="tiltY explanation diagram">
                                 <figcaption>Negative <code>tiltY</code>.</figcaption>
@@ -320,7 +323,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>twist</dfn></dt>
                         <dd>
-                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For devices that do not report twist, the value MUST be 0.</p>
+                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be 0.</p>
                         </dd>
                     <dt><dfn>pointerType</dfn></dt>
                         <dd>
@@ -391,7 +394,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h2>The <dfn>Primary Pointer</dfn></h2>
-                <p>In a multi-pointer (e.g. multi-touch) scenario, the <a href="#widl-PointerEvent-isPrimary"><code>isPrimary</code></a> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
+                <p>In a multi-pointer (e.g. multi-touch) scenario, the <code>isPrimary</code> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
                 <ul>
                     <li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
                     <li>The first pointer to become active for a particular pointer type (e.g. the first finger to touch the screen in a multi-touch interaction) becomes the primary pointer for that pointer type.</li>
@@ -406,7 +409,7 @@ interface PointerEvent : MouseEvent {
 
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
-                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a> and <a href="#h-attributes-and-default-actions">Attributes and Default Actions</a>.</p>
+                <p>To <dfn>fire a pointer event named e</dfn> means to <dfn>fire an event named e</dfn> as defined in [[!DOM4]] with an event using the <a>PointerEvent</a> interface whose attributes are set as defined in <a href="#pointerevent-interface"><code>PointerEvent</code> Interface</a> and <a href="#attributes-and-default-actions">Attributes and Default Actions</a>.</p>
                 <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps for this <code>PointerEvent</code>.
 
                 <p>The target object at which the event is fired is determined as follows:
@@ -423,7 +426,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                   <h3>Attributes and Default Actions</h3>
-                        <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#h-pointer-event-types">Pointer Event types</a>.</p>
+                        <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#pointer-event-types">Pointer Event types</a>.</p>
                         <table id="pointer-event-type-table" class="parameters">
                             <thead><tr>
                                 <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
