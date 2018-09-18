@@ -614,11 +614,11 @@ partial interface Element {
             <dl data-dfn-for="Element" data-link-for="Element">
                 <dt><dfn>setPointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+                    <p><a href="#setting-pointer-capture">Sets</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> to the element on which this method is invoked. For subsequent events of the pointer, the capturing target will substitute the normal hit testing result as if the pointer is always over the capturing target, and they MUST always be targeted at this element until capture is released. The pointer MUST be in its <a>active buttons state</a> for this method to be effective, otherwise it fails silently. Throws a <code>DOMException</code> with the name <code>NotFoundError</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                 </dd>
                 <dt><dfn>releasePointerCapture</dfn></dt>
                 <dd>
-                    <p><a href="#releasing-pointer-capture">Releases</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>InvalidPointerId</code> when the provided the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
+                    <p><a href="#releasing-pointer-capture">Releases</a> <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code> from the element on which this method is invoked. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. Throws a <code>DOMException</code> with the name <code>NotFoundError</code> when the provided method's argument does not match any of the <a data-lt="active pointer">active pointers</a>.</p>
                 </dd>
                 <dt><dfn>hasPointerCapture</dfn></dt>
                 <dd>
@@ -817,7 +817,7 @@ partial interface Navigator {
             <h2>Setting Pointer Capture</h2>
             <p>Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:</p>
             <ol>
-                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>NotFoundError</code>.</li>
                 <li>If the <code>Element</code> on which this method is invoked is not <a href="https://dom.spec.whatwg.org/#connected"></a><code>connected</code></a> ([[!DOM4]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If this method is invoked while the document has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
@@ -829,7 +829,7 @@ partial interface Navigator {
             <h2>Releasing Pointer Capture</h2>
             <p>Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:</p>
             <ol>
-                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>InvalidPointerId</code>.</li>
+                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then throw a <code>DOMException</code> with the name <code>NotFoundError</code>.</li>
                 <li>If <a href="#dom-element-haspointercapture">hasPointerCapture</a> is false for the <code>Element</code> with the specified <code>pointerId</code>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, clear the <a>pending pointer capture target override</a>, if set.</li>
             </ol>
