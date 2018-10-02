@@ -73,7 +73,7 @@ The features in this specification extend or modify those found in <a href="http
         <h3>The <dfn><code>pointerrawmove</code> event</dfn></h3>
         <p>A user agent MUST <a href="https://w3c.github.io/pointerevents/index.html#firing-events-using-the-pointerevent-interface">fire a pointer event</a>
            named <code>pointerrawmove</code> when a pointing device attribute
-           (i.e. coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
+           (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
            As oppose to <code>pointermove</code> which could be delayed until an animation frame for changes in these attributes,
            <code>pointerrawmove</code> will get fired as soon as an attribute is changed
            and as frequent as the javascript can handle the events.
