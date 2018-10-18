@@ -3,4 +3,5 @@
 , "contacts":  ["plehegar"]
 , "shortName": "pointerevents"
 , "policy":    "open"
+, "repo-type": "rec-track"
 }
