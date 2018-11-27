@@ -805,14 +805,16 @@ partial interface Navigator {
 &lt;/div&gt;</code>    
 </pre>
     </section>
-    <section class="informative">
+    <section>
         <h1><dfn>Pointer Capture</dfn></h1>
+        <section class='informative'>
+          <h2>Introduction</h2>
         <p>Pointer capture allows the events for a particular pointer (including any <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a>) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML5]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
         <figure id="figure_slider">
             <img src="slider.png" alt="Custom Volume Slider">
             <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
         </figure>
-    
+        </section>
         <section>
             <h2>Setting Pointer Capture</h2>
             <p>Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:</p>
