@@ -80,7 +80,9 @@ The features in this specification extend or modify those found in <a href="http
            Because of that the <code>target</code> of <code>pointerrawmove</code> events might be different from the <code>pointermove</code> events
            due to the fact that <code>pointermove</code> events are being coalesced and the final position of the event
            which is used for finding the <code>target</code> could be different from its coalesced events.
-           Note that if the javascript handlers are slow, <code>pointerrawmove</code> events can also get coalesced.
+           Note that if UA detects the thread running javascript handlers for this event is not idle, <code>pointerrawmove</code> events will get coalesced and
+           they will all be delivered as coalesced events of one <code>pointerrawmove</code> event as soon as the thread goes idle.
+           See <a href="#getCoalescedEvents">getCoalescedEvents</a> for more information.
            Other than the <code>target</code>, the concatenation of coalesced events of all dispatched <code>pointerrawmove</code> events
            since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other attributes.
            The attributes of <code>pointerrawmove</code> are mostly the same as <code>pointermove</code> with the exception of
