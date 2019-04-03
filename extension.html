@@ -63,8 +63,8 @@ The features in this specification extend or modify those found in <a href="http
         <p>A user agent MUST <a href="#firing-events-using-the-pointerevent-interface">fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
         Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
         contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
-        These events may be coalesced or aligned to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a> basesd on UA decision.
-        The coalesdced events information will be exposed via <a data-lt="getCoalescedEvents">getCoalescedEvents</a> API for the single dispatched <code>pointermove</code> event.
+        These events may be coalesced or aligned to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a> based on UA decision.
+        The coalesced events information will be exposed via <a data-lt="getCoalescedEvents">getCoalescedEvents</a> API for the single dispatched <code>pointermove</code> event.
         The final coordinates of such events should be used for finding the target of the event.
       </section>
       <section>
@@ -85,6 +85,9 @@ The features in this specification extend or modify those found in <a href="http
            they will all be delivered as coalesced events of one <code>pointerrawupdate</code> event as soon as
            the event's turn to get processed reaches in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
            See <a href="#getCoalescedEvents">getCoalescedEvents</a> for more information.
+           In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
+           if the UA received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
+           then the user agent MUST dispatch <code>pointerrawupdate</code> event before the correponding <code>pointermove</code> for it.
            Other than the <code>target</code>, the concatenation of coalesced events of all dispatched <code>pointerrawupdate</code> events
            since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other attributes.
            The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code> with the exception of
@@ -92,7 +95,8 @@ The features in this specification extend or modify those found in <a href="http
            User agent SHOULD not fire <a href="https://w3c.github.io/pointerevents/index.html#dfn-compatibility-mouse-events">compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
            <div class="note">Adding listener for this type of the event might impact the performance of the web page negatively depending on the implementation of user agent.
            For most of the use cases the other pointerevent types should suffice.
-           A <code>pointerrawupdate</code> listener should only be added if javascript need high frequency events and can handle them just as fast.</div>
+           A <code>pointerrawupdate</code> listener should only be added if javascript needs high frequency events and can handle them just as fast.
+           In that case there is probably no need to listen to other types of pointer events for most of the use cases.</div>
       </section>
     </section>
     <section>
