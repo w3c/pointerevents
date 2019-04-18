@@ -152,6 +152,11 @@ The rest of the attributes might be different from the dispatched event based on
 The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
 So the first event will have the smallest <code>timeStamp</code> which should still be greater than the last event in the coalesced events.</p>
               </dd>
+
+              <p>
+                A <code>PointerEvent</code>'s <code> get target </code> algorithm, returns the associate dispatched event's target if it is a non-dispatch event (not being dispatched to a target, i.e. coalesced events
+                and predicted events); otherwise returns the object that the event is targeted using <a href="https://www.w3.org/TR/uievents/#event-flow">Event dispatch and DOM event flow</a>.
+              </p>
           </dl>
       </div>
     </section>
