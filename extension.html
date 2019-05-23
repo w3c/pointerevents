@@ -154,8 +154,7 @@ So the first event will have the smallest <code>timeStamp</code> which should st
               </dd>
 
               <p>
-              A <a href="pointerevents2#pointerevent-interface">PointerEvent</a>'s <a href="https://dom.spec.whatwg.org/#get-target"><code> get target </code></a> algorithm, returns the associate dispatched event's target if it is a non-dispatch event (not being dispatched to a target, i.e. coalesced events
-                and predicted events); otherwise returns the object that the event is targeted using <a href="https://www.w3.org/TR/uievents/#event-flow">Event dispatch and DOM event flow</a>.
+              Coalesced events and predicted events' <a href="https://dom.spec.whatwg.org/#get-target"><code> get target </code></a> algorithm,  if associated dispatched event is not null, return the associated event's <a href="http://dom.spec.whatwg.org/#event-target"><code>target</code></a>; otherwise, returns this event's target.
               </p>
           </dl>
       </div>
