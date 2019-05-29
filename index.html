@@ -15,12 +15,12 @@
           github: "https://github.com/w3c/pointerevents/",
           testSuiteURI: "https://wpt.fyi/pointerevents/",
           caniuse: "pointer",
-          // editors, add as many as you like
-          // only "name" is required
-          editors:  [
+          formerEditors:  [
               { name: "Matt Brubeck",
                 company: "Mozilla", companyURL: "https://www.mozilla.org/",
                 w3cid: '45617' },
+          ],
+          editors:  [
               { name: "Rick Byers",
                 company: "Google", companyURL: "https://www.google.com/" ,
                 w3cid: '55724' },
@@ -29,7 +29,7 @@
                 w3cid: '35129' },
               { name: "Navid Zolghadr",
                 company: "Google", companyURL: "https://www.google.com/" ,
-                w3cid: '92361' }
+                w3cid: '92361' },
           ],
           wg:           "Pointer Events Working Group",
           wgURI:        "https://www.w3.org/2012/pointerevents/",
@@ -62,13 +62,13 @@
     <section id="intro" class="informative">
         <h1>Introduction</h1>
         <p>Today, most [[HTML5]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[UIEVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
-        
+
         <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
         <p> An additional key goal is to enable multi-threaded user agents to handle default touch actions, such as scrolling, without blocking on script execution.</p>
 
         <div class="note">
             <p>While this specification defines a unified event model for a variety of pointer inputs, this model does not cover other forms of input such as keyboards or keyboard-like interfaces (for instance, a screenreader or similar assistive technology running on a touchscreen-only device, which allows users sequential navigation through focusable controls and elements). While user agents might choose to also generate pointer events in response to these interfaces, this scenario is not covered in this specification.</p>
-          
+
             <p>In the first instance, authors are encouraged to provide equivalent functionality for all forms of input by responding to high-level events such as <code>focus</code>, <code>blur</code> and <code>click</code>. However, when using low-level events (such as Pointer Events), authors are encouraged to ensure that all types of input are supported. In the case of keyboards and keyboard-like interfaces, this might require the addition of explicit keyboard event handling. See <a href="http://www.w3.org/TR/WCAG20/#keyboard-operation">WCAG 2.0 Guideline 2.1</a> for further details.</p>
         </div>
 
@@ -76,7 +76,7 @@
             <img src="pointer.png" alt="Pointer input combines input from mouse, pen, touch, etc.">
             <figcaption>A pointer is a hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen.</figcaption>
         </figure>
-      
+
         <p>The events for handling generic pointer input look a lot like those for mouse: pointerdown, pointermove, pointerup, pointerover, pointerout, etc. This facilitates easy content migration from Mouse Events to Pointer Events.
         Pointer Events provide all the usual properties present in Mouse Events (client coordinates, target element, button states, etc.) in addition to new properties for other forms of input: pressure, contact geometry, tilt, etc. So authors can easily code to Pointer Events to share logic between different input types where it makes sense, and customize for a particular type of input only where necessary to get the best experience.</p>
         <p>While Pointer Events are sourced from a variety of input devices, they are not defined as being generated from some other set of device-specific events. While possible and encouraged for compatibility, this spec does not require other device-specific events be supported (e.g. mouse events, touch events, etc.).  A user agent could support pointer events without supporting any other device events. For compatibility with content written to mouse-specific events, this specification does provide an optional section describing how to generate <a>compatibility mouse events</a> based on pointer input from devices other than a mouse.</p>
@@ -132,17 +132,17 @@ function detectInputType(event) {
             break;
         case "touch":
             /* touch input detected */
-            break;    
+            break;
         default:
-            /* pointerType is empty (could not be detected) 
+            /* pointerType is empty (could not be detected)
             or UA-specific custom type */
     }
 }</code></pre>
 <pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
 <code>&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so 
+  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so
   that all events on the canvas element are given to the application instead. */
-  
+
   canvas { touch-action: none; }
 &lt;/style&gt;
 
@@ -184,8 +184,8 @@ function checkPointerSize(event) {
 </pre>
 <pre id="example_5" class="example" title="Firing an untrusted pointer event from script">
 <code>var event = new PointerEvent("pointerover",
-  { bubbles: true, 
-    cancelable: true, 
+  { bubbles: true,
+    cancelable: true,
     composed: true,
     pointerId: 42,
     pointerType: "pen",
@@ -265,7 +265,7 @@ interface PointerEvent : MouseEvent {
                     <dt><dfn>pointerId</dfn></dt>
                         <dd>
                             <p>A unique identifier for the pointer causing the event. This identifier MUST be unique from all other <a data-lt="active pointer">active pointers</a> in the <a href="https://www.w3.org/TR/html5/browsers.html#top-level-browsing-context">top-level browsing context</a> (as defined by [[!HTML5]]) at the time. A user agent MAY recycle previously retired values for <code>pointerId</code> from previous active pointers, if necessary.</p>
-                          
+
                             <div class="note">
                                 <p>The <code>pointerId</code> selection algorithm is implementation specific. Therefore authors cannot assume values convey any particular meaning other than an identifier for the pointer that is unique from all other active pointers. As an example, user agents may simply assign a number, starting from <code>1</code>, to any active pointers, in the order that they become active - but these values are not guaranteed to be monotonically increasing. Other user agents may opt to assign a completely randomized and unique number to each active pointer. However, in the latter scenarios user agents MUST ensure that the <code>pointerId</code> that is assigned remains the same only for the lifetime of the current page, and that any new <code>pointerId</code> values are not predictable (e.g. generated randomly with cryptographically strong randomness), to minimize the possibility of users being uniquely fingerprinted and tracked across different pages.</p>
                             </div>
@@ -400,7 +400,7 @@ interface PointerEvent : MouseEvent {
                 </ul>
 
                 <p>If this is a <code>pointerdown</code> event, the associated device is a direct manipulation device and the target is an <code>Element</code>, then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
-                
+
                 <p>Fire the event to the determined target.
 
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target - and if they are different targets, boundary events should be dispatched first. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
@@ -771,19 +771,19 @@ partial interface Navigator {
     &lt;div&gt;
         Touches on this element MAY be consumed for manipulating the parent.
     &lt;/div&gt;
-&lt;/div&gt;</code>    
+&lt;/div&gt;</code>
 </pre>
 <pre id="example_9" class="example" title="Intermediate parent that disallows touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
             This element receives pointer events for all touches because
-            it allows only horizontal panning yet an intermediate ancestor 
-            (between it and the pannable element) only allows vertical panning. 
+            it allows only horizontal panning yet an intermediate ancestor
+            (between it and the pannable element) only allows vertical panning.
             Therefore, no touch behaviors are allowed.
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;</code>    
+&lt;/div&gt;</code>
 </pre>
     </section>
     <section>
@@ -807,7 +807,7 @@ partial interface Navigator {
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
         </section>
-    
+
         <section>
             <h2>Releasing Pointer Capture</h2>
             <p>Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:</p>
@@ -948,7 +948,7 @@ partial interface Navigator {
                     <li><code>pointerleave</code></li>
                     <li><code>mouseout</code></li>
                     <li><code>mouseleave</code></li>
-                </ol>            
+                </ol>
             </div>
         </section>
     </section>
@@ -1010,7 +1010,7 @@ partial interface Navigator {
     <section class="appendix informative">
         <h1>Revision History</h1>
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
-        
+
         <ul>
             <li><a href="https://github.com/w3c/pointerevents/commit/d2779fe71e3b1c26d6b4657ad0330bed378b8b69">Remove normative references from informative sections</a> (and mark <code>[COMPAT]</code> as purely informative)</li>
             <li><a href="https://github.com/w3c/pointerevents/pull/270">Fix Pointer Capture section erroneously marked as informative</a></li>
