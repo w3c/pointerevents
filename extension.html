@@ -117,60 +117,88 @@ partial interface PointerEvent {
 };
           </pre>
           <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
-            <p>A <a>PointerEvent</a> has an associated <dfn> coalesced event list</dfn> (a list of zero or more <code>PointerEvents</code>).
-            If this event is a <code>pointermove</code> or <code>pointerrawupdate</code> event, it is a sequence of all <code> PointerEvents</code> that were coasesced into this event;
-            otherwise it is the empty list. </p>
-            <p> When a <var>PointerEvent</var> is created, run the following steps for each <var>event</var> in the <a> coalesced event list</a>:
+            <p>A <a>PointerEvent</a> has an associated <dfn> coalesced event list</dfn> (a list of
+            zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
+            or <code>pointerrawupdate</code> event, it is a sequence of all <code> PointerEvent
+            </code> that were coasesced into this event; otherwise it is the empty list.</p>
+            <p>The events in the <code >coalesced event list </code> will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.
+            </p>
+
+            <p> When a <var>PointerEvent</var> is created, run the following steps for each
+            <var>event</var> in the <a> coalesced event list</a>:
               <ol>
-                <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and <code>isTrusted</code> to
-                  the <var>PointerEvent</var>'s <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and <code>isTrusted</code>.</li>
-                <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
-                <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a> predicted event list</a> to empty list.</li>
-                <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
+                <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>,
+                  <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
+                  <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
+                  <code>isTrusted</code>.</li>
+                <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code>
+                  attributes to false.</li>
+                <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a> predicted event
+                    list</a> to empty list.</li>
+                <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.
               </ol>
-              The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
-              So the first event will have the smallest <code>timeStamp</code>.
             </p>
             <div class="note">
-              The PointerEvent's attributes will be initalized in a way that is best representative of all event in the coalesced event list.
-              For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and
-              <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]])
-              COULD be the sum of those of all the coalesced events.
+              The PointerEvent's attributes will be initalized in a way that is best representative
+              of all event in the coalesced event list.
+              For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
+                movementX</a> and
+              <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
+              ([[!POINTERLOCK]]) COULD be the sum of those of all the coalesced events.
             </div>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn> predicted event list</dfn> (a list of zero or more <code>PointerEvents</code>).
-            If this event is a <code>pointermove</code> event, it is a sequence of <code>PointerEvents</code> the user agent predicts that will
-            follow the events in <a>coalesced event list</a> in the future; Otherwise it is the empty list.
-            The number of events in the list and how far they are from the current timestamp are determined by the user agent and the prediction algorithm it uses.
+            <p>A <a>PointerEvent</a> has an associated <dfn> predicted event list</dfn> (a list of
+            zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
+            event, it is a sequence of <code>PointerEvents</code> the user agent predicts that will
+            follow the events in <a>coalesced event list</a> in the future; otherwise it is the
+            empty list.
+            The number of events in the list and how far they are from the current timestamp are
+            determined by the user agent and the prediction algorithm it uses.</p>
+
+            <p>The events in the <code> predicted event list</code> will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>
+            which should still be greater than the last event in the <a>coalesced event list</a>.
             </p>
 
-            <p> When a <var>PointerEvent</var> is created, run the following steps for each <var>event</var> in the <a> predicted event list</a>:
+            <p> When a <var>PointerEvent</var> is created, run the following steps for each
+            <var>event</var> in the <a> predicted event list</a>:
               <ol>
-                <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and <code>isTrusted</code> to
-                  the <var>PointerEvent</var>'s <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and <code>isTrusted</code>.</li>
-                <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
-                <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a> predicted event list</a> to empty list.</li>
-                <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
+                <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>,
+                  <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
+                  <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
+                  <code>isTrusted</code>.</li>
+                <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code>
+                  attributes to false.</li>
+                <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a> predicted event
+                    list</a> to empty list.</li>
+                <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.
               </ol>
-              The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
-              So the first event will have the smallest <code>timeStamp</code> which should still be greater than the last event in the <a>coalesced event list</a>.</p>
+            </p>
             </p>
 
-            <p> A <a> PointerEvent</a> has an associated <dfn> coalesced events targets dirty</dfn> boolean. When an event is created the attribute must be initialized to true.</p>
-            <p> A <a> PointerEvent</a> has an associated <dfn> predicted events targets dirty</dfn> boolean. When an event is created the attribute must be initialized to true.</p>
+            <p> A <a> PointerEvent</a> has an associated <dfn> coalesced events targets dirty</dfn>
+            boolean. When an event is created the attribute must be initialized to false.</p>
+            <p> A <a> PointerEvent</a> has an associated <dfn> predicted events targets dirty</dfn>
+            boolean. When an event is created the attribute must be initialized to false.</p>
+            <p> When <a>PointerEvent</a>'s target change, set both <code> coalesced event targets
+              dirty</code> and <code> predicted events targets dirty</code> to true.</p>
 
 
               <dt><dfn>getCoalescedEvents</dfn></dt>
               <dd>
-              <p> <a> coalesced event list</a>'s getter, when invoked, must run these steps:
-              <ol>
-                <li> If the <a>coalesced events targets dirty</a> is true:
-                  for each event in the <a> coalesced event list</a>, set the
-                  event's <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to this <code>PointerEvent</code>'s target.
-                <li> Set the <a> coalesced events targets dirty</a> to false.
-                <li> Return the <a> coalesced event list </a>
-              </ol>
-              </p>
+                <p> <a> coalesced event list</a>'s getter, when invoked, must run these steps:
+                <ol>
+                  <li> If the <a>coalesced events targets dirty</a> is true:
+                    for each event in the <a> coalesced event list</a>, set the event's
+                    <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
+                    to this <code>PointerEvent</code>'s target.
+                  <li> Set the <a> coalesced events targets dirty</a> to false.
+                  <li> Return the <a> coalesced event list </a>
+                </ol>
+                </p>
               </dd>
 
               <dt><dfn>getPredictedEvents</dfn></dt>
