@@ -139,40 +139,86 @@ partial interface PointerEvent {
 };
           </pre>
           <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
+            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
+            zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
+            or <code>pointerrawupdate</code> event, it is a sequence of all <code> PointerEvent
+            </code> that were coasesced into this event; otherwise it is the empty list.</p>
+            <p>The events in the <code >coalesced event list </code> will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.
+            </p>
+            <div class="note">
+              The PointerEvent's attributes will be initalized in a way that is best representative
+              of all event in the coalesced event list.
+              For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
+                movementX</a> and
+              <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
+              ([[!POINTERLOCK]]) COULD be the sum of those of all the coalesced events.
+            </div>
+
+            <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of
+            zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
+            event, it is a sequence of <code>PointerEvents</code> the user agent predicts that will
+            follow the events in <a>coalesced event list</a> in the future; otherwise it is the
+            empty list.
+            The number of events in the list and how far they are from the current timestamp are
+            determined by the user agent and the prediction algorithm it uses.</p>
+
+            <p>The events in the <code> predicted event list</code> will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>
+            which should still be greater than the last event in the <a>coalesced event list</a>.
+            </p>
+
+            <p> When a <var>PointerEvent</var> is created, run the following steps for each
+            <var>event</var> in the <a> coalesced event list</a> and <a>predicted event list</a>:
+              <ol>
+                <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>,
+                  <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
+                  <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
+                  <code>isTrusted</code>.</li>
+                <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code>
+                  attributes to false.</li>
+                <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a> predicted event
+                    list</a> to empty list.</li>
+                <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.
+              </ol>
+            </p>
+
+            <p> A <a> PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn>
+            boolean and an associated <dfn>predicted events targets dirty</dfn> boolean. When an
+            event is created they must be initialized to false.</p>
+            <p> When <a>PointerEvent</a>'s target is changed, set both <a><code>coalesced events
+            targets dirty</code></a> and <a><code>predicted events targets dirty</code></a> to true.
+            </p>
+
+
               <dt><dfn>getCoalescedEvents</dfn></dt>
               <dd>
-                  <p>Returns a sequence of all <code>PointerEvents</code> that were coalesced into the dispatched <code>pointermove</code> or <code>pointerrawupdate</code> event.
-When the event is created by the user agent the following attributes of the coalesced events will always have the same value as the dispatched event:
-<code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, <code>isTrusted</code>, <code>target</code>.
-Also since these coalesced events are not going to be dispatched by themselves their <code>cancelable</code> and <code>bubbles</code> attributes are false.
-In addition to that, the other attibutes related to the <a href="https://www.w3.org/TR/uievents/#event-flow">event dispatch algorithm</a>
-(e.g. <code>currentTarget</code>, <code>eventPhase</code>) will have their default value
-and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing.
-Note that this rule doesn't apply to <code>target</code> and it should still be the same as the dispatched event's <code>target</code>.
-This guarantees the attributes like <code>offsetX</code>, <code>offsetY</code> ([[!CSSOM-VIEW]]) which are commonly used by drawing applications to be calculated correctly for the coalesced events.
-The rest of the attributes might be different from the dispatched event.
-The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
-So the first event will have the smallest <code>timeStamp</code>.
-The dispatched event's attributes will be initalized in a way that is best representative of all the coalesced events.
-For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">movementX</a> and <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a> ([[!POINTERLOCK]]) COULD be the sum of those of all the coalesced events.
-None of the events in the sequence will have (nested) coalesced events, so <code>getCoalescedEvents</code> returns an empty sequence for them.
-This API always returns at least one coalesced event for <code>pointermove</code> and <code>pointerrawupdate</code> events and an empty list for other types of <code>PointerEvents</code>.</p>
+                <p> <a> coalesced event list</a>'s getter, when invoked, must run these steps:
+                <ol>
+                  <li> If the <a>coalesced events targets dirty</a> is true:
+                    for each event in the <a> coalesced event list</a>, set the event's
+                    <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
+                    to this <code>PointerEvent</code>'s target.
+                  <li> Set the <a> coalesced events targets dirty</a> to false.
+                  <li> Return the <a> coalesced event list </a>
+                </ol>
+                </p>
               </dd>
+
               <dt><dfn>getPredictedEvents</dfn></dt>
-               <dd>
-                  <p>Returns a sequence of <code>PointerEvents</code> the user agent predicts that will follow the sequence of coalesced events in <code>pointermove</code> event in the future.
-The number of events returned by this API and how far they are from the current timestamp are determined by the user agent and the prediction algorithm it uses.
-This API always returns an empty list for pointerevent types other than <code>pointermove</code>.
-Similar to the coalesced events the following attributes of the predicted events will always have the same value as the dispatched event:
-<code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, <code>isTrusted</code>, <code>target</code>.
-Also <code>cancelable</code> and <code>bubbles</code> attributes will be false and other attibutes related to the <a href="https://www.w3.org/TR/uievents/#event-flow">event dispatch algorithm</a>
-(e.g. <code>currentTarget</code>, <code>eventPhase</code>) will have their default value
-and the related functions (e.g. <code>stopPropagation</code>, <code>stopImmediatePropagation</code>) will do nothing.
-Note that since the <code>target</code> of the predicted events is the same as the dispatched event's <code>target</code>,
-the attributes like <code>offsetX</code>, <code>offsetY</code> ([[!CSSOM-VIEW]]) which are commonly used by drawing applications will be calculated correctly for the predicted events.
-The rest of the attributes might be different from the dispatched event based on the prediction algorithm in user agent.
-The events in the sequence will have increasing <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a> ([[!WHATWG-DOM]]).
-So the first event will have the smallest <code>timeStamp</code> which should still be greater than the last event in the coalesced events.</p>
+              <dd>
+              <p> <a>predicted event list</a>'s getter, when invoked, must run these steps:
+              <ol>
+                <li> If the <a>predicted events targets dirty</a> is true:
+                  for each event in the <a>coalesced event list</a>, set the event's
+                  <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
+                  this <code>PointerEvent</code>'s <code>target</code>.
+                <li> Set the <a>predicted events targets dirty</a> to false.
+                <li> Return the <a>predicted event list </a>
+              </ol>
+              </p>
               </dd>
           </dl>
       </div>
