@@ -8,8 +8,8 @@
     <script type="text/javascript" class='remove'>
       var respecConfig = {
           specStatus:           "ED",
-          shortName:            "pointerevents2",
-          subtitle: "Level 2",
+          shortName:            "pointerevents3",
+          subtitle: "Level 3",
           edDraftURI:           "https://w3c.github.io/pointerevents/",
           prevRecShortname: 'pointerevents',
           github: "https://github.com/w3c/pointerevents/",
@@ -56,7 +56,8 @@
     </section>
 
     <section id="sotd">
-        <p>This specification is an update to [[PointerEvents]] which was shipped broadly only by Microsoft Internet Explorer and Microsoft Edge (though a further independent and mostly interoperable implementation was present in a pre-release build of Mozilla Firefox when the Pointer Events specification was published as a W3C Recommendation). Level 2 includes editorial clarifications, new features and minor breaking changes that address certain limitations and concerns that have been raised about aspects of the design, in an effort to enable wider browser adoption.</p>
+        <p>This specification is an update to [[PointerEvents2]] which was shipped broadly by Google Chrome and Microsoft Edge and Mozilla Firefox.
+           Level 3 includes editorial clarifications and new features that facilitate more use cases, in an effort to enable wider developer and browser adoption.</p>
     </section>
 
     <section id="intro" class="informative">
@@ -1010,32 +1011,9 @@ partial interface Navigator {
     </section>
     <section class="appendix informative">
         <h1>Revision History</h1>
-        <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the first [[PointerEvents]] specification. See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
-
+        <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
+           See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
-            <li><a href="https://github.com/w3c/pointerevents/commit/d2779fe71e3b1c26d6b4657ad0330bed378b8b69">Remove normative references from informative sections</a> (and mark <code>[COMPAT]</code> as purely informative)</li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/270">Fix Pointer Capture section erroneously marked as informative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/251">Add boundary events in implicit capture scenarios</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/246">Replace prose about <code>ownerDocument</code> tree with DOM4 concept of <code>connected</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/235">Add security and privacy considerations section</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/234">Add note about legacy attributes <code>fromElement</code> and <code>toElement</code> (inherited from MouseEvents) must be <code>null</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/218">Add <code>[Exposed=Window]</code> to Constructor</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/138">Don't send boundary events during capture</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/129">Implicit capture for direct manipulation pointing devices</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/122">Add pointer capture processing follow delayed model except implicit release and set the pointer capture events attributes</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/127">Add <code>hasPointerCapture</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/96">Removed "pen contact" condition on button/buttons</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/92">Make all pointer events composed events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/87">Add digitizer/pen tangential (barrel) pressure</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/79">Add digitizer/pen twist</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/69">Make width/height default to 1, remove UA "guessing"/faking geometry</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/56">Made mouseover/out/enter/leave event firing independent of corresponding PEs</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/53">Rewrite of primary pointer section</a> to simplify the wording and allow for possibility of multiple mouse input devices</li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/50">Cover the case when primary pointer is removed</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/43">Clarification about dynamic <code>touch-action</code> changes</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/36">Add the missing pointerover/enter events</a> to the "Process Pending Pointer Capture" section</li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/34">Clarify the button value for mouse drag</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/24">Fix the <code>touch-action</code> processing model for zoom scenarios</a></li>
         </ul>
     </section>
     <!-- appendix -->
