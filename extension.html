@@ -337,7 +337,7 @@ window.addEventListener("pointermove", function(event) {
     clearPoint(e.pageX, e.pageY);
   for (let e of event.getCoalescedEvents())
     drawPoint(e.pageX, e.pageY);
-  predicted_points = event.getPredictedevents();
+  predicted_points = event.getPredictedEvents();
   for (let e of predicted_points)
     drawPoint(e.pageX, e.pageY);
 });
