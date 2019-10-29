@@ -179,7 +179,26 @@ function detectInputType(event) {
     ...
 &lt;/script&gt;</code>
 </pre>
-<pre id="example_4" class="example" title="Resizing an element to match the contact geometry">
+<pre id="example_4" class="example" title="Drawing using coalesced events and predicted events">
+<code>
+var predicted_points = [];
+window.addEventListener("pointermove", function(event) {
+  // Clear the previously drawn predicted points.
+  for (let e of predicted_points.reverse())
+    clearPoint(e.pageX, e.pageY);
+
+  // Draw the actual movements that happened since the last received event.
+  for (let e of event.getCoalescedEvents())
+    drawPoint(e.pageX, e.pageY);
+
+  // Draw the current predicted points to reduce the perception of latency.
+  predicted_points = event.getPredictedEvents();
+  for (let e of predicted_points)
+    drawPoint(e.pageX, e.pageY);
+});
+</code>
+</pre>
+<pre id="example_5" class="example" title="Resizing an element to match the contact geometry">
 <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
 &lt;script&gt;
 window.addEventListener("pointerdown", checkPointerSize);
@@ -190,7 +209,7 @@ function checkPointerSize(event) {
 }
 &lt;/script&gt;</code>
 </pre>
-<pre id="example_5" class="example" title="Firing untrusted pointer events from script">
+<pre id="example_6" class="example" title="Firing untrusted pointer events from script">
 <code>var event1 = new PointerEvent("pointerover",
   { bubbles: true,
     cancelable: true,
@@ -269,6 +288,7 @@ dictionary PointerEventInit : MouseEventInit {
     DOMString   pointerType = "";
     boolean     isPrimary = false;
     sequence&lt;PointerEvent> coalescedEvents = [];
+    sequence&lt;PointerEvent> predictedEvents = [];
 };
 
 [Exposed=Window]
@@ -285,6 +305,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
     sequence&lt;PointerEvent> getCoalescedEvents();
+    sequence&lt;PointerEvent> getPredictedEvents();
 };
               </pre>
                 <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
@@ -363,7 +384,20 @@ interface PointerEvent : MouseEvent {
                                 <li> Set the <a>coalesced events targets dirty</a> to false.</li>
                                 <li> Return the <a>coalesced event list</a>.</li>
                             </ol>
-                        </p>
+                            </p>
+                        </dd>
+                     <dt><dfn>getPredictedEvents</dfn></dt>
+                        <dd>
+                           <p><a>predicted event list</a>'s getter, when invoked, must run these steps:
+                           <ol>
+                               <li> If the <a>predicted events targets dirty</a> is true:
+                               for each event in the <a>coalesced event list</a>, set the event's
+                               <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
+                               this <code>PointerEvent</code>'s <code>target</code>.
+                               <li> Set the <a>predicted events targets dirty</a> to false.
+                               <li> Return the <a>predicted event list </a>
+                           </ol>
+                           </p>
                         </dd>
                 </dl>
 
@@ -415,8 +449,22 @@ interface PointerEvent : MouseEvent {
                 </table>
                 </div>
 
+                <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of
+                zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
+                event, it is a sequence of <code>PointerEvents</code> the user agent predicts that will
+                follow the events in <a>coalesced event list</a> in the future; otherwise it is the
+                empty list.
+                The number of events in the list and how far they are from the current timestamp are
+                determined by the user agent and the prediction algorithm it uses.</p>
+
+                <p>The events in the <code>predicted event list</code> will have increasing
+                <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+                ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>
+                which should still be greater than the last event in the <a>coalesced event list</a>.
+                </p>
+
                 <p> When a <var>PointerEvent</var> is created, run the following steps for each
-                <var>event</var> in the <a> coalesced event list</a>:
+                <var>event</var> in the <a>coalesced event list</a> and <a>predicted event list</a>:
                 <ol>
                    <li><p>Set <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>,
                    <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
@@ -426,17 +474,19 @@ interface PointerEvent : MouseEvent {
                    <li><p>Set <var>event</var>'s <code>cancelable</code> and <code>bubbles</code>
                    attributes to false.</li>
 
-                   <li><p>Set <var>event</var>'s <a>coalesced event list</a> to an empty list.</li>
+                   <li><p>Set <var>event</var>'s <a>coalesced event list</a> and <a>predicted event list</a>
+                   to empty list.</li>
 
                    <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.
                 </ol>
                 </p>
 
                 <p> A <a> PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn>
-                boolean. When an event is created it must be initialized to false.</p>
+                and an associated <dfn>predicted events targets dirty</dfn> boolean.
+                When an event is created they must be initialized to false.</p>
+
                 <p> When <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events
-                targets dirty</code></a> to true.
-                </p>
+                targets dirty</code></a> and <a><code>predicted events targets dirty</code></a> to true.</p>
 
                 <div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[UIEVENTS]] and extended by [[CSSOM-VIEW]].</div>
             </div>
