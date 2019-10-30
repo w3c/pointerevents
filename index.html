@@ -379,14 +379,14 @@ interface PointerEvent : MouseEvent {
                 ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.
                 </p>
 
-                <div class="note">The PointerEvent's attributes will be initalized in a way that is best representative
-                of all event in the coalesced event list.
+                <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
+                all events in the coalesced event list.
                 For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
                 movementX</a> and
                 <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
                 ([[POINTERLOCK]]) COULD be the sum of those of all the coalesced events.</div>
 
-                <div class="note">The ordering of all these dispatched events should be in a way that resemebles the most with the actual events' ordering.
+                <div class="note">The order of all these dispatched events should resemble the actual order of the original events' order.
                 For example if a <code>pointerdown</code> event causes the dispatch for the coalesced <code>pointermove</code> events
                 the user agent SHOULD first dispatch one <code>pointermove</code> event with all those coalesced events of a <code>pointerId</code> followed
                 by the <code>pointerdown</code> event.
