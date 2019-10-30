@@ -377,12 +377,12 @@ interface PointerEvent : MouseEvent {
                         <dd>
                             <p><a>coalesced event list</a>'s getter, when invoked, must run these steps:
                             <ol>
-                                <li> If the <a>coalesced events targets dirty</a> is true:
+                                <li>If the <a>coalesced events targets dirty</a> is true:
                                 for each event in the <a>coalesced event list</a>, set the event's
                                 <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
                                 to this <code>PointerEvent</code>'s target.</li>
-                                <li> Set the <a>coalesced events targets dirty</a> to false.</li>
-                                <li> Return the <a>coalesced event list</a>.</li>
+                                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
+                                <li>Return the <a>coalesced event list</a>.</li>
                             </ol>
                             </p>
                         </dd>
@@ -391,11 +391,11 @@ interface PointerEvent : MouseEvent {
                            <p><a>predicted event list</a>'s getter, when invoked, must run these steps:
                            <ol>
                                <li>If the <a>predicted events targets dirty</a> is true:
-                               for each event in the <a>coalesced event list</a>, set the event's
+                               for each event in the <a>predicted event list</a>, set the event's
                                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
                                this <code>PointerEvent</code>'s <code>target</code>.
-                               <li> Set the <a>predicted events targets dirty</a> to false.
-                               <li> Return the <a>predicted event list </a>
+                               <li>Set the <a>predicted events targets dirty</a> to false.
+                               <li>Return the <a>predicted event list </a>
                            </ol>
                            </p>
                         </dd>
@@ -405,8 +405,8 @@ interface PointerEvent : MouseEvent {
 
                 <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
                 zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
-                or <code>pointerrawupdate</code> event, it is a sequence of all <code> PointerEvent
-                </code> that were coasesced into this event; otherwise it is an empty list.</p>
+                or <code>pointerrawupdate</code> event, it is a sequence of all <code>PointerEvent</code>
+                that were coalesced into this event; otherwise it is an empty list.</p>
 
                 <p>The events in the <code >coalesced event list </code> will have increasing
                 <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
@@ -482,7 +482,7 @@ interface PointerEvent : MouseEvent {
                 </p>
 
                 <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn>
-                and an associated <dfn>predicted events targets dirty</dfn> boolean.
+                and an associated <dfn>predicted events targets dirty</dfn> flag.
                 When an event is created they must be initialized to false.</p>
 
                 <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events
