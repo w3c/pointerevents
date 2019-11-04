@@ -226,6 +226,8 @@ eventTarget.dispatchEvent(event2);</code>
         <dl>
             <dt><dfn>active buttons state</dfn></dt>
                 <dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when either the pen has physical contact with the digitizer, or at least one button is depressed while hovering.</dd>
+            <dt><dfn>active document</dfn></dt>
+                <dd>For every <a>active pointer</a>, the document that received the last event from that pointer.</dd>
             <dt><dfn>active pointer</dfn></dt>
                 <dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
                     <ul>
@@ -508,7 +510,12 @@ interface PointerEvent : MouseEvent {
                     <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
 
-                <p>If this is a <code>pointerdown</code> event, the associated device is a direct manipulation device and the target is an <code>Element</code>, then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
+                <p>Let <var>targetDocument</var> be target's <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]].
+
+                <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to <var>targetDocument</var>.</p>
+
+                <p>If the event is <code>pointerdown</code> event, the associated device is a direct manipulation device and the target is an <code>Element</code>,
+                   then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
                 <p>Fire the event to the determined target.
 
@@ -962,12 +969,16 @@ partial interface Navigator {
         </section>
         <section>
             <h2>Setting Pointer Capture</h2>
-            <p>Pointer capture is set on an element by calling the <code>element.setPointerCapture(pointerId)</code> method. When this method is invoked, a user agent MUST run the following steps:</p>
+            <p>Pointer capture is set on an <var>element</var> of type <code>Element</code> by calling the <code>element.setPointerCapture(pointerId)</code> method.
+               When this method is invoked, a user agent MUST run the following steps:</p>
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>NotFoundError</code>.</li>
-                <li>If the <code>Element</code> on which this method is invoked is not <a href="https://dom.spec.whatwg.org/#connected"><code>connected</code></a> ([[DOM]]), throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If this method is invoked while the document has a locked element ([[!PointerLock]]), throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If the pointer is not in the <a>active buttons state</a>, then terminate these steps.</li>
+                <li>Let the <var>pointer</var> be the <a>active pointer</a> specified by the given <code>pointerId</code>.
+                <li>If the <var>element</var> is not <a href="https://dom.spec.whatwg.org/#connected"><code>connected</code></a> ([[!DOM]]), throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If this method is invoked while the <var>element</var>'s <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]] has a locked element ([[!PointerLock]]),
+                    throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If the <var>pointer</var> is not in the <a>active buttons state</a> or
+                    the <var>element</var>'s <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]] is not the <a>active document</a> of the <var>pointer</var>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the <code>Element</code> on which this method was invoked.</li>
             </ol>
         </section>
