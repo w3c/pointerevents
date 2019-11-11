@@ -1,5 +1,5 @@
 # Introduction
-This repo holds the sources for the [Pointer Events](https://w3c.github.io/pointerevents/) spec. The [extension doc](https://w3c.github.io/pointerevents/extension.html) contains proposals for adding new functionalities to future versions of the spec.
+This repo holds the sources for the [Pointer Events](https://w3c.github.io/pointerevents/) spec.
 
 # Editing process
 - **Edit first, review later**: Editors land changes at their discretion, but a change should be reverted if it turns out the change does not reflect the rough consensus of the working group.
