@@ -690,7 +690,7 @@ interface PointerEvent : MouseEvent {
                 Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
                 contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
                 These events may be coalesced or aligned to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a> based on UA decision.
-                The coalesced events information will be exposed via <code><a data-lt="getCoalescedEvents">getCoalescedEvents</a></code> API for the single dispatched <code>pointermove</code> event.
+                The coalesced events information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> API for the single dispatched <code>pointermove</code> event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
             <section>
@@ -710,7 +710,7 @@ interface PointerEvent : MouseEvent {
                 So this may cause <code>pointerrawupdate</code> to have coalesced events and
                 they will all be delivered as coalesced events of one <code>pointerrawupdate</code> event as soon as
                 the event's turn to get processed reaches in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
-                See <a href="#getCoalescedEvents">getCoalescedEvents</a> for more information.
+                See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.
                 In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
                 if the UA received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
                 then the user agent MUST dispatch <code>pointerrawupdate</code> event before the correponding <code>pointermove</code> for it.
