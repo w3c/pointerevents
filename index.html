@@ -965,17 +965,17 @@ partial interface Navigator {
           </div>
           <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_6" class="example" title="Disallowing all touch behaviors">
+<pre id="example_7" class="example" title="Disallowing all touch behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all touches.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_7" class="example" title="Allowing horizontal panning only">
+<pre id="example_8" class="example" title="Allowing horizontal panning only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Child regions that disallow touch behaviors">
+<pre id="example_9" class="example" title="Child regions that disallow touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all touches.
@@ -985,7 +985,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Intermediate parent that disallows touch behaviors">
+<pre id="example_10" class="example" title="Intermediate parent that disallows touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -997,7 +997,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_10" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<pre id="example_11" class="example" title="Intermediate parent that restricts allowed touch behaviors">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
