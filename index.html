@@ -287,6 +287,8 @@ dictionary PointerEventInit : MouseEventInit {
     long        tiltX = 0;
     long        tiltY = 0;
     long        twist = 0;
+    double      altitudeAngle = 0;
+    double      azimuthAngle = 0;
     DOMString   pointerType = "";
     boolean     isPrimary = false;
     sequence&lt;PointerEvent> coalescedEvents = [];
@@ -304,6 +306,8 @@ interface PointerEvent : MouseEvent {
     readonly        attribute long        tiltX;
     readonly        attribute long        tiltY;
     readonly        attribute long        twist;
+    readonly        attribute double      altitudeAngle;
+    readonly        attribute double      azimuthAngle;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
     sequence&lt;PointerEvent> getCoalescedEvents();
@@ -355,6 +359,14 @@ interface PointerEvent : MouseEvent {
                         <dd>
                             <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be 0.</p>
                         </dd>
+                    <dt><dfn>altitudeAngle</dfn></dt>
+                        <dd>
+                            <p>The altitude (in radians) of the transducer (e.g. pen stylus), in the range [0,π/2] - where 0 is parallel to the X-Z plane, and π/2 is perpendicular to the X-Z plane. The value 0 should be used for devices which do not support this property.</p>
+                        </dd>
+                    <dt><dfn>azimuthAngle</dfn></dt>
+                        <dd>
+                            <p>The azimuth angle (in radians) of the transducer (e.g. pen stylus), in the range [0, 2π] - where 0 represents a transducer whose cap is pointing in the direction of increasing X values on the X-Z plane, and π/2 represents a transducer whose cap is pointing in the direction of increasing Z values on the X-Z plane. The value 0 should be used for devices which do not support this property.</p>
+                        </dd>
                     <dt><dfn>pointerType</dfn></dt>
                         <dd>
                             <p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to <a>fire a pointer event</a> for a mouse, pen stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
@@ -404,6 +416,9 @@ interface PointerEvent : MouseEvent {
                 </dl>
 
                 <p>The <dfn><code>PointerEventInit</code></dfn> dictionary is used by the <dfn><code>PointerEvent</code></dfn> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the {{MouseEventInit}} dictionary defined in [[UI-EVENTS]]. The steps for constructing an event are defined in [[DOM]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
+
+                <div class-"note">Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative the X-Z plane: <dfn><code>tiltX</code></dfn> / <dfn><code>tiltY</code></dfn> (introduced in the original Pointer Events specification), and <dfn><code>altitudeAngle</code></dfn> / <dfn><code>azimuthAngle</code></dfn> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).
+                    Implementations MUST support both sets of attributes. When a Pointer Event is created, and only one set of values is provided, the complementary set of attributes MUST be calculated and initialized.</div>
 
                 <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
                 zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
