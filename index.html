@@ -1192,6 +1192,26 @@ partial interface Navigator {
             </div>
         </section>
     </section>
+    <section class='informative'>
+        <h2>Converting between <code>tiltX</code> / <code>tiltY</code> and <code>altitudeAngle</code> / <code>azimuthAngle</code></h2>
+        <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane - either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. The following basic code provides an initial suggested approach for converting these values.</p>
+        <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Convering azimuthAngle / altitudeAngle to tiltX / tiltY */
+
+tiltX = Math.atan(Math.sin(azimuthAngle) / Math.tan(altitudeAngle));
+tiltY = Math.atan(Math.cos(azimuthAngle) / Math.tan(altitudeAngle));
+
+/* Convering tiltX / tiltY to azimuthAngle / altitudeAngle */
+
+azimuthAngle = 0;
+if (tiltX != 0) {
+  azimuthAngle = Math.pi/2 - Math.atan2(-Math.cos(tiltX) * Math.sin(tiltY), Math.cos(tiltY) * Math.sin(tiltX));
+  if (azimuthAngle &lt; 0) {
+    azimuthAngle += 2*Math.pi;
+  }
+}
+altitudeAngle = Math.pi/2 - Math.acos(Math.cos(tiltX) * Math.cos(tiltY));</code>
+</pre>
+    </section>
     <section>
         <h2>Security and privacy considerations</h2>
         <p>This appendix discusses security and privacy considerations for Pointer Events implementations. The discussion is limited to security and privacy issues that arise directly from implementation of the event model, APIs and events defined in this specification.</p>
