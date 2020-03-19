@@ -306,7 +306,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute long        twist;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
-    sequence&lt;PointerEvent> getCoalescedEvents();
+    [SecureContext] sequence&lt;PointerEvent> getCoalescedEvents();
     sequence&lt;PointerEvent> getPredictedEvents();
 };
               </pre>
@@ -822,6 +822,7 @@ partial interface mixin GlobalEventHandlers {
     attribute EventHandler onlostpointercapture;
     attribute EventHandler onpointerdown;
     attribute EventHandler onpointermove;
+    [SecureContext] attribute EventHandler onpointerrawupdate;
     attribute EventHandler onpointerup;
     attribute EventHandler onpointercancel;
     attribute EventHandler onpointerover;
