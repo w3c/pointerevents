@@ -361,11 +361,11 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>altitudeAngle</dfn></dt>
                         <dd>
-                            <p>The altitude (in radians) of the transducer (e.g. pen stylus), in the range [0,π/2] - where 0 is parallel to the X-Z plane, and π/2 is perpendicular to the X-Z plane. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The altitude (in radians) of the transducer (e.g. pen stylus), in the range [0,π/2] - where 0 is parallel to the surface (X-Y plane), and π/2 is perpendicular to the surface. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
                         </dd>
                     <dt><dfn>azimuthAngle</dfn></dt>
                         <dd>
-                            <p>The azimuth angle (in radians) of the transducer (e.g. pen stylus), in the range [0, 2π] - where 0 represents a transducer whose cap is pointing in the direction of increasing X values on the X-Z plane, and π/2 represents a transducer whose cap is pointing in the direction of increasing Z values on the X-Z plane. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The azimuth angle (in radians) of the transducer (e.g. pen stylus), in the range [0, 2π] - where 0 represents a transducer whose cap is pointing in the direction of increasing X values (point to "3 o'clock" if looking straight down) on the X-Y plane, and the values progressively increase when going clockwise (π/2 at "6 o'clock", π at "9 o'clock", 3π/2 at "12 o'clock"). When the transducer is perfectly perpendicular to the surface (<code>altitudeAngle</code> of π/2), the value MUST be 0. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
                         </dd>
                     <dt><dfn>pointerType</dfn></dt>
                         <dd>
