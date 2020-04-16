@@ -1197,63 +1197,74 @@ partial interface Navigator {
         <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane - either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. The following basic code provides an initial suggested approach for converting these values.</p>
         <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
-function spherical2tilt(altitudeAngle, azimuthAngle) {
-  var tiltX = Math.atan(Math.cos(azimuthAngle) / Math.tan(altitudeAngle)) * 180 / Math.PI;
-  var tiltY = Math.atan(Math.sin(azimuthAngle) / Math.tan(altitudeAngle)) * 180 / Math.PI;
-  return [tiltX, tiltY]
+function spherical2tilt(altitudeAngle, azimuthAngle){
+  let radToDeg = 180/Math.PI;
+
+  let tanAlt = Math.tan(altitudeAngle);
+
+  let tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
+  let tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
+
+  return {"tiltX":tiltXrad*radToDeg, "tiltY":tiltYrad*radToDeg};
 }
 
-function tilt2spherical(tiltX, tiltY) {
-  var altitudeAngle = 0, azimuthAngle = 0;
-  var tiltXrad = tiltX * Math.PI / 180;
-  var tiltYrad = tiltY * Math.PI / 180;
+function tilt2spherical(tiltX, tiltY){
+  let tiltXrad = tiltX * Math.PI/180;
+  let tiltYrad = tiltY * Math.PI/180;
 
-  if (tiltXrad == 0) {
-    if (tiltYrad > 0) {
+  let azimuthAngle = 0;
+
+  if(tiltXrad == 0){
+    if(tiltYrad > 0){
       azimuthAngle = Math.PI/2;
-    } else if (tiltYrad < 0) {
+    }
+    else if(tiltYrad < 0){
       azimuthAngle = 3*Math.PI/2;
     }
   }
 
-  if (tiltYrad == 0) {
-    if (tiltXrad < 0) {
+  if(tiltYrad == 0){
+    if(tiltXrad < 0){
       azimuthAngle = Math.PI;
     }
   }
 
-  if (Math.abs(tiltXrad) == Math.PI/2) {
+  if(Math.abs(tiltXrad) == Math.PI/2){
+    // not enough information to calculate azimuth
     azimuthAngle = 0;
   }
 
-  if ((tiltXrad !=0) && (tiltYrad !=0) && (Math.abs(tiltXrad) != Math.PI/2) && (Math.abs(tiltYrad) != Math.PI/2)) {
-    tanX = Math.tan(tiltXrad);
-    tanY = Math.tan(tiltYrad);
-    if ((tanX > 0) && (tanY > 0)) {
-      azimuthAngle = Math.atan(tanY/tanX);
-    }
-    if ((tanX < 0) && (tanY > 0)) {
-      azimuthAngle = Math.PI/2 + Math.atan(-tanX/tanY);
-    }
-    if ((tanX < 0) && (tanY < 0)) {
-      azimuthAngle = Math.PI + Math.atan(tanY/tanX);
-    }
-    if ((tanX > 0) && (tanY < 0)) {
-      azimuthAngle = 3.0/2.0*Math.PI + Math.atan(-tanX/tanY);
+
+  if(tiltXrad != 0 && tiltYrad != 0 &&
+     Math.abs(tiltXrad) != Math.PI/2 && Math.abs(tiltYrad) != Math.PI/2){
+    //if pen is segment [(x0,y0,0),(x0+a, y0+b,c)] c>0, and the screen is facing up
+    //towards positive z axis
+    let tanX = Math.tan(tiltXrad);
+    let tanY = Math.tan(tiltYrad);
+
+    azimuthAngle = Math.atan2(tanY, tanX);
+    if(azimuthAngle < 0){
+      azimuthAngle += 2*Math.PI;
     }
   }
 
-  if (Math.abs(tiltXrad) == Math.PI/2) {
-    altitudeAngle = 0;
-  } else if (tiltXrad == 0) {
-    altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
-  } else if (tiltYrad == 0) {
-    altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
-  } else {
-    altitudeAngle = Math.atan(1.0/Math.sqrt(Math.pow(Math.tan(tiltXrad),2) + Math.pow(Math.tan(tiltYrad),2)));
+  let altitudeAngle = 0;
+
+  if (Math.abs(tiltXrad) == Math.PI/2){
+      altitudeAngle = 0
   }
-  
-  return [altitudeAngle, azimuthAngle];
+  else if (tiltXrad == 0){
+    altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
+  }
+  else if(tiltYrad == 0){
+    altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
+  }
+
+  if(tiltXrad != 0 && tiltYrad != 0 && Math.abs(tiltXrad) != Math.PI/2){
+    altitudeAngle =  Math.atan(1.0/Math.sqrt(Math.pow(Math.tan(tiltXrad),2) + Math.pow(Math.tan(tiltYrad),2)));
+  }
+
+  return {"altitudeAngle":altitudeAngle, "azimuthAngle":azimuthAngle};
 }</code>
 </pre>
     </section>
