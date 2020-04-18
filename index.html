@@ -1200,10 +1200,51 @@ partial interface Navigator {
 function spherical2tilt(altitudeAngle, azimuthAngle){
   let radToDeg = 180/Math.PI;
 
-  let tanAlt = Math.tan(altitudeAngle);
+  let tiltXrad = 0;
+  let tiltYrad = 0;
 
-  let tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
-  let tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
+  if(altitudeAngle == 0){
+    // the pen is in the X-Y plane
+    if(azimuthAngle == 0 || azimuthAngle == 2*Math.PI){
+      // pen is on positive X axis
+      tiltXrad = Math.PI/2;
+    }
+    if(azimuthAngle == Math.PI/2){
+      // pen is on positive Y axis
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle == Math.PI){
+      // pen is on negative X axis
+      tiltXrad = -Math.PI/2;
+    }
+    if(azimuthAngle == 3*Math.PI/2){
+      // pen is on negative Y axis
+      tiltYrad = -Math.PI/2;
+    }
+    if(azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2){
+      tiltXrad = Math.PI/2;
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI){
+      tiltXrad = -Math.PI/2;
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2){
+      tiltXrad = -Math.PI/2;
+      tiltYrad = -Math.PI/2;
+    }
+    if(azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI){
+      tiltXrad = Math.PI/2;
+      tiltYrad = -Math.PI/2;
+    }
+  }
+
+  if(altitudeAngle != 0){
+    let tanAlt = Math.tan(altitudeAngle);
+
+    tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
+    tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
+  }
 
   return {"tiltX":tiltXrad*radToDeg, "tiltY":tiltYrad*radToDeg};
 }
@@ -1215,16 +1256,16 @@ function tilt2spherical(tiltX, tiltY){
   let azimuthAngle = 0;
 
   if(tiltXrad == 0){
-    if(tiltYrad > 0){
+    if(tiltYrad &gt; 0){
       azimuthAngle = Math.PI/2;
     }
-    else if(tiltYrad < 0){
+    else if(tiltYrad &lt; 0){
       azimuthAngle = 3*Math.PI/2;
     }
   }
 
   if(tiltYrad == 0){
-    if(tiltXrad < 0){
+    if(tiltXrad &lt; 0){
       azimuthAngle = Math.PI;
     }
   }
@@ -1237,13 +1278,11 @@ function tilt2spherical(tiltX, tiltY){
 
   if(tiltXrad != 0 && tiltYrad != 0 &&
      Math.abs(tiltXrad) != Math.PI/2 && Math.abs(tiltYrad) != Math.PI/2){
-    //if pen is segment [(x0,y0,0),(x0+a, y0+b,c)] c>0, and the screen is facing up
-    //towards positive z axis
     let tanX = Math.tan(tiltXrad);
     let tanY = Math.tan(tiltYrad);
 
     azimuthAngle = Math.atan2(tanY, tanX);
-    if(azimuthAngle < 0){
+    if(azimuthAngle &lt; 0){
       azimuthAngle += 2*Math.PI;
     }
   }
