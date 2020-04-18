@@ -306,7 +306,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute long        twist;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
-    sequence&lt;PointerEvent> getCoalescedEvents();
+    [SecureContext] sequence&lt;PointerEvent> getCoalescedEvents();
     sequence&lt;PointerEvent> getPredictedEvents();
 };
               </pre>
@@ -696,8 +696,8 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h3>The <dfn><code>pointerrawupdate</code> event</dfn></h3>
                 <p>A user agent MUST <a href="https://w3c.github.io/pointerevents/index.html#firing-events-using-the-pointerevent-interface">fire a pointer event</a>
-                named <code>pointerrawupdate</code> when a pointing device attribute
-                (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
+                named <code>pointerrawupdate</code> only within a <a href="https://w3c.github.io/webappsec-secure-contexts/#secure-contexts">secure context</a> when
+                a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
                 As opposed to <code>pointermove</code> which might be aligned to animation callbacks,
                 user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
                 and as frequent as the javascript can handle the events.
@@ -822,6 +822,7 @@ partial interface mixin GlobalEventHandlers {
     attribute EventHandler onlostpointercapture;
     attribute EventHandler onpointerdown;
     attribute EventHandler onpointermove;
+    [SecureContext] attribute EventHandler onpointerrawupdate;
     attribute EventHandler onpointerup;
     attribute EventHandler onpointercancel;
     attribute EventHandler onpointerover;
