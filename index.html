@@ -424,14 +424,21 @@ interface PointerEvent : MouseEvent {
                 <p>The <dfn><code>PointerEventInit</code></dfn> dictionary is used by the <dfn><code>PointerEvent</code></dfn> interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the {{MouseEventInit}} dictionary defined in [[UI-EVENTS]]. The steps for constructing an event are defined in [[DOM]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
 
                 <div class="note">
-                    Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <dfn><code>tiltX</code></dfn> / <dfn><code>tiltY</code></dfn> (introduced in the original Pointer Events specification), and <dfn><code>altitudeAngle</code></dfn> / <dfn><code>azimuthAngle</code></dfn> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).
-                    Implementations MUST support both sets of attributes. When an untrusted (synthetic) Pointer Event is created programmatically using the constructor, and only one set of attributes is provided, the complementary set of attributes MUST be calculated and initialized by the user agent. If both sets of attributes are provided, no calculation should be performed.
-
-                    <p>
-                    If <code>azimuth</code> and <code>altitude</code> are provided, the user agent MUST initialize <code>tiltX</code>, <code>tiltY</code>
-                    with the calculated values rounded to the nearest integer value. For values falling exactly midway between integers, the user agend MUST always round up.
-                    </p>
-                    <p>If only the value of one of the two attributes is provided, the other attribute MUST be initialized to the default value.</p>
+                    <p>Pointer Events include two complementary sets of attributes to express the orientation of a
+                    transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code>
+                    (introduced in the original Pointer Events specification), and
+                    <code>azimuthAngle</code> / <code>altitudeAngle</code>
+                    (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).
+                    Implementations SHOULD provide both sets of attributes for trusted events.</p>
+                    <p>When an untrusted (synthetic) Pointer Event is created programmatically using the constructor,
+                    and only one set of attributes is provided, the complementary set of attributes SHOULD be calculated and
+                    initialized by the user agent. If both sets of attributes are provided, no calculation should be performed.
+                    If only the value of one of the two attributes is provided, the other attribute SHOULD be initialized to
+                    the default value.</p>
+                    <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from
+                    <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using
+                    <a href="https://tc39.es/ecma262/#sec-math.round"><code>Math.round</code></a> ([[ECMA-262]]) rules.</p>
+                    <p></p>
                 </div>
 
                 <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
@@ -685,7 +692,7 @@ interface PointerEvent : MouseEvent {
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
                         </li>
-                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>. 
+                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>.
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
