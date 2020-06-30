@@ -1254,31 +1254,25 @@ function tilt2spherical(tiltX, tiltY){
   let tiltXrad = tiltX * Math.PI/180;
   let tiltYrad = tiltY * Math.PI/180;
 
+  // calculate azimuth angle
   let azimuthAngle = 0;
 
-  if(tiltXrad == 0){
-    if(tiltYrad &gt; 0){
+  if(tiltX == 0){
+    if(tiltY &gt; 0){
       azimuthAngle = Math.PI/2;
     }
-    else if(tiltYrad &lt; 0){
+    else if(tiltY &lt; 0){
       azimuthAngle = 3*Math.PI/2;
     }
-  }
-
-  if(tiltYrad == 0){
-    if(tiltXrad &lt; 0){
+  } else if(tiltY == 0){
+    if(tiltX &lt; 0){
       azimuthAngle = Math.PI;
     }
-  }
-
-  if(Math.abs(tiltXrad) == Math.PI/2){
+  } else if(Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
     // not enough information to calculate azimuth
     azimuthAngle = 0;
-  }
-
-
-  if(tiltXrad != 0 && tiltYrad != 0 &&
-     Math.abs(tiltXrad) != Math.PI/2 && Math.abs(tiltYrad) != Math.PI/2){
+  } else {
+    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
     let tanX = Math.tan(tiltXrad);
     let tanY = Math.tan(tiltYrad);
 
@@ -1288,19 +1282,17 @@ function tilt2spherical(tiltX, tiltY){
     }
   }
 
+  // calculate altitude angle
   let altitudeAngle = 0;
 
-  if (Math.abs(tiltXrad) == Math.PI/2){
+  if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
       altitudeAngle = 0
-  }
-  else if (tiltXrad == 0){
+  } else if (tiltX == 0){
     altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
-  }
-  else if(tiltYrad == 0){
+  } else if(tiltY == 0){
     altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
-  }
-
-  if(tiltXrad != 0 && tiltYrad != 0 && Math.abs(tiltXrad) != Math.PI/2){
+  } else {
+    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
     altitudeAngle =  Math.atan(1.0/Math.sqrt(Math.pow(Math.tan(tiltXrad),2) + Math.pow(Math.tan(tiltYrad),2)));
   }
 
