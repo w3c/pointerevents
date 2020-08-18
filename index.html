@@ -826,8 +826,8 @@ interface PointerEvent : MouseEvent {
             <p>The following section describes extensions to the existing <code>Element</code> interface, defined in [[HTML]], to facilitate the setting and releasing of pointer capture.</p>
             <pre class="idl">
 partial interface Element {
-  void setPointerCapture (long pointerId);
-  void releasePointerCapture (long pointerId);
+  undefined setPointerCapture (long pointerId);
+  undefined releasePointerCapture (long pointerId);
   boolean hasPointerCapture (long pointerId);
 };
             </pre>
