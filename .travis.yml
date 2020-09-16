@@ -1,0 +1,17 @@
+# ECHIDNA automatic publishing for respec
+# see https://github.com/w3c/echidna/wiki/Setting-up-Echidna-as-a-GitHub-hook
+language: node_js
+sudo: false
+branches:
+  only:
+  - gh-pages
+env:
+  global:
+  - URL="https://w3c.github.io/pointerevents/W3CTRMANIFEST"
+  - DECISION="https://github.com/w3c/pointerevents/pull/330#issuecomment-692924562"
+  - secure: "PZ4abOR1w5QYW7a6G+mNPhqECOZoIiMgKJtpLEB8hg6J+903yrJ90FOtfAmGTefXIRHaB0XPge0nJ3L2q+8s9XSwfGNb0e2IqpmeCZ70K/IMYf/Qzw9VN5g/Z0vh+VDjrb7fxQZfdD9Wrfldtx2c6FtOyrK0Tu2RoPC8ehCzvPM1xJnlJrBRfH23b3LaVa30jsQScAFHNsFUz6cc8Ql3kMCL9xKoTcJWVqzOfHEJcFinBe3aCGA+XsZkzb8liVyLWXuzxixt9sP1h4LB42IR7BJumeuy0eaC6yXOjYrmZK71isD0IA5Um4CafLmN09xkl9nJBUV84+YlOEWj1bASJsTSkTPpCwdRAXEJIKQb9j0qIb5XEhTnOqsTddTrs8r3gcv1rfUHiVd+dt4fNbCg33rGO9IDvWSX/gN26Cg0zCHBayw1pQrXkMOx/c1PRUnl2VK5ifAfxDPLGLVXV1+w8ueEXkTAv0N1UfV+w4r5A/HXMWPEBSOyRje2greQOzZiAFNRYvYFzxJJI3c7sH2ThMES73y7MCwKyGT5gVe7TjCi8nlTiicEcQDpYca6wKOM7iuaXon23KVq4uUhyWndOmBE1D3cNyRMCOy4Lh+4VXSfDiEDWlmQYZzWAePLHAh4jGiux9v3m6sHR/K8iGZETJ4EbESGduwhvOgAUh739Qo="
+script:
+- echo "ok"
+after_success:
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && false && curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION"
+  --data "token=$TOKEN"'
