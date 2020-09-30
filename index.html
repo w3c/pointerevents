@@ -950,7 +950,7 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether touch input MAY  trigger default behavior supplied by user agent.  This includes, but is not limited to, behaviors such as panning or zooming. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
+            <p>The <code>touch-action</code> CSS property determines whether touch input MAY trigger default behavior supplied by user agent.  This includes, but is not limited to, behaviors such as panning or zooming. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
             <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for other pointer types, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
 
@@ -962,6 +962,8 @@ partial interface Navigator {
             </ul>
 
             <div class="note">User agents may implement complex gestures for default behaviors that involve a series of separate discrete gestures, but which are all treated as part of a single continuous gesture. For example, consider a "fling to scroll" gesture on a touchscreen: a user starts panning the document with a rapid finger movement, lifts the finger from the touchscreen, and the document continues scrolling with simulated inertia. While the document is still moving, the user may place their finger on the touchscreen and execute another "fling" to provide further momentum for the scrolling, or counteract the current scrolling to slow it down, stop scrolling altogether, or reverse the direction of the scrolling. As this specification does not normatively define how gestures and default behaviors are implemented, it is left up to the user agent to decide whether or not the second touch (before it is interpreted as a second "fling" or counteraction of the current scrolling) should fire pointer events or not.</div>
+
+            <div class="note"><code>touch-action</code> does not apply/cascade through to embedded browsing contexts. For instance, even applying <code>touch-action</code> to an <code>&lt;iframe&gt;</code> won't have any effect on the default behavior of touch inputs within the <code>&lt;iframe&gt;</code> itself.</div>
         </section>
 
         <section>
