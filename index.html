@@ -747,7 +747,7 @@ interface PointerEvent : MouseEvent {
                 See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.
                 In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
                 if the UA received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
-                then the user agent MUST dispatch <code>pointerrawupdate</code> event before the correponding <code>pointermove</code> for it.
+                then the user agent MUST dispatch <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code> for it.
                 Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
                 since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
                 The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code> with the exception of
@@ -967,7 +967,7 @@ partial interface Navigator {
           <h2>Determining supported touch behavior</h2>
           <p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property, and the default touch behaviors of the element and its ancestors, as follows:</p>
           <ul>
-            <li>A touch behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coodinate.</li>
+            <li>A touch behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
             <li>A touch behavior is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest ancestor with the default touch behavior (including both the hit tested element and the element with the default touch behavior).</li>
             <li>Once a touch action has been started, and the user agent has already determined whether or not the action should be handled as a user agent touch behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the touch action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default touch behavior for that touch for as long as that pointer is active.</li>
           </ul>
