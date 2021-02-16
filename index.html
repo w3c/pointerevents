@@ -989,15 +989,15 @@ partial interface Navigator {
           <h2>Details of <code>touch-action</code> values</h2>
           <dl>
             <dt>auto</dt>
-            <dd>The user agent MAY determine any permitted touch behaviors, such as panning and zooming of the viewport, for touches that begin on the element.</dd>
+            <dd>The user agent MAY determine any permitted touch behaviors and gestures related to viewport panning/scrolling and zooming for touches that begin on the element.</dd>
             <dt>none</dt>
-            <dd>Touches that begin on the element MUST NOT trigger default touch behaviors.</dd>
+            <dd>Touches that begin on the element MUST NOT trigger default touch behaviors and gestures related to viewport panning/scrolling and zooming for touches that begin on the element.</dd>
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>
-              <p>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
+            <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.</dd>
             <dt>manipulation</dt>
-            <dd>The user agent MAY consider touches that begin on the element only for the purposes of scrolling and continuous zooming.  Any additional behaviors supported by <code>auto</code> are out of scope for this specification.</dd>
+            <dd>The user agent MAY consider touches that begin on the element for the purposes of panning/scrolling and <strong>continuous</strong> zooming, but MUST NOT trigger other related touch behaviors such as gestures that allow zooming to be changed in specific steps.</dd>
           </dl>
+          <p><code>touch-action</code> only covers touch behaviors and gestures related to viewport panning/scrolling and zooming. Any additional default user agent behaviors, such as text selection/hightlighting, or form controls and link activation, MUST NOT be affected by this CSS property.</p>
           <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[COMPAT]].</div>
           <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
           <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
