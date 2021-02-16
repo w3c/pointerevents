@@ -63,7 +63,7 @@
         <p>Today, most [[HTML]] content is used with and/or designed for mouse input.  Those that handle input in a custom manner typically code to [[UIEVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
 
         <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
-        <p> An additional key goal is to enable multi-threaded user agents to handle default touch actions, such as scrolling, without blocking on script execution.</p>
+        <p> An additional key goal is to enable multi-threaded user agents to handle default direct manipulation actions, such as scrolling, without blocking on script execution.</p>
 
         <div class="note">
             <p>While this specification defines a unified event model for a variety of pointer inputs, this model does not cover other forms of input such as keyboards or keyboard-like interfaces (for instance, a screen reader or similar assistive technology running on a touchscreen-only device, which allows users sequential navigation through focusable controls and elements). While user agents might choose to also generate pointer events in response to these interfaces, this scenario is not covered in this specification.</p>
@@ -139,7 +139,7 @@ function detectInputType(event) {
 }</code></pre>
 <pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
 <code>&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so
+  /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming) so
   that all events on the canvas element are given to the application instead. */
 
   canvas { touch-action: none; }
@@ -940,10 +940,10 @@ partial interface Navigator {
         </div>
     </section>
     <section>
-        <h1>Declaring candidate regions for default touch behaviors</h1>
-        <p>For touch input, the default action of any and all pointer events MUST NOT be a manipulation of the viewport (e.g. panning or zooming).</p>
-        <div class="note">Touch manipulations are intentionally not a default action of pointer events. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</div>
-        <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and pan/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to pan using a stylus. This section applies to these scenarios as well (despite the specification's use of "touch").</div>
+        <h1>Declaring candidate regions for default direct manipulation behaviors</h1>
+        <p>For direct manipulation interactions, the default action of any and all pointer events MUST NOT be a manipulation of the viewport (e.g. panning or zooming).</p>
+        <div class="note">Viewport manipulations are intentionally not a default action of pointer events. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</div>
+        <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and pan/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to pan using a stylus. While, for historical reasons, the <code>touch-action</code> CSS property defined in this specification appears to refer only to touch inputs, it does in fact apply to all forms of direct manipulation pointer inputs.</div>
         <section>
             <h2>The <code>touch-action</code> CSS property</h2>
             <table class="simple">
@@ -957,65 +957,65 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether touch input MAY trigger the user agent's default behavior. This includes, but is not limited to, behaviors such as panning or zooming. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
+            <p>The <code>touch-action</code> CSS property determines whether direct manipulation interactions MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
-            <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for other pointer types, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
+            <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for pointer types other than touch, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
 
-            <p>During the execution of a user agent touch behavior, the user agent MUST NOT fire subsequent pointer events for the pointer. The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true, in order to end the stream of events for the pointer:</p>
+            <p>During the execution of a user agent direct manipulation behavior, the user agent MUST NOT fire subsequent pointer events for the pointer. The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true, in order to end the stream of events for the pointer:</p>
             <ul>
-                <li>The user agent has determined (via methods out of scope for this specification) that touch input is to be consumed for a touch behavior,</li>
+                <li>The user agent has determined (via methods out of scope for this specification) that direct manipulation input is to be consumed for a default behavior,</li>
                 <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
                 <li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
             </ul>
 
             <div class="note">User agents may implement complex gestures for default behaviors that involve a series of separate discrete gestures, but which are all treated as part of a single continuous gesture. For example, consider a "fling to scroll" gesture on a touchscreen: a user starts panning the document with a rapid finger movement, lifts the finger from the touchscreen, and the document continues scrolling with simulated inertia. While the document is still moving, the user may place their finger on the touchscreen and execute another "fling" to provide further momentum for the scrolling, or counteract the current scrolling to slow it down, stop scrolling altogether, or reverse the direction of the scrolling. As this specification does not normatively define how gestures and default behaviors are implemented, it is left up to the user agent to decide whether or not the second touch (before it is interpreted as a second "fling" or counteraction of the current scrolling) should fire pointer events or not.</div>
 
-            <div class="note"><code>touch-action</code> does not apply/cascade through to embedded browsing contexts. For instance, even applying <code>touch-action</code> to an <code>&lt;iframe&gt;</code> won't have any effect on the default behavior of touch inputs within the <code>&lt;iframe&gt;</code> itself.</div>
+            <div class="note"><code>touch-action</code> does not apply/cascade through to embedded browsing contexts. For instance, even applying <code>touch-action</code> to an <code>&lt;iframe&gt;</code> won't have any effect on the default behavior of direct manipulation interactions within the <code>&lt;iframe&gt;</code> itself.</div>
         </section>
 
         <section>
-          <h2>Determining supported touch behavior</h2>
-          <p>When a user touches an element, the effect of that touch is determined by the value of the <code>touch-action</code> property, and the default touch behaviors of the element and its ancestors, as follows:</p>
+          <h2>Determining supported direct manipulation behavior</h2>
+          <p>When a user interacts with an element using a direct manipulation pointer, the effect of that input is determined by the value of the <code>touch-action</code> property, and the default direct manipulation behaviors of the element and its ancestors, as follows:</p>
           <ul>
-            <li>A touch behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
-            <li>A touch behavior is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest ancestor with the default touch behavior (including both the hit tested element and the element with the default touch behavior).</li>
-            <li>Once a touch action has been started, and the user agent has already determined whether or not the action should be handled as a user agent touch behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the touch action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default touch behavior for that touch for as long as that pointer is active.</li>
+            <li>A direct manipulation behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
+            <li>A direct manipulation behavior is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest ancestor with the default direct manipulation behavior (including both the hit tested element and the element with the default direct manipulation behavior).</li>
+            <li>Once a direct manipulation action has been started, and the user agent has already determined whether or not the action should be handled as a user agent direct manipulation behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the direct manipulation action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default direct manipulation behavior for that input for as long as that pointer is active.</li>
             <li>Similarly, in the case of the various <code>touch-action</code> values of <code>pan-*</code>, once the user agent has determined whether to handle a gesture directly or not at the start of the gesture, a subsequent change in the direction of the same gesture SHOULD be ignored by the user agent for as long as that pointer is active. For instance, if an element has been set to <code>touch-action: pan-y</code> (meaning that only vertical scrolling is handled by the user agent), and a touch gesture starts off horizontally, no vertical scrolling should occur if the user changes the direction of their gesture to be vertical while their finger is still touching the screen.</li>
           </ul>
 
-          <div class="note">Some user agents support touch actions triggered by interactions of multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers are out of scope for this specification.</div>
+          <div class="note">Some user agents support direct manipulation actions triggered by interactions of multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers is out of scope for this specification.</div>
         </section>
 
         <section>
           <h2>Details of <code>touch-action</code> values</h2>
-          <p>The <code>touch-action</code> property covers touch behaviors related to viewport panning/scrolling and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
+          <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport panning/scrolling and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
           <dl>
             <dt>auto</dt>
-            <dd>The user agent MAY consider any permitted touch behaviors related to viewport panning/scrolling and zooming for touches that begin on the element.</dd>
+            <dd>The user agent MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
             <dt>none</dt>
-            <dd>Touches that begin on the element MUST NOT trigger touch behaviors related to viewport panning/scrolling and zooming.</dd>
+            <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>The user agent MAY consider touches that begin on the element only for the purposes of panning/scrolling that starts in any of the directions specified by all of the listed values. Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.</dd>
+            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning/scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
             <dt>manipulation</dt>
-            <dd>The user agent MAY consider touches that begin on the element for the purposes of panning/scrolling and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related touch behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
+            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of scrolling and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
           </dl>
           <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[COMPAT]].</div>
-          <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values is out of scope for this specification.</div>
-          <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
+          <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
+          <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> direct manipulation actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
           <div class="note">
             <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
-               For example, to implement a simple pull-to-refresh effect the document's touch-action can be set to <code>pan-x pan-down</code> whenever the scroll position is 0 and <code>pan-x pan-y</code> otherwise.
+               For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is 0 and <code>pan-x pan-y</code> otherwise.
                This allows pointer event handlers to define the behavior for upward scrolls that start from the top of the document.</p>
             <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).
                For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical scrolling of the document.
-               When the carousel reaches its right-most extent, it may change its touch-action to <code>pan-y pan-right</code> so that a subsequent pan operation beyond its extent can scroll the document within the viewport if possible.
+               When the carousel reaches its right-most extent, it may change its <code>touch-action</code> to <code>pan-y pan-right</code> so that a subsequent pan operation beyond its extent can scroll the document within the viewport if possible.
                It's not possible to change the behavior of a pan in the middle of an operation.</p>
           </div>
-          <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
+          <div class="note">Disabling some default direct manipulation behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_7" class="example" title="Disallowing all touch behaviors">
+<pre id="example_7" class="example" title="Disallowing all direct manipulation behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
-    This element receives pointer events for all touches.
+    This element receives pointer events for all direct manipulation interactions.
 &lt;/div&gt;</code>
 </pre>
 <pre id="example_8" class="example" title="Allowing horizontal panning only">
@@ -1023,29 +1023,29 @@ partial interface Navigator {
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Child regions that disallow touch behaviors">
+<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
-        This element receives pointer events for all touches.
+        This element receives pointer events for all direct manipulation interactions.
     &lt;/div&gt;
     &lt;div&gt;
-        Touches on this element MAY be consumed for manipulating the parent.
+        Direct manipulation interactions on this element MAY be consumed for manipulating the parent.
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_10" class="example" title="Intermediate parent that disallows touch behaviors">
+<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
-            This element receives pointer events for all touches because
+            This element receives pointer events for all direct manipulation interactions because
             it allows only horizontal panning yet an intermediate ancestor
             (between it and the pannable element) only allows vertical panning.
-            Therefore, no touch behaviors are allowed.
+            Therefore, no direct manipulation behaviors are allowed.
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_11" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
