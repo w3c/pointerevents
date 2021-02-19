@@ -262,7 +262,7 @@ eventTarget.dispatchEvent(event2);</code>
             <dt><dfn>digitizer</dfn></dt>
                 <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen stylus.</dd>
             <dt><dfn>direct manipulation</dfn></dt>
-                <dd>Certain input devices (such as touchscreens) implement a "direct manipulation" metaphor where a pointer is intended to act primarily on the UI element it became active upon (providing a physical illusion of direct contact, instead of indirect contact via a cursor that conceptually floats above the UI), and where the pointer not only serves to interact with controls, but is also used to directly pan, scroll or zoom the current page when it is active (e.g. when a finger or stylus touches the touchscreen).</dd>
+                <dd>Certain input devices (such as touchscreens) implement a "direct manipulation" metaphor where a pointer is intended to act primarily on the element it became active upon (providing a physical illusion of direct contact, instead of indirect contact via a cursor that conceptually floats above the web page), and where the pointer not only serves to interact with controls, but is also used to directly pan/scroll or zoom the current page when it is active. As an example, users on a touchscreen device may use either a finger or a stylus for panning/scrolling - in this case, both types of pointers are considered to be direct manipulation inputs. In contrast, a mouse is not a "direct manipulation" input, as by default panning/scrolling and zooming are not tied directly to a "click and drag" of the mouse pointer on a web page itself.</dd>
             <dt><dfn>hit test</dfn></dt>
                 <dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
             <dt><dfn>pointer</dfn></dt>
@@ -959,9 +959,7 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether direct manipulation interactions MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
-
-            <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for pointer types other than touch, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
+            <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch pointers, despite the property's name) MAY trigger the user agent's panning and zooming behavior.  See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
             <p>During the execution of a user agent direct manipulation behavior, the user agent MUST NOT fire subsequent pointer events for the pointer. The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true, in order to end the stream of events for the pointer:</p>
             <ul>
