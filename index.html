@@ -694,6 +694,11 @@ interface PointerEvent : MouseEvent {
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
+                    <div class="note">Firing <code>gotpointercapture</code>, <code>lostpointercapture</code> is
+                        delayed until the next pointer event. If there are no pointer events after calls to
+                        <code>element.setPointerCapture(pointerId)</code> or
+                        <code>element.releasePointerCapture(pointerId)</code>, the events
+                        <code>gotpointercapture</code>, <code>lostpointercapture</code> will never fire.</div>
                 </section>
             </section>
         </section>
