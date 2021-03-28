@@ -957,7 +957,7 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether touch input MAY trigger default behavior supplied by user agent.  This includes, but is not limited to, behaviors such as panning or zooming. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
+            <p>The <code>touch-action</code> CSS property determines whether touch input MAY trigger the user agent's default behavior. This includes, but is not limited to, behaviors such as panning or zooming. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
             <div class="note">As noted previously, in the case of user agents that allow default behaviors (such as panning or zooming) for other pointer types, these user agents MUST apply the same consideration for those pointer types. For instance, if a user agent allows panning/zooming with a stylus, the user agent must take into account the relevant <code>touch-action</code> value when determining which default behaviors it should handle.</div>
 
@@ -982,7 +982,7 @@ partial interface Navigator {
             <li>Once a touch action has been started, and the user agent has already determined whether or not the action should be handled as a user agent touch behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the touch action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any default touch behavior for that touch for as long as that pointer is active.</li>
           </ul>
 
-          <div class="note">Some user agents support touch actions triggered by interactions of multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers is out of scope for this specification.</div>
+          <div class="note">Some user agents support touch actions triggered by interactions of multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers are out of scope for this specification.</div>
         </section>
 
         <section>
@@ -993,13 +993,13 @@ partial interface Navigator {
             <dt>none</dt>
             <dd>Touches that begin on the element MUST NOT trigger default touch behaviors related to viewport panning/scrolling and zooming.</dd>
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>The user agent MAY consider touches that begin on the element only for the purposes of panning/scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.</dd>
+            <dd>The user agent MAY consider touches that begin on the element only for the purposes of panning/scrolling that starts in any of the directions specified by all of the listed values. Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to starting along a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.</dd>
             <dt>manipulation</dt>
             <dd>The user agent MAY consider touches that begin on the element for the purposes of panning/scrolling and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related touch behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
           </dl>
           <p><code>touch-action</code> only covers touch behaviors related to viewport panning/scrolling and zooming. Any additional default user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
           <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[COMPAT]].</div>
-          <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values are out of scope for this specification.</div>
+          <div class="note">The terms &quot;pan&quot; and &quot;scroll&quot; are considered synonymous. Defining an interaction or gesture for triggering panning or scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values is out of scope for this specification.</div>
           <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and  <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <span>low-latency</span> touch actions. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <span>non-replaced inline element</span>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
           <div class="note">
             <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
