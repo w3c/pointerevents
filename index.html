@@ -600,7 +600,7 @@ interface PointerEvent : MouseEvent {
 
                 <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to <var>targetDocument</var>.</p>
 
-                <p>If the event is <code>pointerdown</code> event, the associated device is a direct manipulation device, and the target is an {{Element}},
+                <p>If the event is <code>pointerdown</code>, the associated device is a direct manipulation device, and the target is an {{Element}},
                    then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
                 <p>Fire the event to the determined target.
@@ -942,10 +942,10 @@ partial interface Navigator {
         </div>
     </section>
     <section>
-        <h1>Declaring candidate regions for default direct manipulation for scroll and zoom behaviors</h1>
+        <h1>Declaring candidate regions for default direct manipulation behaviors</h1>
         <p>For <a>direct manipulation</a> interactions, the default action of any and all pointer events MUST NOT be a manipulation of the viewport (e.g. scrolling or zooming).</p>
         <div class="note">Viewport manipulations are intentionally not a default action of pointer events. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</div>
-        <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and scrolling/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to scroll using a stylus. While, for historical reasons, the <code>touch-action</code> CSS property defined in this specification appears to refer only to touch inputs, it does in fact apply to all forms of <a>direct manipulation</a> pointer inputs.</div>
+        <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and scrolling/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to scroll using a stylus. While, for historical reasons, the <code>touch-action</code> CSS property defined in this specification appears to refer only to touch inputs, it does in fact apply to all forms of pointer inputs that allow <a>direct manipulation</a> for scrolling and zooming.</div>
         <section>
             <h2>The <code>touch-action</code> CSS property</h2>
             <table class="simple">
@@ -959,11 +959,11 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch pointers, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
+            <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch pointers, despite the property's name) MAY trigger the user agent's scrolling and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
             <p>During the execution of a user agent direct manipulation behavior for scrolling and zooming, the user agent MUST NOT fire subsequent pointer events for the pointer. The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true, in order to end the stream of events for the pointer:</p>
             <ul>
-                <li>The user agent has determined (via methods out of scope for this specification) that direct manipulation input is to be consumed for a default scroll or zoom behavior,</li>
+                <li>The user agent has determined (via methods out of scope for this specification) that a direct manipulation input is to be consumed for a default scroll or zoom behavior,</li>
                 <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
                 <li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
             </ul>
@@ -974,7 +974,7 @@ partial interface Navigator {
         </section>
 
         <section>
-          <h2>Determining supported direct manipulation for scroll and zoom behavior</h2>
+          <h2>Determining supported direct manipulation behavior</h2>
           <p>When a user interacts with an element using a <a>direct manipulation</a> pointer (such as touch or stylus on a touchscreen), the effect of that input is determined by the value of the <code>touch-action</code> property, and the default direct manipulation behaviors of the element and its ancestors, as follows:</p>
           <ul>
             <li>A direct manipulation for scroll and zoom behavior <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
@@ -988,14 +988,14 @@ partial interface Navigator {
 
         <section>
           <h2>Details of <code>touch-action</code> values</h2>
-          <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport panning/scrolling and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
+          <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport scrolling and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
           <dl>
             <dt>auto</dt>
-            <dd>The user agent MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
+            <dd>The user agent MAY consider any permitted direct manipulation behaviors related to scrolling and zooming of the viewport that begin on the element.</dd>
             <dt>none</dt>
-            <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
+            <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport scrolling and zooming.</dd>
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning/scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling is started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
+            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of scrolling that starts in any of the directions specified by all of the listed values.  Once scrolling has started, the direction may be reversed by the user even if scrolls that start in the reversed direction are disallowed. In contrast, when scrolling is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during the scroll.<p>
             <dt>manipulation</dt>
             <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of scrolling and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
           </dl>
@@ -1018,12 +1018,12 @@ partial interface Navigator {
     This element receives pointer events for all direct manipulation interactions that otherwise lead to scrolling or zooming.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Allowing horizontal panning only">
+<pre id="example_8" class="example" title="Allowing horizontal scrolling only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not scrolling in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors">
+<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors for scrolling and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all direct manipulation interactions that otherwise lead to scrolling or zooming.
@@ -1033,7 +1033,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors">
+<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors for scrolling and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1046,7 +1046,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors">
+<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for scrolling and zooming">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1093,7 +1093,7 @@ partial interface Navigator {
         </section>
         <section>
             <h2><dfn>Implicit Pointer Capture</dfn></h2>
-            <p><a>Direct manipulation</a> inputs (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners.  The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred.  If <a data-lt="Element.releasePointerCapture">releasePointerCapture</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture event</a> will be dispatched to the target (as normal) indicating that capture is active.</p>
+            <p>Inputs that implement <a>direct manipulation</a> interactions for scrolling and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners.  The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred.  If <a data-lt="Element.releasePointerCapture">releasePointerCapture</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture event</a> will be dispatched to the target (as normal) indicating that capture is active.</p>
             <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on touch movement events without explicit developer opt-in (consistent with the performance properties of existing dominant native and web APIs for touch input).</div>
             <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
         </section>
