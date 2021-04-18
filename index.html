@@ -665,8 +665,8 @@ interface PointerEvent : MouseEvent {
                 <p>A user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
                 Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
                 contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
-                These events may be coalesced or aligned to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a> based on UA decision.
-                The coalesced events information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> API for the single dispatched <code>pointermove</code> event.
+                User agents may decide to coalesce or align these events to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a>.
+                The coalesced events information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for the single dispatched <code>pointermove</code> event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
             <section>
@@ -688,7 +688,7 @@ interface PointerEvent : MouseEvent {
                 the event's turn to get processed reaches in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
                 See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.
                 In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
-                if the UA received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
+                if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
                 then the user agent MUST dispatch <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code> for it.
                 Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
                 since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
