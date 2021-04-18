@@ -749,8 +749,8 @@ interface PointerEvent : MouseEvent {
                 if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events,
                 then the user agent MUST dispatch the <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code>.</p>
                 <p>Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
-                since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
-                The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code> with the exception of
+                since the last <code>pointermove</code> event is the same as the coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
+                The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code>, with the exception of
                 <code>cancelable</code> which MUST be false for <code>pointerrawupdate</code>.</p>
                 <p>User agents SHOULD not fire <a>compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
                 <div class="note">Adding listener for this type of the event might impact the performance of the web page negatively, depending on the implementation of the user agent.
