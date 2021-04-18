@@ -734,7 +734,7 @@ interface PointerEvent : MouseEvent {
                 a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.</p>
                 <p>In contrast with <code>pointermove</code>, which might be aligned to animation callbacks,
                 user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
-                and as frequent as the JavaScript can handle the events.</p>
+                and as frequently as the JavaScript can handle the events.</p>
                 <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
                 due to the fact that <code>pointermove</code> events might get aligned with animation frame callbacks and get coalesced, and the final position of the event
                 which is used for finding the <code>target</code> could be different from its coalesced events.</p>
