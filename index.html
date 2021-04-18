@@ -731,32 +731,32 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointerrawupdate</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a>
                 named <code>pointerrawupdate</code> only within a <a href="https://w3c.github.io/webappsec-secure-contexts/#secure-contexts">secure context</a> when
-                a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.
-                As opposed to <code>pointermove</code> which might be aligned to animation callbacks,
+                a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.</p>
+                <p>In contrast with <code>pointermove</code>, which might be aligned to animation callbacks,
                 user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
-                and as frequent as the javascript can handle the events.
-                The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
-                due to the fact that <code>pointermove</code> events might get aligned with animation frame callbacks and get coalesced and the final position of the event
-                which is used for finding the <code>target</code> could be different from its coalesced events.
-                Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
-                in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>
+                and as frequent as the JavaScript can handle the events.</p>
+                <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
+                due to the fact that <code>pointermove</code> events might get aligned with animation frame callbacks and get coalesced, and the final position of the event
+                which is used for finding the <code>target</code> could be different from its coalesced events.</p>
+                <p>Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
+                in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>, the
                 user agent MAY coalesce the new <code>pointerrawupdate</code> with that event instead of creating a new <a href="https://html.spec.whatwg.org/#concept-task">task</a>.
-                So this may cause <code>pointerrawupdate</code> to have coalesced events and
+                This may cause <code>pointerrawupdate</code> to have coalesced events and
                 they will all be delivered as coalesced events of one <code>pointerrawupdate</code> event as soon as
-                the event's turn to get processed reaches in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
-                See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.
-                In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
-                if the UA received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events
-                then the user agent MUST dispatch <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code> for it.
-                Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
+                the event's turn to get processed is reached in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
+                See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.</p>
+                <p>In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
+                if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events,
+                then the user agent MUST dispatch the <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code>.</p>
+                <p>Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
                 since the last <code>pointermove</code> event is the same as coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
                 The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code> with the exception of
-                <code>cancelable</code> which MUST be false for <code>pointerrawupdate</code>.
-                User agent SHOULD not fire <a>compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
-                <div class="note">Adding listener for this type of the event might impact the performance of the web page negatively depending on the implementation of the user agent.
+                <code>cancelable</code> which MUST be false for <code>pointerrawupdate</code>.</p>
+                <p>User agents SHOULD not fire <a>compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
+                <div class="note">Adding listener for this type of the event might impact the performance of the web page negatively, depending on the implementation of the user agent.
                 For most of the use cases the other pointerevent types should suffice.
-                A <code>pointerrawupdate</code> listener should only be added if javascript needs high frequency events and can handle them just as fast.
-                In that case there is probably no need to listen to other types of pointer events for most of the use cases.</div>
+                A <code>pointerrawupdate</code> listener should only be added if JavaScript needs high frequency events and can handle them just as fast.
+                In these cases, there is probably no need to listen to other types of pointer events.</div>
             </section>
             <section>
                 <h3>The <dfn><code>pointerup</code> event</dfn></h3>
