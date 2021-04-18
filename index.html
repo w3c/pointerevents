@@ -91,7 +91,7 @@
 
     <section class="informative">
         <h1>Examples</h1>
-        <p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
+        <p>The following are basic example author code that demonstrates how some of the APIs in this specification might be used. Further, more specific examples are provided in the relevant sections of this document.</p>
 <pre id="example_1" class="example" title="Feature detection and event binding">
 <code>/* Bind to either Pointer Events or traditional touch/mouse */
 
@@ -137,66 +137,8 @@ function detectInputType(event) {
             or UA-specific custom type */
     }
 }</code></pre>
-<pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
-<code>&lt;style&gt;
-  /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so
-  that all events on the canvas element are given to the application instead. */
 
-  canvas { touch-action: none; }
-&lt;/style&gt;
-
-&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
-
-&lt;script&gt;
-    var canvas = document.getElementById("drawSurface"),
-    context = canvas.getContext("2d");
-
-    if (window.PointerEvent) {
-        canvas.addEventListener("pointermove", (e)=> {
-          // Feature detection for getCoalescedEvents as it was introduced in PointerEvents V3
-          if (e.getCoalescedEvents)
-            for (let coalesced_event of e.getCoalescedEvents())
-              paint(coalesced_event);
-          else
-            paint(e);
-        });
-        if(window.navigator.maxTouchPoints>1)
-           // user agent and hardware support multi-touch
-           ...
-    } else {
-        // provide fallback for user agents that do not support Pointer Events
-        canvas.addEventListener("mousemove", paint);
-    }
-
-    function paint(event) {
-        if(event.buttons>0)
-           context.fillRect(event.clientX, event.clientY, 5, 5);
-    }
-
-    // additional event listeners/functions for keyboard handling
-    ...
-&lt;/script&gt;</code>
-</pre>
-<pre id="example_4" class="example" title="Drawing using coalesced events and predicted events">
-<code>
-var predicted_points = [];
-window.addEventListener("pointermove", function(event) {
-  // Clear the previously drawn predicted points.
-  for (let e of predicted_points.reverse())
-    clearPoint(e.pageX, e.pageY);
-
-  // Draw the actual movements that happened since the last received event.
-  for (let e of event.getCoalescedEvents())
-    drawPoint(e.pageX, e.pageY);
-
-  // Draw the current predicted points to reduce the perception of latency.
-  predicted_points = event.getPredictedEvents();
-  for (let e of predicted_points)
-    drawPoint(e.pageX, e.pageY);
-});
-</code>
-</pre>
-<pre id="example_5" class="example" title="Resizing an element to match the contact geometry">
+<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
 <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
 &lt;script&gt;
 window.addEventListener("pointerdown", checkPointerSize);
@@ -207,7 +149,7 @@ function checkPointerSize(event) {
 }
 &lt;/script&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Firing untrusted pointer events from script">
+<pre id="example_4" class="example" title="Firing untrusted pointer events from script">
 <code>var event1 = new PointerEvent("pointerover",
   { bubbles: true,
     cancelable: true,
@@ -1013,17 +955,17 @@ partial interface Navigator {
           </div>
           <div class="note">Disabling some default touch behaviors may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_7" class="example" title="Disallowing all touch behaviors">
+<pre id="example_5" class="example" title="Disallowing all touch behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all touches.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Allowing horizontal panning only">
+<pre id="example_6" class="example" title="Allowing horizontal panning only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Child regions that disallow touch behaviors">
+<pre id="example_7" class="example" title="Child regions that disallow touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all touches.
@@ -1033,7 +975,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_10" class="example" title="Intermediate parent that disallows touch behaviors">
+<pre id="example_8" class="example" title="Intermediate parent that disallows touch behaviors">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1045,7 +987,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_11" class="example" title="Intermediate parent that restricts allowed touch behaviors">
+<pre id="example_9" class="example" title="Intermediate parent that restricts allowed touch behaviors">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1116,6 +1058,87 @@ partial interface Navigator {
             <p>When a pointer lock ([[!PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
 
         </section>
+    </section>
+    <section>
+        <h1><dfn>Coalesced and predicted events</dfn></h1>
+
+        <div class="note">This specification does not define how user agents should coalesce or predict pointer movement data. It only specifies the API for accessing this information.</div>
+
+        <p>For performance reasons, user agents may choose not to send a move event every time the position of a pointer is updated. Instead, they will coalesce (combine/merge) multiple position changes into a single, averaged move event. While this approach helps in reducing the amount of event handling the user agent must perform, it will naturally reduce the granularity and fidelity when tracking a pointer position, particularly for fast and large movements. Using the <code>getCoalescedEvents</code> method it is possible for applications to access the raw, un-coalesced position changes. These allow for a more precise handling of pointer movement data. In the case of drawing applications, for instance, the un-coalesced events can be used to draw smoother curves that more closely match the actual movement of a pointer.</p>
+
+        <figure id="figure_slider">
+            <img src="coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
+            <figcaption>Example of a curve in a drawing application – using only the coalesced coordinates from <code>pointermove</code> events (the grey dots), the curve is noticeably angular and jagged; the same line drawn using the more granular points provided by <code>getCoalescedEvents</code> (the red circles) results in a smoother approximation of the pointer movement.</figcaption>
+        </figure>
+
+        <pre id="example_10" class="example" title="Basic HTML5 Canvas painting application">
+            <code>&lt;style&gt;
+              /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so
+              that all events on the canvas element are given to the application instead. */
+            
+              canvas { touch-action: none; }
+            &lt;/style&gt;
+            
+            &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+            
+            &lt;script&gt;
+                var canvas = document.getElementById("drawSurface"),
+                context = canvas.getContext("2d");
+            
+                if (window.PointerEvent) {
+                    canvas.addEventListener("pointermove", (e)=> {
+                      // Feature detection for getCoalescedEvents as it was introduced in PointerEvents V3
+                      if (e.getCoalescedEvents)
+                        for (let coalesced_event of e.getCoalescedEvents())
+                          paint(coalesced_event);
+                      else
+                        paint(e);
+                    });
+                    if(window.navigator.maxTouchPoints>1)
+                       // user agent and hardware support multi-touch
+                       ...
+                } else {
+                    // provide fallback for user agents that do not support Pointer Events
+                    canvas.addEventListener("mousemove", paint);
+                }
+            
+                function paint(event) {
+                    if(event.buttons>0)
+                       context.fillRect(event.clientX, event.clientY, 5, 5);
+                }
+            
+                // additional event listeners/functions for keyboard handling
+                ...
+            &lt;/script&gt;</code>
+        </pre>
+            
+        <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements, can make a prediction (based on past points, and the speed/trajectory of the movement) what the position of future pointer movements may be. Applications can use this information with the <code>getPredictedEvents</code> method to speculatively "draw ahead" to a predicted position to reduce perceived latency, and then discarding these predicted points once the actual points are received.</p>
+
+        <figure id="figure_slider">
+            <img src="predicted-points.png" alt="A line drawn using coalesced and non-coalesced points, also showing predicted future points">
+            <figcaption>Example of a line in a drawing application (using both the coalesced coordinates from <code>pointermove</code> events and the more granular points provided by <code>getCoalescedEvents</code>) showing the user agent's predicted future points (the grey circles) as the line was being drawn.</figcaption>
+        </figure>
+
+        <pre id="example_11" class="example" title="Drawing using coalesced events and predicted events">
+            <code>
+            var predicted_points = [];
+            window.addEventListener("pointermove", function(event) {
+              // Clear the previously drawn predicted points.
+              for (let e of predicted_points.reverse())
+                clearPoint(e.pageX, e.pageY);
+            
+              // Draw the actual movements that happened since the last received event.
+              for (let e of event.getCoalescedEvents())
+                drawPoint(e.pageX, e.pageY);
+            
+              // Draw the current predicted points to reduce the perception of latency.
+              predicted_points = event.getPredictedEvents();
+              for (let e of predicted_points)
+                drawPoint(e.pageX, e.pageY);
+            });
+            </code>
+        </pre>
+
     </section>
     <section>
         <h1><dfn data-lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
