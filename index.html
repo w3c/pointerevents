@@ -741,9 +741,9 @@ interface PointerEvent : MouseEvent {
                 <p>Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
                 in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>, the
                 user agent MAY coalesce the new <code>pointerrawupdate</code> with that event instead of creating a new <a href="https://html.spec.whatwg.org/#concept-task">task</a>.
-                This may cause <code>pointerrawupdate</code> to have coalesced events and
+                This may cause <code>pointerrawupdate</code> to have coalesced events, and
                 they will all be delivered as coalesced events of one <code>pointerrawupdate</code> event as soon as
-                the event's turn to get processed is reached in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
+                the event is processed in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
                 See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.</p>
                 <p>In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
                 if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events,
