@@ -11,8 +11,6 @@ This repo holds the sources for the [Pointer Events](https://w3c.github.io/point
 - WPT has a list of the [latest generated test results](https://wpt.fyi/results/pointerevents)
 
 # Implementation status:
-- EdgeHTML: [Shipped](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/pointerevents)
 - Blink: [Shipped](https://www.chromestatus.com/feature/4504699138998272)
-- Suggested polyfill: [jQuery PEP](https://github.com/jquery/PEP)
-- Gecko: [In development](https://platform-status.mozilla.org/#pointer-events) (though enabled on desktop in Firefox 59)
-- WebKit: [In development](https://webkit.org/status/#specification-pointer-events-level-2)
+- Gecko: [Partially shipped](https://platform-status.mozilla.org/#pointer-events)
+- WebKit: [Partially shipped](https://webkit.org/status/#specification-pointer-events-level-2)
