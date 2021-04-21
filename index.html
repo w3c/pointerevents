@@ -238,38 +238,6 @@ eventTarget.dispatchEvent(event2);</code>
 </pre>
     </section>
 
-    <section class="informative">
-        <h1>Glossary</h1>
-        <dl>
-            <dt><dfn>active buttons state</dfn></dt>
-                <dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when either the pen has physical contact with the digitizer, or at least one button is depressed while hovering.</dd>
-            <dt><dfn>active document</dfn></dt>
-                <dd>For every <a>active pointer</a>, the document that received the last event from that pointer.</dd>
-            <dt><dfn>active pointer</dfn></dt>
-                <dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
-                    <ul>
-                        <li>A mouse connected to the device is always active.</li>
-                        <li>A touch contact on the screen is considered active.</li>
-                        <li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
-                    </ul>
-                    <div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
-                    <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>. </div>
-                </dd>
-            <dt><dfn>canceled event</dfn></dt>
-                <dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[UIEVENTS]] and [[HTML]].</dd>
-            <dt><dfn>contact geometry</dfn></dt>
-                <dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
-            <dt><dfn>digitizer</dfn></dt>
-                <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen stylus.</dd>
-            <dt><dfn>hit test</dfn></dt>
-                <dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
-            <dt><dfn>pointer</dfn></dt>
-                <dd>A hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen, such as a mouse, pen, or touch contact.</dd>
-            <dt><dfn>user agent</dfn></dt>
-                <dd>A program, such as a browser or content authoring tool, normally running on a client machine, which acts on a user's behalf in retrieving, interpreting, executing, presenting, or creating content.</dd>
-        </dl>
-    </section>
-
     <section>
         <h1>Pointer Events and Interfaces</h1>
         <section>
@@ -1357,6 +1325,37 @@ function tilt2spherical(tiltX, tiltY){
             <li>Does not persist data to a user’s local device.</li>
             <li>Does not allow downgrading default security characteristics.</li>
         </ul>
+    </section>
+    <section class="informative">
+        <h1>Glossary</h1>
+        <dl>
+            <dt><dfn>active buttons state</dfn></dt>
+                <dd>The condition when a pointer has a non-zero value for the <code>buttons</code> property. For mouse, this is when the device has at least one button depressed. For touch, this is when there is physical contact with the digitizer. For pen, this is when either the pen has physical contact with the digitizer, or at least one button is depressed while hovering.</dd>
+            <dt><dfn>active document</dfn></dt>
+                <dd>For every <a>active pointer</a>, the document that received the last event from that pointer.</dd>
+            <dt><dfn>active pointer</dfn></dt>
+                <dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events.  If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
+                    <ul>
+                        <li>A mouse connected to the device is always active.</li>
+                        <li>A touch contact on the screen is considered active.</li>
+                        <li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
+                    </ul>
+                    <div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
+                    <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>. </div>
+                </dd>
+            <dt><dfn>canceled event</dfn></dt>
+                <dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[UIEVENTS]] and [[HTML]].</dd>
+            <dt><dfn>contact geometry</dfn></dt>
+                <dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
+            <dt><dfn>digitizer</dfn></dt>
+                <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen stylus.</dd>
+            <dt><dfn>hit test</dfn></dt>
+                <dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
+            <dt><dfn>pointer</dfn></dt>
+                <dd>A hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen, such as a mouse, pen, or touch contact.</dd>
+            <dt><dfn>user agent</dfn></dt>
+                <dd>A program, such as a browser or content authoring tool, normally running on a client machine, which acts on a user's behalf in retrieving, interpreting, executing, presenting, or creating content.</dd>
+        </dl>
     </section>
     <section class="appendix">
         <h1>Acknowledgments</h1>
