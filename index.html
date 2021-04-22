@@ -1084,31 +1084,23 @@ partial interface Navigator {
             &lt;script&gt;
                 var canvas = document.getElementById("drawSurface"),
                 context = canvas.getContext("2d");
-            
-                if (window.PointerEvent) {
-                    canvas.addEventListener("pointermove", (e)=> {
-                      // Feature detection for getCoalescedEvents as it was introduced in PointerEvents V3
-                      if (e.getCoalescedEvents)
-                        for (let coalesced_event of e.getCoalescedEvents())
-                          paint(coalesced_event);
-                      else
-                        paint(e);
-                    });
-                    if(window.navigator.maxTouchPoints>1)
-                       // user agent and hardware support multi-touch
-                       ...
-                } else {
-                    // provide fallback for user agents that do not support Pointer Events
-                    canvas.addEventListener("mousemove", paint);
-                }
+    
+                canvas.addEventListener("pointermove", (e)=> {
+
+                    if (e.getCoalescedEvents) {
+                        for (let coalesced_event of e.getCoalescedEvents()) {
+                            paint(coalesced_event); // Paint all raw/non-coalesced points
+                        }
+                    } else {
+                        paint(e); // Paint the final coalesced point
+                    }
+                });
             
                 function paint(event) {
                     if(event.buttons>0)
                        context.fillRect(event.clientX, event.clientY, 5, 5);
                 }
             
-                // additional event listeners/functions for keyboard handling
-                ...
             &lt;/script&gt;</code>
         </pre>
             
@@ -1119,22 +1111,25 @@ partial interface Navigator {
             <figcaption>Example of a line in a drawing application (using both the coalesced coordinates from <code>pointermove</code> events and the more granular points provided by <code>getCoalescedEvents</code>) showing the user agent's predicted future points (the grey circles) as the line was being drawn.</figcaption>
         </figure>
 
-        <pre id="example_11" class="example" title="Drawing using coalesced events and predicted events">
+        <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
             <code>
             var predicted_points = [];
             window.addEventListener("pointermove", function(event) {
-              // Clear the previously drawn predicted points.
-              for (let e of predicted_points.reverse())
-                clearPoint(e.pageX, e.pageY);
+                // Clear the previously drawn predicted points.
+                for (let e of predicted_points.reverse()) {
+                    clearPoint(e.pageX, e.pageY);
+                }
+
+                // Draw the actual movements that happened since the last received event.
+                for (let e of event.getCoalescedEvents()) {
+                    drawPoint(e.pageX, e.pageY);
+                }
             
-              // Draw the actual movements that happened since the last received event.
-              for (let e of event.getCoalescedEvents())
-                drawPoint(e.pageX, e.pageY);
-            
-              // Draw the current predicted points to reduce the perception of latency.
-              predicted_points = event.getPredictedEvents();
-              for (let e of predicted_points)
-                drawPoint(e.pageX, e.pageY);
+                // Draw the current predicted points to reduce the perception of latency.
+                predicted_points = event.getPredictedEvents();
+                for (let e of predicted_points) {
+                    drawPoint(e.pageX, e.pageY);
+                }
             });
             </code>
         </pre>
