@@ -1075,8 +1075,8 @@ partial interface Navigator {
         <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements, can make a prediction (based on past points, and the speed/trajectory of the movement) what the position of future pointer movements may be. Applications can use this information with the <code>getPredictedEvents</code> method to speculatively "draw ahead" to a predicted position to reduce perceived latency, and then discarding these predicted points once the actual points are received.</p>
 
         <figure id="figure_slider">
-            <img src="predicted-points.png" alt="A line drawn using coalesced and non-coalesced points, also showing predicted future points">
-            <figcaption>Example of a line in a drawing application (using both the coalesced coordinates from <code>pointermove</code> events and the more granular points provided by <code>getCoalescedEvents</code>) showing the user agent's predicted future points (the grey circles) as the line was being drawn.</figcaption>
+            <img src="predicted-points.png" alt="A line drawn using coalesced points, showing predicted future points">
+            <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
         </figure>
 
         <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
