@@ -301,31 +301,13 @@ interface PointerEvent : MouseEvent {
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
                         </dd>
-                     <dt><dfn>getCoalescedEvents</dfn></dt>
+                     <dt><dfn>getCoalescedEvents()</dfn> method</dt>
                         <dd>
-                            <p><a>coalesced event list</a>'s getter, when invoked, must run these steps:
-                            <ol>
-                                <li>If the <a>coalesced events targets dirty</a> is true:
-                                for each event in the <a>coalesced event list</a>, set the event's
-                                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
-                                to this <code>PointerEvent</code>'s target.</li>
-                                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
-                                <li>Return the <a>coalesced event list</a>.</li>
-                            </ol>
-                            </p>
+                            <p>Getter method for <a>coalesced events</a>.</p>
                         </dd>
-                     <dt><dfn>getPredictedEvents</dfn></dt>
+                     <dt><dfn>getPredictedEvents()</dfn> method</dt>
                         <dd>
-                           <p><a>predicted event list</a>'s getter, when invoked, must run these steps:
-                           <ol>
-                               <li>If the <a>predicted events targets dirty</a> is true:
-                               for each event in the <a>predicted event list</a>, set the event's
-                               <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
-                               this <code>PointerEvent</code>'s <code>target</code>.
-                               <li>Set the <a>predicted events targets dirty</a> to false.
-                               <li>Return the <a>predicted event list </a>
-                           </ol>
-                           </p>
+                            <p>Getter method for <a>predicted events</a>.</p>
                         </dd>
                 </dl>
 
@@ -949,7 +931,7 @@ partial interface Navigator {
         predict pointer movement data. It only specifies the API for accessing this information.</div>
 
         <section>
-            <h2>Coalesced events</h2>
+            <h2><dfn>Coalesced events</dfn></h2>
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
             event every time the position of a pointer is updated. Instead, they will coalesce
@@ -1056,7 +1038,7 @@ partial interface Navigator {
         </section>
 
         <section>
-            <h2>Predicted events</h2>
+            <h2><dfn>Predicted events</dfn></h2>
             
             <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements,
             can make a prediction (based on past points, and the speed/trajectory of the movement) what
@@ -1104,7 +1086,10 @@ partial interface Navigator {
                 });
                 </code>
             </pre>
-                
+        </section>
+        
+        <section>
+            <h2><dfn>Populating the coalesced and predicted event lists</dfn></h2>
             <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
@@ -1122,6 +1107,26 @@ partial interface Navigator {
                 
             <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
             and <a><code>predicted events targets dirty</code></a> to true.</p>
+
+            <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
+            <ol>
+                <li>If the <a>coalesced events targets dirty</a> is true:
+                for each event in the <a>coalesced event list</a>, set the event's
+                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
+                to this <code>PointerEvent</code>'s target.</li>
+                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
+                <li>Return the <a>coalesced event list</a>.</li>
+            </ol>
+
+            <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
+            <ol>
+                <li>If the <a>predicted events targets dirty</a> is true:
+                for each event in the <a>predicted event list</a>, set the event's
+                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
+                this <code>PointerEvent</code>'s <code>target</code>.
+                <li>Set the <a>predicted events targets dirty</a> to false.
+                <li>Return the <a>predicted event list </a>
+            </ol>
 
         </section>
 
