@@ -951,16 +951,16 @@ partial interface Navigator {
         <section>
             <h2>Coalesced events</h2>
 
-            <p>For performance reasons, user agents may choose not to send a move event every time
-            the position of a pointer is updated. Instead, they will coalesce (combine/merge) multiple
-            position changes into a single, averaged move event. While this approach helps in reducing
-            the amount of event handling the user agent must perform, it will naturally reduce the
-            granularity and fidelity when tracking a pointer position, particularly for fast and large
-            movements. Using the <code>getCoalescedEvents</code> method it is possible for applications
-            to access the raw, un-coalesced position changes. These allow for a more precise handling of
-            pointer movement data. In the case of drawing applications, for instance, the un-coalesced
-            events can be used to draw smoother curves that more closely match the actual movement of
-            a pointer.</p>
+            <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
+            event every time the position of a pointer is updated. Instead, they will coalesce
+            (combine/merge) multiple position changes into a single, averaged move event. While
+            this approach helps in reducing the amount of event handling the user agent must perform,
+            it will naturally reduce the granularity and fidelity when tracking a pointer position,
+            particularly for fast and large movements. Using the <code>getCoalescedEvents</code> method
+            it is possible for applications to access the raw, un-coalesced position changes. These
+            allow for a more precise handling of pointer movement data. In the case of drawing
+            applications, for instance, the un-coalesced events can be used to draw smoother curves that
+            more closely match the actual movement of a pointer.</p>
 
             <figure id="figure_coalesced">
                 <img src="coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
@@ -973,7 +973,7 @@ partial interface Navigator {
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
             zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
-            or <code>pointerrawupdate</code> event, it is a sequence of all <code>PointerEvent</code>
+            or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>
             that were coalesced into this event; otherwise it is an empty list.</p>
 
             <p>The events in the coalesced event list will have increasing
@@ -1006,8 +1006,9 @@ partial interface Navigator {
                     });
                 
                     function paint(event) {
-                        if(event.buttons>0)
-                        context.fillRect(event.clientX, event.clientY, 5, 5);
+                        if(event.buttons>0) {
+                            context.fillRect(event.clientX, event.clientY, 5, 5);
+                        }
                     }
                 
                 &lt;/script&gt;</code>
