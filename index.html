@@ -303,11 +303,11 @@ interface PointerEvent : MouseEvent {
                         </dd>
                      <dt><dfn>getCoalescedEvents()</dfn> method</dt>
                         <dd>
-                            <p>Getter method for <a>coalesced events</a>.</p>
+                            <p>A method that returns the list of <a>coalesced events</a>.</p>
                         </dd>
                      <dt><dfn>getPredictedEvents()</dfn> method</dt>
                         <dd>
-                            <p>Getter method for <a>predicted events</a>.</p>
+                            <p>A method that returns the list of <a>predicted events</a>.</p>
                         </dd>
                 </dl>
 
@@ -935,7 +935,7 @@ partial interface Navigator {
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
             event every time the position of a pointer is updated. Instead, they will coalesce
-            (combine/merge) multiple position changes into a single, averaged move event. While
+            (combine/merge) multiple position changes into a single move event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
