@@ -925,7 +925,7 @@ partial interface Navigator {
                 <tr><th>Computed value:</th><td>Same as specified value.</td></tr>
             </table>
 
-            <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch pointers, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
+            <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
             <p>While panning and zooming, the user agent MUST NOT fire subsequent pointer events for the pointer. In order to end the stream of events for the pointer, the user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true:</p>
             <ul>
