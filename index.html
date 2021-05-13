@@ -961,10 +961,10 @@ partial interface Navigator {
             <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
             ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
-            <pre id="example_10" class="example" title="Basic canvas drawing application used the coalesced events list">
+            <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
                 <code>&lt;style&gt;
-                    /* Disable intrinsic user agent touch behaviors (such as panning or zooming) so
-                    that all events on the canvas element are given to the application instead. */
+                    /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
+                    so that all events on the canvas element are given to the application instead. */
                 
                     canvas { touch-action: none; }
                 &lt;/style&gt;
