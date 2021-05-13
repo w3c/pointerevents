@@ -91,7 +91,7 @@
 
     <section class="informative">
         <h1>Examples</h1>
-        <p>The following are example author code that demonstrates how the APIs in this specification might be used.</p>
+        <p>The following are basic examples that demonstrates how some of the APIs in this specification might be used by authors. Further, more specific examples are provided in the relevant sections of this document.</p>
 <pre id="example_1" class="example" title="Feature detection and event binding">
 <code>/* Bind to either Pointer Events or traditional touch/mouse */
 
@@ -137,66 +137,8 @@ function detectInputType(event) {
             or UA-specific custom type */
     }
 }</code></pre>
-<pre id="example_3" class="example" title="Basic HTML5 Canvas painting application">
-<code>&lt;style&gt;
-  /* Disable intrinsic user agent direct manipulation behaviors for panning or zooming so
-  that all events on the canvas element are given to the application instead. */
 
-  canvas { touch-action: none; }
-&lt;/style&gt;
-
-&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
-
-&lt;script&gt;
-    var canvas = document.getElementById("drawSurface"),
-    context = canvas.getContext("2d");
-
-    if (window.PointerEvent) {
-        canvas.addEventListener("pointermove", (e)=> {
-          // Feature detection for getCoalescedEvents as it was introduced in PointerEvents V3
-          if (e.getCoalescedEvents)
-            for (let coalesced_event of e.getCoalescedEvents())
-              paint(coalesced_event);
-          else
-            paint(e);
-        });
-        if(window.navigator.maxTouchPoints>1)
-           // user agent and hardware support multi-touch
-           ...
-    } else {
-        // provide fallback for user agents that do not support Pointer Events
-        canvas.addEventListener("mousemove", paint);
-    }
-
-    function paint(event) {
-        if(event.buttons>0)
-           context.fillRect(event.clientX, event.clientY, 5, 5);
-    }
-
-    // additional event listeners/functions for keyboard handling
-    ...
-&lt;/script&gt;</code>
-</pre>
-<pre id="example_4" class="example" title="Drawing using coalesced events and predicted events">
-<code>
-var predicted_points = [];
-window.addEventListener("pointermove", function(event) {
-  // Clear the previously drawn predicted points.
-  for (let e of predicted_points.reverse())
-    clearPoint(e.pageX, e.pageY);
-
-  // Draw the actual movements that happened since the last received event.
-  for (let e of event.getCoalescedEvents())
-    drawPoint(e.pageX, e.pageY);
-
-  // Draw the current predicted points to reduce the perception of latency.
-  predicted_points = event.getPredictedEvents();
-  for (let e of predicted_points)
-    drawPoint(e.pageX, e.pageY);
-});
-</code>
-</pre>
-<pre id="example_5" class="example" title="Resizing an element to match the contact geometry">
+<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
 <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
 &lt;script&gt;
 window.addEventListener("pointerdown", checkPointerSize);
@@ -207,7 +149,7 @@ function checkPointerSize(event) {
 }
 &lt;/script&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Firing untrusted pointer events from script">
+<pre id="example_4" class="example" title="Firing untrusted pointer events from script">
 <code>var event1 = new PointerEvent("pointerover",
   { bubbles: true,
     cancelable: true,
@@ -359,31 +301,13 @@ interface PointerEvent : MouseEvent {
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
                         </dd>
-                     <dt><dfn>getCoalescedEvents</dfn></dt>
+                     <dt><dfn>getCoalescedEvents()</dfn> method</dt>
                         <dd>
-                            <p><a>coalesced event list</a>'s getter, when invoked, must run these steps:
-                            <ol>
-                                <li>If the <a>coalesced events targets dirty</a> is true:
-                                for each event in the <a>coalesced event list</a>, set the event's
-                                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
-                                to this <code>PointerEvent</code>'s target.</li>
-                                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
-                                <li>Return the <a>coalesced event list</a>.</li>
-                            </ol>
-                            </p>
+                            <p>A method that returns the list of <a>coalesced events</a>.</p>
                         </dd>
-                     <dt><dfn>getPredictedEvents</dfn></dt>
+                     <dt><dfn>getPredictedEvents()</dfn> method</dt>
                         <dd>
-                           <p><a>predicted event list</a>'s getter, when invoked, must run these steps:
-                           <ol>
-                               <li>If the <a>predicted events targets dirty</a> is true:
-                               for each event in the <a>predicted event list</a>, set the event's
-                               <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
-                               this <code>PointerEvent</code>'s <code>target</code>.
-                               <li>Set the <a>predicted events targets dirty</a> to false.
-                               <li>Return the <a>predicted event list </a>
-                           </ol>
-                           </p>
+                            <p>A method that returns the list of <a>predicted events</a>.</p>
                         </dd>
                 </dl>
 
@@ -406,91 +330,6 @@ interface PointerEvent : MouseEvent {
                     <a href="https://tc39.es/ecma262/#sec-math.round"><code>Math.round</code></a> ([[ECMA-262]]) rules.</p>
                     <p></p>
                 </div>
-
-                <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
-                zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
-                or <code>pointerrawupdate</code> event, it is a sequence of all <code>PointerEvent</code>
-                that were coalesced into this event; otherwise it is an empty list.</p>
-
-                <p>The events in the <code >coalesced event list </code> will have increasing
-                <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
-                ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.
-                </p>
-
-                <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
-                all events in the coalesced event list.
-                For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
-                movementX</a> and
-                <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
-                ([[POINTERLOCK]]) COULD be the sum of those of all the coalesced events.</div>
-
-                <div class="note">The order of all these dispatched events should resemble the actual order of the original events' order.
-                For example if a <code>pointerdown</code> event causes the dispatch for the coalesced <code>pointermove</code> events
-                the user agent SHOULD first dispatch one <code>pointermove</code> event with all those coalesced events of a <code>pointerId</code> followed
-                by the <code>pointerdown</code> event.
-                Here is an example of the actual events happening with increasing <code>timestamps</code> and the events dispatched by the user agent:
-                <table class="simple">
-                    <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
-                    <tbody>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) button press</td><td>
-                        <code>pointermove</code> (<code>pointerId</code>=1) w/ two coalesced events<br>
-                        <code>pointermove</code> (<code>pointerId</code>=2) w/ four coalesced events<br>
-                        <code>pointerdown</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
-                        </td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) button release</td><td>
-                        <code>pointermove</code> (<code>pointerId</code>=2) w/ two coalesced events<br>
-                        <code>pointerup</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
-                        </td></tr>
-                    </tbody>
-                </table>
-                </div>
-
-                <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of
-                zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
-                event, it is a sequence of <code>PointerEvents</code> that the user agent predicts will
-                follow the events in the <a>coalesced event list</a> in the future; otherwise it is the
-                empty list.
-                The number of events in the list and how far they are from the current timestamp are
-                determined by the user agent and the prediction algorithm it uses.</p>
-
-                <p>The events in the <code>predicted event list</code> will have increasing
-                <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
-                ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>
-                which should still be greater than the last event in the <a>coalesced event list</a>.
-                </p>
-
-                <p> When a <var>PointerEvent</var> is created, run the following steps for each
-                <var>event</var> in the <a>coalesced event list</a> and <a>predicted event list</a>:
-                <ol>
-                   <li><p>Set the <var>event</var>'s <code>pointerId</code>, <code> pointerType</code>,
-                   <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
-                   <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
-                   <code>isTrusted</code>.</li>
-
-                   <li><p>Set the <var>event</var>'s <code>cancelable</code> and <code>bubbles</code>
-                   attributes to false.</li>
-
-                   <li><p>Set the <var>event</var>'s <a>coalesced event list</a> and <a>predicted event list</a>
-                   to an empty list.</li>
-
-                   <li><p> Initialize the rest of the attributes the same way as <a>PointerEvent</a>.
-                </ol>
-                </p>
-
-                <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn>
-                and an associated <dfn>predicted events targets dirty</dfn> flag.
-                When an event is created they must be initialized to false.</p>
-
-                <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events
-                targets dirty</code></a> and <a><code>predicted events targets dirty</code></a> to true.</p>
 
                 <div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[UIEVENTS]] and extended by [[[CSSOM-VIEW]]].</div>
             </div>
@@ -691,8 +530,8 @@ interface PointerEvent : MouseEvent {
                 <p>A user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
                 Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
                 contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
-                These events may be coalesced or aligned to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a> based on UA decision.
-                The coalesced events information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> API for the single dispatched <code>pointermove</code> event.
+                User agents may decide to coalesce or align these events to <a href="https://html.spec.whatwg.org/#event-loop-processing-model">animation frame callbacks</a>.
+                The <a>coalesced events</a> information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for the single dispatched <code>pointermove</code> event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
             <section>
@@ -710,7 +549,7 @@ interface PointerEvent : MouseEvent {
                 in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>, the
                 user agent MAY coalesce the new <code>pointerrawupdate</code> with that event instead of creating a new <a href="https://html.spec.whatwg.org/#concept-task">task</a>.
                 This may cause <code>pointerrawupdate</code> to have coalesced events, and
-                they will all be delivered as coalesced events of one <code>pointerrawupdate</code> event as soon as
+                they will all be delivered as <a>coalesced events</a> of one <code>pointerrawupdate</code> event as soon as
                 the event is processed in the <a href="https://html.spec.whatwg.org/#task-queue">task queue</a>.
                 See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.</p>
                 <p>In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
@@ -979,17 +818,17 @@ partial interface Navigator {
           </div>
           <div class="note">Disabling some default direct manipulation behaviors for panning and zooming may allow user agents to respond to other behaviors more quickly.  For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled.  In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_7" class="example" title="Disallowing all direct manipulation behaviors">
+<pre id="example_5" class="example" title="Disallowing all direct manipulation behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Allowing horizontal panning only">
+<pre id="example_6" class="example" title="Allowing horizontal panning only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
+<pre id="example_7" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
@@ -999,7 +838,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
+<pre id="example_8" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1012,7 +851,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
+<pre id="example_9" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1082,6 +921,213 @@ partial interface Navigator {
             <p>When a pointer lock ([[!PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
 
         </section>
+    </section>
+    <section>
+        <h1><dfn>Coalesced and predicted events</dfn></h1>
+
+        <div class="note">This specification does not define how user agents should coalesce or
+        predict pointer movement data. It only specifies the API for accessing this information.</div>
+
+        <section>
+            <h2><dfn>Coalesced events</dfn></h2>
+
+            <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
+            event every time the position of a pointer is updated. Instead, they will coalesce
+            (combine/merge) multiple position changes into a single move event. While
+            this approach helps in reducing the amount of event handling the user agent must perform,
+            it will naturally reduce the granularity and fidelity when tracking a pointer position,
+            particularly for fast and large movements. Using the
+            <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method
+            it is possible for applications to access the raw, un-coalesced position changes. These
+            allow for a more precise handling of pointer movement data. In the case of drawing
+            applications, for instance, the un-coalesced events can be used to draw smoother curves that
+            more closely match the actual movement of a pointer.</p>
+
+            <figure id="figure_coalesced">
+                <img src="coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
+                <figcaption>Example of a curve in a drawing application – using only the coalesced
+                coordinates from <code>pointermove</code> events (the grey dots), the curve is noticeably
+                angular and jagged; the same line drawn using the more granular points provided by
+                <code>getCoalescedEvents</code> (the red circles) results in a smoother approximation
+                of the pointer movement.</figcaption>
+            </figure>
+
+            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
+            zero or more <code>PointerEvent</code>s). If this event is a <code>pointermove</code>
+            or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
+            that were coalesced into this event; otherwise it is an empty list.</p>
+
+            <p>The events in the coalesced event list will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
+
+            <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
+                <code>&lt;style&gt;
+                    /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
+                    so that all events on the canvas element are given to the application instead. */
+                
+                    canvas { touch-action: none; }
+                &lt;/style&gt;
+                
+                &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+                
+                &lt;script&gt;
+                    var canvas = document.getElementById("drawSurface"),
+                    context = canvas.getContext("2d");
+        
+                    canvas.addEventListener("pointermove", (e)=> {
+
+                        if (e.getCoalescedEvents) {
+                            for (let coalesced_event of e.getCoalescedEvents()) {
+                                paint(coalesced_event); // Paint all raw/non-coalesced points
+                            }
+                        } else {
+                            paint(e); // Paint the final coalesced point
+                        }
+                    });
+                
+                    function paint(event) {
+                        if(event.buttons>0) {
+                            context.fillRect(event.clientX, event.clientY, 5, 5);
+                        }
+                    }
+                
+                &lt;/script&gt;</code>
+            </pre>
+            
+            <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
+            the events in the coalesced event list.
+            For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
+            movementX</a> and
+            <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
+            ([[POINTERLOCK]]) COULD be the sum of those of all the coalesced events.</div>
+        
+            <div class="note">
+                <p>The order of all these dispatched events should resemble the actual order of the
+                original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
+                coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code>
+                event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.
+                Here is an example of the actual events happening with increasing <code>timestamps</code> and the
+                events dispatched by the user agent:</p>
+                <table class="simple">
+                    <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
+                    <tbody>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) button press</td><td>
+                        <code>pointermove</code> (<code>pointerId</code>=1) w/ two coalesced events<br>
+                        <code>pointermove</code> (<code>pointerId</code>=2) w/ four coalesced events<br>
+                        <code>pointerdown</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
+                        </td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</code></td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) button release</td><td>
+                        <code>pointermove</code> (<code>pointerId</code>=2) w/ two coalesced events<br>
+                        <code>pointerup</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <section>
+            <h2><dfn>Predicted events</dfn></h2>
+            
+            <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements,
+            can make a prediction (based on past points, and the speed/trajectory of the movement) what
+            the position of future pointer movements may be. Applications can use this information with
+            the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method to speculatively "draw ahead" to a predicted position
+            to reduce perceived latency, and then discarding these predicted points once the actual points
+            are received.</p>
+
+            <figure id="figure_predicted">
+                <img src="predicted-points.png" alt="A line drawn using coalesced points, showing predicted future points">
+                <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
+            </figure>
+
+            <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
+            <code>PointerEvent</code>s). If this event is a <code>pointermove</code> event, it is a sequence of
+            <code>PointerEvent</code>s that the user agent predicts will follow the events in the
+            <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
+            <p>The number of events in the list and how far they are from the current timestamp are determined by
+            the user agent and the prediction algorithm it uses.</p>
+                
+            <p>The events in the predicted event list will have increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>([[!WHATWG-DOM]]),
+            so the first event will have the smallest <code>timeStamp</code> which should still be greater than
+            the last event in the <a>coalesced event list</a>.</p>
+
+            <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
+                <code>
+                var predicted_points = [];
+                window.addEventListener("pointermove", function(event) {
+                    // Clear the previously drawn predicted points.
+                    for (let e of predicted_points.reverse()) {
+                        clearPoint(e.pageX, e.pageY);
+                    }
+
+                    // Draw the actual movements that happened since the last received event.
+                    for (let e of event.getCoalescedEvents()) {
+                        drawPoint(e.pageX, e.pageY);
+                    }
+                
+                    // Draw the current predicted points to reduce the perception of latency.
+                    predicted_points = event.getPredictedEvents();
+                    for (let e of predicted_points) {
+                        drawPoint(e.pageX, e.pageY);
+                    }
+                });
+                </code>
+            </pre>
+        </section>
+        
+        <section>
+            <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
+            <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
+            <a>coalesced event list</a> and <a>predicted event list</a>:</p>
+            <ol>
+                <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
+                <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
+                <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
+                <code>isTrusted</code>.</li>
+                <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
+                <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
+                <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
+            </ol>
+               
+            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn> and an associated
+            <dfn>predicted events targets dirty</dfn> flag. When an event is created they must be initialized to false.</p>
+                
+            <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
+            and <a><code>predicted events targets dirty</code></a> to true.</p>
+
+            <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
+            <ol>
+                <li>If the <a>coalesced events targets dirty</a> is true:
+                for each event in the <a>coalesced event list</a>, set the event's
+                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
+                to this <code>PointerEvent</code>'s target.</li>
+                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
+                <li>Return the <a>coalesced event list</a>.</li>
+            </ol>
+
+            <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
+            <ol>
+                <li>If the <a>predicted events targets dirty</a> is true:
+                for each event in the <a>predicted event list</a>, set the event's
+                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
+                this <code>PointerEvent</code>'s <code>target</code>.
+                <li>Set the <a>predicted events targets dirty</a> to false.
+                <li>Return the <a>predicted event list</a>.
+            </ol>
+
+        </section>
+
     </section>
     <section>
         <h1><dfn data-lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
