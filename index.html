@@ -953,8 +953,8 @@ partial interface Navigator {
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
-            zero or more <code>PointerEvents</code>). If this event is a <code>pointermove</code>
-            or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>
+            zero or more <code>PointerEvent</code>s). If this event is a <code>pointermove</code>
+            or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.</p>
 
             <p>The events in the coalesced event list will have increasing
@@ -996,7 +996,7 @@ partial interface Navigator {
             </pre>
             
             <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
-            all events in the coalesced event list.
+            the events in the coalesced event list.
             For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
             movementX</a> and
             <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
@@ -1051,8 +1051,8 @@ partial interface Navigator {
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
-            <code>PointerEvents</code>). If this event is a <code>pointermove</code> event, it is a sequence of
-            <code>PointerEvents</code> that the user agent predicts will follow the events in the
+            <code>PointerEvent</code>s). If this event is a <code>pointermove</code> event, it is a sequence of
+            <code>PointerEvent</code>s that the user agent predicts will follow the events in the
             <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
