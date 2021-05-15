@@ -560,8 +560,8 @@ interface PointerEvent : MouseEvent {
                 The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code>, with the exception of
                 <code>cancelable</code> which MUST be false for <code>pointerrawupdate</code>.</p>
                 <p>User agents SHOULD not fire <a>compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
-                <div class="note">Adding listener for this type of the event might impact the performance of the web page negatively, depending on the implementation of the user agent.
-                For most of the use cases the other pointerevent types should suffice.
+                <div class="note">Adding listeners for the <code>pointerrawupdate</code> event might negatively impact the performance of the web page, depending on the implementation of the user agent.
+                For most use cases the other pointerevent types should suffice.
                 A <code>pointerrawupdate</code> listener should only be added if JavaScript needs high frequency events and can handle them just as fast.
                 In these cases, there is probably no need to listen to other types of pointer events.</div>
             </section>
