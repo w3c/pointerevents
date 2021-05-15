@@ -957,8 +957,20 @@ partial interface Navigator {
             or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.</p>
 
-            <p>The events in the coalesced event list will have increasing
-            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
+            <p>Coalesced events MUST:</p>
+            <ul>
+                <li>have the same <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
+                    <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
+                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> as
+                    the dispatched "parent" event</li>
+                <li>have <code>cancelable</code> and <code>bubbles</code> set to <code>false</code>
+                    (as these events will never be dispatched in isolation)</li>
+                <li>have <a>coalesced event list</a> and <a>predicted event list</a> set to an empty list</li>
+                <li>initialize the rest of the attributes to default values</li>
+            </ul>
+
+            <p>The events in the coalesced event list MUST be chronologically sorted by
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamp</code></a>
             ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
@@ -1057,10 +1069,21 @@ partial interface Navigator {
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
                 
-            <p>The events in the predicted event list will have increasing
-            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>([[!WHATWG-DOM]]),
-            so the first event will have the smallest <code>timeStamp</code> which should still be greater than
-            the last event in the <a>coalesced event list</a>.</p>
+            <p>Predicted events MUST:</p>
+            <ul>
+                <li>have the same <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
+                    <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
+                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> as
+                    the dispatched "parent" event</li>
+                <li>have <code>cancelable</code> and <code>bubbles</code> set to <code>false</code>
+                    (as these events will never be dispatched in isolation)</li>
+                <li>have <a>coalesced event list</a> and <a>predicted event list</a> set to an empty list</li>
+                <li>initialize the rest of the attributes to default values</li>
+            </ul>
+
+            <p>The events in the predicted event list MUST be chronologically sorted by
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamp</code></a>
+            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
             <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
                 <code>
@@ -1084,48 +1107,6 @@ partial interface Navigator {
                 });
                 </code>
             </pre>
-        </section>
-        
-        <section>
-            <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
-            <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
-            <a>coalesced event list</a> and <a>predicted event list</a>:</p>
-            <ol>
-                <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
-                <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
-                <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
-                <code>isTrusted</code>.</li>
-                <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
-                <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
-                <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
-            </ol>
-               
-            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn> and an associated
-            <dfn>predicted events targets dirty</dfn> flag. When an event is created they must be initialized to false.</p>
-                
-            <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
-            and <a><code>predicted events targets dirty</code></a> to true.</p>
-
-            <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
-            <ol>
-                <li>If the <a>coalesced events targets dirty</a> is true:
-                for each event in the <a>coalesced event list</a>, set the event's
-                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
-                to this <code>PointerEvent</code>'s target.</li>
-                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
-                <li>Return the <a>coalesced event list</a>.</li>
-            </ol>
-
-            <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
-            <ol>
-                <li>If the <a>predicted events targets dirty</a> is true:
-                for each event in the <a>predicted event list</a>, set the event's
-                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
-                this <code>PointerEvent</code>'s <code>target</code>.
-                <li>Set the <a>predicted events targets dirty</a> to false.
-                <li>Return the <a>predicted event list</a>.
-            </ol>
-
         </section>
 
     </section>
