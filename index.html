@@ -72,7 +72,7 @@
         </div>
 
         <figure id="figure_martini_glass">
-            <img src="pointer.png" alt="Pointer input combines input from mouse, pen, touch, etc.">
+            <img src="images/pointer.png" alt="Pointer input combines input from mouse, pen, touch, etc.">
             <figcaption>A pointer is a hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen.</figcaption>
         </figure>
 
@@ -249,49 +249,57 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>tiltX</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
                             <figure id="figure_tiltX">
-                                <img src="tiltX_600px.png" alt="tiltX explanation diagram">
+                                <img src="images/tiltX_600px.png" alt="tiltX explanation diagram">
                                 <figcaption>Positive <code>tiltX</code>.</figcaption>
                             </figure>
                         </dd>
                     <dt><dfn>tiltY</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
                             <figure id="figure_tiltY">
-                                <img src="tiltY_600px.png" alt="tiltY explanation diagram">
+                                <img src="images/tiltY_600px.png" alt="tiltY explanation diagram">
                                 <figcaption>Negative <code>tiltY</code>.</figcaption>
                             </figure>
                         </dd>
                     <dt><dfn>twist</dfn></dt>
                         <dd>
-                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be 0.</p>
+                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen/stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be 0.</p>
                         </dd>
                     <dt><dfn>altitudeAngle</dfn></dt>
                         <dd>
-                            <p>The altitude (in radians) of the transducer (e.g. pen stylus), in the range [0,π/2] - where 0 is parallel to the surface (X-Y plane), and π/2 is perpendicular to the surface. For hardware and platforms that do not report tilt or angle, the value MUST be π/2.</p>
+                            <p>The altitude (in radians) of the transducer (e.g. pen/stylus), in the range [0,π/2] - where 0 is parallel to the surface (X-Y plane), and π/2 is perpendicular to the surface. For hardware and platforms that do not report tilt or angle, the value MUST be π/2.</p>
                             <div class="note">
                                 When the hardware or platform does not report the tilt or angle, as opposed to the default value of 0 defined for <code>altitudeAngle</code>
                                 in <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification,
                                 the default value defined here is π/2. This correlates with the default values of 0 for both <code>tiltX</code> and
                                 <code>tiltY</code> (when the hardware or platform do not report them) which positions the transducer as being perpendicular to the surface.
                             </div>
+                            <figure id="figure_altitudeAngle">
+                                <img src="images/altitudeAngle.png" alt="altitudeAngle explanation diagram">
+                                <figcaption>Example <code>altitudeAngle</code> of π/4 (45 degrees from the X-Y plane).</figcaption>
+                            </figure>
                         </dd>
                     <dt><dfn>azimuthAngle</dfn></dt>
                         <dd>
-                            <p>The azimuth angle (in radians) of the transducer (e.g. pen stylus), in the range [0, 2π] - where 0 represents a transducer whose cap is pointing in the direction of increasing X values (point to "3 o'clock" if looking straight down) on the X-Y plane, and the values progressively increase when going clockwise (π/2 at "6 o'clock", π at "9 o'clock", 3π/2 at "12 o'clock"). When the transducer is perfectly perpendicular to the surface (<code>altitudeAngle</code> of π/2), the value MUST be 0. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The azimuth angle (in radians) of the transducer (e.g. pen/stylus), in the range [0, 2π] - where 0 represents a transducer whose cap is pointing in the direction of increasing X values (point to "3 o'clock" if looking straight down) on the X-Y plane, and the values progressively increase when going clockwise (π/2 at "6 o'clock", π at "9 o'clock", 3π/2 at "12 o'clock"). When the transducer is perfectly perpendicular to the surface (<code>altitudeAngle</code> of π/2), the value MUST be 0. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <figure id="figure_azimuthAngle">
+                                <img src="images/azimuthAngle.png" alt="azimuthAngle explanation diagram">
+                                <figcaption>Example <code>azimuthAngle</code> of π/6 ("4 o'clock").</figcaption>
+                            </figure>
                         </dd>
                     <dt><dfn>pointerType</dfn></dt>
                         <dd>
-                            <p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to <a>fire a pointer event</a> for a mouse, pen stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
+                            <p>Indicates the device type that caused the event (mouse, pen, touch, etc.). If a user agent is to <a>fire a pointer event</a> for a mouse, pen/stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
                             <table class="simple">
                                 <thead>
                                     <tr><th>Pointer Device Type</th><th><code>pointerType</code> Value</th></tr>
                                 </thead>
                                 <tbody>
                                     <tr><td>Mouse</td><td><code>mouse</code></td></tr>
-                                    <tr><td>Pen Stylus</td><td><code>pen</code></td></tr>
-                                    <tr><td>Touch Contact</td><td><code>touch</code></td></tr>
+                                    <tr><td>Pen / stylus</td><td><code>pen</code></td></tr>
+                                    <tr><td>Touch contact</td><td><code>touch</code></td></tr>
                                 </tbody>
                             </table>
                             <p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If a user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
@@ -348,7 +356,7 @@ interface PointerEvent : MouseEvent {
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
                             <tr><td>Neither buttons nor touch/pen contact changed since last event</td><td>-1</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>0</td></tr>
+                            <tr><td>Left Mouse,<br>Touch contact,<br>Pen contact</td><td>0</td></tr>
                             <tr><td>Middle Mouse</td><td>1</td></tr>
                             <tr><td>Right Mouse,<br>Pen barrel button</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>3</td></tr>
@@ -365,7 +373,7 @@ interface PointerEvent : MouseEvent {
                         <thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
                         <tbody>
                             <tr><td><strong>Mouse moved with no buttons pressed</strong>,<br> Pen moved while hovering with no buttons pressed</td><td>0</td></tr>
-                            <tr><td>Left Mouse,<br>Touch Contact,<br>Pen contact</td><td>1</td></tr>
+                            <tr><td>Left Mouse,<br>Touch contact,<br>Pen contact</td><td>1</td></tr>
                             <tr><td>Middle Mouse</td><td>4</td></tr>
                             <tr><td>Right Mouse,<br>Pen barrel button</td><td>2</td></tr>
                             <tr><td>X1 (back) Mouse</td><td>8</td></tr>
@@ -415,8 +423,7 @@ interface PointerEvent : MouseEvent {
                 <section>
                   <h3>Attributes and Default Actions</h3>
                         <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#pointer-event-types">Pointer Event types</a>.</p>
-
-                        <table id="pointer-event-type-table" class="parameters">
+                        <table id="pointer-event-type-table" class="simple">
                             <thead><tr>
                                 <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
                             </thead>
@@ -609,12 +616,12 @@ interface PointerEvent : MouseEvent {
                     <li>A pointing device is moved out of the hit test boundaries of an element. Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
                     <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code>).</li>
                     <li>After firing the <code>pointercancel</code> event  (see <code><a href="#the-pointercancel-event">pointercancel</a></code>).</li>
-                    <li>When a pen stylus leaves the hover range detectable by the digitizer.</li>
+                    <li>When a pen/stylus leaves the hover range detectable by the digitizer.</li>
                 </ul>
             </section>
             <section>
                 <h3>The <dfn><code>pointerleave</code> event</dfn></h3>
-                <p>A user agent MUST <a>fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code> and <code><a href="#the-pointercancel-event">pointercancel</a></code>). Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. User agents MUST also <a>fire a pointer event</a> named <code>pointerleave</code> when a pen stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
+                <p>A user agent MUST <a>fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerup-event">pointerup</a></code> and <code><a href="#the-pointercancel-event">pointercancel</a></code>). Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. User agents MUST also <a>fire a pointer event</a> named <code>pointerleave</code> when a pen/stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
             </section>
             <section>
@@ -869,7 +876,7 @@ partial interface Navigator {
           <h2>Introduction</h2>
         <p>Pointer capture allows the events for a particular pointer (including any <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a>) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
         <figure id="figure_slider">
-            <img src="slider.png" alt="Custom Volume Slider">
+            <img src="images/slider.png" alt="Custom Volume Slider">
             <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
         </figure>
         </section>
@@ -946,7 +953,7 @@ partial interface Navigator {
             more closely match the actual movement of a pointer.</p>
 
             <figure id="figure_coalesced">
-                <img src="coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
+                <img src="images/coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
                 <figcaption>Example of a curve in a drawing application – using only the coalesced
                 coordinates from <code>pointermove</code> events (the grey dots), the curve is noticeably
                 angular and jagged; the same line drawn using the more granular points provided by
@@ -1048,7 +1055,7 @@ partial interface Navigator {
             are received.</p>
 
             <figure id="figure_predicted">
-                <img src="predicted-points.png" alt="A line drawn using coalesced points, showing predicted future points">
+                <img src="images/predicted-points.png" alt="A line drawn using coalesced points, showing predicted future points">
                 <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
             </figure>
 
@@ -1380,11 +1387,11 @@ function tilt2spherical(tiltX, tiltY){
             <dt><dfn>active document</dfn></dt>
                 <dd>For every <a>active pointer</a>, the document that received the last event from that pointer.</dd>
             <dt><dfn>active pointer</dfn></dt>
-                <dd>Any touch contact, pen stylus, mouse cursor, or other pointer that can produce events. If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
+                <dd>Any touch contact, pen/stylus, mouse cursor, or other pointer that can produce events. If it is possible for a given pointer (identified by a unique <code>pointerId</code>) to produce additional events within the document, then that pointer is still considered active. Examples:
                     <ul>
                         <li>A mouse connected to the device is always active.</li>
                         <li>A touch contact on the screen is considered active.</li>
-                        <li>If a touch contact or pen stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
+                        <li>If a touch contact or pen/stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
                     </ul>
                     <div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
                     <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>. </div>
@@ -1394,7 +1401,7 @@ function tilt2spherical(tiltX, tiltY){
             <dt><dfn>contact geometry</dfn></dt>
                 <dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
             <dt><dfn>digitizer</dfn></dt>
-                <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen stylus.</dd>
+                <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen/stylus.</dd>
             <dt><dfn>direct manipulation</dfn></dt>
                 <dd>Certain user agents (such as browsers on a touchscreen device) implement a "direct manipulation" metaphor where a pointer not only interacts with controls, but
                 is also used to directly pan or zoom the current page, providing the illusion of direct physical contact. As an example, users on a touchscreen device are generally
