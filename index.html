@@ -961,24 +961,25 @@ partial interface Navigator {
                 of the pointer movement.</figcaption>
             </figure>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
+            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events list</dfn> (a list of
             zero or more <code>PointerEvent</code>s). If this event is a <code>pointermove</code>
             or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.</p>
 
-            <p>Coalesced events MUST:</p>
+            <p>When the <code>getCoalescedEvents()</code> method is called, user agents MUST apply the following
+               steps to each event in the coalesced events list, before returning the list:</p>
             <ul>
-                <li>have the same <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
+                <li>set <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
                     <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
-                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> as
-                    the dispatched "parent" event</li>
-                <li>have <code>cancelable</code> and <code>bubbles</code> set to <code>false</code>
+                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to match the
+                    dispatched "parent" pointer event that the <code>getCoalescedEvents()</code> method was called on</li>
+                <li>set <code>cancelable</code> and <code>bubbles</code> to <code>false</code>
                     (as these events will never be dispatched in isolation)</li>
-                <li>have <a>coalesced event list</a> and <a>predicted event list</a> set to an empty list</li>
-                <li>initialize the rest of the attributes to default values</li>
+                <li>set <a>coalesced events list</a> and <a>predicted events list</a> to an empty list</li>
+                <li>initialize all other attributes to default values</li>
             </ul>
 
-            <p>The events in the coalesced event list MUST be chronologically sorted by
+            <p>The events in the coalesced events list MUST be chronologically sorted by
             <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamp</code></a>
             ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
@@ -1017,7 +1018,7 @@ partial interface Navigator {
             </pre>
             
             <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
-            the events in the coalesced event list.
+            the events in the coalesced events list.
             For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
             movementX</a> and
             <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
@@ -1071,26 +1072,27 @@ partial interface Navigator {
                 <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
             </figure>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
+            <p>A <a>PointerEvent</a> has an associated <dfn>predicted events list</dfn> (a list of zero or more
             <code>PointerEvent</code>s). If this event is a <code>pointermove</code> event, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the events in the
-            <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
+            <a>coalesced events list</a> in the future; otherwise it is an empty list.</p>
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
                 
-            <p>Predicted events MUST:</p>
+            <p>When the <code>getPredictedEvents()</code> method is called, user agents MUST apply the following
+               steps to each event in the predicted events list, before returning the list:</p>
             <ul>
-                <li>have the same <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
+                <li>set <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
                     <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
-                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> as
-                    the dispatched "parent" event</li>
-                <li>have <code>cancelable</code> and <code>bubbles</code> set to <code>false</code>
+                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to match the
+                    dispatched "parent" pointer event that the <code>getPredictedEvents()</code> method was called on</li>
+                <li>set <code>cancelable</code> and <code>bubbles</code> to <code>false</code>
                     (as these events will never be dispatched in isolation)</li>
-                <li>have <a>coalesced event list</a> and <a>predicted event list</a> set to an empty list</li>
-                <li>initialize the rest of the attributes to default values</li>
+                <li>set <a>coalesced events list</a> and <a>predicted events list</a> to an empty list</li>
+                <li>initialize all other attributes to default values</li>
             </ul>
 
-            <p>The events in the predicted event list MUST be chronologically sorted by
+            <p>The events in the predicted events list MUST be chronologically sorted by
             <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamp</code></a>
             ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
