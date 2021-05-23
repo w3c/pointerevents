@@ -943,7 +943,7 @@ partial interface Navigator {
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
             event every time a pointer's attributes (i.e. button state, coordinates, pressure,
             tangential pressure, tilt, twist, or contact geometry) change. Instead, they will coalesce
-            (combine/merge) multiple position changes into a single move event. While
+            (combine/merge) multiple changes into a single <code>pointermove</code> event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
