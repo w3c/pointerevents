@@ -548,7 +548,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointerrawupdate</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a>
                 named <code>pointerrawupdate</code> only within a <a href="https://w3c.github.io/webappsec-secure-contexts/#secure-contexts">secure context</a> when
-                a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.</p>
+                a pointer's attributes (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) change.</p>
                 <p>In contrast with <code>pointermove</code>, which might be aligned to animation callbacks,
                 user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
                 and as frequently as the JavaScript can handle the events.</p>
@@ -941,7 +941,8 @@ partial interface Navigator {
             <h2><dfn>Coalesced events</dfn></h2>
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
-            event every time the position of a pointer is updated. Instead, they will coalesce
+            event every time a pointer's attributes (i.e. button state, coordinates, pressure,
+            tangential pressure, tilt, twist, or contact geometry) change. Instead, they will coalesce
             (combine/merge) multiple position changes into a single move event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
