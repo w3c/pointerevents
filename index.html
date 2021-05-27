@@ -38,7 +38,10 @@
           },
           noIDLSorting:         true,
           doJsonLd: true,
-          xref: "web-platform",
+          xref: {
+            specs: ["uievents"],
+            profile: "web-platform",
+          },
           mdn: "pointerevents",
         };
     </script>
@@ -185,7 +188,7 @@ eventTarget.dispatchEvent(event2);</code>
         <section>
             <h2><code>PointerEvent</code> Interface</h2>
             <div>
-              <pre class="idl" data-cite="ui-events">
+              <pre class="idl">
 dictionary PointerEventInit : MouseEventInit {
     long        pointerId = 0;
     double      width = 1;
@@ -495,9 +498,9 @@ interface PointerEvent : MouseEvent {
                         <p>Viewport manipulations (panning and zooming) - generally, as a result of a <a>direct manipulation</a> interaction - are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by cancelling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a href="#declaring-candidate-regions-for-direct-manipulation-behaviors">declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</p>
 
                         <p>For all pointer events in the table above except <code>pointerenter</code> and <code>pointerleave</code> the <code>composed</code> ([[DOM]]) attribute SHOULD be <code>true</code>.
-                           For all pointer events in the table above the <a href="https://www.w3.org/TR/uievents/#widl-UIEvent-detail"><code>detail</code></a> [[UI-EVENTS]] attribute SHOULD be 0.</p>
+                           For all pointer events in the table above the {{UIEvent/detail}} [[UI-EVENTS]] attribute SHOULD be 0.</p>
                         <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content.  In those user agents, the values of those (inherited) attributes in PointerEvents must be <code>null</code> to encourage the use of the standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
-                        <p>Similar to the <a href="https://www.w3.org/TR/uievents/#interface-mouseevent">MouseEvents</a> [[UI-EVENTS]] the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a <code>pointerover</code> or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a <code>pointerout</code> or <code>pointerleave</code>). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
+                        <p>Similar to {{MouseEvent}} [[UI-EVENTS]] the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a <code>pointerover</code> or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a <code>pointerout</code> or <code>pointerleave</code>). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
                         <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
                 </section>
 
@@ -526,7 +529,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h3>The <dfn><code>pointerenter</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a href="#the-pointerdown-event">pointerdown</a></code>). Note that <code>setPointerCapture</code> or <code>releasePointerCapture</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
-                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerleave</code> event.</div>
+                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <a><code>pointerleave</code> event</a>.</div>
             </section>
             <section>
                 <h3>The <dfn><code>pointerdown</code> event</dfn></h3>
@@ -634,9 +637,9 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
-                <p>This section is an addition to <a href="https://w3c.github.io/uievents/#event-type-click">click</a> and
-                   <a href="https://w3c.github.io/uievents/#event-type-auxclick">auxclick</a> events defined in [[UIEVENTS]] and
-                   <a href="https://html.spec.whatwg.org/multipage/indices.html#event-contextmenu">contextmenu</a> defined in [[HTML]].
+                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a> and
+                   <a data-cite="uievents/#event-type-auxclick">auxclick</a> events defined in [[UIEVENTS]] and
+                   [=HTMLElement/contextmenu=] defined in [[HTML]].
                    The type of these events MUST be <code>PointerEvent</code> but the dispatch process is going to match that of the original specification.
                    For these events, all <code>PointerEvent</code> specific attributes (defined in this spec) other than <code>pointerId</code> and <code>pointerType</code> will have their default values.
                    The <code>pointerId</code> and <code>pointerType</code> of these events MUST be the same as the PointerEvents that caused these events if they are generated by a pointing device.
