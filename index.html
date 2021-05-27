@@ -411,7 +411,7 @@ interface PointerEvent : MouseEvent {
                     <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
 
-                <p>Let <var>targetDocument</var> be target's <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]].
+                <p>Let <var>targetDocument</var> be target's [=Node/node document=] [[DOM]].
 
                 <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to <var>targetDocument</var>.</p>
 
@@ -889,11 +889,11 @@ partial interface Navigator {
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>NotFoundError</code>.</li>
                 <li>Let the <var>pointer</var> be the <a>active pointer</a> specified by the given <code>pointerId</code>.
-                <li>If the <var>element</var> is not <a href="https://dom.spec.whatwg.org/#connected"><code>connected</code></a> ([[!DOM]]), throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If this method is invoked while the <var>element</var>'s <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]] has a locked element ([[!PointerLock]]),
+                <li>If the <var>element</var> is not [=connected=] ([[DOM]]), throw an exception with the name <code>InvalidStateError</code>.</li>
+                <li>If this method is invoked while the <var>element</var>'s  	[=Node/node document=] [[DOM]] has a locked element ([[PointerLock]]),
                     throw an exception with the name <code>InvalidStateError</code>.</li>
                 <li>If the <var>pointer</var> is not in the <a>active buttons state</a> or
-                    the <var>element</var>'s <a href="https://dom.spec.whatwg.org/#concept-node-document">node document</a> [[!DOM]] is not the <a>active document</a> of the <var>pointer</var>, then terminate these steps.</li>
+                    the <var>element</var>'s [=Node/node document=] [[DOM]] is not the <a>active document</a> of the <var>pointer</var>, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the {{Element}} on which this method was invoked.</li>
             </ol>
         </section>
@@ -926,7 +926,7 @@ partial interface Navigator {
                (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>),
                and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired,
                <code>click</code> SHOULD be fired before <code>lostpointercapture</code>.</p>
-            <p>When the <a>pointer capture target override</a> is no longer <a href="https://dom.spec.whatwg.org/#connected"><code>connected</code></a> ([[DOM]]),
+            <p>When the <a>pointer capture target override</a> is no longer [=connected=] ([[DOM]]),
                the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
                and also a PointerEvent named <code>lostpointercapture</code> corresponding to the captured pointer SHOULD be fired at the document.</p>
             <p>When a pointer lock ([[!PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
@@ -969,8 +969,8 @@ partial interface Navigator {
             that were coalesced into this event; otherwise it is an empty list.</p>
 
             <p>The events in the coalesced event list will have increasing
-            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>
-            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
+            {{Event/timeStamp}}s
+            ([[!WHATWG-DOM]]), so the first event will have the smallest {{Event/timeStamp}}.</p>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
                 <code>&lt;style&gt;
@@ -1067,9 +1067,8 @@ partial interface Navigator {
             <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
-                
-            <p>The events in the predicted event list will have increasing
-            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>([[!WHATWG-DOM]]),
+
+            <p>The events in the predicted event list will have increasing {{Event/timeStamp}}s ([[!WHATWG-DOM]]),
             so the first event will have the smallest <code>timeStamp</code> which should still be greater than
             the last event in the <a>coalesced event list</a>.</p>
 
@@ -1110,18 +1109,17 @@ partial interface Navigator {
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
                 <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
             </ol>
-               
+
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn> and an associated
             <dfn>predicted events targets dirty</dfn> flag. When an event is created they must be initialized to false.</p>
-                
+
             <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
             and <a><code>predicted events targets dirty</code></a> to true.</p>
 
             <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
             <ol>
                 <li>If the <a>coalesced events targets dirty</a> is true:
-                for each event in the <a>coalesced event list</a>, set the event's
-                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a>
+                for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
                 to this <code>PointerEvent</code>'s target.</li>
                 <li>Set the <a>coalesced events targets dirty</a> to false.</li>
                 <li>Return the <a>coalesced event list</a>.</li>
@@ -1130,8 +1128,7 @@ partial interface Navigator {
             <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
             <ol>
                 <li>If the <a>predicted events targets dirty</a> is true:
-                for each event in the <a>predicted event list</a>, set the event's
-                <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to
+                for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
                 this <code>PointerEvent</code>'s <code>target</code>.
                 <li>Set the <a>predicted events targets dirty</a> to false.
                 <li>Return the <a>predicted event list</a>.
