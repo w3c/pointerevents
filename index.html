@@ -929,7 +929,7 @@ partial interface Navigator {
             <p>When the <a>pointer capture target override</a> is no longer [=connected=] ([[DOM]]),
                the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
                and also a PointerEvent named <code>lostpointercapture</code> corresponding to the captured pointer SHOULD be fired at the document.</p>
-            <p>When a pointer lock ([[!PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
+            <p>When a pointer lock ([[PointerLock]]) is successfully applied on an element, a user agent MUST run the steps as if the releasePointerCapture() method has been called if any element is set to be captured or pending to be captured.
 
         </section>
     </section>
@@ -996,23 +996,21 @@ partial interface Navigator {
                             paint(e); // Paint the final coalesced point
                         }
                     });
-                
+
                     function paint(event) {
                         if(event.buttons>0) {
                             context.fillRect(event.clientX, event.clientY, 5, 5);
                         }
                     }
-                
+
                 &lt;/script&gt;</code>
             </pre>
-            
+
             <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
             the events in the coalesced event list.
-            For example its <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementX">
-            movementX</a> and
-            <a href="https://www.w3.org/TR/pointerlock/#widl-MouseEvent-movementY">movementY</a>
+            For example its {{MouseEvent/movementX}} and {{MouseEvent/movementY}}
             ([[POINTERLOCK]]) COULD be the sum of those of all the coalesced events.</div>
-        
+
             <div class="note">
                 <p>The order of all these dispatched events should resemble the actual order of the
                 original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
