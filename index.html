@@ -816,7 +816,7 @@ partial interface Navigator {
             <dt>manipulation</dt>
             <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
           </dl>
-          <div class="note">Additional <code>touch-action</code> values common in implementations <a href="https://compat.spec.whatwg.org/#touch-action">are defined</a> in [[COMPAT]].</div>
+          <div class="note"><a data-cite="compat/#touch-action">Additional <code>touch-action</code> values</a> common in implementations are defined in [[COMPAT]].</div>
           <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
           <div class="note">
             <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
