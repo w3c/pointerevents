@@ -941,10 +941,10 @@ partial interface Navigator {
             <h2><dfn>Coalesced events</dfn></h2>
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
-            or event <code>pointerrawupdate</code> event every time a pointer's attributes
-            (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact
-            geometry) change. Instead, they will coalesce (combine/merge) multiple changes into a
-            single <code>pointermove</code> or <code>pointerrawupdate</code> event. While
+            event every time a <a data-lt="discrete and continuous properties">continuous property</a>
+            (such as coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) of a pointer
+            is updated. Instead, they will coalesce (combine/merge) multiple changes into a single
+            <code>pointermove</code> or <code>pointerrawupdate</code> event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
@@ -1412,6 +1412,15 @@ function tilt2spherical(tiltX, tiltY){
                 <div class="note">In some cases, touchpads (like those found on a laptop) will allow the user to scroll by "dragging" on the touchpad. However, this is generally achieved
                 by the touchpad generating "fake" mouse wheel events, so this wouldn't count as a direct manipulation.</div>
                 </dd>
+            <dt><dfn>discrete and continuous properties</dfn></dt>
+                <dd><p>Discrete properties are those properties that can only have a finite set of values. In the context of pointer events, <code>pointerId</code>,
+                    <code>pointerType</code>, <code>isPrimary</code>, and the [[UI-EVENTS]] Mouse Event model properties <code>button</code>, <code>buttons</code>,
+                    <code>ctrlKey</code>, <code>shiftKey</code>, <code>altKey</code>, and <code>metaKey</code> are discrete.</p>
+                    <p>Continuous properties are those properties whose value can be expressed as a real number over a specific range. For pointer events,
+                    <code>width</code>, <code>height</code>, <code>pressure</code>, <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>,
+                    <code>twist</code>, <code>altitudeAngle</code>, <code>azimuthAngle</code>, and the [[UI-EVENTS]] Mouse Event model properties <code>screenX</code>,
+                    <code>screenY</code>, <code>clientX</code>, <code>clientY</code> are continuous.</p>
+                    </dd>
             <dt><dfn>hit test</dfn></dt>
                 <dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
             <dt><dfn>pointer</dfn></dt>
