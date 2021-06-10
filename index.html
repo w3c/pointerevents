@@ -1075,9 +1075,26 @@ partial interface Navigator {
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted events list</dfn> (a list of zero or more
             <code>PointerEvent</code>s). If this event is a <code>pointermove</code> event, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the events in the
-            <a>coalesced events list</a> in the future; otherwise it is an empty list.</p>
+
+            <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
+            <div class="note">
+                <p>While <code>pointerrawmove</code> events may have a non-empty <a>coalesced event list</a>,
+                their <a>predicted event list</a> will, for performance reasons, usually be an empty list.</p>
+            </div>
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
+
+            <p>The events in the predicted event list will have monotonically increasing
+            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamps</code></a>([[!WHATWG-DOM]]),
+            so the first event will have the smallest <code>timeStamp</code>. All predicted events have a <code>timeStamp</code>
+            that is greater than the <code>timeStamp</code> of the dispatched pointer event that the
+            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.</p>
+
+            <div class="note">
+                <p>Note that authors should only consider predicted events as valid predictions until the next pointer event is
+                dispatched. It is possible, depending on how far into the future the user agent predicts events, that regular
+                pointer events are dispatched earlier than the timestamp of one or more of the predicted events.</p>
+            </div>
                 
             <p>When the <code>getPredictedEvents()</code> method is called, user agents MUST apply the following
                steps to each event in the predicted events list, before returning the list:</p>
