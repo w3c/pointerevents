@@ -968,22 +968,20 @@ partial interface Navigator {
             or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.</p>
 
+            <p>The events in the coalesced events list MUST be chronologically sorted by
+            {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</p>
 
             <p>When the <code>getCoalescedEvents()</code> method is called, user agents MUST apply the following
                steps to each event in the coalesced events list, before returning the list:</p>
             <ul>
                 <li>set <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
-                    <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
-                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to match the
+                    {{Event/isTrusted}}, and {{Event/target}} to match the
                     dispatched "parent" pointer event that the <code>getCoalescedEvents()</code> method was called on</li>
                 <li>set <code>cancelable</code> and <code>bubbles</code> to <code>false</code>
                     (as these events will never be dispatched in isolation)</li>
                 <li>set <a>coalesced events list</a> and <a>predicted events list</a> to an empty list</li>
                 <li>initialize all other attributes to default values</li>
             </ul>
-
-            <p>The events in the coalesced events list MUST be chronologically sorted by
-            {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</p>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
                 <code>&lt;style&gt;
@@ -1028,7 +1026,7 @@ partial interface Navigator {
                 original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
                 coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code>
                 event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.
-                Here is an example of the actual events happening with increasing <code>timestamps</code> and the
+                Here is an example of the actual events happening with increasing {{Event/timeStamp}} and the
                 events dispatched by the user agent:</p>
                 <table class="simple">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
@@ -1082,10 +1080,12 @@ partial interface Navigator {
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
-            <p>The events in the predicted event list will have monotonically increasing {{Event/timeStamp}}s ([[!WHATWG-DOM]]),
-            so the first event will have the smallest <code>timeStamp</code>. All predicted events have a <code>timeStamp</code>
-            that is greater than the <code>timeStamp</code> of the dispatched pointer event that the
-            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.</p>
+            <p>The events in the predicted events list will have monotonically increasing {{Event/timeStamp}}s.
+            All predicted events have a <code>timeStamp</code> that is greater than the <code>timeStamp</code>
+            of the dispatched pointer event that the
+            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.
+            The predicted events list MUST be chronologically sorted by {{Event/timeStamp}}, so the first event
+            will have the smallest {{Event/timeStamp}}. </p>
 
             <div class="note">
                 <p>Note that authors should only consider predicted events as valid predictions until the next pointer event is
@@ -1097,18 +1097,13 @@ partial interface Navigator {
                steps to each event in the predicted events list, before returning the list:</p>
             <ul>
                 <li>set <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>,
-                    <a href="https://dom.spec.whatwg.org/#dom-event-istrusted"><code>isTrusted</code></a>,
-                    and <a href="https://dom.spec.whatwg.org/#event-target"><code>target</code></a> to match the
+                    {{Event/isTrusted}}, and {{Event/target}} to match the
                     dispatched "parent" pointer event that the <code>getPredictedEvents()</code> method was called on</li>
                 <li>set <code>cancelable</code> and <code>bubbles</code> to <code>false</code>
                     (as these events will never be dispatched in isolation)</li>
                 <li>set <a>coalesced events list</a> and <a>predicted events list</a> to an empty list</li>
                 <li>initialize all other attributes to default values</li>
             </ul>
-
-            <p>The events in the predicted events list MUST be chronologically sorted by
-            <a href="https://dom.spec.whatwg.org/#dom-event-timestamp"><code>timeStamp</code></a>
-            ([[!WHATWG-DOM]]), so the first event will have the smallest <code>timeStamp</code>.</p>
 
             <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
                 <code>
