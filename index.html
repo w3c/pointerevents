@@ -1006,9 +1006,14 @@ partial interface Navigator {
             </pre>
 
             <div class="note">The PointerEvent's attributes will be initalized in a way that best represents
+<<<<<<< HEAD
             the events in the coalesced event list.
             For example its {{MouseEvent/movementX}} and {{MouseEvent/movementY}}
             ([[POINTERLOCK]]) COULD be the sum of those of all the coalesced events.</div>
+=======
+            the events in the coalesced events list. For example its {{MouseEvent/movementX}} and {{MouseEvent/movementY}}
+            ([[PointerLock]]) COULD be the sum of those of all the coalesced events.</div>
+>>>>>>> fa0a927... Consistency: POINTERLOCK > PointerLock
 
             <div class="note">
                 <p>The order of all these dispatched events should resemble the actual order of the
