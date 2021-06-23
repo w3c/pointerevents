@@ -558,11 +558,11 @@ interface PointerEvent : MouseEvent {
                 due to the fact that <code>pointermove</code> events might get aligned with animation frame callbacks and get coalesced, and the final position of the event
                 which is used for finding the <code>target</code> could be different from its coalesced events.</p>
                 <p>Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
-                in the <a data-cite="html/#task-queue">task queue</a>, the
+                in the [=event loop=], the
                 user agent MAY coalesce the new <code>pointerrawupdate</code> with that event instead of creating a new [=task=].
                 This may cause <code>pointerrawupdate</code> to have coalesced events, and
                 they will all be delivered as <a>coalesced events</a> of one <code>pointerrawupdate</code> event as soon as
-                the event is processed in the <a data-cite="html/#task-queue">task queue</a>.
+                the event is processed in the [=event loop=].
                 See <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for more information.</p>
                 <p>In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
                 if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events,
