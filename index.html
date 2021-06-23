@@ -411,9 +411,9 @@ interface PointerEvent : MouseEvent {
                     <li>Otherwise, set the target to the object returned by normal hit test mechanisms (out of scope for this specification).</li>
                 </ul>
 
-                <p>Let <var>targetDocument</var> be target's [=Node/node document=] [[DOM]].
+                <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].
 
-                <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to <var>targetDocument</var>.</p>
+                <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
 
                 <p>If the event is <code>pointerdown</code>, the associated device is a direct manipulation device, and the target is an {{Element}},
                    then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
@@ -884,16 +884,16 @@ partial interface Navigator {
         </section>
         <section>
             <h2>Setting Pointer Capture</h2>
-            <p>Pointer capture is set on an <var>element</var> of type {{Element}} by calling the <code>element.setPointerCapture(pointerId)</code> method.
+            <p>Pointer capture is set on an |element| of type {{Element}} by calling the <code>element.setPointerCapture(pointerId)</code> method.
                When this method is invoked, a user agent MUST run the following steps:</p>
             <ol>
-                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then throw a <code>DOMException</code> with the name <code>NotFoundError</code>.</li>
-                <li>Let the <var>pointer</var> be the <a>active pointer</a> specified by the given <code>pointerId</code>.
-                <li>If the <var>element</var> is not [=connected=] ([[DOM]]), throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If this method is invoked while the <var>element</var>'s  	[=Node/node document=] [[DOM]] has a locked element ([[PointerLock]]),
-                    throw an exception with the name <code>InvalidStateError</code>.</li>
-                <li>If the <var>pointer</var> is not in the <a>active buttons state</a> or
-                    the <var>element</var>'s [=Node/node document=] [[DOM]] is not the <a>active document</a> of the <var>pointer</var>, then terminate these steps.</li>
+                <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then [=exception/throw=] a {{"NotFoundError"}} {{DOMException}}.</li>
+                <li>Let the |pointer| be the <a>active pointer</a> specified by the given <code>pointerId</code>.
+                <li>If the |element| is not [=connected=] [[DOM]], [=exception/throw=] an {{"InvalidStateError"}} {{DOMException}}.</li>
+                <li>If this method is invoked while the |element|'s [=Node/node document=] [[DOM]] has a locked element ([[PointerLock]] {{DocumentOrShadowRoot/pointerLockElement}}),
+                    [=exception/throw=] an {{"InvalidStateError"}} {{DOMException}}.</li>
+                <li>If the |pointer| is not in the <a>active buttons state</a> or
+                    the |element|'s [=Node/node document=] is not the <a>active document</a> of the |pointer|, then terminate these steps.</li>
                 <li>For the specified <code>pointerId</code>, set the <dfn>pending pointer capture target override</dfn> to the {{Element}} on which this method was invoked.</li>
             </ol>
         </section>
@@ -1103,15 +1103,15 @@ partial interface Navigator {
                 </code>
             </pre>
         </section>
-        
+
         <section>
             <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
             <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
                 <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
-                <code>isPrimary</code> and <code>isTrusted</code> to the <var>PointerEvent</var>'s
-                <code>pointerId</code>, <code> pointerType</code>, <code>isPrimary</code> and
+                <code>isPrimary</code> and <code>isTrusted</code> to the {{PointerEvent}}'s
+                <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code> and
                 <code>isTrusted</code>.</li>
                 <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
@@ -1163,10 +1163,10 @@ partial interface Navigator {
             <p>While only the <a data-lt="Primary Pointer">primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events.  Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective.  For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[UI-EVENTS]].  Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
             <p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
             <ol>
-                <li>Let <code>T</code> be the target of the <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event being dispatched. For the <code>pointerleave</code> event, unset <code>T</code>.</li>
-                <li>If <code>T</code> and current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> are both unset or they are equal, terminate these steps.</li>
-                <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[UI-EVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>. Consider an unset value of either current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> or <code>T</code> as an out-of-window mouse position.</li>
-                <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to <code>T</code>.</li>
+                <li>Let |T| be the target of the <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event being dispatched. For the <code>pointerleave</code> event, unset |T|.</li>
+                <li>If |T| and current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> are both unset or they are equal, terminate these steps.</li>
+                <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[UIEVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|. Consider an unset value of either current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> or |T| as an out-of-window mouse position.</li>
+                <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|.</li>
             </ol>
         </section>
         <section>
