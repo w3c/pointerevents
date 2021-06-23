@@ -338,18 +338,18 @@ interface PointerEvent : MouseEvent {
                     the default value.</p>
                     <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from
                     <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using
-                    <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> ([[ECMASCRIPT]]) rules.</p>
+                    <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
                 </div>
 
-                <div class="note">The <code>PointerEvent</code> interface inherits from <code>MouseEvent</code>, defined in [[UIEVENTS]] and extended by [[[CSSOM-VIEW]]].</div>
+                <div class="note">The <code>PointerEvent</code> interface inherits from {{MouseEvent}}, defined in [[[UIEVENTS]]] and extended by [[[CSSOM-VIEW]]].</div>
             </div>
             <section>
                 <h2>Button States</h2>
                 <section>
                     <h3><dfn>Chorded Button Interactions</dfn></h3>
-                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UI-EVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a data-lt="Chorded Button Interactions">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p>
-                    <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the [[UI-EVENTS]] <code>MouseEvent</code> interface, but with a change in semantics and values, as outlined in the following sections.</p>
-                    <div class="note">The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> should follow [[UI-EVENTS]].</div>
+                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a data-lt="Chorded Button Interactions">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p>
+                    <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
+                    <div class="note">The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> should follow [[UIEVENTS]].</div>
                 </section>
                 <section>
                     <h3>The <code>button</code> property</h3>
@@ -496,10 +496,10 @@ interface PointerEvent : MouseEvent {
 
                         <p>Viewport manipulations (panning and zooming) - generally, as a result of a <a>direct manipulation</a> interaction - are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by cancelling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a href="#declaring-candidate-regions-for-direct-manipulation-behaviors">declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</p>
 
-                        <p>For all pointer events in the table above except <code>pointerenter</code> and <code>pointerleave</code> the <code>composed</code> ([[DOM]]) attribute SHOULD be <code>true</code>.
-                           For all pointer events in the table above the {{UIEvent/detail}} [[UI-EVENTS]] attribute SHOULD be 0.</p>
+                        <p>For all pointer events in the table above except <code>pointerenter</code> and <code>pointerleave</code> the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>true</code>.
+                           For all pointer events in the table above the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
                         <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content.  In those user agents, the values of those (inherited) attributes in PointerEvents must be <code>null</code> to encourage the use of the standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
-                        <p>Similar to {{MouseEvent}}, the {{FocusEvent/relatedTarget}} should be initialized to the element whose bounds the pointer just left (in the case of a <code>pointerover</code> or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a <code>pointerout</code> or <code>pointerleave</code>). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
+                        <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a <code>pointerover</code> or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a <code>pointerout</code> or <code>pointerleave</code>). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
                         <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
                 </section>
 
