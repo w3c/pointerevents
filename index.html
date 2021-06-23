@@ -153,7 +153,7 @@ function checkPointerSize(event) {
 &lt;/script&gt;</code>
 </pre>
 <pre id="example_4" class="example" title="Firing untrusted pointer events from script">
-<code>var event1 = new PointerEvent("pointerover",
+<code>const event1 = new PointerEvent("pointerover",
   { bubbles: true,
     cancelable: true,
     composed: true,
@@ -164,7 +164,7 @@ function checkPointerSize(event) {
   });
 eventTarget.dispatchEvent(event1);
 
-var pointerEventInitDict =
+let pointerEventInitDict =
 {
   bubbles: true,
   cancelable: true,
@@ -174,11 +174,11 @@ var pointerEventInitDict =
   clientX: 300,
   clientY: 500,
 };
-var p1 = new PointerEvent("pointermove", pointerEventInitDict);
+const p1 = new PointerEvent("pointermove", pointerEventInitDict);
 pointerEventInitDict.clientX += 10;
-var p2 = new PointerEvent("pointermove", pointerEventInitDict);
+const p2 = new PointerEvent("pointermove", pointerEventInitDict);
 pointerEventInitDict.coalescedEvents = [p1, p2];
-var event2 = new PointerEvent("pointermove", pointerEventInitDict);
+const event2 = new PointerEvent("pointermove", pointerEventInitDict);
 eventTarget.dispatchEvent(event2);</code>
 </pre>
     </section>
@@ -975,16 +975,16 @@ partial interface Navigator {
                 <code>&lt;style&gt;
                     /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
                     so that all events on the canvas element are given to the application instead. */
-                
+
                     canvas { touch-action: none; }
                 &lt;/style&gt;
-                
+
                 &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
-                
+
                 &lt;script&gt;
-                    var canvas = document.getElementById("drawSurface"),
+                    const canvas = document.getElementById("drawSurface"),
                     context = canvas.getContext("2d");
-        
+
                     canvas.addEventListener("pointermove", (e)=> {
 
                         if (e.getCoalescedEvents) {
@@ -1082,7 +1082,7 @@ partial interface Navigator {
 
             <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
                 <code>
-                var predicted_points = [];
+                let predicted_points = [];
                 window.addEventListener("pointermove", function(event) {
                     // Clear the previously drawn predicted points.
                     for (let e of predicted_points.reverse()) {
@@ -1260,7 +1260,7 @@ partial interface Navigator {
         <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
 function spherical2tilt(altitudeAngle, azimuthAngle){
-  let radToDeg = 180/Math.PI;
+  const radToDeg = 180/Math.PI;
 
   let tiltXrad = 0;
   let tiltYrad = 0;
@@ -1302,7 +1302,7 @@ function spherical2tilt(altitudeAngle, azimuthAngle){
   }
 
   if(altitudeAngle != 0){
-    let tanAlt = Math.tan(altitudeAngle);
+    const tanAlt = Math.tan(altitudeAngle);
 
     tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
     tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
@@ -1312,8 +1312,8 @@ function spherical2tilt(altitudeAngle, azimuthAngle){
 }
 
 function tilt2spherical(tiltX, tiltY){
-  let tiltXrad = tiltX * Math.PI/180;
-  let tiltYrad = tiltY * Math.PI/180;
+  const tiltXrad = tiltX * Math.PI/180;
+  const tiltYrad = tiltY * Math.PI/180;
 
   // calculate azimuth angle
   let azimuthAngle = 0;
@@ -1334,8 +1334,8 @@ function tilt2spherical(tiltX, tiltY){
     azimuthAngle = 0;
   } else {
     // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
-    let tanX = Math.tan(tiltXrad);
-    let tanY = Math.tan(tiltYrad);
+    const tanX = Math.tan(tiltXrad);
+    const tanY = Math.tan(tiltYrad);
 
     azimuthAngle = Math.atan2(tanY, tanX);
     if(azimuthAngle &lt; 0){
