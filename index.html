@@ -541,8 +541,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointermove</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
                 Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
-                contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification.
-                User agents may decide to coalesce or align these events to <a data-cite="html/#event-loop-processing-model">animation frame callbacks</a>.
+                contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification. User agents MAY delay dispatch of the <code>pointermove</code> event (for instance, for performance reasons).
                 The <a>coalesced events</a> information will be exposed via <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> for the single dispatched <code>pointermove</code> event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
@@ -551,11 +550,11 @@ interface PointerEvent : MouseEvent {
                 <p>A user agent MUST <a>fire a pointer event</a>
                 named <code>pointerrawupdate</code> only within a [=secure context=] when
                 a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.</p>
-                <p>In contrast with <code>pointermove</code>, which might be aligned to animation callbacks,
+                <p>In contrast with <code>pointermove</code>,
                 user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
                 and as frequently as the JavaScript can handle the events.</p>
                 <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
-                due to the fact that <code>pointermove</code> events might get aligned with animation frame callbacks and get coalesced, and the final position of the event
+                due to the fact that <code>pointermove</code> events might get delayed or coalesced, and the final position of the event
                 which is used for finding the <code>target</code> could be different from its coalesced events.</p>
                 <p>Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
                 in the [=event loop=], the
