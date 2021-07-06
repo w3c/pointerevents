@@ -1104,40 +1104,24 @@ partial interface Navigator {
 
         <section>
             <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
-            <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
+            <p>When a trusted <a>PointerEvent</a> is created, run the following steps for each event in the
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
-                <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
+                <li>Set the event's <code>pointerId</code>, <code>pointerType</code>, <code>target</code>,
                 <code>isPrimary</code> and <code>isTrusted</code> to the {{PointerEvent}}'s
-                <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code> and
-                <code>isTrusted</code>.</li>
+                <code>pointerId</code>, <code>pointerType</code>, <code>target</code>,
+                <code>isPrimary</code> and <code>isTrusted</code>.</li>
                 <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
                 <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
             </ol>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn> and an associated
-            <dfn>predicted events targets dirty</dfn> flag. When an event is created they must be initialized to false.</p>
-
-            <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
-            and <a><code>predicted events targets dirty</code></a> to true.</p>
-
-            <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
+            <p>When a trusted <a>PointerEvent</a>'s target is changed:</p>
             <ol>
-                <li>If the <a>coalesced events targets dirty</a> is true:
-                for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
+                <li>for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
                 to this <code>PointerEvent</code>'s target.</li>
-                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
-                <li>Return the <a>coalesced event list</a>.</li>
-            </ol>
-
-            <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
-            <ol>
-                <li>If the <a>predicted events targets dirty</a> is true:
-                for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
-                this <code>PointerEvent</code>'s <code>target</code>.
-                <li>Set the <a>predicted events targets dirty</a> to false.
-                <li>Return the <a>predicted event list</a>.
+                <li>for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
+                this <code>PointerEvent</code>'s <code>target</code>.</li>
             </ol>
 
         </section>
