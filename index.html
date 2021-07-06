@@ -1104,13 +1104,13 @@ partial interface Navigator {
 
         <section>
             <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
-            <p>When a trusted <a>PointerEvent</a> is created, run the following steps for each event in the
+            <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
-                <li>Set the event's <code>pointerId</code>, <code>pointerType</code>, <code>target</code>,
+                <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
                 <code>isPrimary</code> and <code>isTrusted</code> to the {{PointerEvent}}'s
-                <code>pointerId</code>, <code>pointerType</code>, <code>target</code>,
-                <code>isPrimary</code> and <code>isTrusted</code>.</li>
+                <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code> and
+                <code>isTrusted</code>.</li>
                 <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
                 <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
