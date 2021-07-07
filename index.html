@@ -1016,7 +1016,7 @@ partial interface Navigator {
                 original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
                 coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code>
                 event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.
-                Here is an example of the actual events happening with increasing <code>timestamps</code> and the
+                Here is an example of the actual events happening with increasing {{Event/timeStamp}} and the
                 events dispatched by the user agent:</p>
                 <table class="simple">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
@@ -1061,8 +1061,7 @@ partial interface Navigator {
 
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
             <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> event, it is a sequence of
-            <code>PointerEvent</code>s that the user agent predicts will follow the events in the
-            <a>coalesced event list</a> in the future; otherwise it is an empty list.
+            <code>PointerEvent</code>s that the user agent predicts will follow the event in the future; otherwise it is an empty list.
             Untrusted events have their <a>predicted event list</a> initialized to the value passed to the
             constructor.</p>
             <div class="note">
@@ -1072,10 +1071,12 @@ partial interface Navigator {
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
-            <p>The events in the predicted event list of a trusted event will have monotonically increasing {{Event/timeStamp}}s [[DOM]],
-            so the first event will have the smallest <code>timeStamp</code>. All predicted events have a <code>timeStamp</code>
-            that is greater than the <code>timeStamp</code> of the dispatched pointer event that the
-            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.</p>
+            <p>The events in the predicted events list will have monotonically increasing {{Event/timeStamp}}s [[DOM]].
+            All predicted events have a {{Event/timeStamp}} that is greater than the {{Event/timeStamp}}
+            of the dispatched pointer event that the
+            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.
+            The predicted events list MUST be chronologically sorted by {{Event/timeStamp}}, so the first event
+            will have the smallest {{Event/timeStamp}}. </p>
 
             <div class="note">
                 <p>Note that authors should only consider predicted events as valid predictions until the next pointer event is
@@ -1113,20 +1114,17 @@ partial interface Navigator {
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
                 <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
-                <code>isPrimary</code> and <code>isTrusted</code> to the {{PointerEvent}}'s
-                <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code> and
-                <code>isTrusted</code>.</li>
-                <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
+                <code>isPrimary</code> and {{Event/isTrusted}} to match the dispatched "parent" pointer event.</li>
+                <li>Set the event's {{Event/cancelable}} and {{Event/bubbles}} to false (as these events will never
+                be dispatched in isolation).</li>
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
-                <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
+                <li>Initialize all other attributes to default {{PointerEvent}} values.</li>
             </ol>
 
-            <p>When a trusted <a>PointerEvent</a>'s target is changed:</p>
+            <p>When a trusted <a>PointerEvent</a>'s {{Event/target}} is changed, for each event in the
+               <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
-                <li>for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
-                to this <code>PointerEvent</code>'s target.</li>
-                <li>for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
-                this <code>PointerEvent</code>'s <code>target</code>.</li>
+                <li>Set the event's {{Event/target}} to match the dispatched "parent" pointer event.</li>
             </ol>
 
         </section>
