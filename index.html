@@ -1060,9 +1060,11 @@ partial interface Navigator {
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
-            <code>PointerEvent</code>s). If this event is a <code>pointermove</code> event, it is a sequence of
+            <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> event, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the events in the
-            <a>coalesced event list</a> in the future; otherwise it is an empty list.</p>
+            <a>coalesced event list</a> in the future; otherwise it is an empty list.
+            Untrusted events have their <a>predicted event list</a> initialized to the value passed to the
+            constructor.</p>
             <div class="note">
                 <p>While <code>pointerrawmove</code> events may have a non-empty <a>coalesced event list</a>,
                 their <a>predicted event list</a> will, for performance reasons, usually be an empty list.</p>
@@ -1070,7 +1072,7 @@ partial interface Navigator {
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
-            <p>The events in the predicted event list will have monotonically increasing {{Event/timeStamp}}s [[DOM]],
+            <p>The events in the predicted event list of a trusted event will have monotonically increasing {{Event/timeStamp}}s [[DOM]],
             so the first event will have the smallest <code>timeStamp</code>. All predicted events have a <code>timeStamp</code>
             that is greater than the <code>timeStamp</code> of the dispatched pointer event that the
             <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.</p>
