@@ -549,9 +549,8 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointerrawupdate</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a>
                 named <code>pointerrawupdate</code> only within a [=secure context=] when
-                a pointing device attribute (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) is changed.</p>
-                <p>In contrast with <code>pointermove</code>,
-                user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
+                a pointer's attributes (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) change.</p>
+                <p>In contrast with <code>pointermove</code>, user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
                 and as frequently as the JavaScript can handle the events.</p>
                 <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
                 due to the fact that <code>pointermove</code> events might get delayed or coalesced, and the final position of the event
@@ -942,8 +941,10 @@ partial interface Navigator {
             <h2><dfn>Coalesced events</dfn></h2>
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
-            event every time the position of a pointer is updated. Instead, they will coalesce
-            (combine/merge) multiple position changes into a single move event. While
+            event every time a <a data-lt="measurable properties">measurable property</a>
+            (such as coordinates, pressure, tangential pressure, tilt, twist, or contact geometry)
+            of a pointer is updated. Instead, they may coalesce (combine/merge) multiple changes into
+            a single <code>pointermove</code> or <code>pointerrawupdate</code> event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
@@ -1403,6 +1404,17 @@ function tilt2spherical(tiltX, tiltY){
                 </dd>
             <dt><dfn>hit test</dfn></dt>
                 <dd>The process by which a user agent determines a target element for a pointer event. Typically, this is determined by considering the pointer's location and also the visual layout of elements in a document on screen media.</dd>
+            <dt><dfn>measurable properties</dfn></dt>
+                <dd><p>Measurable properties represent values relating to continuous pointer sensor data that is expressed using a real number or an
+                    integer from a large domain. For pointer events, <code>width</code>, <code>height</code>, <code>pressure</code>,
+                    <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>,
+                    <code>altitudeAngle</code>, <code>azimuthAngle</code>, and the [[UI-EVENTS]] Mouse Event model properties
+                    <code>screenX</code>, <code>screenY</code>, <code>clientX</code>, <code>clientY</code> are measurable properties.</p>
+                    <p>In contrast <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code>, and the
+                    [[UI-EVENTS]] Mouse Event model properties <code>button</code>, <code>buttons</code>, <code>ctrlKey</code>,
+                    <code>shiftKey</code>, <code>altKey</code>, and <code>metaKey</code> are not considered measurable properties,
+                    as they don't relate to sensor data.</p>
+                    </dd>
             <dt><dfn>pointer</dfn></dt>
                 <dd>A hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen, such as a mouse, pen, or touch contact.</dd>
             <dt><dfn>user agent</dfn></dt>
