@@ -1116,28 +1116,12 @@ partial interface Navigator {
                 <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
             </ol>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events targets dirty</dfn> and an associated
-            <dfn>predicted events targets dirty</dfn> flag. When an event is created they must be initialized to false.</p>
-
-            <p>When the <a>PointerEvent</a>'s target is changed, set <a><code>coalesced events targets dirty</code></a>
-            and <a><code>predicted events targets dirty</code></a> to true.</p>
-
-            <p>When the <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method is called:</p>
+            <p>When a trusted <a>PointerEvent</a>'s target is changed:</p>
             <ol>
-                <li>If the <a>coalesced events targets dirty</a> is true:
-                for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
+                <li>for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
                 to this <code>PointerEvent</code>'s target.</li>
-                <li>Set the <a>coalesced events targets dirty</a> to false.</li>
-                <li>Return the <a>coalesced event list</a>.</li>
-            </ol>
-
-            <p>When the <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method is called:</p>
-            <ol>
-                <li>If the <a>predicted events targets dirty</a> is true:
-                for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
-                this <code>PointerEvent</code>'s <code>target</code>.
-                <li>Set the <a>predicted events targets dirty</a> to false.
-                <li>Return the <a>predicted event list</a>.
+                <li>for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
+                this <code>PointerEvent</code>'s <code>target</code>.</li>
             </ol>
 
         </section>
