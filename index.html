@@ -963,11 +963,13 @@ partial interface Navigator {
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
-            zero or more <code>PointerEvent</code>s). If this event is a <code>pointermove</code>
-            or <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
-            that were coalesced into this event; otherwise it is an empty list.</p>
+            zero or more <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> or
+            <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
+            that were coalesced into this event; otherwise it is an empty list.
+            Untrusted events have their <a>coalesced event list</a> initialized to the value passed to the
+            constructor.</p>
 
-            <p>The events in the coalesced event list will have increasing
+            <p>The events in the coalesced event list of a trusted event will have increasing
             {{Event/timeStamp}}s, so the first event will have the smallest {{Event/timeStamp}}.</p>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
