@@ -948,7 +948,7 @@ partial interface Navigator {
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
-            <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents</a></code> method
+            <code><a data-lt="PointerEvent.getCoalescedEvents">getCoalescedEvents()</a></code> method
             it is possible for applications to access the raw, un-coalesced position changes. These
             allow for a more precise handling of pointer movement data. In the case of drawing
             applications, for instance, the un-coalesced events can be used to draw smoother curves that
@@ -959,19 +959,24 @@ partial interface Navigator {
                 <figcaption>Example of a curve in a drawing application – using only the coalesced
                 coordinates from <code>pointermove</code> events (the grey dots), the curve is noticeably
                 angular and jagged; the same line drawn using the more granular points provided by
-                <code>getCoalescedEvents</code> (the red circles) results in a smoother approximation
+                <code>getCoalescedEvents()</code> (the red circles) results in a smoother approximation
                 of the pointer movement.</figcaption>
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
-            zero or more <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> or
-            <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
+            zero or more <code>PointerEvent</code>s). For trusted <code>pointermove</code> and
+            <code>pointerrawupdate</code> events, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.
             Untrusted events have their <a>coalesced event list</a> initialized to the value passed to the
             constructor.</p>
 
-            <p>The events in the coalesced event list of a trusted event will have increasing
-            {{Event/timeStamp}}s, so the first event will have the smallest {{Event/timeStamp}}.</p>
+            <p>The events in the coalesced events list of a trusted event will have:</p>
+            <ul>
+                <li>Increasing {{Event/timeStamp}}s, so the first event will have the smallest {{Event/timeStamp}}.</li>
+                <li>The same <code>pointerId</code>, <code>pointerType</code>, and <code>isPrimary</code> as the dispatched
+                    "parent" pointer event.</li>
+                <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
+            </ul>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
                 <code>&lt;style&gt;
@@ -1060,7 +1065,7 @@ partial interface Navigator {
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
-            <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> event, it is a sequence of
+            <code>PointerEvent</code>s). For trusted <code>pointermove</code> events, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the event in the future; otherwise it is an empty list.
             Untrusted events have their <a>predicted event list</a> initialized to the value passed to the
             constructor.</p>
@@ -1071,12 +1076,17 @@ partial interface Navigator {
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
-            <p>The events in the predicted events list will have monotonically increasing {{Event/timeStamp}}s [[DOM]].
-            All predicted events have a {{Event/timeStamp}} that is greater than the {{Event/timeStamp}}
-            of the dispatched pointer event that the
-            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.
-            The predicted events list MUST be chronologically sorted by {{Event/timeStamp}}, so the first event
-            will have the smallest {{Event/timeStamp}}. </p>
+            <p>The events in the predicted events list of a trusted event will have:</p>
+            <ul>
+                <li>Monotonically increasing {{Event/timeStamp}}s [[DOM]] - all predicted events have a
+                {{Event/timeStamp}} that is greater than the {{Event/timeStamp}} of the dispatched pointer event that the
+            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on. The predicted events list
+            MUST be chronologically sorted by {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</li>
+                <li>The same <code>pointerId</code>, <code>pointerType</code>, and <code>isPrimary</code> as the dispatched
+                    "parent" pointer event.</li>
+                <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
+            </ul>
+         </p>
 
             <div class="note">
                 <p>Note that authors should only consider predicted events as valid predictions until the next pointer event is
