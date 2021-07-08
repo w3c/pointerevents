@@ -1124,7 +1124,7 @@ partial interface Navigator {
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
                 <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
-                <code>isPrimary</code> and {{Event/isTrusted}} to match the dispatched "parent" pointer event.</li>
+                <code>isPrimary</code> and {{Event/isTrusted}} to match the respective properties of the "parent" pointer event.</li>
                 <li>Set the event's {{Event/cancelable}} and {{Event/bubbles}} to false (as these events will never
                 be dispatched in isolation).</li>
                 <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
@@ -1134,7 +1134,7 @@ partial interface Navigator {
             <p>When a trusted <a>PointerEvent</a>'s {{Event/target}} is changed, user agents SHOULD, for each event in the
                <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
-                <li>Set the event's {{Event/target}} to match the dispatched "parent" pointer event.</li>
+                <li>Set the event's {{Event/target}} to match the {{Event/target}} of the "parent" pointer event.</li>
             </ol>
 
         </section>
