@@ -972,7 +972,7 @@ partial interface Navigator {
 
             <p>The events in the coalesced events list of a trusted event will have:</p>
             <ul>
-                <li>Increasing {{Event/timeStamp}}s, so the first event will have the smallest {{Event/timeStamp}}.</li>
+                <li>Increasing {{Event/timeStamp}} values, so the first event will have the smallest {{Event/timeStamp}}.</li>
                 <li>The same <code>pointerId</code>, <code>pointerType</code>, and <code>isPrimary</code> as the dispatched
                     "parent" pointer event.</li>
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
@@ -1021,7 +1021,7 @@ partial interface Navigator {
                 original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
                 coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code>
                 event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.
-                Here is an example of the actual events happening with increasing {{Event/timeStamp}} and the
+                Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
                 events dispatched by the user agent:</p>
                 <table class="simple">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
@@ -1078,7 +1078,7 @@ partial interface Navigator {
 
             <p>The events in the predicted events list of a trusted event will have:</p>
             <ul>
-                <li>Monotonically increasing {{Event/timeStamp}}s [[DOM]] - all predicted events have a
+                <li>Monotonically increasing {{Event/timeStamp}} values [[DOM]] - all predicted events have a
                 {{Event/timeStamp}} that is greater than the {{Event/timeStamp}} of the dispatched pointer event that the
             <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents()</a></code> method was called on. The predicted events list
             MUST be chronologically sorted by {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</li>
