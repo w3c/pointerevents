@@ -184,9 +184,9 @@ eventTarget.dispatchEvent(event2);</code>
     </section>
 
     <section>
-        <h1>Pointer Events and Interfaces</h1>
+        <h1>Pointer Events and interfaces</h1>
         <section>
-            <h2><code>PointerEvent</code> Interface</h2>
+            <h2><code>PointerEvent</code> interface</h2>
             <div>
               <pre class="idl">
 dictionary PointerEventInit : MouseEventInit {
@@ -344,9 +344,9 @@ interface PointerEvent : MouseEvent {
                 <div class="note">The <code>PointerEvent</code> interface inherits from {{MouseEvent}}, defined in [[[UIEVENTS]]] and extended by [[[CSSOM-VIEW]]].</div>
             </div>
             <section>
-                <h2>Button States</h2>
+                <h2>Button states</h2>
                 <section>
-                    <h3><dfn>Chorded Button Interactions</dfn></h3>
+                    <h3><dfn>Chorded button interactions</dfn></h3>
                     <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event.  To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for <a data-lt="Chorded Button Interactions">chorded button presses</a> (depressing an additional button while another button on the pointer device is already depressed).</p>
                     <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
                     <div class="note">The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> should follow [[UIEVENTS]].</div>
@@ -386,7 +386,7 @@ interface PointerEvent : MouseEvent {
                 </section>
             </section>
             <section>
-                <h2>The <dfn>Primary Pointer</dfn></h2>
+                <h2>The <dfn>primary pointer</dfn></h2>
                 <p>In a multi-pointer (e.g. multi-touch) scenario, the <code>isPrimary</code> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
                 <ul>
                     <li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
@@ -423,7 +423,7 @@ interface PointerEvent : MouseEvent {
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events. This is the same as the pointer leaving its previous target and entering this new capturing target - and if they are different targets, boundary events should be dispatched first. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
-                  <h3>Attributes and Default Actions</h3>
+                  <h3>Attributes and default actions</h3>
                         <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a href="#pointer-event-types">Pointer Event types</a>.</p>
                         <table id="pointer-event-type-table" class="simple">
                             <thead><tr>
@@ -504,7 +504,7 @@ interface PointerEvent : MouseEvent {
                 </section>
 
                 <section>
-                    <h3>Process Pending Pointer Capture</h3>
+                    <h3>Process pending pointer capture</h3>
                     <p>The user agent MUST run the following steps when <a href="#implicit-release-of-pointer-capture">implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
@@ -871,7 +871,7 @@ partial interface Navigator {
 </pre>
     </section>
     <section>
-        <h1><dfn>Pointer Capture</dfn></h1>
+        <h1><dfn>Pointer capture</dfn></h1>
         <section class='informative'>
           <h2>Introduction</h2>
         <p>Pointer capture allows the events for a particular pointer (including any <a data-lt="compatibility mapping with mouse events">compatibility mouse events</a>) to be retargeted to a particular element other than the normal hit test result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
@@ -881,7 +881,7 @@ partial interface Navigator {
         </figure>
         </section>
         <section>
-            <h2>Setting Pointer Capture</h2>
+            <h2>Setting pointer capture</h2>
             <p>Pointer capture is set on an |element| of type {{Element}} by calling the <code>element.setPointerCapture(pointerId)</code> method.
                When this method is invoked, a user agent MUST run the following steps:</p>
             <ol>
@@ -897,7 +897,7 @@ partial interface Navigator {
         </section>
 
         <section>
-            <h2>Releasing Pointer Capture</h2>
+            <h2>Releasing pointer capture</h2>
             <p>Pointer capture is released on an element explicitly by calling the <code>element.releasePointerCapture(pointerId)</code> method. When this method is called, a user agent MUST run the following steps:</p>
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a> and these steps are not being invoked as a result of the <a href="#implicit-release-of-pointer-capture">implicit release of pointer capture</a>, then [=exception/throw=] a {{"NotFoundError"}} {{DOMException}}.</li>
@@ -906,13 +906,13 @@ partial interface Navigator {
             </ol>
         </section>
         <section>
-            <h2><dfn>Implicit Pointer Capture</dfn></h2>
+            <h2><dfn>Implicit pointer capture</dfn></h2>
             <p>Inputs that implement <a>direct manipulation</a> interactions for panning and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners.  The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred.  If <a data-lt="Element.releasePointerCapture">releasePointerCapture</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture event</a> will be dispatched to the target (as normal) indicating that capture is active.</p>
             <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on touch movement events without explicit developer opt-in (consistent with the performance properties of existing dominant native and web APIs for touch input).</div>
             <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
         </section>
         <section>
-            <h3>Implicit Release of Pointer Capture</h3>
+            <h3>Implicit release of pointer capture</h3>
             <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events,
                a user agent MUST clear the <a>pending pointer capture target override</a>
                for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched,
@@ -1133,7 +1133,7 @@ partial interface Navigator {
 
     </section>
     <section>
-        <h1><dfn data-lt="compatibility mouse events">Compatibility Mapping with Mouse Events</dfn></h1>
+        <h1><dfn data-lt="compatibility mouse events">Compatibility mapping with mouse events</dfn></h1>
         <p>The vast majority of web content existing today codes only to Mouse Events. The following describes an algorithm for how a user agent MAY map generic pointer input to mouse events for compatibility with this content.</p>
         <p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
         <div class="note">
@@ -1462,7 +1462,7 @@ function tilt2spherical(tiltX, tiltY){
         <p>Special thanks to those that helped pioneer the first edition of this model, including especially: Charu Chandiram, Peter Freiling, Nathan Furtwangler, Thomas Olsen, Matt Rakow, Ramu Ramanathan, Justin Rogers, Jacob Rossi, Reed Townsend and Steve Wright.</p>
     </section>
     <section class="appendix informative">
-        <h1>Revision History</h1>
+        <h1>Revision history</h1>
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
            See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
