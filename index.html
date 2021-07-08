@@ -1120,7 +1120,7 @@ partial interface Navigator {
 
         <section>
             <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
-            <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
+            <p>When a <a>PointerEvent</a> is created, user agents SHOULD run the following steps for each event in the
             <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
                 <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
@@ -1131,7 +1131,7 @@ partial interface Navigator {
                 <li>Initialize all other attributes to default {{PointerEvent}} values.</li>
             </ol>
 
-            <p>When a trusted <a>PointerEvent</a>'s {{Event/target}} is changed, for each event in the
+            <p>When a trusted <a>PointerEvent</a>'s {{Event/target}} is changed, user agents SHOULD, for each event in the
                <a>coalesced event list</a> and <a>predicted event list</a>:</p>
             <ol>
                 <li>Set the event's {{Event/target}} to match the dispatched "parent" pointer event.</li>
