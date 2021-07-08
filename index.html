@@ -963,14 +963,14 @@ partial interface Navigator {
                 of the pointer movement.</figcaption>
             </figure>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced event list</dfn> (a list of
+            <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events list</dfn> (a list of
             zero or more <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> or
             <code>pointerrawupdate</code> event, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event; otherwise it is an empty list.
-            Untrusted events have their <a>coalesced event list</a> initialized to the value passed to the
+            Untrusted events have their <a>coalesced events list</a> initialized to the value passed to the
             constructor.</p>
 
-            <p>The events in the coalesced event list of a trusted event will have increasing
+            <p>The events in the coalesced events list of a trusted event will have increasing
             {{Event/timeStamp}}s, so the first event will have the smallest {{Event/timeStamp}}.</p>
 
             <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
@@ -1059,20 +1059,20 @@ partial interface Navigator {
                 <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
             </figure>
 
-            <p>A <a>PointerEvent</a> has an associated <dfn>predicted event list</dfn> (a list of zero or more
+            <p>A <a>PointerEvent</a> has an associated <dfn>predicted events list</dfn> (a list of zero or more
             <code>PointerEvent</code>s). If a trusted event is a <code>pointermove</code> event, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the events in the
-            <a>coalesced event list</a> in the future; otherwise it is an empty list.
-            Untrusted events have their <a>predicted event list</a> initialized to the value passed to the
+            <a>coalesced events list</a> in the future; otherwise it is an empty list.
+            Untrusted events have their <a>predicted events list</a> initialized to the value passed to the
             constructor.</p>
             <div class="note">
-                <p>While <code>pointerrawmove</code> events may have a non-empty <a>coalesced event list</a>,
-                their <a>predicted event list</a> will, for performance reasons, usually be an empty list.</p>
+                <p>While <code>pointerrawmove</code> events may have a non-empty <a>coalesced events list</a>,
+                their <a>predicted events list</a> will, for performance reasons, usually be an empty list.</p>
             </div>
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
-            <p>The events in the predicted event list of a trusted event will have monotonically increasing {{Event/timeStamp}}s [[DOM]],
+            <p>The events in the predicted events list of a trusted event will have monotonically increasing {{Event/timeStamp}}s [[DOM]],
             so the first event will have the smallest <code>timeStamp</code>. All predicted events have a <code>timeStamp</code>
             that is greater than the <code>timeStamp</code> of the dispatched pointer event that the
             <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents</a></code> method was called on.</p>
@@ -1108,24 +1108,24 @@ partial interface Navigator {
         </section>
 
         <section>
-            <h2><dfn>Populating and maintaining the coalesced and predicted event lists</dfn></h2>
+            <h2><dfn>Populating and maintaining the coalesced and predicted events lists</dfn></h2>
             <p>When a <a>PointerEvent</a> is created, run the following steps for each event in the
-            <a>coalesced event list</a> and <a>predicted event list</a>:</p>
+            <a>coalesced events list</a> and <a>predicted events list</a>:</p>
             <ol>
                 <li>Set the event's <code>pointerId</code>, <code> pointerType</code>,
                 <code>isPrimary</code> and <code>isTrusted</code> to the {{PointerEvent}}'s
                 <code>pointerId</code>, <code>pointerType</code>, <code>isPrimary</code> and
                 <code>isTrusted</code>.</li>
                 <li>Set the event's <code>cancelable</code> and <code>bubbles</code> attributes to false.</li>
-                <li>Set the event's <a>coalesced event list</a> and <a>predicted event list</a> to an empty list.</li>
+                <li>Set the event's <a>coalesced events list</a> and <a>predicted events list</a> to an empty list.</li>
                 <li>Initialize the rest of the attributes the same way as <a>PointerEvent</a>.</li>
             </ol>
 
             <p>When a trusted <a>PointerEvent</a>'s target is changed:</p>
             <ol>
-                <li>for each event in the <a>coalesced event list</a>, set the event's {{Event/target}}
+                <li>for each event in the <a>coalesced events list</a>, set the event's {{Event/target}}
                 to this <code>PointerEvent</code>'s target.</li>
-                <li>for each event in the <a>predicted event list</a>, set the event's {{Event/target}} to
+                <li>for each event in the <a>predicted events list</a>, set the event's {{Event/target}} to
                 this <code>PointerEvent</code>'s <code>target</code>.</li>
             </ol>
 
