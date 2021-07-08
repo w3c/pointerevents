@@ -972,7 +972,10 @@ partial interface Navigator {
 
             <p>The events in the coalesced events list of a trusted event will have:</p>
             <ul>
-                <li>Increasing {{Event/timeStamp}} values, so the first event will have the smallest {{Event/timeStamp}}.</li>
+                <li>Monotonically increasing {{Event/timeStamp}} values [[DOM]] - all coalesced events have a
+                    {{Event/timeStamp}} that is smaller than the {{Event/timeStamp}} of the dispatched pointer event that the
+                    <code><a data-lt="PointerEvent.getPredictedEvents">getCoalescedEvents()</a></code> method was called on. The coalesced events list
+                    MUST be chronologically sorted by {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</li>
                 <li>The same <code>pointerId</code>, <code>pointerType</code>, and <code>isPrimary</code> as the dispatched
                     "parent" pointer event.</li>
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
@@ -1079,9 +1082,9 @@ partial interface Navigator {
             <p>The events in the predicted events list of a trusted event will have:</p>
             <ul>
                 <li>Monotonically increasing {{Event/timeStamp}} values [[DOM]] - all predicted events have a
-                {{Event/timeStamp}} that is greater than the {{Event/timeStamp}} of the dispatched pointer event that the
-            <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents()</a></code> method was called on. The predicted events list
-            MUST be chronologically sorted by {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</li>
+                    {{Event/timeStamp}} that is greater than the {{Event/timeStamp}} of the dispatched pointer event that the
+                    <code><a data-lt="PointerEvent.getPredictedEvents">getPredictedEvents()</a></code> method was called on. The predicted events list
+                    MUST be chronologically sorted by {{Event/timeStamp}}, so the first event will have the smallest {{Event/timeStamp}}.</li>
                 <li>The same <code>pointerId</code>, <code>pointerType</code>, and <code>isPrimary</code> as the dispatched
                     "parent" pointer event.</li>
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
