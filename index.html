@@ -579,6 +579,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn><code>pointerup</code> event</dfn></h3>
                 <p>A user agent MUST <a>fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, a user agent MUST also <a>fire a pointer event</a> named <code>pointerout</code> followed by a pointer event named <code>pointerleave</code> after dispatching the <code>pointerup</code> event.</p>
+                <p>The user agent MUST also <a href="#implicit-release-of-pointer-capture">implicitly release the pointer capture</a> if the pointer is currently captured.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a href="#chorded-button-interactions">chorded buttons</a> for more information.</div>
             </section>
             <section>
@@ -590,13 +591,10 @@ interface PointerEvent : MouseEvent {
                      <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen),
                      and therefore the start of a pan or zoom action may result in the cancellation of various pointers, including pointers with different pointer types.
                      To prevent cancellation of the pointer stream due to these behaviors see <a href="#the-touch-action-css-property">the touch-action CSS property section</a>.</div></li>
-                    <li>Immediately before <a data-cite="html/#initiate-the-drag-and-drop-operation">drag operation starts</a> [[HTML]],
-                     for the pointer that caused the drag operation.
-                     <div class="note">If the start of the drag operation is prevented through any means
-                     (e.g. through calling <code>preventDefault</code> on the <code>dragstart</code> event)
-                     there will be no <code>pointercancel</code> event.</div></li>
+                    <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
+                     for the pointer that caused the drag operation.</li>
                 </ul>
-                <p>After firing the <code>pointercancel</code> event, a user agent MUST also fire a pointer event named <code>pointerout</code> followed by firing a pointer event named <code>pointerleave</code>.</p>
+                <p>After firing the <code>pointercancel</code> event, a user agent MUST also fire a pointer event named <code>pointerout</code> followed by firing a pointer event named <code>pointerleave</code>, and <a href="#implicit-release-of-pointer-capture">implicitly release the pointer capture</a> if the pointer is currently captured.</p>
                 <div class="note">
                     <p><em>This section is non-normative.</em></p>
                     <p>Examples of scenarios in which a user agent might determine that a pointer is unlikely to continue to produce events include:
