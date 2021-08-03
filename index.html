@@ -591,7 +591,7 @@ interface PointerEvent : MouseEvent {
                      <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen),
                      and therefore the start of a pan or zoom action may result in the cancellation of various pointers, including pointers with different pointer types.
                      To prevent cancellation of the pointer stream due to these behaviors see <a href="#the-touch-action-css-property">the touch-action CSS property section</a>.</div></li>
-                    <li>As part of the drag operation initiaion algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
+                    <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
                      for the pointer that caused the drag operation.</li>
                 </ul>
                 <p>After firing the <code>pointercancel</code> event, a user agent MUST also fire a pointer event named <code>pointerout</code> followed by firing a pointer event named <code>pointerleave</code>, and <a href="#implicit-release-of-pointer-capture">implicitly release the pointer capture</a> if the pointer is currently captured.</p>
