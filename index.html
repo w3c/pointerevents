@@ -917,7 +917,7 @@ partial interface Navigator {
                and then run <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps to fire <code>lostpointercapture</code> if necessary.
                After running <a href="#process-pending-pointer-capture">Process Pending Pointer Capture</a> steps,
                if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
-               to reflect the current position of the pointer with no capture. </p>
+               to reflect the current position of the pointer with no capture.</p>
             <p>If the user agent supports firing the <code>click</code> event
                (see <a title="compatibility mouse events" href="#dfn-compatibility-mouse-events">compatibility mouse events</a>),
                and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired,
@@ -1153,7 +1153,7 @@ partial interface Navigator {
             <p>In addition, user agents may apply their own heuristics to determine whether or not a <code>click</code> or <code>contextmenu</code> event should be fired. Some user agents may only fire these events for a primary pointer, and even then they may choose not to fire these events if there are other (non-primary) pointers of the same type, or other primary pointers of a different type. User agents may determine that a particular action was not a "clean" tap, click or long-press — for instance, if an interaction with a finger on a touch screen includes too much movement while the finger is in contact with the screen — and decide not to fire a <code>click</code> or <code>contextmenu</code> event. These aspects of user agent behavior are not defined in this specification, and they may differ between implementations.</p>
         </div>
         <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
-        <p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event. </p>
+        <p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event.</p>
         <div class="note">Mouse events can only be prevented when the pointer is down.  Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented. And, the <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</div>
         <section>
             <h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
@@ -1398,7 +1398,7 @@ function tilt2spherical(tiltX, tiltY){
                         <li>If a touch contact or pen/stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
                     </ul>
                     <div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
-                    <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>. </div>
+                    <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>.</div>
                 </dd>
             <dt><dfn>canceled event</dfn></dt>
                 <dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[UIEVENTS]] and [[HTML]].</dd>
