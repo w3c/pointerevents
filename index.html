@@ -1154,9 +1154,9 @@ partial interface Navigator {
         </div>
         <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
         <p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event.</p>
+        <p>Mouse events can only be prevented when the pointer is down. Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented.</p>
+        <p>The <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</p>
         <div class="note">
-            <p>Mouse events can only be prevented when the pointer is down. Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented.</p>
-            <p>The <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</p>
             <p>Compatibility mouse events can't be prevented when a pointer event {{EventListener}} is set to be {{AddEventListenerOptions/passive}} [[DOM]].</p>
         </div>
         <section>
