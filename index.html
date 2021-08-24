@@ -649,7 +649,7 @@ interface PointerEvent : MouseEvent {
                    <code>clientY</code>, <code>x</code>, <code>y</code>, <code>offsetX</code>, <code>offsetY</code>) as <code>double</code>, to allow for fractional coordinates.
                    However, this change — when applied only to {{PointerEvent}}, but not to regular {{MouseEvent}} — has proven to lead to web compatibility issues with legacy code
                    in the case of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>. For this reason, user agents that have only implemented the proposed
-                   change in [[[CSSOM-VIEW]]] for {{PointerEvent}} MUST <a data-cite="ECMASCRIPT#sec-math.floor">Math.floor</a> [[ECMASCRIPT]] the various coordinate properties for the <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>
+                   change in [[[CSSOM-VIEW]]] for {{PointerEvent}} MUST round the various coordinate properties for the <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>
                    and convert them to <code>long</code> values, as defined in the original [[[UIEVENTS]]].</p>
                 </div>
             </section>
