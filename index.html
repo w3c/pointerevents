@@ -1013,12 +1013,12 @@ partial interface Navigator {
             the events in the coalesced events list. The specific method by which user agents should do this is not covered by
             this specification.</div>
 
+            <p>The order of all these dispatched events MUST match the actual order of the
+            original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
+            coalesced <code>pointermove</code> events the user agent MUST first dispatch one <code>pointermove</code>
+            event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.</p>
             <div class="note">
-                <p>The order of all these dispatched events should resemble the actual order of the
-                original events' order. For example if a <code>pointerdown</code> event causes the dispatch for the
-                coalesced <code>pointermove</code> events the user agent SHOULD first dispatch one <code>pointermove</code>
-                event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.
-                Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
+                <p>Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
                 events dispatched by the user agent:</p>
                 <table class="simple">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
