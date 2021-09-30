@@ -353,7 +353,7 @@ interface PointerEvent : MouseEvent {
                     <h3><dfn data-lt="chorded buttons">Chorded button interactions</dfn></h3>
                     <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
                     <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
-                    <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> SHOULD follow [[UIEVENTS]].</p>
+                    <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> MUST follow [[UIEVENTS]].</p>
                 </section>
                 <section>
                     <h3>The <code>button</code> property</h3>
