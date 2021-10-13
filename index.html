@@ -1402,7 +1402,6 @@ function tilt2spherical(tiltX, tiltY){
                         <li>If a touch contact or pen/stylus is lifted beyond the range of the digitizer, then it is no longer considered active.</li>
                     </ul>
                     <div class="note">On some platforms, the set of active pointers includes all pointer input to the device, including any that are not targeted at the user agent (e.g. those targeted at other applications).</div>
-                    <div class="note">Each active pointer should have the same id within the scope of the <a>top-level browsing context</a> (as defined by [[HTML]]). However, there is no such guarantee across multiple <a>top-level browsing contexts</a>.</div>
                 </dd>
             <dt><dfn>canceled event</dfn></dt>
                 <dd>An event whose default action was prevented by means of <code>preventDefault()</code>, returning <code>false</code> in an event handler, or other means as defined by [[UIEVENTS]] and [[HTML]].</dd>
