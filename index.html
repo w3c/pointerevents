@@ -624,9 +624,9 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
-                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a> and
-                   <a data-cite="uievents/#event-type-auxclick">auxclick</a> events defined in [[UIEVENTS]] and
-                   [=HTMLElement/contextmenu=] defined in [[HTML]]. The type of these events MUST be <code>PointerEvent</code>,
+                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a>,
+                   <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
+                   events defined in [[UIEVENTS]]. The type of these events MUST be <code>PointerEvent</code>,
                    but the dispatch process is going to match that of the original specification.</p>
                    For these events, all <code>PointerEvent</code> specific attributes (defined in this spec) other than <code>pointerId</code> and <code>pointerType</code> will have their default values. In addition:</p>
                    <ul>
