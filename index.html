@@ -578,7 +578,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn data-lt="pointercancel"><code>pointercancel</code> event</dfn></h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> in the following circumstances:</p>
                 <ul>
-                    <li>The user agent has determined that a pointer is unlikely to continue to produce events (for example, because of a hardware event).</li>
+                    <li>The user agent has determined that a pointer is unlikely to continue to produce events (for example, because a user agent dialog or context menu was opened, or because of a hardware event due to the pointer input device disconnecting).</li>
                     <li>After having fired the <code>pointerdown</code> event, if the pointer is subsequently used to manipulate the page viewport (e.g. panning or zooming).
                      <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen),
                      and therefore the start of a pan or zoom action may result in the cancellation of various pointers, including pointers with different pointer types.
