@@ -509,19 +509,18 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h3>Suppressing a pointer event stream</h3>
-                    <!-- @@@ -->
-                    <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  The following scenarios satisfy this condition (but there MAY beadditional circumstances too):</p>
+                    <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
                     <ul>
                         <li>The user agent has opened a modal dialog or menu.</li>
                         <li>A pointer input device is physically disconnected, or a hoverable pointer input device (e.g. a hoverable pen/stylus) has left the hover-range detectable by the digitizer.</li>
-                        <li>After having fired the <code>pointerdown</code> event, if the pointer is subsequently used to manipulate the page viewport (e.g. panning or zooming).
-                            <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen), and therefore the start of a pan or zoom action may result in the suppression of various pointers, including pointers with different pointer types.  See the <a>touch-action</a> CSS property for a declarative way to avoid this.</div>
+                        <li>The pointer is subsequently used by the user agent to manipulate the page viewport (e.g. panning or zooming).  See the section on <a>touch-action</a> CSS property for details.
+                            <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen), and therefore the start of a pan or zoom action may result in the suppression of various pointers, including pointers with different pointer types.</div>
                         </li>
                         <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
                          for the pointer that caused the drag operation.</li>
                     </ul>
                     <div class="note">
-                        <p>Other scenarios in which the user agent MIGHT <span>suppress a pointer event stream</span> include:
+                        <p>Other scenarios in which the user agent MIGHT <a>suppress a pointer event stream</a> include:
                         <ul>
                             <li>A device's screen orientation is changed while a pointer is active.</li>
                             <li>The user inputs a greater number of simultaneous pointers than is supported by the device.</li>
@@ -530,14 +529,13 @@ interface PointerEvent : MouseEvent {
                         <p>Methods for detecting any of these scenarios are out of scope for this specification.</p>
                     </div>
 
-                    <p>The user agent MUST run the following steps to <span>suppress a pointer event stream</span>:</p>
+                    <p>The user agent MUST run the following steps to <a>suppress a pointer event stream</a>:</p>
                     <ul>
                       <li>Fire a <code>pointercancel</code> event.</li>
                       <li>Fire a <code>pointerout</code> event.</li>
                       <li>Fire a <code>pointerleave</code> event.</li>
                       <li><a href="#implicit-release-of-pointer-capture">Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
                     </ul>
-                    <!-- @@@ -->
                 </section>
             </section>
         </section>
@@ -609,7 +607,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-lt="pointercancel"><code>pointercancel</code> event</dfn></h3>
-                <p>The user agent MUST fire a pointer event named <code>pointercancel</code> when it detects a scenario to <span>suppress a pointer event stream</span>.</p>
+                <p>The user agent MUST fire a pointer event named <code>pointercancel</code> when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerout"><code>pointerout</code> event</dfn></h3>
@@ -617,7 +615,7 @@ interface PointerEvent : MouseEvent {
                 <ul>
                     <li>The pointing device is moved out of the hit test boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
                     <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerup</a></code>).</li>
-                    <li>The user agent has detected a scenario to <span>suppress a pointer event stream</span>.</li>
+                    <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
             </section>
             <section>
@@ -626,7 +624,7 @@ interface PointerEvent : MouseEvent {
                 <ul>
                     <li>The pointing device is moved out of the hit test boundaries of an element and all of its descendants.   Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
                     <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerup</a></code>).</li>
-                    <li>The user agent has detected a scenario to <span>suppress a pointer event stream</span>.</li>
+                    <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
                 <p>This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
@@ -791,7 +789,7 @@ partial interface Navigator {
 
             <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
-            <p>The user agent MUST <span>suppress a pointer event stream</span> whenever all of the following conditions are true:</p>
+            <p>Right before starting panning and zooming, the user agent MUST <a>suppress a pointer event stream</a> if all of the following conditions are true:</p>
             <ul>
                 <li>The user agent has determined (via methods out of scope for this specification) that a direct manipulation interaction is to be consumed for panning or zooming,</li>
                 <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
@@ -1505,6 +1503,7 @@ function tilt2spherical(tiltX, tiltY){
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
            See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/437">Define a section for suppressing a pointer event stream</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/419">Remove should from boundary events note and move to normative must</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/418">Make fact that <code>click</code>/<code>contextmenu</code> are not compat mouse events normative</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/414">Make note about buttons/buttons and compat events normative</a></li>
