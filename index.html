@@ -486,7 +486,7 @@ interface PointerEvent : MouseEvent {
                             </tbody>
                         </table>
 
-                        <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by cancelling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a href="#declaring-candidate-regions-for-direct-manipulation-behaviors">declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancellation of events facilitates performance optimizations by the user agent.</p>
+                        <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by canceling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a href="#declaring-candidate-regions-for-direct-manipulation-behaviors">declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancelation of events facilitates performance optimizations by the user agent.</p>
 
                         <p>For all pointer events in the table above except <code>pointerenter</code> and <code>pointerleave</code> the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>true</code>.
                            For all pointer events in the table above the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
@@ -506,6 +506,37 @@ interface PointerEvent : MouseEvent {
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
                 </section>
+
+                <section>
+                    <h3>Suppressing a pointer event stream</h3>
+                    <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
+                    <ul>
+                        <li>The user agent has opened a modal dialog or menu.</li>
+                        <li>A pointer input device is physically disconnected, or a hoverable pointer input device (e.g. a hoverable pen/stylus) has left the hover-range detectable by the digitizer.</li>
+                        <li>The pointer is subsequently used by the user agent to manipulate the page viewport (e.g. panning or zooming).  See the section on <a>touch-action</a> CSS property for details.
+                            <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen), and therefore the start of a pan or zoom action may result in the suppression of various pointers, including pointers with different pointer types.</div>
+                        </li>
+                        <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
+                         for the pointer that caused the drag operation.</li>
+                    </ul>
+                    <div class="note">
+                        <p>Other scenarios in which the user agent MAY <a>suppress a pointer event stream</a> include:
+                        <ul>
+                            <li>A device's screen orientation is changed while a pointer is active.</li>
+                            <li>The user attempts to interact using more simultaneous pointer inputs than the device supports.</li>
+                            <li>The user agent interprets the input as accidental (for example, the hardware supports palm rejection).</li>
+                        </ul>
+                        <p>Methods for detecting any of these scenarios are out of scope for this specification.</p>
+                    </div>
+
+                    <p>The user agent MUST run the following steps to <a>suppress a pointer event stream</a>:</p>
+                    <ul>
+                      <li>Fire a <code>pointercancel</code> event.</li>
+                      <li>Fire a <code>pointerout</code> event.</li>
+                      <li>Fire a <code>pointerleave</code> event.</li>
+                      <li><a href="#implicit-release-of-pointer-capture">Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
+                    </ul>
+                </section>
             </section>
         </section>
 
@@ -515,11 +546,11 @@ interface PointerEvent : MouseEvent {
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3>The <dfn data-lt="pointerover"><code>pointerover</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a>pointerdown</a></code>).</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a>pointerdown</a></code>).</p>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerenter"><code>pointerenter</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerdown</a></code>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerdown</a></code>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <a><code>pointerleave</code> event</a>.</div>
             </section>
             <section>
@@ -576,42 +607,26 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-lt="pointercancel"><code>pointercancel</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> in the following circumstances:</p>
-                <ul>
-                    <li>The user agent has determined that a pointer is unlikely to continue to produce events (for example, because a user agent dialog or context menu was opened, or because of a hardware event due to the pointer input device disconnecting).</li>
-                    <li>After having fired the <code>pointerdown</code> event, if the pointer is subsequently used to manipulate the page viewport (e.g. panning or zooming).
-                     <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen),
-                     and therefore the start of a pan or zoom action may result in the cancellation of various pointers, including pointers with different pointer types.
-                     To prevent cancellation of the pointer stream due to these behaviors see the <a>touch-action</a> CSS property section.</div></li>
-                    <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
-                     for the pointer that caused the drag operation.</li>
-                </ul>
-                <p>After firing the <code>pointercancel</code> event, the user agent MUST also fire a pointer event named <code>pointerout</code> followed by firing a pointer event named <code>pointerleave</code>, and <a href="#implicit-release-of-pointer-capture">implicitly release the pointer capture</a> if the pointer is currently captured.</p>
-                <div class="note">
-                    <p><em>This section is non-normative.</em></p>
-                    <p>Examples of scenarios in which the user agent might determine that a pointer is unlikely to continue to produce events include:
-                    <ul>
-                        <li>A device's screen orientation is changed while a pointer is active.</li>
-                        <li>The user inputs a greater number of simultaneous pointers than is supported by the device.</li>
-                        <li>The user agent interprets the input as accidental (for example, the hardware supports palm rejection).</li>
-                        <li>The user agent interprets the input as a pan or zoom gesture.</li>
-                    </ul>
-                    <p>Methods for changing the device's screen orientation, recognizing accidental input, or using a pointer to manipulate the viewport (e.g. panning or zooming) are out of scope for this specification.</p>
-                </div>
+                <p>The user agent MUST fire a pointer event named <code>pointercancel</code> when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerout"><code>pointerout</code> event</dfn></h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerout</code> when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved out of the hit test boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>The pointing device is moved out of the hit test boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
                     <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerup</a></code>).</li>
-                    <li>After firing the <code>pointercancel</code> event  (see <code><a>pointercancel</a></code>).</li>
-                    <li>When a pen/stylus leaves the hover range detectable by the digitizer.</li>
+                    <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerleave"><code>pointerleave</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerleave</code> when a pointing device is moved out of the hit test boundaries of an element and all of its descendants, including as a result of a <code>pointerup</code> and <code>pointercancel</code> events from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerup</a></code> and <code><a>pointercancel</a></code>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. User agents MUST also <a>fire a pointer event</a> named <code>pointerleave</code> when a pen/stylus leaves hover range detectable by the digitizer. This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerleave</code> when any of the following occurs:</p>
+                <ul>
+                    <li>The pointing device is moved out of the hit test boundaries of an element and all of its descendants.   Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerup</a></code>).</li>
+                    <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
+                </ul>
+                <p>This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
             </section>
             <section>
@@ -757,7 +772,7 @@ partial interface Navigator {
     </section>
     <section>
         <h1>Declaring candidate regions for direct manipulation behaviors</h1>
-        <p>As noted in <a href="#attributes-and-default-actions">Attributes and Default Actions</a>, viewport manipulations (panning and zooming) cannot be suppressed by cancelling a pointer event. Instead, authors must explicitly define which of these behaviors they want to allow, and which they want to suppress, using the <code>touch-action</code> CSS property.</p>
+        <p>As noted in <a href="#attributes-and-default-actions">Attributes and Default Actions</a>, viewport manipulations (panning and zooming) cannot be suppressed by canceling a pointer event. Instead, authors must explicitly define which of these behaviors they want to allow, and which they want to suppress, using the <code>touch-action</code> CSS property.</p>
         <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and panning/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to scroll using a stylus. While, for historical reasons, the <code>touch-action</code> CSS property defined in this specification appears to refer only to touch inputs, it does in fact apply to all forms of pointer inputs that allow <a>direct manipulation</a> for panning and zooming.</div>
         <section>
             <h2>The <dfn><code>touch-action</code></dfn> CSS property</h2>
@@ -774,7 +789,7 @@ partial interface Navigator {
 
             <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
-            <p>While panning and zooming, the user agent MUST NOT fire subsequent pointer events for the pointer. In order to end the stream of events for the pointer, the user agent MUST <a>fire a pointer event</a> named <code>pointercancel</code> (and subsequently a <code>pointerout</code> event and one or more <code>pointerleave</code> events) whenever all of the following are true:</p>
+            <p>Right before starting to pan or zoom, the user agent MUST <a>suppress a pointer event stream</a> if all of the following conditions are true:</p>
             <ul>
                 <li>The user agent has determined (via methods out of scope for this specification) that a direct manipulation interaction is to be consumed for panning or zooming,</li>
                 <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
@@ -1488,6 +1503,7 @@ function tilt2spherical(tiltX, tiltY){
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
            See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/437">Define a section for suppressing a pointer event stream</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/419">Remove should from boundary events note and move to normative must</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/418">Make fact that <code>click</code>/<code>contextmenu</code> are not compat mouse events normative</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/414">Make note about buttons/buttons and compat events normative</a></li>
