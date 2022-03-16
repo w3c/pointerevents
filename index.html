@@ -520,10 +520,10 @@ interface PointerEvent : MouseEvent {
                          for the pointer that caused the drag operation.</li>
                     </ul>
                     <div class="note">
-                        <p>Other scenarios in which the user agent MIGHT <a>suppress a pointer event stream</a> include:
+                        <p>Other scenarios in which the user agent MAY <a>suppress a pointer event stream</a> include:
                         <ul>
                             <li>A device's screen orientation is changed while a pointer is active.</li>
-                            <li>The user inputs a greater number of simultaneous pointers than is supported by the device.</li>
+                            <li>The user attempts to interact using more simultaneous pointer inputs than the device supports.</li>
                             <li>The user agent interprets the input as accidental (for example, the hardware supports palm rejection).</li>
                         </ul>
                         <p>Methods for detecting any of these scenarios are out of scope for this specification.</p>
@@ -546,11 +546,11 @@ interface PointerEvent : MouseEvent {
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
             <section>
                 <h3>The <dfn data-lt="pointerover"><code>pointerover</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a>pointerdown</a></code>).</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the hit test boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <code><a>pointerdown</a></code>).</p>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerenter"><code>pointerenter</code> event</dfn></h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerdown</a></code>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the hit test boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <code><a>pointerdown</a></code>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the hit test target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <a><code>pointerleave</code> event</a>.</div>
             </section>
             <section>
@@ -789,7 +789,7 @@ partial interface Navigator {
 
             <p>The <code>touch-action</code> CSS property determines whether <a>direct manipulation</a> interactions (which are not limited to touch, despite the property's name) MAY trigger the user agent's panning and zooming behavior. See the section on <a href="#details-of-touch-action-values"><code>touch-action</code> values</a>.</p>
 
-            <p>Right before starting panning and zooming, the user agent MUST <a>suppress a pointer event stream</a> if all of the following conditions are true:</p>
+            <p>Right before starting to pan or zoom, the user agent MUST <a>suppress a pointer event stream</a> if all of the following conditions are true:</p>
             <ul>
                 <li>The user agent has determined (via methods out of scope for this specification) that a direct manipulation interaction is to be consumed for panning or zooming,</li>
                 <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
