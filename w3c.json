@@ -1,5 +1,5 @@
 {
-  "group":     59096
+  "group":     "wg/pointer-events"
 , "contacts":  ["plehegar"]
 , "shortName": "pointerevents"
 , "policy":    "open"
