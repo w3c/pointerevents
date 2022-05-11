@@ -983,9 +983,9 @@ partial interface Navigator {
             <code>pointerrawupdate</code> events, the list is a sequence of all <code>PointerEvent</code>s
             that were coalesced into this event. The "parent" trusted <code>pointermove</code> and
             <code>pointerrawupdate</code> event represents an accumulation of these coalesced events,
-            but may have additional processing to align with frame presentation. For all other trusted
-            event types, it is an empty list. Untrusted events have their <a>coalesced events list</a>
-            initialized to the value passed to the constructor.</p>
+            but may have additional processing (for example to align with the display refresh rate).
+            For all other trusted event types, it is an empty list. Untrusted events have their
+            <a>coalesced events list</a> initialized to the value passed to the constructor.</p>
 
             <div class="note">Since a trusted parent event is a summary or aggregation of the
             coalesced events, developers should only need to process either the parent events
