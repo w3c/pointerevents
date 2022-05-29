@@ -945,13 +945,13 @@ partial interface Navigator {
         </section>
     </section>
     <section>
-        <h1><dfn class="export">Coalesced and predicted events</dfn></h1>
+        <h1>Coalesced and predicted events</h1>
 
         <div class="note">This specification does not define how user agents should coalesce or
         predict pointer movement data. It only specifies the API for accessing this information.</div>
 
         <section>
-            <h2><dfn class="export">Coalesced events</dfn></h2>
+            <h2><dfn>Coalesced events</dfn></h2>
 
             <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
             event every time a <a data-lt="measurable properties">measurable property</a>
@@ -1143,7 +1143,7 @@ partial interface Navigator {
         </section>
 
         <section>
-            <h2><dfn class="export">Populating and maintaining the coalesced and predicted events lists</dfn></h2>
+            <h2>Populating and maintaining the coalesced and predicted events lists</h2>
             <p>When a trusted <a>PointerEvent</a> is created, user agents SHOULD run the following steps for each event in the
             <a>coalesced events list</a> and <a>predicted events list</a>:</p>
             <ol>
