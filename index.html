@@ -410,7 +410,7 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is <code>pointerdown</code>, the associated device is a direct manipulation device, and the target is an {{Element}},
                    then <a href="#setting-pointer-capture">set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
-                <p>Fire the event to the determined target. The user agent SHOULD treat the target as if the pointing device has moved over it for the purpose of <a href="uievents/#events-mouseevent-event-order">ensuring event ordering</a>.
+                <p>Fire the event to the determined target. The user agent SHOULD treat the target as if the pointing device has moved over it for the purpose of <a href="#events-mouseevent-event-order">ensuring event ordering</a>.
 
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[UIEVENTS]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
@@ -639,8 +639,8 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
-                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a>,
-                   <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
+                <p>This section is an addition to <a data-cite="#event-type-click">click</a>,
+                   <a data-cite="#event-type-auxclick">auxclick</a> and <a data-cite="#event-type-contextmenu">contextmenu</a>
                    events defined in [[UIEVENTS]]. The type of these events MUST be <code>PointerEvent</code>,
                    but the dispatch process is going to match that of the original specification.</p>
                    For these events, all <code>PointerEvent</code> specific attributes (defined in this spec) other than <code>pointerId</code> and <code>pointerType</code> will have their default values. In addition:</p>
