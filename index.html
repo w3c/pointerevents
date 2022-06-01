@@ -561,17 +561,18 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-lt="pointermove" class="export"><code>pointermove</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
-                Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
-                contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification. User agents MAY delay dispatch of the <code>pointermove</code> event (for instance, for performance reasons).
+                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes any properties that don't fire
+                <code>pointerdown</code> or <code>pointerup</code> events.  This includes any changes to coordinates, pressure, tangential pressure,
+                tilt, twist, contact geometry (i.e. <code>width</code> and <code>height</code>) or <a>chorded buttons</a>.</p>
+                <p>User agents MAY delay dispatch of the <code>pointermove</code> event (for instance, for performance reasons).
                 The <a>coalesced events</a> information will be exposed via the <a data-lt="PointerEvent.getCoalescedEvents"><code>getCoalescedEvents()</code></a> method for the single dispatched <code>pointermove</code> event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
             <section>
                 <h3>The <dfn data-lt="pointerrawupdate" class="export"><code>pointerrawupdate</code></dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a>
-                named <code>pointerrawupdate</code> only within a [=secure context=] when
-                a pointer's attributes (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) change.</p>
+                named <code>pointerrawupdate</code>, and only do so within a [=secure context=], when a pointer changes any properties that don't fire
+                <code>pointerdown</code> or <code>pointerup</code> events.  See <code>pointermove</code> event for a list of such properties.</p>
                 <p>In contrast with <code>pointermove</code>, user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
                 and as frequently as the JavaScript can handle the events.</p>
                 <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
