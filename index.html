@@ -78,7 +78,7 @@
             <figcaption>A pointer is a hardware agnostic representation of input devices that can target a specific coordinate (or set of coordinates) on a screen.</figcaption>
         </figure>
 
-        <p>The events for handling generic pointer input look a lot like those for mouse: <code>pointerdown</code>, <code>pointermove</code>, <code>pointerup</code>, <code>pointerover</code>, <code>pointerout</code>, etc. This facilitates easy content migration from Mouse Events to Pointer Events.
+        <p>The events for handling generic pointer input look a lot like those for mouse: {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, {{GlobalEventHandlers/pointerup}}, {{GlobalEventHandlers/pointerover}}, {{GlobalEventHandlers/pointerout}}, etc. This facilitates easy content migration from Mouse Events to Pointer Events.
         Pointer Events provide all the usual properties present in Mouse Events (client coordinates, target element, button states, etc.) in addition to new properties for other forms of input: pressure, contact geometry, tilt, etc. So authors can easily code to Pointer Events to share logic between different input types where it makes sense, and customize for a particular type of input only where necessary to get the best experience.</p>
         <p>While Pointer Events are sourced from a variety of input devices, they are not defined as being generated from some other set of device-specific events. While possible and encouraged for compatibility, this spec does not require other device-specific events be supported (e.g. mouse events, touch events, etc.). A user agent could support pointer events without supporting any other device events. For compatibility with content written to mouse-specific events, this specification does provide an optional section describing how to generate <a>compatibility mouse events</a> based on pointer input from devices other than a mouse.</p>
 
@@ -243,7 +243,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>pressure</dfn></dt>
                         <dd>
-                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise. Note: all <code>pointerup</code> events will have pressure 0.</p>
+                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise. Note: all {{GlobalEventHandlers/pointerup}} events will have pressure 0.</p>
                         </dd>
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
@@ -338,13 +338,13 @@ interface PointerEvent : MouseEvent {
                 <h2>Button states</h2>
                 <section>
                     <h3><dfn data-lt="chorded buttons">Chorded button interactions</dfn></h3>
-                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping <code>pointerdown</code> and <code>pointerup</code> events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
+                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
                     <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
                     <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> MUST follow [[UIEVENTS]].</p>
                 </section>
                 <section>
                     <h3>The <code>button</code> property</h3>
-                    <p>To identify button state transitions in any pointer event (and not just <code>pointerdown</code> and <code>pointerup</code>), the <code>button</code> property indicates the device button whose state-change fired the event.</p>
+                    <p>To identify button state transitions in any pointer event (and not just {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}}), the <code>button</code> property indicates the device button whose state-change fired the event.</p>
                     <table class="simple">
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
@@ -357,7 +357,7 @@ interface PointerEvent : MouseEvent {
                             <tr><td>Pen eraser button</td><td>5</td></tr>
                         </tbody>
                     </table>
-                    <div class="note">During a mouse drag, the value of the <code>button</code> property in a <code>pointermove</code> event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the <code>pointermove</code> events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</div>
+                    <div class="note">During a mouse drag, the value of the <code>button</code> property in a {{GlobalEventHandlers/pointermove}} event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the {{GlobalEventHandlers/pointermove}} events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</div>
                 </section>
                 <section>
                     <h3>The <code>buttons</code> property</h3>
@@ -394,7 +394,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
                 <p>To <dfn>fire a pointer event</dfn> named |e| means to [=fire an event=] named |e| using <a>PointerEvent</a> whose attributes are set as defined in {{PointerEvent}} Interface and <a>Attributes and Default Actions</a>.</p>
-                <p>If the event is not <code>gotpointercapture</code> or <code>lostpointercapture</code>, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
+                <p>If the event is not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
 
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
@@ -404,9 +404,9 @@ interface PointerEvent : MouseEvent {
 
                 <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].
 
-                <p>If the event is <code>pointerdown</code>, <code>pointermove</code>, or <code>pointerup</code> set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
+                <p>If the event is {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, or {{GlobalEventHandlers/pointerup}} set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
 
-                <p>If the event is <code>pointerdown</code>, the associated device is a direct manipulation device, and the target is an {{Element}},
+                <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                    then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
                 <p>Fire the event to the determined target. The user agent SHOULD treat the target as if the pointing device has moved over it for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]].</p>
@@ -422,62 +422,62 @@ interface PointerEvent : MouseEvent {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><a><code>pointerover</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerover}}</td>
                                     <td>Yes</td>
                                     <td>Yes</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointerenter</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerenter}}</td>
                                     <td>No</td>
                                     <td>No</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointerdown</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerdown}}</td>
                                     <td>Yes</td>
                                     <td>Yes</td>
                                     <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
                                         <br>Canceling this event also prevents subsequent firing of <a>compatibility mouse events</a>.</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointermove</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointermove}}</td>
                                     <td>Yes</td>
                                     <td>Yes</td>
                                     <td>Varies: when the pointer is primary, all default actions of <code>mousemove</code></td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointerup</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerup}}</td>
                                     <td>Yes</td>
                                     <td>Yes</td>
                                     <td>Varies: when the pointer is primary, all default actions of <code>mouseup</code></td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointercancel</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointercancel}}</td>
                                     <td>Yes</td>
                                     <td>No</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointerout</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerout}}</td>
                                     <td>Yes</td>
                                     <td>Yes</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>pointerleave</code></a></td>
+                                    <td>{{GlobalEventHandlers/pointerleave}}</td>
                                     <td>No</td>
                                     <td>No</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>gotpointercapture</code></a></td>
+                                    <td>{{GlobalEventHandlers/gotpointercapture}}</td>
                                     <td>Yes</td>
                                     <td>No</td>
                                     <td>None</td>
                                 </tr>
                                 <tr>
-                                    <td><a><code>lostpointercapture</code></a></td>
+                                    <td>{{GlobalEventHandlers/lostpointercapture}}</td>
                                     <td>Yes</td>
                                     <td>No</td>
                                     <td>None</td>
@@ -487,20 +487,20 @@ interface PointerEvent : MouseEvent {
 
                         <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by canceling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a>declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancelation of events facilitates performance optimizations by the user agent.</p>
 
-                        <p>For all pointer events in the table above except <code>pointerenter</code> and <code>pointerleave</code> the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>true</code>.
+                        <p>For all pointer events in the table above except <code>pointerenter</code> and {{GlobalEventHandlers/pointerleave}} the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>true</code>.
                            For all pointer events in the table above the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
                         <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
-                        <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a <code>pointerover</code> or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a <code>pointerout</code> or <code>pointerleave</code>). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
-                        <p>For <code>gotpointercapture</code> and <code>lostpointercapture</code> all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the <code>gotpointercapture</code> and <code>lostpointercapture</code> events.</p>
+                        <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
+                        <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
                 </section>
 
                 <section>
                     <h3><dfn>Process pending pointer capture</dfn></h3>
-                    <p>The user agent MUST run the following steps when <a>implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not <code>gotpointercapture</code> or <code>lostpointercapture</code>.</p>
+                    <p>The user agent MUST run the following steps when <a>implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}.</p>
                     <ol>
-                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named <code>lostpointercapture</code> at the <a>pointer capture target override</a> node.
+                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
                         </li>
-                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named <code>gotpointercapture</code> at the <a>pending pointer capture target override</a>.
+                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/gotpointercapture}} at the <a>pending pointer capture target override</a>.
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
@@ -530,9 +530,9 @@ interface PointerEvent : MouseEvent {
 
                     <p>The user agent MUST run the following steps to <a>suppress a pointer event stream</a>:</p>
                     <ul>
-                      <li>Fire a <code>pointercancel</code> event.</li>
-                      <li>Fire a <code>pointerout</code> event.</li>
-                      <li>Fire a <code>pointerleave</code> event.</li>
+                      <li>Fire a {{GlobalEventHandlers/pointercancel}} event.</li>
+                      <li>Fire a {{GlobalEventHandlers/pointerout}} event.</li>
+                      <li>Fire a {{GlobalEventHandlers/pointerleave}} event.</li>
                       <li><a>Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
                     </ul>
                 </section>
@@ -542,99 +542,99 @@ interface PointerEvent : MouseEvent {
         <section>
             <h2><dfn>Pointer Event types</dfn></h2>
             <p>Below are the event types defined in this specification.</p>
-            <p>In the case of the <a>primary pointer</a>, these events (with the exception of <code>gotpointercapture</code> and <code>lostpointercapture</code>) may also fire <a>compatibility mouse events</a>.</p>
+            <p>In the case of the <a>primary pointer</a>, these events (with the exception of {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}}) may also fire <a>compatibility mouse events</a>.</p>
             <section>
-                <h3>The <dfn data-lt="pointerover" class="export"><code>pointerover</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerover</code> when a pointing device is moved into the <a>hit test</a> boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a <code>pointerdown</code> event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see <a><code>pointerdown</code></a>).</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerover</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerover}} when a pointing device is moved into the <a>hit test</a> boundaries of an element. Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. The user agent MUST also fire this event prior to firing a {{GlobalEventHandlers/pointerdown}} event for <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</p>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerenter" class="export"><code>pointerenter</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerenter</code> when a pointing device is moved into the <a>hit test</a> boundaries of an element or one of its descendants, including as a result of a <code>pointerdown</code> event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <a><code>pointerdown</code></a>). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to <code>pointerover</code>, but differs in that it does not bubble.</p>
-                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <a><code>pointerleave</code></a> event.</div>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerenter</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerenter}} when a pointing device is moved into the <a>hit test</a> boundaries of an element or one of its descendants, including as a result of a {{GlobalEventHandlers/pointerdown}} event from a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}). Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events. This event type is similar to {{GlobalEventHandlers/pointerover}}, but differs in that it does not bubble.</p>
+                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the {{GlobalEventHandlers/pointerleave}} event.</div>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerdown" class="export"><code>pointerdown</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerdown</code> when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the pen either makes physical contact with the digitizer without any button depressed, or transitions from no buttons depressed to at least one button depressed while hovering.</p>
-                <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
-                <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named <code>pointerover</code> followed by a pointer event named <code>pointerenter</code> prior to dispatching the <code>pointerdown</code> event.</p>
-                <div class="note">Authors can prevent the firing of certain <a>compatibility mouse events</a> by canceling the <code>pointerdown</code> event (if the <code>isPrimary</code> property is <code>true</code>). This sets the <code>PREVENT MOUSE EVENT</code> flag on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerdown</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerdown}} when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the pen either makes physical contact with the digitizer without any button depressed, or transitions from no buttons depressed to at least one button depressed while hovering.</p>
+                <div class="note">For mouse (or other multi-button pointer devices), this means {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
+                <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerover}} followed by a pointer event named {{GlobalEventHandlers/pointerenter}} prior to dispatching the {{GlobalEventHandlers/pointerdown}} event.</p>
+                <div class="note">Authors can prevent the firing of certain <a>compatibility mouse events</a> by canceling the {{GlobalEventHandlers/pointerdown}} event (if the <code>isPrimary</code> property is <code>true</code>). This sets the <code>PREVENT MOUSE EVENT</code> flag on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointermove" class="export"><code>pointermove</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointermove</code> when a pointer changes button state.
-                Additionally one <code>pointermove</code> MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
-                contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification. User agents MAY delay dispatch of the <code>pointermove</code> event (for instance, for performance reasons).
-                The <a>coalesced events</a> information will be exposed via the <a data-lt="PointerEvent.getCoalescedEvents"><code>getCoalescedEvents()</code></a> method for the single dispatched <code>pointermove</code> event.
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointermove</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointermove}} when a pointer changes button state.
+                Additionally one {{GlobalEventHandlers/pointermove}} MUST be fired when pointer changes coordinates, pressure, tangential pressure, tilt, twist, or
+                contact geometry (e.g. <code>width</code> and <code>height</code>) and the circumstances produce no other pointer events defined in this specification. User agents MAY delay dispatch of the {{GlobalEventHandlers/pointermove}} event (for instance, for performance reasons).
+                The <a>coalesced events</a> information will be exposed via the <a data-lt="PointerEvent.getCoalescedEvents"><code>getCoalescedEvents()</code></a> method for the single dispatched {{GlobalEventHandlers/pointermove}} event.
                 The final coordinates of such events should be used for finding the target of the event.</p>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerrawupdate" class="export"><code>pointerrawupdate</code></dfn> event</h3>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerrawupdate</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a>
-                named <code>pointerrawupdate</code> only within a [=secure context=] when
+                named {{GlobalEventHandlers/pointerrawupdate}} only within a [=secure context=] when
                 a pointer's attributes (i.e. button state, coordinates, pressure, tangential pressure, tilt, twist, or contact geometry) change.</p>
-                <p>In contrast with <code>pointermove</code>, user agents SHOULD dispatch <code>pointerrawupdate</code> events as soon as possible
+                <p>In contrast with {{GlobalEventHandlers/pointermove}}, user agents SHOULD dispatch {{GlobalEventHandlers/pointerrawupdate}} events as soon as possible
                 and as frequently as the JavaScript can handle the events.</p>
-                <p>The <code>target</code> of <code>pointerrawupdate</code> events might be different from the <code>pointermove</code> events
-                due to the fact that <code>pointermove</code> events might get delayed or coalesced, and the final position of the event
+                <p>The <code>target</code> of {{GlobalEventHandlers/pointerrawupdate}} events might be different from the {{GlobalEventHandlers/pointermove}} events
+                due to the fact that {{GlobalEventHandlers/pointermove}} events might get delayed or coalesced, and the final position of the event
                 which is used for finding the <code>target</code> could be different from its coalesced events.</p>
-                <p>Note that if there is already another <code>pointerrawupdate</code> with the same <code>pointerId</code> that hasn't been dispatched
+                <p>Note that if there is already another {{GlobalEventHandlers/pointerrawupdate}} with the same <code>pointerId</code> that hasn't been dispatched
                 in the [=event loop=], the
-                user agent MAY coalesce the new <code>pointerrawupdate</code> with that event instead of creating a new [=task=].
-                This may cause <code>pointerrawupdate</code> to have coalesced events, and
-                they will all be delivered as <a>coalesced events</a> of one <code>pointerrawupdate</code> event as soon as
+                user agent MAY coalesce the new {{GlobalEventHandlers/pointerrawupdate}} with that event instead of creating a new [=task=].
+                This may cause {{GlobalEventHandlers/pointerrawupdate}} to have coalesced events, and
+                they will all be delivered as <a>coalesced events</a> of one {{GlobalEventHandlers/pointerrawupdate}} event as soon as
                 the event is processed in the [=event loop=].
                 See <a data-lt="PointerEvent.getCoalescedEvents"><code>getCoalescedEvents()</code></a> for more information.</p>
-                <p>In terms of ordering of <code>pointerrawupdate</code> and <code>pointermove</code>,
-                if the user agent received an update from the platform that causes both <code>pointerrawupdate</code> and <code>pointermove</code> events,
-                then the user agent MUST dispatch the <code>pointerrawupdate</code> event before the corresponding <code>pointermove</code>.</p>
-                <p>Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched <code>pointerrawupdate</code> events
-                since the last <code>pointermove</code> event is the same as the coalesced events of the next <code>pointermove</code> event in terms of the other event attributes.
-                The attributes of <code>pointerrawupdate</code> are mostly the same as <code>pointermove</code>, with the exception of
-                <code>cancelable</code> which MUST be false for <code>pointerrawupdate</code>.</p>
-                <p>User agents SHOULD not fire <a>compatibility mouse events</a> for <code>pointerrawupdate</code>.</p>
-                <div class="note">Adding listeners for the <code>pointerrawupdate</code> event might negatively impact the performance of the web page, depending on the implementation of the user agent.
+                <p>In terms of ordering of {{GlobalEventHandlers/pointerrawupdate}} and {{GlobalEventHandlers/pointermove}},
+                if the user agent received an update from the platform that causes both {{GlobalEventHandlers/pointerrawupdate}} and {{GlobalEventHandlers/pointermove}} events,
+                then the user agent MUST dispatch the {{GlobalEventHandlers/pointerrawupdate}} event before the corresponding {{GlobalEventHandlers/pointermove}}.</p>
+                <p>Other than the <code>target</code>, the concatenation of coalesced events lists of all dispatched {{GlobalEventHandlers/pointerrawupdate}} events
+                since the last {{GlobalEventHandlers/pointermove}} event is the same as the coalesced events of the next {{GlobalEventHandlers/pointermove}} event in terms of the other event attributes.
+                The attributes of {{GlobalEventHandlers/pointerrawupdate}} are mostly the same as {{GlobalEventHandlers/pointermove}}, with the exception of
+                <code>cancelable</code> which MUST be false for {{GlobalEventHandlers/pointerrawupdate}}.</p>
+                <p>User agents SHOULD not fire <a>compatibility mouse events</a> for {{GlobalEventHandlers/pointerrawupdate}}.</p>
+                <div class="note">Adding listeners for the {{GlobalEventHandlers/pointerrawupdate}} event might negatively impact the performance of the web page, depending on the implementation of the user agent.
                 For most use cases the other pointerevent types should suffice.
-                A <code>pointerrawupdate</code> listener should only be added if JavaScript needs high frequency events and can handle them just as fast.
+                A {{GlobalEventHandlers/pointerrawupdate}} listener should only be added if JavaScript needs high frequency events and can handle them just as fast.
                 In these cases, there is probably no need to listen to other types of pointer events.</div>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerup" class="export"><code>pointerup</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerup</code> when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
-                <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named <code>pointerout</code> followed by a pointer event named <code>pointerleave</code> after dispatching the <code>pointerup</code> event.</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-event-type="event">pointerup</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerup}} when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
+                <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} followed by a pointer event named {{GlobalEventHandlers/pointerleave}} after dispatching the {{GlobalEventHandlers/pointerup}} event.</p>
                 <p>The user agent MUST also <a>implicitly release the pointer capture</a> if the pointer is currently captured.</p>
-                <div class="note">For mouse (or other multi-button pointer devices), this means <code>pointerdown</code> and <code>pointerup</code> are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
+                <div class="note">For mouse (or other multi-button pointer devices), this means {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointercancel" class="export"><code>pointercancel</code></dfn> event</h3>
-                <p>The user agent MUST fire a pointer event named <code>pointercancel</code> when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointercancel</dfn> event</h3>
+                <p>The user agent MUST fire a pointer event named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerout" class="export"><code>pointerout</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerout</code> when any of the following occurs:</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} when any of the following occurs:</p>
                 <ul>
                     <li>The pointing device is moved out of the <a>hit test</a> boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <a><code>pointerup</code></a>).</li>
+                    <li>After firing the {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
             </section>
             <section>
-                <h3>The <dfn data-lt="pointerleave" class="export"><code>pointerleave</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>pointerleave</code> when any of the following occurs:</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerleave</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerleave}} when any of the following occurs:</p>
                 <ul>
                     <li>The pointing device is moved out of the <a>hit test</a> boundaries of an element and all of its descendants.   Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target and while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>After firing the <code>pointerup</code> event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see <a><code>pointerup</code></a>).</li>
+                    <li>After firing the {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
-                <p>This event type is similar to <code>pointerout</code>, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
+                <p>This event type is similar to {{GlobalEventHandlers/pointerout}}, but differs in that it does not bubble and that it MUST not be fired until the pointing device has left the boundaries of the element and the boundaries of all of its descendants.</p>
                 <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the <code>pointerenter</code> event.</div>
             </section>
             <section>
-                <h3>The <dfn data-lt="gotpointercapture" class="export"><code>gotpointercapture</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>gotpointercapture</code> when an element receives pointer capture. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See the <a>setting pointer capture</a> and <a>process pending pointer capture</a> sections.</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">gotpointercapture</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/gotpointercapture}} when an element receives pointer capture. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See the <a>setting pointer capture</a> and <a>process pending pointer capture</a> sections.</p>
             </section>
             <section>
-                <h3>The <dfn data-lt="lostpointercapture" class="export"><code>lostpointercapture</code></dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named <code>lostpointercapture</code> after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">lostpointercapture</dfn> event</h3>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/lostpointercapture}} after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
             </section>
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
@@ -680,7 +680,7 @@ partial interface Element {
                 <dt><dfn>hasPointerCapture</dfn></dt>
                 <dd>
                     <p>Indicates whether the element on which this method is invoked has <a>pointer capture</a> for the pointer identified by the argument <code>pointerId</code>. In particular, returns <code>true</code> if the <a>pending pointer capture target override</a> for <code>pointerId</code> is set to the element on which this method is invoked, and <code>false</code> otherwise.</p>
-                    <div class="note">This method will return true immediately after a call to <a>setPointerCapture()</a>, even though that element will not yet have received a <a><code>gotpointercapture</code></a> event. As a result it can be useful for detecting <a>implicit pointer capture</a> from inside of a <a><code>pointerdown</code></a> event listener.</div>
+                    <div class="note">This method will return true immediately after a call to <a>setPointerCapture()</a>, even though that element will not yet have received a {{GlobalEventHandlers/gotpointercapture}} event. As a result it can be useful for detecting <a>implicit pointer capture</a> from inside of a {{GlobalEventHandlers/pointerdown}} event listener.</div>
                 </dd>
             </dl>
         </div>
@@ -707,35 +707,35 @@ partial interface mixin GlobalEventHandlers {
             <dl data-dfn-for="GlobalEventHandlers" data-link-for="GlobalEventHandlers">
                 <dt><dfn>ongotpointercapture</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>gotpointercapture</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/gotpointercapture}} event type.
                 </dd>
                 <dt><dfn>onlostpointercapture</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>lostpointercapture</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/lostpointercapture}} event type.
                 </dd>
                 <dt><dfn>onpointerdown</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerdown</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerdown}} event type.
                 </dd>
                 <dt><dfn>onpointermove</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointermove</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointermove}} event type.
                 </dd>
                 <dt><dfn>onpointerup</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerup</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerup}} event type.
                 </dd>
                 <dt><dfn>onpointercancel</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointercancel</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointercancel}} event type.
                 </dd>
                 <dt><dfn>onpointerover</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerover</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerover}} event type.
                 </dd>
                 <dt><dfn>onpointerout</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerout</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerout}} event type.
                 </dd>
                 <dt><dfn>onpointerenter</dfn></dt>
                 <dd>
@@ -743,7 +743,7 @@ partial interface mixin GlobalEventHandlers {
                 </dd>
                 <dt><dfn>onpointerleave</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerleave</code> event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerleave}} event type.
                 </dd>
             </dl>
         </div>
@@ -790,8 +790,8 @@ partial interface Navigator {
             <p>Right before starting to pan or zoom, the user agent MUST <a>suppress a pointer event stream</a> if all of the following conditions are true:</p>
             <ul>
                 <li>The user agent has determined (via methods out of scope for this specification) that a direct manipulation interaction is to be consumed for panning or zooming,</li>
-                <li>a <code>pointerdown</code> event has been sent for the pointer, and</li>
-                <li>a <code>pointerup</code> or <code>pointercancel</code> event (following the above mentioned <code>pointerdown</code>) has not yet been sent for the pointer.</li>
+                <li>a {{GlobalEventHandlers/pointerdown}} event has been sent for the pointer, and</li>
+                <li>a {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} event (following the above mentioned {{GlobalEventHandlers/pointerdown}}) has not yet been sent for the pointer.</li>
             </ul>
 
             <div class="note">Some user agents implement complex gestures for behaviors that involve a series of separate discrete gestures, but which are all treated as part of a single continuous gesture. For example, consider a "fling to scroll" gesture on a touchscreen: a user starts panning the document with a rapid finger movement, lifts the finger from the touchscreen, and the document continues panning with simulated inertia. While the document is still moving, the user may place their finger on the touchscreen and execute another "fling" to provide further momentum for the panning, or counteract the current panning to slow it down, stop panning altogether, or reverse the direction of the panning. As this specification does not normatively define how gestures and behaviors are implemented, it is left up to the user agent to decide whether or not the second touch (before it is interpreted as a second "fling" or counteraction of the current panning) fires pointer events or not.</div>
@@ -806,7 +806,7 @@ partial interface Navigator {
             <li>A direct manipulation interaction for panning and zooming <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way to affect the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
             <li>A direct manipulation interaction for panning is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest inclusive ancestor that is a [=scroll container=] (as defined in [[CSS-OVERFLOW-3]]).</li>
             <li>A direct manipulation interaction for zooming is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and the <code>document</code> element of the [=top-level browsing context=] (as defined in [[HTML]]).</li>
-            <li>Once panning or zooming has been started, and the user agent has already determined whether or not the gesture should be handled as a user agent direct manipulation behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a <code>pointerdown</code> handler script will not result in the user agent aborting or suppressing any of the pan or zoom behavior for that input for as long as that pointer is active.</li>
+            <li>Once panning or zooming has been started, and the user agent has already determined whether or not the gesture should be handled as a user agent direct manipulation behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a {{GlobalEventHandlers/pointerdown}} handler script will not result in the user agent aborting or suppressing any of the pan or zoom behavior for that input for as long as that pointer is active.</li>
             <li>Similarly, in the case of the various <code>touch-action</code> values of <code>pan-*</code>, once the user agent has determined whether to handle a gesture directly or not at the start of the gesture, a subsequent change in the direction of the same gesture SHOULD be ignored by the user agent for as long as that pointer is active. For instance, if an element has been set to <code>touch-action: pan-y</code> (meaning that only vertical panning is handled by the user agent), and a touch gesture starts off horizontally, no vertical panning should occur if the user changes the direction of their gesture to be vertical while their finger is still touching the screen.</li>
           </ul>
 
@@ -890,7 +890,7 @@ partial interface Navigator {
         <p>Pointer capture allows the events for a particular pointer (including any <a>compatibility mouse events</a>) to be retargeted to a particular element other than the normal <a>hit test</a> result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
         <figure id="figure_slider">
             <img src="images/slider.png" alt="Custom Volume Slider">
-            <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After <code>pointerdown</code> on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
+            <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After {{GlobalEventHandlers/pointerdown}} on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
         </figure>
         </section>
         <section>
@@ -920,26 +920,26 @@ partial interface Navigator {
         </section>
         <section>
             <h2><dfn>Implicit pointer capture</dfn></h2>
-            <p>Inputs that implement <a>direct manipulation</a> interactions for panning and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture()</a> was called on the target element just before the invocation of any <code>pointerdown</code> listeners. The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any <code>pointerdown</code> listener) to determine whether this has occurred. If <a data-lt="Element.releasePointerCapture">releasePointerCapture()</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture</a>> event will be dispatched to the target (as normal) indicating that capture is active.</p>
+            <p>Inputs that implement <a>direct manipulation</a> interactions for panning and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture()</a> was called on the target element just before the invocation of any {{GlobalEventHandlers/pointerdown}} listeners. The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any {{GlobalEventHandlers/pointerdown}} listener) to determine whether this has occurred. If <a data-lt="Element.releasePointerCapture">releasePointerCapture()</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture</a>> event will be dispatched to the target (as normal) indicating that capture is active.</p>
             <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on touch movement events without explicit developer opt-in (consistent with the performance properties of existing dominant native and web APIs for touch input).</div>
             <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
         </section>
         <section>
             <h3><dfn data-lt="implicitly release the pointer capture|implicitly releasing pointer capture">Implicit release of pointer capture</dfn></h3>
-            <p>Immediately after firing the <code>pointerup</code> or <code>pointercancel</code> events,
+            <p>Immediately after firing the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} events,
                the user agent MUST clear the <a>pending pointer capture target override</a>
-               for the <code>pointerId</code> of the <code>pointerup</code> or <code>pointercancel</code> event that was just dispatched,
-               and then run <a>process pending pointer capture</a> steps to fire <code>lostpointercapture</code> if necessary.
+               for the <code>pointerId</code> of the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} event that was just dispatched,
+               and then run <a>process pending pointer capture</a> steps to fire {{GlobalEventHandlers/lostpointercapture}} if necessary.
                After running <a>process pending pointer capture</a> steps,
                if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
                to reflect the current position of the pointer with no capture.</p>
             <p>If the user agent supports firing the <code>click</code> event
                (see <a>compatibility mouse events</a>),
-               and if in an implicit release scenario both <code>click</code> and <code>lostpointercapture</code> events are fired,
-               <code>click</code> SHOULD be fired before <code>lostpointercapture</code>.</p>
+               and if in an implicit release scenario both <code>click</code> and {{GlobalEventHandlers/lostpointercapture}} events are fired,
+               <code>click</code> SHOULD be fired before {{GlobalEventHandlers/lostpointercapture}}.</p>
             <p>When the <a>pointer capture target override</a> is no longer [=connected=] [[DOM]],
                the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
-               and also a PointerEvent named <code>lostpointercapture</code> corresponding to the captured pointer SHOULD be fired at the document.</p>
+               and also a PointerEvent named {{GlobalEventHandlers/lostpointercapture}} corresponding to the captured pointer SHOULD be fired at the document.</p>
             <p>When a pointer lock [[PointerLock]] is successfully applied on an element, the user agent MUST run the steps as if the <a data-lt='Element.releasePointerCapture'>releasePointerCapture()</a> method has been called if any element is set to be captured or pending to be captured.
 
         </section>
@@ -953,11 +953,11 @@ partial interface Navigator {
         <section>
             <h2><dfn>Coalesced events</dfn></h2>
 
-            <p>For performance reasons, user agents may choose not to send a <code>pointermove</code>
+            <p>For performance reasons, user agents may choose not to send a {{GlobalEventHandlers/pointermove}}
             event every time a <a data-lt="measurable properties">measurable property</a>
             (such as coordinates, pressure, tangential pressure, tilt, twist, or contact geometry)
             of a pointer is updated. Instead, they may coalesce (combine/merge) multiple changes into
-            a single <code>pointermove</code> or <code>pointerrawupdate</code> event. While
+            a single {{GlobalEventHandlers/pointermove}} or {{GlobalEventHandlers/pointerrawupdate}} event. While
             this approach helps in reducing the amount of event handling the user agent must perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
@@ -970,17 +970,17 @@ partial interface Navigator {
             <figure id="figure_coalesced">
                 <img src="images/coalesced-points.png" alt="Close-up view of a curve, showing coalesced and un-coalesced points">
                 <figcaption>Example of a curve in a drawing application — using only the coalesced
-                coordinates from <code>pointermove</code> events (the grey dots), the curve is noticeably
+                coordinates from {{GlobalEventHandlers/pointermove}} events (the grey dots), the curve is noticeably
                 angular and jagged; the same line drawn using the more granular points provided by
                 <code>getCoalescedEvents()</code> (the red circles) results in a smoother approximation
                 of the pointer movement.</figcaption>
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events list</dfn> (a list of
-            zero or more <code>PointerEvent</code>s). For trusted <code>pointermove</code> and
-            <code>pointerrawupdate</code> events, the list is a sequence of all <code>PointerEvent</code>s
-            that were coalesced into this event. The "parent" trusted <code>pointermove</code> and
-            <code>pointerrawupdate</code> event represents an accumulation of these coalesced events,
+            zero or more <code>PointerEvent</code>s). For trusted {{GlobalEventHandlers/pointermove}} and
+            {{GlobalEventHandlers/pointerrawupdate}} events, the list is a sequence of all <code>PointerEvent</code>s
+            that were coalesced into this event. The "parent" trusted {{GlobalEventHandlers/pointermove}} and
+            {{GlobalEventHandlers/pointerrawupdate}} event represents an accumulation of these coalesced events,
             but may have additional processing (for example to align with the display refresh rate).
             As a result, the coalesced events lists for these events always contain at least one event.
             For all other trusted event types, it is an empty list. Untrusted events have their
@@ -1041,31 +1041,31 @@ partial interface Navigator {
             this specification.</div>
 
             <p>The order of all these dispatched events MUST match the actual order of the original events.
-            For example if a <code>pointerdown</code> event causes the dispatch for the
-            coalesced <code>pointermove</code> events the user agent MUST first dispatch one <code>pointermove</code>
-            event with all those coalesced events of a <code>pointerId</code> followed by the <code>pointerdown</code> event.</p>
+            For example if a {{GlobalEventHandlers/pointerdown}} event causes the dispatch for the
+            coalesced {{GlobalEventHandlers/pointermove}} events the user agent MUST first dispatch one {{GlobalEventHandlers/pointermove}}
+            event with all those coalesced events of a <code>pointerId</code> followed by the {{GlobalEventHandlers/pointerdown}} event.</p>
             <div class="note">
                 <p>Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
                 events dispatched by the user agent:</p>
                 <table class="simple">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
                     <tbody>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=1) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=1) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=1) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=1) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
                         <tr><td>pointer (<code>pointerId</code>=1) button press</td><td>
-                        <code>pointermove</code> (<code>pointerId</code>=1) w/ two coalesced events<br>
-                        <code>pointermove</code> (<code>pointerId</code>=2) w/ four coalesced events<br>
-                        <code>pointerdown</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
+                        {{GlobalEventHandlers/pointermove}} (<code>pointerId</code>=1) w/ two coalesced events<br>
+                        {{GlobalEventHandlers/pointermove}} (<code>pointerId</code>=2) w/ four coalesced events<br>
+                        {{GlobalEventHandlers/pointerdown}} (<code>pointerId</code>=1) w/ zero coalesced events<br>
                         </td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
-                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td><code>pointerrawupdate</code> (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
+                        <tr><td>pointer (<code>pointerId</code>=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} (<code>pointerId</code>=2) w/ one coalesced event</td></tr>
                         <tr><td>pointer (<code>pointerId</code>=1) button release</td><td>
-                        <code>pointermove</code> (<code>pointerId</code>=2) w/ two coalesced events<br>
-                        <code>pointerup</code> (<code>pointerId</code>=1) w/ zero coalesced events<br>
+                        {{GlobalEventHandlers/pointermove}} (<code>pointerId</code>=2) w/ two coalesced events<br>
+                        {{GlobalEventHandlers/pointerup}} (<code>pointerId</code>=1) w/ zero coalesced events<br>
                         </td></tr>
                     </tbody>
                 </table>
@@ -1085,11 +1085,11 @@ partial interface Navigator {
 
             <figure id="figure_predicted">
                 <img src="images/predicted-points.png" alt="A line drawn using coalesced points, showing predicted future points">
-                <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from <code>pointermove</code> events, showing the user agent's predicted future points (the grey circles).</figcaption>
+                <figcaption>Example of a line in a drawing application (the result of a drawing gesture from the bottom left to the top right), using the coalesced coordinates from {{GlobalEventHandlers/pointermove}} events, showing the user agent's predicted future points (the grey circles).</figcaption>
             </figure>
 
             <p>A <a>PointerEvent</a> has an associated <dfn>predicted events list</dfn> (a list of zero or more
-            <code>PointerEvent</code>s). For trusted <code>pointermove</code> events, it is a sequence of
+            <code>PointerEvent</code>s). For trusted {{GlobalEventHandlers/pointermove}} events, it is a sequence of
             <code>PointerEvent</code>s that the user agent predicts will follow the event in the future.
             For all other trusted event types, it is an empty list.
             Untrusted events have their <a>predicted events list</a> initialized to the value passed to the
@@ -1171,11 +1171,11 @@ partial interface Navigator {
         <p>The <code>click</code> and <code>contextmenu</code> events, defined in [[UIEVENTS]], are not considered <a>compatibility mouse events</a> as they are typically tied to user interface activation, and are fired from other (non-pointer) input devices, such as keyboards.</p>
         <div class="note">
             <p>In user agents that support firing <code>click</code> and/or <code>contextmenu</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> and/or <code>contextmenu</code> are fired or not. Because they are not compatibility mouse events, user agents typically fire <code>click</code> and <code>contextmenu</code> for all pointing devices, including pointers that are not primary pointers.</p>
-            <p>The relative ordering of these high-level events (<code>click</code>, <code>contextmenu</code>, <code>focus</code>, <code>blur</code>, etc.) with pointer events is undefined and varies between user agents. For example, in some user agents <code>contextmenu</code> will often follow a <code>pointerup</code>, in others it'll often precede a <code>pointerup</code> or <code>pointercancel</code>, and in some situations it may be fired without any corresponding pointer event (such as a keyboard shortcut).</p>
+            <p>The relative ordering of these high-level events (<code>click</code>, <code>contextmenu</code>, <code>focus</code>, <code>blur</code>, etc.) with pointer events is undefined and varies between user agents. For example, in some user agents <code>contextmenu</code> will often follow a {{GlobalEventHandlers/pointerup}}, in others it'll often precede a {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}}, and in some situations it may be fired without any corresponding pointer event (such as a keyboard shortcut).</p>
             <p>In addition, user agents may apply their own heuristics to determine whether or not a <code>click</code> or <code>contextmenu</code> event should be fired. Some user agents may only fire these events for a primary pointer, and even then they may choose not to fire these events if there are other (non-primary) pointers of the same type, or other primary pointers of a different type. User agents may determine that a particular action was not a "clean" tap, click or long-press — for instance, if an interaction with a finger on a touch screen includes too much movement while the finger is in contact with the screen — and decide not to fire a <code>click</code> or <code>contextmenu</code> event. These aspects of user agent behavior are not defined in this specification, and they may differ between implementations.</p>
         </div>
         <p>Unless otherwise noted, the target of any mapped mouse event SHOULD be the same target as the respective pointer event unless the target is no longer participating in its <code>ownerDocument</code>'s tree. In this case, the mouse event should be fired at the original target's nearest ancestor node (at the time it was removed from the tree) that still participates in its <code>ownerDocument</code>'s tree, meaning that a new event path (based on the new target node) is built for the mouse event.</p>
-        <p>Authors can prevent the production of certain compatibility mouse events by canceling the <code>pointerdown</code> event.</p>
+        <p>Authors can prevent the production of certain compatibility mouse events by canceling the {{GlobalEventHandlers/pointerdown}} event.</p>
         <p>Mouse events can only be prevented when the pointer is down. Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented.</p>
         <p>The <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</p>
         <div class="note">
@@ -1184,9 +1184,9 @@ partial interface Navigator {
         <section>
             <h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
             <p>While only the <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. Since all these compatibility events would appear to MouseEvent code to be coming from a single mouse device, user agents are encouraged to guarantee that the compatibility mouse events are consistent from a single device perspective. For mouse transition events (i.e., <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>), this means the entry/exit state for every event target is valid as implied by [[UIEVENTS]]. Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
-            <p>Right before firing a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
+            <p>Right before firing a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
             <ol>
-                <li>Let |T| be the target of the <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event being dispatched. For the <code>pointerleave</code> event, unset |T|.</li>
+                <li>Let |T| be the target of the {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event being dispatched. For the {{GlobalEventHandlers/pointerleave}} event, unset |T|.</li>
                 <li>If |T| and current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> are both unset or they are equal, terminate these steps.</li>
                 <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[UIEVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|. Consider an unset value of either current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> or |T| as an out-of-window mouse position.</li>
                 <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|.</li>
@@ -1197,18 +1197,18 @@ partial interface Navigator {
             <p>Whenever the user agent is to dispatch a pointer event for a device that supports hover, it SHOULD run the following steps:</p>
             <ol>
                 <li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
-                <li>If the pointer event to be dispatched is a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
+                <li>If the pointer event to be dispatched is a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
                 <li>Dispatch the pointer event.</li>
-                <li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
+                <li>If the pointer event dispatched was {{GlobalEventHandlers/pointerdown}} and the event was <a data-lt="canceled event">canceled</a>, then set the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
                 <li>If the <code>PREVENT MOUSE EVENT</code> flag is <strong>not</strong> set for this <code>pointerType</code> and the pointer event dispatched was:
                     <ul>
-                        <li><code>pointerdown</code>, then fire a <code>mousedown</code> event.</li>
-                        <li><code>pointermove</code>, then fire a <code>mousemove</code> event.</li>
-                        <li><code>pointerup</code>, then fire a <code>mouseup</code> event.</li>
-                        <li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
+                        <li>{{GlobalEventHandlers/pointerdown}}, then fire a <code>mousedown</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointermove}}, then fire a <code>mousemove</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointerup}}, then fire a <code>mouseup</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointercancel}}, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
                     </ul>
                 </li>
-                <li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
+                <li>If the pointer event dispatched was {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}}, clear the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
             </ol>
         </section>
         <section>
@@ -1222,52 +1222,52 @@ partial interface Navigator {
             <p>This requires that user agents provide a different mapping for these types of input devices. Whenever the user agent is to dispatch a pointer event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a>, it SHOULD run the following steps:</p>
             <ol>
                 <li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
-                <li>If the pointer event to be dispatched is <code>pointerover</code> and the <code>pointerdown</code> event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
-                <li>If the pointer event to be is dispatched is a <code>pointerdown</code>, <code>pointerup</code> or <code>pointermove</code> event, or a <code>pointerleave</code> event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
+                <li>If the pointer event to be dispatched is {{GlobalEventHandlers/pointerover}} and the {{GlobalEventHandlers/pointerdown}} event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
+                <li>If the pointer event to be is dispatched is a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
                 <li>Dispatch the pointer event.</li>
-                <li>If the pointer event dispatched was <code>pointerdown</code> and the event was <a data-lt="canceled event">canceled</a>, then set the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
+                <li>If the pointer event dispatched was {{GlobalEventHandlers/pointerdown}} and the event was <a data-lt="canceled event">canceled</a>, then set the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
                 <li>If the <code>PREVENT MOUSE EVENT</code> flag is <strong>not</strong> set for this <code>pointerType</code> and the pointer event dispatched was:
                     <ul>
-                        <li><code>pointerdown</code>, then fire a <code>mousedown</code> event.</li>
-                        <li><code>pointermove</code>, then fire a <code>mousemove</code> event.</li>
-                        <li><code>pointerup</code>, then fire a <code>mouseup</code> event.</li>
-                        <li><code>pointercancel</code>, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
+                        <li>{{GlobalEventHandlers/pointerdown}}, then fire a <code>mousedown</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointermove}}, then fire a <code>mousemove</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointerup}}, then fire a <code>mouseup</code> event.</li>
+                        <li>{{GlobalEventHandlers/pointercancel}}, then fire a <code>mouseup</code> event at the <code>window</code>.</li>
                     </ul>
                 </li>
-                <li>If the pointer event dispatched was <code>pointerup</code> or <code>pointercancel</code>, clear the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
+                <li>If the pointer event dispatched was {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}}, clear the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
             </ol>
             <p>If the user agent supports both Touch Events (as defined in [[TOUCH-EVENTS]]) and Pointer Events, the user agent MUST NOT generate <em>both</em> the compatibility mouse events as described in this section, and the <a data-cite="touch-events/#mouse-events">fallback mouse events</a> outlined in [[TOUCH-EVENTS]].</p>
             <div class="note">
                 <p>The activation of an element (<code>click</code>) with a primary pointer that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (e.g. single finger on a touchscreen) would typically produce the following event sequence:</p>
                 <ol data-class="note-list">
                     <li><code>mousemove</code></li>
-                    <li><code>pointerover</code></li>
+                    <li>{{GlobalEventHandlers/pointerover}}</li>
                     <li><code>pointerenter</code></li>
                     <li><code>mouseover</code></li>
                     <li><code>mouseenter</code></li>
-                    <li><code>pointerdown</code></li>
+                    <li>{{GlobalEventHandlers/pointerdown}}</li>
                     <li><code>mousedown</code></li>
-                    <li>Zero or more <code>pointermove</code> and <code>mousemove</code> events, depending on movement of the pointer</li>
-                    <li><code>pointerup</code></li>
+                    <li>Zero or more {{GlobalEventHandlers/pointermove}} and <code>mousemove</code> events, depending on movement of the pointer</li>
+                    <li>{{GlobalEventHandlers/pointerup}}</li>
                     <li><code>mouseup</code></li>
-                    <li><code>pointerout</code></li>
-                    <li><code>pointerleave</code></li>
+                    <li>{{GlobalEventHandlers/pointerout}}</li>
+                    <li>{{GlobalEventHandlers/pointerleave}}</li>
                     <li><code>mouseout</code></li>
                     <li><code>mouseleave</code></li>
                     <li><code>click</code></li>
                 </ol>
-                <p>If, however, the <code>pointerdown</code> event is <a data-lt="canceled event">canceled</a> during this interaction then the sequence of events would be:</p>
+                <p>If, however, the {{GlobalEventHandlers/pointerdown}} event is <a data-lt="canceled event">canceled</a> during this interaction then the sequence of events would be:</p>
                 <ol data-class="note-list">
                     <li><code>mousemove</code></li>
-                    <li><code>pointerover</code></li>
+                    <li>{{GlobalEventHandlers/pointerover}}</li>
                     <li><code>pointerenter</code></li>
                     <li><code>mouseover</code></li>
                     <li><code>mouseenter</code></li>
-                    <li><code>pointerdown</code></li>
-                    <li>Zero or more <code>pointermove</code> events, depending on movement of the pointer</li>
-                    <li><code>pointerup</code></li>
-                    <li><code>pointerout</code></li>
-                    <li><code>pointerleave</code></li>
+                    <li>{{GlobalEventHandlers/pointerdown}}</li>
+                    <li>Zero or more {{GlobalEventHandlers/pointermove}} events, depending on movement of the pointer</li>
+                    <li>{{GlobalEventHandlers/pointerup}}</li>
+                    <li>{{GlobalEventHandlers/pointerout}}</li>
+                    <li>{{GlobalEventHandlers/pointerleave}}</li>
                     <li><code>mouseout</code></li>
                     <li><code>mouseleave</code></li>
                     <li><code>click</code></li>
@@ -1518,11 +1518,11 @@ function tilt2spherical(tiltX, tiltY){
             <li><a href="https://github.com/w3c/pointerevents/pull/410">Make "Converting..." section normative</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/404">Add note about rounding coordinates for click, auxclick, contextmenu</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/403">Expand prose about preventing compatibility mouse events and make it normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/398">Clarify <code>pointercancel</code> firing behavior on drag</a></li>
+            <li><a href="https://github.com/w3c/pointerevents/pull/398">Clarify {{GlobalEventHandlers/pointercancel}} firing behavior on drag</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/393">Tweak definition of predicted events to deal with untrusted events</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/391">Tweak the definition of coalesced event list to deal with untrusted events</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/390">Update targets of predicted and coalesced events when trusted event target changes</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/388">Remove mention of animation frame callback</a> as the reason for user agents delaying dispatch of <code>pointermove</code></li>
+            <li><a href="https://github.com/w3c/pointerevents/pull/388">Remove mention of animation frame callback</a> as the reason for user agents delaying dispatch of {{GlobalEventHandlers/pointermove}}</li>
             <li><a href="https://github.com/w3c/pointerevents/pull/386">Task queue is not reliable HTML concept. Use event loop instead</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/383">Explicit note about <code>pointerrawmove</code> having an empty predicted event list</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/382">Expand the definition/explanation of predicted events timestamps</a></li>
@@ -1538,11 +1538,11 @@ function tilt2spherical(tiltX, tiltY){
             <li><a href="https://github.com/w3c/pointerevents/pull/334">Add note about <code>touch-action</code> and iframe/embedded browsing contexts</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/324">Fix tilt to spherical calculation</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/323">Update <code>azimuthAngle</code>, <code>altitudeAngle</code>, <code>tiltX</code>, <code>tiltY</code> to not require default values in pointer events web IDL</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/318">Add secure context criteria to <code>pointerrawupdate</code> and <code>getCoalescedEvents</code></a></li>
+            <li><a href="https://github.com/w3c/pointerevents/pull/318">Add secure context criteria to {{GlobalEventHandlers/pointerrawupdate}} and <code>getCoalescedEvents</code></a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/317">Change the type of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> to PointerEvent</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/316">Add <code>altitudeAngle</code>/<code>azimuthAngle</code></a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/307">Add <code>getPredictedEvents</code> API.</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/306">Introduce <code>getCoalescedEvents</code> API, <code>pointerrawupdate</code> event.</a></li>
+            <li><a href="https://github.com/w3c/pointerevents/pull/306">Introduce <code>getCoalescedEvents</code> API, {{GlobalEventHandlers/pointerrawupdate}} event.</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/300">Clarify active document for active pointers.</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/294">Add direction-specific <code>touch-action</code> values</a>
                 (<code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code>) and
