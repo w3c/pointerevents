@@ -560,7 +560,7 @@ interface PointerEvent : MouseEvent {
                 <div class="note">Authors can prevent the firing of certain <a>compatibility mouse events</a> by canceling the {{GlobalEventHandlers/pointerdown}} event (if the <code>isPrimary</code> property is <code>true</code>). This sets the <code>PREVENT MOUSE EVENT</code> flag on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
             </section>
             <section>
-                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointermove</dfn> event</h3>
+                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointermove</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointermove}} when a pointer changes any properties that don't fire
                 {{GlobalEventHandlers/pointerdown}} or {{GlobalEventHandlers/pointerup}} events. This includes any changes to coordinates, pressure, tangential pressure,
                 tilt, twist, contact geometry (i.e. <code>width</code> and <code>height</code>) or <a>chorded buttons</a>.</p>
