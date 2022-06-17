@@ -498,9 +498,9 @@ interface PointerEvent : MouseEvent {
                     <h3><dfn>Process pending pointer capture</dfn></h3>
                     <p>The user agent MUST run the following steps when <a>implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}.</p>
                     <ol>
-                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then <a>fire a pointer event</a> named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
+                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
                         </li>
-                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then <a>fire a pointer event</a> named {{GlobalEventHandlers/gotpointercapture}} at the <a>pending pointer capture target override</a>.
+                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/gotpointercapture}} at the <a>pending pointer capture target override</a>.
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
@@ -607,7 +607,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointercancel</dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
+                <p>The user agent MUST fire a pointer event named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
@@ -921,7 +921,7 @@ partial interface Navigator {
         </section>
         <section>
             <h2><dfn>Implicit pointer capture</dfn></h2>
-            <p>Inputs that implement <a>direct manipulation</a> interactions for panning and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture()</a> was called on the target element just before the invocation of any {{GlobalEventHandlers/pointerdown}} listeners. The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any {{GlobalEventHandlers/pointerdown}} listener) to determine whether this has occurred. If <a data-lt="Element.releasePointerCapture">releasePointerCapture()</a> is not called for the pointer before the next pointer event is fired, then a <a>gotpointercapture</a>> event will be dispatched to the target (as normal) indicating that capture is active.</p>
+            <p>Inputs that implement <a>direct manipulation</a> interactions for panning and zooming (such as touch or stylus on a touchscreen) SHOULD behave exactly as if <a data-lt="Element.setPointerCapture">setPointerCapture()</a> was called on the target element just before the invocation of any {{GlobalEventHandlers/pointerdown}} listeners. The <a data-lt="Element.hasPointerCapture">hasPointerCapture</a> API may be used (eg. within any {{GlobalEventHandlers/pointerdown}} listener) to determine whether this has occurred. If <a data-lt="Element.releasePointerCapture">releasePointerCapture()</a> is not called for the pointer before the next pointer event is fired, then a {{GlobalEventHandlers/gotpointercapture}} event will be dispatched to the target (as normal) indicating that capture is active.</p>
             <div class="note">This is a breaking change from [[PointerEvents]], but does not impact the vast majority of existing content. In addition to matching typical platform UX conventions, this design for implicit capture enables user agents to make a performance optimization which prevents the need to invoke hit-testing on touch movement events without explicit developer opt-in (consistent with the performance properties of existing dominant native and web APIs for touch input).</div>
             <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
         </section>
