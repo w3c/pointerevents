@@ -498,9 +498,9 @@ interface PointerEvent : MouseEvent {
                     <h3><dfn>Process pending pointer capture</dfn></h3>
                     <p>The user agent MUST run the following steps when <a>implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}.</p>
                     <ol>
-                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
+                        <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then <a>fire a pointer event</a> named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
                         </li>
-                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/gotpointercapture}} at the <a>pending pointer capture target override</a>.
+                        <li>If the <a>pending pointer capture target override</a> for this pointer is set and is not equal to the <a>pointer capture target override</a>, then <a>fire a pointer event</a> named {{GlobalEventHandlers/gotpointercapture}} at the <a>pending pointer capture target override</a>.
                         </li>
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
@@ -607,7 +607,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointercancel</dfn> event</h3>
-                <p>The user agent MUST fire a pointer event named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
