@@ -64,7 +64,7 @@
         <h1>Introduction</h1>
         <p>Today, most [[HTML]] content is used with and/or designed for mouse input. Those that handle input in a custom manner typically code to [[UIEVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens, pen input, etc. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most <a data-lt="user agent">user agents</a> fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
 
-        <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specifications defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
+        <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specification defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
         <p>An additional key goal is to enable multi-threaded user agents to handle <a>direct manipulation</a> actions for panning and zooming (for instance, with a finger or stylus on a touchscreen), without blocking on script execution.</p>
 
         <div class="note">
@@ -93,7 +93,7 @@
 
     <section class="informative">
         <h1>Examples</h1>
-        <p>The following are basic examples that demonstrates how some of the APIs in this specification might be used by authors. Further, more specific examples are provided in the relevant sections of this document.</p>
+        <p>The following are basic examples that demonstrate how some of the APIs in this specification might be used by authors. Further, more specific examples are provided in the relevant sections of this document.</p>
 <pre id="example_1" class="example" title="Feature detection and event binding">
 <code>/* Bind to either Pointer Events or traditional touch/mouse */
 
@@ -344,7 +344,7 @@ interface PointerEvent : MouseEvent {
                 </section>
                 <section>
                     <h3>The <code>button</code> property</h3>
-                    <p>To identify button state transitions in any pointer event (and not just {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}}), the <code>button</code> property indicates the device button whose state-change fired the event.</p>
+                    <p>To identify button state transitions in any pointer event (and not just {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}}), the <code>button</code> property indicates the device button whose state change fired the event.</p>
                     <table class="simple">
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
@@ -511,7 +511,7 @@ interface PointerEvent : MouseEvent {
                     <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
                     <ul>
                         <li>The user agent has opened a modal dialog or menu.</li>
-                        <li>A pointer input device is physically disconnected, or a hoverable pointer input device (e.g. a hoverable pen/stylus) has left the hover-range detectable by the digitizer.</li>
+                        <li>A pointer input device is physically disconnected, or a hoverable pointer input device (e.g. a hoverable pen/stylus) has left the hover range detectable by the digitizer.</li>
                         <li>The pointer is subsequently used by the user agent to manipulate the page viewport (e.g. panning or zooming).  See the section on <a>touch-action</a> CSS property for details.
                             <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen), and therefore the start of a pan or zoom action may result in the suppression of various pointers, including pointers with different pointer types.</div>
                         </li>
@@ -824,7 +824,7 @@ partial interface Navigator {
             <dt>none</dt>
             <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
             <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction are disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.<p>
+            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.<p>
             <dt>manipulation</dt>
             <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
           </dl>
@@ -1168,7 +1168,7 @@ partial interface Navigator {
     <section>
         <h1><dfn data-lt="compatibility mouse events">Compatibility mapping with mouse events</dfn></h1>
         <p>The vast majority of web content existing today codes only to Mouse Events. The following describes an algorithm for how the user agent MAY map generic pointer input to mouse events for compatibility with this content.</p>
-        <p>The compatibility mapping with mouse events are an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
+        <p>The compatibility mapping with mouse events is an OPTIONAL feature of this specification. User agents are encouraged to support the feature for best compatibility with existing legacy content. User agents that do not support compatibility mouse events are still encouraged to support the <code>click</code> and <code>contextmenu</code> events (see the note below).</p>
         <p>The <code>click</code> and <code>contextmenu</code> events, defined in [[UIEVENTS]], are not considered <a>compatibility mouse events</a> as they are typically tied to user interface activation, and are fired from other (non-pointer) input devices, such as keyboards.</p>
         <div class="note">
             <p>In user agents that support firing <code>click</code> and/or <code>contextmenu</code>, calling <code>preventDefault</code> during a pointer event typically does not have an effect on whether <code>click</code> and/or <code>contextmenu</code> are fired or not. Because they are not compatibility mouse events, user agents typically fire <code>click</code> and <code>contextmenu</code> for all pointing devices, including pointers that are not primary pointers.</p>
@@ -1224,7 +1224,7 @@ partial interface Navigator {
             <ol>
                 <li>If the <code>isPrimary</code> property for the pointer event to be dispatched is <code>false</code> then dispatch the pointer event and terminate these steps.</li>
                 <li>If the pointer event to be dispatched is {{GlobalEventHandlers/pointerover}} and the {{GlobalEventHandlers/pointerdown}} event has not yet been dispatched for this pointer, then fire a <code>mousemove</code> event (for compatibility with legacy mouse-specific code).</li>
-                <li>If the pointer event to be is dispatched is a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
+                <li>If the pointer event to be dispatched is a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, dispatch compatibility mouse transition events as described in <a>Tracking the effective position of the legacy mouse pointer</a>.</li>
                 <li>Dispatch the pointer event.</li>
                 <li>If the pointer event dispatched was {{GlobalEventHandlers/pointerdown}} and the event was <a data-lt="canceled event">canceled</a>, then set the <code>PREVENT MOUSE EVENT</code> flag for this <code>pointerType</code>.</li>
                 <li>If the <code>PREVENT MOUSE EVENT</code> flag is <strong>not</strong> set for this <code>pointerType</code> and the pointer event dispatched was:
