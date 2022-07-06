@@ -712,13 +712,13 @@ partial interface mixin GlobalEventHandlers {
 };
             </pre>
             <dl data-dfn-for="GlobalEventHandlers" data-link-for="GlobalEventHandlers">
-                <dt><dfn>ongotpointercapture</dfn></dt>
+                <dt><dfn>onpointerover</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/gotpointercapture}} event type.
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerover}} event type.
                 </dd>
-                <dt><dfn>onlostpointercapture</dfn></dt>
+                <dt><dfn>onpointerenter</dfn></dt>
                 <dd>
-                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/lostpointercapture}} event type.
+                    The [=event handler IDL attribute=] for the <code>pointerenter</code> event type.
                 </dd>
                 <dt><dfn>onpointerdown</dfn></dt>
                 <dd>
@@ -728,6 +728,10 @@ partial interface mixin GlobalEventHandlers {
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointermove}} event type.
                 </dd>
+                <dt><dfn>onpointerrawupdate</dfn></dt>
+                <dd>
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerrawupdate}} event type.
+                </dd>
                 <dt><dfn>onpointerup</dfn></dt>
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerup}} event type.
@@ -736,21 +740,23 @@ partial interface mixin GlobalEventHandlers {
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointercancel}} event type.
                 </dd>
-                <dt><dfn>onpointerover</dfn></dt>
-                <dd>
-                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerover}} event type.
-                </dd>
+                
                 <dt><dfn>onpointerout</dfn></dt>
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerout}} event type.
                 </dd>
-                <dt><dfn>onpointerenter</dfn></dt>
-                <dd>
-                    The [=event handler IDL attribute=] for the <code>pointerenter</code> event type.
-                </dd>
+                
                 <dt><dfn>onpointerleave</dfn></dt>
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerleave}} event type.
+                </dd>
+                <dt><dfn>ongotpointercapture</dfn></dt>
+                <dd>
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/gotpointercapture}} event type.
+                </dd>
+                <dt><dfn>onlostpointercapture</dfn></dt>
+                <dd>
+                    The [=event handler IDL attribute=] for the {{GlobalEventHandlers/lostpointercapture}} event type.
                 </dd>
             </dl>
         </div>
