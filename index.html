@@ -698,17 +698,17 @@ partial interface Element {
             <p>The following section describes extensions to the existing {{GlobalEventHandlers}} mixin to facilitate the event handler registration.</p>
             <pre class="idl">
 partial interface mixin GlobalEventHandlers {
-    attribute EventHandler ongotpointercapture;
-    attribute EventHandler onlostpointercapture;
+    attribute EventHandler onpointerover;
+    attribute EventHandler onpointerenter;
     attribute EventHandler onpointerdown;
     attribute EventHandler onpointermove;
     [SecureContext] attribute EventHandler onpointerrawupdate;
     attribute EventHandler onpointerup;
     attribute EventHandler onpointercancel;
-    attribute EventHandler onpointerover;
     attribute EventHandler onpointerout;
-    attribute EventHandler onpointerenter;
     attribute EventHandler onpointerleave;
+    attribute EventHandler ongotpointercapture;
+    attribute EventHandler onlostpointercapture;
 };
             </pre>
             <dl data-dfn-for="GlobalEventHandlers" data-link-for="GlobalEventHandlers">
