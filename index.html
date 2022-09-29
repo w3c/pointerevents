@@ -1204,6 +1204,31 @@ partial interface Navigator {
                 <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[UIEVENTS]] for a mouse moving from the current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|. Consider an unset value of either current <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> or |T| as an out-of-window mouse position.</li>
                 <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|.</li>
             </ol>
+            <div class="note">
+              When more than one <a>primary pointers</a> (with different <code>pointerType</code> values) are active
+              simultaneously, there is no one-to-one correspondence between the <code>PointerEvent</code> transition
+              events (i.e., <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code> and
+              <code>pointerleave</code>) and the legacy mouse transition events (i.e., <code>mouseover</code>,
+              <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>).  This is because the
+              legacy mouse transition events must simulate the movement of a <emph>single</emph> legacy mouse.  The
+              following animation shows such a situation, where the orange pointer represents the <a>effective position
+              of the legacy mouse pointer</a>.
+
+              <figure id="legacy-pointer-transition">
+                <img src="images/legacy-pointer-animation.gif"
+                     alt="legacy mouse pointer animation">
+                <figcaption>
+                  Simultaneous mouse and touch pointers causing legacy mouse to move between the two pointers.
+                </figcaption>
+              </figure>
+
+              In this example, between the mouse click and the touch tap, Button 1 receives no <code>pointerout</code>
+              event (because the "real" mouse pointer didn't leave the button rectangle within this time frame), but
+              Button 1 receives a <code>mouseout</code> event when the legacy mouse pointer moves to Button 2 on touch
+              tap.  Similarly, between the touch tap and the momemt before the mouse leaves Button 1, Button 1 receives
+              no <code>pointerover</code> event for the same reason, but Button 1 receives a <code>mouseover</code>
+              event when the legacy mouse pointer moves back inside Button 1.
+            </div>
         </section>
         <section>
             <h2>Mapping for devices that support hover</h2>
