@@ -1210,7 +1210,7 @@ partial interface Navigator {
               events (i.e., <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code> and
               <code>pointerleave</code>) and the legacy mouse transition events (i.e., <code>mouseover</code>,
               <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>).  This is because the
-              legacy mouse transition events must simulate the movement of a <emph>single</emph> legacy mouse.  The
+              mouse transition events must simulate the movement of a <emph>single</emph> legacy mouse.  The
               following animation shows such a situation, where the orange pointer represents the <a>effective position
               of the legacy mouse pointer</a>.
 
@@ -1222,12 +1222,13 @@ partial interface Navigator {
                 </figcaption>
               </figure>
 
-              In this example, between the mouse click and the touch tap, Button 1 receives no <code>pointerout</code>
-              event (because the "real" mouse pointer didn't leave the button rectangle within this time frame), but
-              Button 1 receives a <code>mouseout</code> event when the legacy mouse pointer moves to Button 2 on touch
-              tap.  Similarly, between the touch tap and the momemt before the mouse leaves Button 1, Button 1 receives
-              no <code>pointerover</code> event for the same reason, but Button 1 receives a <code>mouseover</code>
-              event when the legacy mouse pointer moves back inside Button 1.
+              In this animation, note the time period between the mouse click and the touch tap.  Button 1 receives no
+              <code>pointerout</code> event (because the "real" mouse pointer didn't leave the button rectangle within
+              this period), but Button 1 receives a <code>mouseout</code> event when the <a>effective position of the
+              legacy mouse pointer</a> moves to Button 2 on touch tap.  Similarly, in the time period between the touch
+              tap and the momemt before the mouse leaves Button 1, Button 1 receives no <code>pointerover</code> event
+              for the same reason, but Button 1 receives a <code>mouseover</code> event when the <a>effective position
+              of the legacy mouse pointer</a> moves back inside Button 1.
             </div>
         </section>
         <section>
