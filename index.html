@@ -1196,7 +1196,7 @@ partial interface Navigator {
         </div>
         <section>
             <h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
-            <p>While only <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. For compatibility with scripts relying on MouseEvents, mouse transition events (<code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code> and <code>pointerleave</code>) SHOULD simulate the movement of a <em>single</em> legacy mouse input. This means that the entry/exit state for every event target is valid, in accordance with [[UIEVENTS]]. Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
+            <p>While only <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. For compatibility with scripts relying on MouseEvents, the mouse transition events (<code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>) SHOULD simulate the movement of a <em>single</em> legacy mouse input. This means that the entry/exit state for every event target is valid, in accordance with [[UIEVENTS]]. Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
             <p>Right before firing a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
             <ol>
                 <li>Let |T| be the target of the {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event being dispatched. For the {{GlobalEventHandlers/pointerleave}} event, unset |T|.</li>
@@ -1205,23 +1205,28 @@ partial interface Navigator {
                 <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|.</li>
             </ol>
             <div class="note">
-              <p>The following animation illustrates how a user agent can dispatch compatibility mouse events that reconcile two active primary pointers with an idealised legacy mouse input.</p>
+              <p> The <a>effective position of the legacy mouse pointer</a> models the fact that we cannot always have a direct mapping
+                from pointer transition events (i.e., <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>
+                and <code>pointerleave</code>) to corresponding legacy mouse transition events (i.e., <code>mouseover</code>,
+                <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>).  The following animation illustrates a case
+                where a user agent needs to dispatch more legacy mouse transition events than pointer transition events to be able to
+                reconcile two primary pointers using a single legacy mouse input.</p>
 
               <figure id="legacy-pointer-transition">
                 <video src="images/legacy-pointer-animation.webm" controls></video>
                 <figcaption>
-                  Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the idealised legacy mouse input
-                  (orange cursor) to move between the two pointers, firing mouse transition events (<code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code> and <code>pointerleave</code>) along the way.
+                  Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the single legacy mouse input
+                  (orange cursor) to move between the two pointers.
                 </figcaption>
               </figure>
 
               <p>In this animation, note the time period between the mouse click and the touch tap.  Button 1 receives no
-              <code>pointerout</code> event (because the "real" mouse pointer didn't leave the button rectangle within
-              this period), but Button 1 receives a <code>mouseout</code> event when the <a>effective position of the
-              legacy mouse pointer</a> moves to Button 2 on touch tap.  Similarly, in the time period between the touch
-              tap and the moment before the mouse leaves Button 1, Button 1 receives no <code>pointerover</code> event
-              for the same reason, but Button 1 receives a <code>mouseover</code> event when the <a>effective position
-              of the legacy mouse pointer</a> moves back inside Button 1.</p>
+                <code>pointerout</code> event (because the "real" mouse pointer didn't leave the button rectangle within
+                this period), but Button 1 receives a <code>mouseout</code> event when the <a>effective position of the
+                legacy mouse pointer</a> moves to Button 2 on touch tap.  Similarly, in the time period between the touch
+                tap and the moment before the mouse leaves Button 1, Button 1 receives no <code>pointerover</code> event
+                for the same reason, but Button 1 receives a <code>mouseover</code> event when the <a>effective position
+                of the legacy mouse pointer</a> moves back inside Button 1.</p>
             </div>
         </section>
         <section>
