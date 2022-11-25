@@ -493,7 +493,7 @@ interface PointerEvent : MouseEvent {
 
                         <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by canceling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a>declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancelation of events facilitates performance optimizations by the user agent.</p>
 
-                  <p>For {{GlobalEventHandlers/pointerenter}} and {{GlobalEventHandlers/pointerleave}} events, the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>false</code>; for all other pointer events in the table above the attribute SHOULD be <code>true</code>.</p>
+                  <p>For {{GlobalEventHandlers/pointerenter}} and {{GlobalEventHandlers/pointerleave}} events, the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>false</code>; for all other pointer events in the table above, the attribute SHOULD be <code>true</code>.</p>
 
                   <p>For all pointer events in the table above, the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
                         <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
