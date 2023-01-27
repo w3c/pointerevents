@@ -409,7 +409,7 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                    then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
-                <p>Run <a href="html.spec.whatwg.org/#popover-light-dismiss">light dismiss open popovers</a> given the event and target.</p>
+                <p>Run <a href="html.spec.whatwg.org/#popover-light-dismiss">light dismiss open popovers</a> given the event.</p>
 
                 <p>Fire the event to the determined target. The user agent SHOULD treat the target as if the pointing device has moved over it for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]].</p>
 
