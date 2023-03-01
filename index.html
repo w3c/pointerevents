@@ -615,6 +615,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointercancel</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
+                <p>The value of most properties (<code>pointerId</code>, <code>width</code>, <code>height</code>, <code>pressure</code>, <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>, <code>altitudeAngle</code>, <code>azimuthAngle</code>, <code>pointerType</code>, <code>isPrimary</code>) of the {{GlobalEventHandlers/pointercancel}} event MUST match the values of the last pointer event that preceded cancellation. However, the <code>coalescedEvents</code> and <code>predictedEvents</code> lists of the {{GlobalEventHandlers/pointercancel}} event MUST be empty, and the event's {{Event/cancelable}} attribute MUST be false.</p>
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
@@ -1551,6 +1552,7 @@ function tilt2spherical(tiltX, tiltY){
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
            See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/464">Add clarification about <code>pointercancel</code> coordinates/properties</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/437">Define a section for suppressing a pointer event stream</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/419">Remove should from boundary events note and move to normative must</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/418">Make fact that <code>click</code>/<code>contextmenu</code> are not compat mouse events normative</a></li>
