@@ -1197,9 +1197,7 @@ partial interface Navigator {
         <p>Authors can prevent the production of certain compatibility mouse events by canceling the {{GlobalEventHandlers/pointerdown}} event.</p>
         <p>Mouse events can only be prevented when the pointer is down. Hovering pointers (e.g. a mouse with no buttons pressed) cannot have their mouse events prevented.</p>
         <p>The <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code>, and <code>mouseleave</code> events are never prevented (even if the pointer is down).</p>
-        <div class="note">
-            <p>Compatibility mouse events can't be prevented when a pointer event {{EventListener}} is set to be {{AddEventListenerOptions/passive}} [[DOM]].</p>
-        </div>
+        <p>Compatibility mouse events can't be prevented when a pointer event {{EventListener}} is set to be {{AddEventListenerOptions/passive}} [[DOM]].</p>
         <section>
             <h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
             <p>While only <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. For compatibility with scripts relying on MouseEvents, the mouse transition events (<code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>) SHOULD simulate the movement of a <em>single</em> legacy mouse input. This means that the entry/exit state for every event target is valid, in accordance with [[UIEVENTS]]. Users agents SHOULD guarantee this by maintaining the <dfn>effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
