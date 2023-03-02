@@ -243,7 +243,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>pressure</dfn></dt>
                         <dd>
-                            <p>The normalized pressure of the pointer input in the range of <code>[0,1]</code>, where <code>0</code> and <code>1</code> represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be <code>0.5</code> when in the <a>active buttons state</a> and <code>0</code> otherwise. Note: all {{GlobalEventHandlers/pointerup}} events will have pressure <code>0</code>.</p>
+                            <p>The normalized pressure of the pointer input in the range of <code>[0,1]</code>, where <code>0</code> and <code>1</code> represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be <code>0.5</code> when in the <a>active buttons state</a> and <code>0</code> otherwise.</p>
                         </dd>
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
@@ -609,6 +609,7 @@ interface PointerEvent : MouseEvent {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-event-type="event">pointerup</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerup}} when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} followed by a pointer event named {{GlobalEventHandlers/pointerleave}} after dispatching the {{GlobalEventHandlers/pointerup}} event.</p>
+                <p>All {{GlobalEventHandlers/pointerup}} events have a <code>pressure</code> value of <code>0</code>.
                 <p>The user agent MUST also <a>implicitly release the pointer capture</a> if the pointer is currently captured.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
             </section>
