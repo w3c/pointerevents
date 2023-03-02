@@ -235,23 +235,23 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>width</dfn></dt>
                         <dd>
-                            <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
+                            <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of <code>1</code>>.</p>
                         </dd>
                     <dt><dfn>height</dfn></dt>
                         <dd>
-                            <p>The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of 1.</p>
+                            <p>The height (magnitude on the Y axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of <code>1</code>.</p>
                         </dd>
                     <dt><dfn>pressure</dfn></dt>
                         <dd>
-                            <p>The normalized pressure of the pointer input in the range of [0,1], where 0 and 1 represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be 0.5 when in the <a>active buttons state</a> and 0 otherwise. Note: all {{GlobalEventHandlers/pointerup}} events will have pressure 0.</p>
+                            <p>The normalized pressure of the pointer input in the range of <code>[0,1]</code>, where <code>0</code> and <code>1</code> represent the minimum and maximum pressure the hardware is capable of detecting, respectively. For hardware and platforms that do not support pressure, the value MUST be <code>0.5</code> when in the <a>active buttons state</a> and <code>0</code> otherwise. Note: all {{GlobalEventHandlers/pointerup}} events will have pressure <code>0</code>.</p>
                         </dd>
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
-                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of [-1,1], where 0 is the neutral position of the control. Note that some hardware may only support positive values in the range of [0,1]. For hardware and platforms that do not support tangential pressure, the value MUST be 0.</p>
+                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of <code>[-1,1]</code>, where <code>0</code> is the neutral position of the control. Note that some hardware may only support positive values in the range of <code>[0,1]</code>. For hardware and platforms that do not support tangential pressure, the value MUST be <code>0</code>.</p>
                         </dd>
                     <dt><dfn>tiltX</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the Y-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right, in the direction of increasing X values. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of <code>[-90,90]</code>) between the Y-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the Y axis. A positive <code>tiltX</code> is to the right, in the direction of increasing X values. <code>tiltX</code> can be used along with <code>tiltY</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be <code>0</code>.</p>
                             <figure id="figure_tiltX">
                                 <img src="images/tiltX.png" alt="tiltX explanation diagram">
                                 <figcaption>Positive <code>tiltX</code>.</figcaption>
@@ -259,7 +259,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>tiltY</dfn></dt>
                         <dd>
-                            <p>The plane angle (in degrees, in the range of [-90,90]) between the X-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user, in the direction of increasing Y values. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The plane angle (in degrees, in the range of <code>[-90,90]</code>) between the X-Z plane and the plane containing both the transducer (e.g. pen/stylus) axis and the X axis. A positive <code>tiltY</code> is towards the user, in the direction of increasing Y values. <code>tiltY</code> can be used along with <code>tiltX</code> to represent the tilt away from the normal of a transducer with the digitizer. For hardware and platforms that do not report tilt or angle, the value MUST be <code>0</code>.</p>
                             <figure id="figure_tiltY">
                                 <img src="images/tiltY.png" alt="tiltY explanation diagram">
                                 <figcaption>Positive <code>tiltY</code>.</figcaption>
@@ -267,28 +267,28 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>twist</dfn></dt>
                         <dd>
-                            <p>The clockwise rotation (in degrees, in the range of [0,359]) of a transducer (e.g. pen/stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be 0.</p>
+                            <p>The clockwise rotation (in degrees, in the range of <code>[0,359]</code>) of a transducer (e.g. pen/stylus) around its own major axis. For hardware and platforms that do not report twist, the value MUST be <code>0</code>.</p>
                         </dd>
                     <dt><dfn>altitudeAngle</dfn></dt>
                         <dd>
-                            <p>The altitude (in radians) of the transducer (e.g. pen/stylus), in the range [0,π/2] — where 0 is parallel to the surface (X-Y plane), and π/2 is perpendicular to the surface. For hardware and platforms that do not report tilt or angle, the value MUST be π/2.</p>
+                            <p>The altitude (in radians) of the transducer (e.g. pen/stylus), in the range <code>[0,π/2]</code> — where <code>0</code> is parallel to the surface (X-Y plane), and <code>π/2</code> is perpendicular to the surface. For hardware and platforms that do not report tilt or angle, the value MUST be <code>π/2</code>.</p>
                             <div class="note">
-                                The default value defined here for <code>altitudeAngle</code> is π/2,
+                                The default value defined here for <code>altitudeAngle</code> is <code>π/2</code>,
                                 which positions the transducer as being perpendicular to the surface.
                                 This differs from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification's
-                                definition for the <code>altitudeAngle</code> property, which has a default value of 0.
+                                definition for the <code>altitudeAngle</code> property, which has a default value of <code>0</code>.
                             </div>
                             <figure id="figure_altitudeAngle">
                                 <img src="images/altitudeAngle.png" alt="altitudeAngle explanation diagram">
-                                <figcaption>Example <code>altitudeAngle</code> of π/4 (45 degrees from the X-Y plane).</figcaption>
+                                <figcaption>Example <code>altitudeAngle</code> of <code>π/4</code> (45 degrees from the X-Y plane).</figcaption>
                             </figure>
                         </dd>
                     <dt><dfn>azimuthAngle</dfn></dt>
                         <dd>
-                            <p>The azimuth angle (in radians) of the transducer (e.g. pen/stylus), in the range [0, 2π] — where 0 represents a transducer whose cap is pointing in the direction of increasing X values (point to "3 o'clock" if looking straight down) on the X-Y plane, and the values progressively increase when going clockwise (π/2 at "6 o'clock", π at "9 o'clock", 3π/2 at "12 o'clock"). When the transducer is perfectly perpendicular to the surface (<code>altitudeAngle</code> of π/2), the value MUST be 0. For hardware and platforms that do not report tilt or angle, the value MUST be 0.</p>
+                            <p>The azimuth angle (in radians) of the transducer (e.g. pen/stylus), in the range <code>[0, 2π]</code> — where <code>0</code> represents a transducer whose cap is pointing in the direction of increasing X values (point to "3 o'clock" if looking straight down) on the X-Y plane, and the values progressively increase when going clockwise (<code>π/2</code> at "6 o'clock", <code>π</code> at "9 o'clock", <code>3π/2</code> at "12 o'clock"). When the transducer is perfectly perpendicular to the surface (<code>altitudeAngle</code> of <code>π/2</code>), the value MUST be <code>0</code>. For hardware and platforms that do not report tilt or angle, the value MUST be <code>0</code>.</p>
                             <figure id="figure_azimuthAngle">
                                 <img src="images/azimuthAngle.png" alt="azimuthAngle explanation diagram">
-                                <figcaption>Example <code>azimuthAngle</code> of π/6 ("4 o'clock").</figcaption>
+                                <figcaption>Example <code>azimuthAngle</code> of <code>π/6</code> ("4 o'clock").</figcaption>
                             </figure>
                         </dd>
                     <dt><dfn>pointerType</dfn></dt>
@@ -780,7 +780,7 @@ partial interface Navigator {
                 <p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> should be <code>10</code>.</p>
                 </dd>
             </dl>
-            <div class="note">While a <code>maxTouchPoints</code> value of greater than 0 indicates the user's device is capable of supporting touch input, it does not necessarily mean the user <em>will</em> use touch input. Authors should be careful to also consider other input modalities that could be present on the system, such as mouse, pen, screen readers, etc.</div>
+            <div class="note">While a <code>maxTouchPoints</code> value of greater than <code>0</code> indicates the user's device is capable of supporting touch input, it does not necessarily mean the user <em>will</em> use touch input. Authors should be careful to also consider other input modalities that could be present on the system, such as mouse, pen, screen readers, etc.</div>
             <div class="note"><code>maxTouchPoints</code> is often used to ensure that the interaction model of the content can be recognized by the current hardware. UI affordances can be provided to users with less capable hardware. On platforms where the precise number of touch points is not known, the minimum number guaranteed to be recognized is provided. Therefore, it is possible for the number of recognized touch points to exceed the value of <code>maxTouchPoints</code>.</div>
         </div>
     </section>
@@ -847,7 +847,7 @@ partial interface Navigator {
           <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
           <div class="note">
             <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
-               For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is 0 and <code>pan-x pan-y</code> otherwise.
+               For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is <code>0</code> and <code>pan-x pan-y</code> otherwise.
                This allows pointer event handlers to define the behavior for upward panning/scrolling that start from the top of the document.</p>
             <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).
                For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical panning of the document.
