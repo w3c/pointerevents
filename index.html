@@ -248,6 +248,7 @@ interface PointerEvent : MouseEvent {
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
                           <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of <code>[-1,1]</code>, where <code>0</code> is the neutral position of the control. Note that some hardware may only support positive values in the range of <code>[0,1]</code>. For hardware and platforms that do not support tangential pressure, the value MUST be <code>0</code>.</p>
+                          <div class="note">Despite the property's name, in practice the hardware controls/sensors that generate the values for this property may not necessarily be pressure sensitive. As an example, in most cases the finger wheel on most airbrush/painting stylus implementations can be freely set, rather than requiring the user to apply a constant pressure on the wheel to prevent it from returning to the zero position.</div>
                         </dd>
                     <dt><dfn>tiltX</dfn></dt>
                         <dd>
