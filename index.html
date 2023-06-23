@@ -676,13 +676,8 @@ interface PointerEvent : MouseEvent {
                 </section>
                 <section>
                   <h4>Event dispatch</h4>
-                  <p>Let <var>e</var> be any <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, and <var>t</var> be the user interaction event that caused the firing of <var>e</var>.
-                    The type of <var>t</var> depends on native platform convention:
-                    if <var>e</var> is a <code>contextmenu</code> event, <var>t</var> is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event;
-                    if <var>e</var> is a <code>click</code> or <code>auxclick</code> event, <var>t</var> is a {{GlobalEventHandlers/pointerup}} event.</p>
-                  <p>If <var>t</var> was dispatched while the pointer was captured, <var>e</var> MUST be dispatched to the capturing target of the <var>t</var>
-                    and it MUST happen after the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code> has been dispatched.
-                    Otherwise, <var>e</var> MUST follow the dispatch process defined in [[UIEVENTS]].</p>
+                  <p>Let <var>e</var> be any <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, and <var>t</var> be the user interaction event that caused the firing of <var>e</var>. The type of <var>t</var> depends on native platform convention: if <var>e</var> is a <code>contextmenu</code> event, <var>t</var> is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if <var>e</var> is a <code>click</code> or <code>auxclick</code> event, <var>t</var> is a {{GlobalEventHandlers/pointerup}} event.</p>
+                  <p>If <var>t</var> was dispatched while the pointer was captured, the target of <var>e</var> MUST be the capturing target of the <var>t</var>, and <var>e</var> MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>. Otherwise, <var>e</var> MUST follow the dispatch process defined in [[UIEVENTS]].</p>
                 </section>
             </section>
         </section>
