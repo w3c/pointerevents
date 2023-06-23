@@ -395,7 +395,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h2>Firing events using the <code>PointerEvent</code> interface</h2>
                 <p>To <dfn>fire a pointer event</dfn> named |e| means to [=fire an event=] named |e| using <a>PointerEvent</a> whose attributes are set as defined in {{PointerEvent}} Interface and <a>Attributes and Default Actions</a>.</p>
-                <p>If the event is not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
+                <p>If the event is not a {{GlobalEventHandlers/gotpointercapture}}, {{GlobalEventHandlers/lostpointercapture}}, <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
 
                 <p>The target object at which the event is fired is determined as follows:
                 <ul>
@@ -499,7 +499,7 @@ interface PointerEvent : MouseEvent {
                   <p>For all pointer events in the table above, the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
                         <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
                         <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
-                        <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
+                        <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events, all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
                 </section>
 
                 <section>
@@ -649,7 +649,7 @@ interface PointerEvent : MouseEvent {
             </section>
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">lostpointercapture</dfn> event</h3>
-                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/lostpointercapture}} after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. Subsequent events for the pointer follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
+                <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/lostpointercapture}} after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. All subsequent events for the pointer except <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a> follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
             </section>
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
@@ -676,8 +676,8 @@ interface PointerEvent : MouseEvent {
                 </section>
                 <section>
                   <h4>Event dispatch</h4>
-                  <p>Let <var>e</var> be any <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, and <var>t</var> be the user interaction event that caused the firing of <var>e</var>. The type of <var>t</var> depends on native platform convention: if <var>e</var> is a <code>contextmenu</code> event, <var>t</var> is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if <var>e</var> is a <code>click</code> or <code>auxclick</code> event, <var>t</var> is a {{GlobalEventHandlers/pointerup}} event.</p>
-                  <p>If <var>t</var> was dispatched while the pointer was captured, the target of <var>e</var> MUST be the capturing target of the <var>t</var>, and <var>e</var> MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>. Otherwise, <var>e</var> MUST follow the dispatch process defined in [[UIEVENTS]].</p>
+                  <p>If a <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| is fired in response to a user interaction event |t|, and |t| is a <code>PointerEvent</code> which was dispatched while the corresponding pointer was captured, the target of |e| MUST be the capturing target of the |t|, and |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>. Otherwise, |e| MUST follow the dispatch process defined in [[UIEVENTS]].</p>
+                  <div class="note">When |t| is a <code>PointerEvent</code>, its type depends on native platform convention: if |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if |e| is a <code>click</code> or <code>auxclick</code> event, |t| is a {{GlobalEventHandlers/pointerup}} event.</div>
                 </section>
             </section>
         </section>
@@ -965,10 +965,6 @@ partial interface Navigator {
                After running <a>process pending pointer capture</a> steps,
                if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
                to reflect the current position of the pointer with no capture.</p>
-            <p>If the user agent supports firing the <code>click</code> or <code>auxclick</code> event,
-               and if in an implicit release scenario both that (<code>click</code> or <code>auxclick</code>)
-               event and a {{GlobalEventHandlers/lostpointercapture}} event are fired,
-               the <code>click</code> or <code>auxclick</code> event SHOULD be fired before {{GlobalEventHandlers/lostpointercapture}}.</p>
             <p>When the <a>pointer capture target override</a> is no longer [=connected=] [[DOM]],
                the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
                and also a PointerEvent named {{GlobalEventHandlers/lostpointercapture}} corresponding to the captured pointer SHOULD be fired at the document.</p>
