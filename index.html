@@ -549,14 +549,13 @@ interface PointerEvent : MouseEvent {
                     </ul>
                 </section>
             </section>
-        </section>
 
-        <section>
-            <h3>Converting between <code>tiltX</code> / <code>tiltY</code> and <code>altitudeAngle</code> / <code>azimuthAngle</code></h3>
-            <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
-            <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
-            <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
-            <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
+            <section>
+                <h3>Converting between <code>tiltX</code> / <code>tiltY</code> and <code>altitudeAngle</code> / <code>azimuthAngle</code></h3>
+                <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
+                <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
+                <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
+                <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
 function spherical2tilt(altitudeAngle, azimuthAngle){
   const radToDeg = 180/Math.PI;
@@ -659,6 +658,7 @@ function tilt2spherical(tiltX, tiltY){
   return {"altitudeAngle":altitudeAngle, "azimuthAngle":azimuthAngle};
 }</code>
 </pre>
+            </section>
         </section>
 
         <section>
