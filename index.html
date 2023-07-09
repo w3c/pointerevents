@@ -336,15 +336,15 @@ interface PointerEvent : MouseEvent {
                     the <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a>.</div>
             </div>
             <section>
-                <h2>Button states</h2>
+                <h3>Button states</h3>
                 <section>
-                    <h3><dfn data-lt="chorded buttons">Chorded button interactions</dfn></h3>
+                    <h4><dfn data-lt="chorded buttons">Chorded button interactions</dfn></h4>
                     <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
                     <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
                     <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. For any <a>compatibility mouse events</a> the value of <code>button</code> and <code>buttons</code> MUST follow [[UIEVENTS]].</p>
                 </section>
                 <section>
-                    <h3>The <code>button</code> property</h3>
+                    <h4>The <code>button</code> property</h4>
                     <p>To identify button state transitions in any pointer event (and not just {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}}), the <code>button</code> property indicates the device button whose state change fired the event.</p>
                     <table class="simple">
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
@@ -361,7 +361,7 @@ interface PointerEvent : MouseEvent {
                     <div class="note">During a mouse drag, the value of the <code>button</code> property in a {{GlobalEventHandlers/pointermove}} event will be different from that in a <code>mousemove</code> event. For example, while moving the mouse with the right button pressed, the {{GlobalEventHandlers/pointermove}} events will have the <code>button</code> value -1, but the <code>mousemove</code> events will have the <code>button</code> value 2.</div>
                 </section>
                 <section>
-                    <h3>The <code>buttons</code> property</h3>
+                    <h4>The <code>buttons</code> property</h4>
                     <p>The <code>buttons</code> property gives the current state of the device buttons as a bitmask (same as in <code>MouseEvent</code>, but with an expanded set of possible values).</p>
                     <table class="simple">
                         <thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
@@ -378,7 +378,7 @@ interface PointerEvent : MouseEvent {
                 </section>
             </section>
             <section>
-                <h2>The <dfn>primary pointer</dfn></h2>
+                <h3>The <dfn>primary pointer</dfn></h3>
                 <p>In a multi-pointer (e.g. multi-touch) scenario, the <code>isPrimary</code> property is used to identify a master pointer amongst the set of <a data-lt="active pointer">active pointers</a> for each pointer type.</p>
                 <ul>
                     <li>At any given time, there can only ever be at most one primary pointer for each pointer type.</li>
@@ -393,7 +393,7 @@ interface PointerEvent : MouseEvent {
             </section>
 
             <section>
-                <h2>Firing events using the <code>PointerEvent</code> interface</h2>
+                <h3>Firing events using the <code>PointerEvent</code> interface</h3>
                 <p>To <dfn>fire a pointer event</dfn> named |e| means to [=fire an event=] named |e| using <a>PointerEvent</a> whose attributes are set as defined in {{PointerEvent}} Interface and <a>Attributes and Default Actions</a>.</p>
                 <p>If the event is not a {{GlobalEventHandlers/gotpointercapture}}, {{GlobalEventHandlers/lostpointercapture}}, <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
 
@@ -415,7 +415,7 @@ interface PointerEvent : MouseEvent {
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[UIEVENTS]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
-                  <h3><dfn>Attributes and default actions</dfn></h3>
+                  <h4><dfn>Attributes and default actions</dfn></h4>
                         <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a>Pointer Event types</a>.</p>
                         <table id="pointer-event-type-table" class="simple">
                             <thead><tr>
@@ -503,7 +503,7 @@ interface PointerEvent : MouseEvent {
                 </section>
 
                 <section>
-                    <h3><dfn>Process pending pointer capture</dfn></h3>
+                    <h4><dfn>Process pending pointer capture</dfn></h4>
                     <p>The user agent MUST run the following steps when <a>implicitly releasing pointer capture</a> as well as when firing Pointer Events that are not {{GlobalEventHandlers/gotpointercapture}} or {{GlobalEventHandlers/lostpointercapture}}.</p>
                     <ol>
                         <li>If the <a>pointer capture target override</a> for this pointer is set and is not equal to the <a>pending pointer capture target override</a>, then fire a pointer event named {{GlobalEventHandlers/lostpointercapture}} at the <a>pointer capture target override</a> node.
@@ -519,7 +519,7 @@ interface PointerEvent : MouseEvent {
                 </section>
 
                 <section>
-                    <h3>Suppressing a pointer event stream</h3>
+                    <h4>Suppressing a pointer event stream</h4>
                     <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
                     <ul>
                         <li>The user agent has opened a modal dialog or menu.</li>
@@ -548,6 +548,116 @@ interface PointerEvent : MouseEvent {
                       <li><a>Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
                     </ul>
                 </section>
+            </section>
+
+            <section>
+                <h3>Converting between <code>tiltX</code> / <code>tiltY</code> and <code>altitudeAngle</code> / <code>azimuthAngle</code></h3>
+                <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
+                <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
+                <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
+                <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
+
+function spherical2tilt(altitudeAngle, azimuthAngle){
+  const radToDeg = 180/Math.PI;
+
+  let tiltXrad = 0;
+  let tiltYrad = 0;
+
+  if(altitudeAngle == 0){
+    // the pen is in the X-Y plane
+    if(azimuthAngle == 0 || azimuthAngle == 2*Math.PI){
+      // pen is on positive X axis
+      tiltXrad = Math.PI/2;
+    }
+    if(azimuthAngle == Math.PI/2){
+      // pen is on positive Y axis
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle == Math.PI){
+      // pen is on negative X axis
+      tiltXrad = -Math.PI/2;
+    }
+    if(azimuthAngle == 3*Math.PI/2){
+      // pen is on negative Y axis
+      tiltYrad = -Math.PI/2;
+    }
+    if(azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2){
+      tiltXrad = Math.PI/2;
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI){
+      tiltXrad = -Math.PI/2;
+      tiltYrad = Math.PI/2;
+    }
+    if(azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2){
+      tiltXrad = -Math.PI/2;
+      tiltYrad = -Math.PI/2;
+    }
+    if(azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI){
+      tiltXrad = Math.PI/2;
+      tiltYrad = -Math.PI/2;
+    }
+  }
+
+  if(altitudeAngle != 0){
+    const tanAlt = Math.tan(altitudeAngle);
+
+    tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
+    tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
+  }
+
+  return {"tiltX":tiltXrad*radToDeg, "tiltY":tiltYrad*radToDeg};
+}
+
+function tilt2spherical(tiltX, tiltY){
+  const tiltXrad = tiltX * Math.PI/180;
+  const tiltYrad = tiltY * Math.PI/180;
+
+  // calculate azimuth angle
+  let azimuthAngle = 0;
+
+  if(tiltX == 0){
+    if(tiltY &gt; 0){
+      azimuthAngle = Math.PI/2;
+    }
+    else if(tiltY &lt; 0){
+      azimuthAngle = 3*Math.PI/2;
+    }
+  } else if(tiltY == 0){
+    if(tiltX &lt; 0){
+      azimuthAngle = Math.PI;
+    }
+  } else if(Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
+    // not enough information to calculate azimuth
+    azimuthAngle = 0;
+  } else {
+    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
+    const tanX = Math.tan(tiltXrad);
+    const tanY = Math.tan(tiltYrad);
+
+    azimuthAngle = Math.atan2(tanY, tanX);
+    if(azimuthAngle &lt; 0){
+      azimuthAngle += 2*Math.PI;
+    }
+  }
+
+  // calculate altitude angle
+  let altitudeAngle = 0;
+
+  if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
+      altitudeAngle = 0
+  } else if (tiltX == 0){
+    altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
+  } else if(tiltY == 0){
+    altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
+  } else {
+    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
+    altitudeAngle =  Math.atan(1.0/Math.sqrt(Math.pow(Math.tan(tiltXrad),2) + Math.pow(Math.tan(tiltYrad),2)));
+  }
+
+  return {"altitudeAngle":altitudeAngle, "azimuthAngle":azimuthAngle};
+}</code>
+</pre>
             </section>
         </section>
 
@@ -691,7 +801,7 @@ interface PointerEvent : MouseEvent {
     </section>
 
     <section>
-        <h2>Extensions to the `Element` interface</h2>
+        <h1>Extensions to the `Element` interface</h1>
         <div>
             <p>The following section describes extensions to the existing {{Element}} interface to facilitate the setting and releasing of pointer capture.</p>
             <pre class="idl">
@@ -719,7 +829,7 @@ partial interface Element {
         </div>
     </section>
     <section>
-        <h2>Extensions to the `GlobalEventHandlers` mixin</h2>
+        <h1>Extensions to the `GlobalEventHandlers` mixin</h1>
         <div>
             <p>The following section describes extensions to the existing {{GlobalEventHandlers}} mixin to facilitate the event handler registration.</p>
             <pre class="idl">
@@ -789,7 +899,7 @@ partial interface mixin GlobalEventHandlers {
     </section>
 
     <section>
-        <h2>Extensions to the `Navigator` interface</h2>
+        <h1>Extensions to the `Navigator` interface</h1>
         <div>
             <p>The {{Navigator}} interface is defined in [[HTML]]. This specification extends the <code>Navigator</code> interface to provide device detection support.</p>
             <pre class="idl">
@@ -964,7 +1074,7 @@ partial interface Navigator {
             <div class="note">In addition, user agents may implement implicit pointer capture behavior for all input devices on specific UI widgets such as input range controls (allowing some finger movement to stray outside of the form control itself during the interaction).</div>
         </section>
         <section>
-            <h3><dfn data-lt="implicitly release the pointer capture|implicitly releasing pointer capture">Implicit release of pointer capture</dfn></h3>
+            <h2><dfn data-lt="implicitly release the pointer capture|implicitly releasing pointer capture">Implicit release of pointer capture</dfn></h2>
             <p>Immediately after firing the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} events,
                the user agent MUST clear the <a>pending pointer capture target override</a>
                for the <code>pointerId</code> of the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} event that was just dispatched,
@@ -1336,120 +1446,7 @@ partial interface Navigator {
         </section>
     </section>
     <section>
-        <h2>Converting between <code>tiltX</code> / <code>tiltY</code> and <code>altitudeAngle</code> / <code>azimuthAngle</code></h2>
-        <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane:
-            <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and
-            <code>azimuthAngle</code> / <code>altitudeAngle</code>
-            (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
-        <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
-        <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD
-            round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
-        <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
-
-function spherical2tilt(altitudeAngle, azimuthAngle){
-  const radToDeg = 180/Math.PI;
-
-  let tiltXrad = 0;
-  let tiltYrad = 0;
-
-  if(altitudeAngle == 0){
-    // the pen is in the X-Y plane
-    if(azimuthAngle == 0 || azimuthAngle == 2*Math.PI){
-      // pen is on positive X axis
-      tiltXrad = Math.PI/2;
-    }
-    if(azimuthAngle == Math.PI/2){
-      // pen is on positive Y axis
-      tiltYrad = Math.PI/2;
-    }
-    if(azimuthAngle == Math.PI){
-      // pen is on negative X axis
-      tiltXrad = -Math.PI/2;
-    }
-    if(azimuthAngle == 3*Math.PI/2){
-      // pen is on negative Y axis
-      tiltYrad = -Math.PI/2;
-    }
-    if(azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2){
-      tiltXrad = Math.PI/2;
-      tiltYrad = Math.PI/2;
-    }
-    if(azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI){
-      tiltXrad = -Math.PI/2;
-      tiltYrad = Math.PI/2;
-    }
-    if(azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2){
-      tiltXrad = -Math.PI/2;
-      tiltYrad = -Math.PI/2;
-    }
-    if(azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI){
-      tiltXrad = Math.PI/2;
-      tiltYrad = -Math.PI/2;
-    }
-  }
-
-  if(altitudeAngle != 0){
-    const tanAlt = Math.tan(altitudeAngle);
-
-    tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
-    tiltYrad = Math.atan(Math.sin(azimuthAngle) / tanAlt);
-  }
-
-  return {"tiltX":tiltXrad*radToDeg, "tiltY":tiltYrad*radToDeg};
-}
-
-function tilt2spherical(tiltX, tiltY){
-  const tiltXrad = tiltX * Math.PI/180;
-  const tiltYrad = tiltY * Math.PI/180;
-
-  // calculate azimuth angle
-  let azimuthAngle = 0;
-
-  if(tiltX == 0){
-    if(tiltY &gt; 0){
-      azimuthAngle = Math.PI/2;
-    }
-    else if(tiltY &lt; 0){
-      azimuthAngle = 3*Math.PI/2;
-    }
-  } else if(tiltY == 0){
-    if(tiltX &lt; 0){
-      azimuthAngle = Math.PI;
-    }
-  } else if(Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
-    // not enough information to calculate azimuth
-    azimuthAngle = 0;
-  } else {
-    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
-    const tanX = Math.tan(tiltXrad);
-    const tanY = Math.tan(tiltYrad);
-
-    azimuthAngle = Math.atan2(tanY, tanX);
-    if(azimuthAngle &lt; 0){
-      azimuthAngle += 2*Math.PI;
-    }
-  }
-
-  // calculate altitude angle
-  let altitudeAngle = 0;
-
-  if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
-      altitudeAngle = 0
-  } else if (tiltX == 0){
-    altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
-  } else if(tiltY == 0){
-    altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
-  } else {
-    // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
-    altitudeAngle =  Math.atan(1.0/Math.sqrt(Math.pow(Math.tan(tiltXrad),2) + Math.pow(Math.tan(tiltYrad),2)));
-  }
-
-  return {"altitudeAngle":altitudeAngle, "azimuthAngle":azimuthAngle};
-}</code>
-</pre>
-    </section>
-    <section>
-        <h2>Security and privacy considerations</h2>
+        <h1>Security and privacy considerations</h1>
         <p>This appendix discusses security and privacy considerations for Pointer Events implementations. The discussion is limited to security and privacy issues that arise directly from implementation of the event model, APIs and events defined in this specification.</p>
         <p>Many of the event types defined in this specification are dispatched in response to user actions. This allows malicious event listeners to gain access to information users would typically consider confidential, e.g., the exact path/movement of a user's mouse/stylus/finger while interacting with a page.</p>
         <p>Pointer events contain additional information (where supported by the user's device), such as the angle or tilt at which a pen input is held, the geometry of the contact surface, and the pressure exerted on the stylus or touch screen. Information about angle, tilt, geometry and pressure are directly related to sensors on the user's device, meaning that this specification allows an origin access to these sensors.</p>
