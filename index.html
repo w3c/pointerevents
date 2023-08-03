@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Pointer Events</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
     <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove' defer></script>
     <script class='remove'>
       var respecConfig = {
-          specStatus:           "ED",
-          shortName:            "pointerevents3",
+          specStatus: "ED",
+          shortName: "pointerevents3",
           subtitle: "Level 3",
-          edDraftURI:           "https://w3c.github.io/pointerevents/",
+          edDraftURI: "https://w3c.github.io/pointerevents/",
           prevRecShortname: 'pointerevents',
           github: "https://github.com/w3c/pointerevents/",
           testSuiteURI: "https://wpt.fyi/pointerevents/",
           caniuse: "pointer",
-          formerEditors:  [
+          formerEditors: [
               { name: "Matt Brubeck",
                 company: "Mozilla", companyURL: "https://www.mozilla.org/",
                 w3cid: '45617' },
@@ -22,7 +22,7 @@
                 company: "Google", companyURL: "https://www.google.com/" ,
                 w3cid: '55724' },
           ],
-          editors:  [
+          editors: [
               { name: "Patrick H. Lauke",
                 company: "TetraLogical", companyURL: "https://tetralogical.com/",
                 w3cid: '35129' },
@@ -35,7 +35,7 @@
           lint: {
             "check-punctuation": true,
           },
-          noIDLSorting:         true,
+          noIDLSorting: true,
           doJsonLd: true,
           xref: {
             specs: ["uievents"],
@@ -49,15 +49,15 @@
         pre.idl::before, pre.example::before { font-family: sans-serif !important; }
         ol:not([data-class='note-list'])>li { margin-bottom: 1em; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <section id='abstract'>
         <p>The features in this specification extend or modify those found in Pointer Events, a W3C Recommendation that describes events and related interfaces for handling hardware agnostic pointer input from devices including a mouse, pen, touchscreen, etc. For compatibility with existing mouse based content, this specification also describes a mapping to fire Mouse Events for other pointer device types.</p>
     </section>
 
     <section id="sotd">
         <p>This specification is an update to [[PointerEvents2]] which was shipped broadly by Google Chrome and Microsoft Edge and Mozilla Firefox.
-           Level 3 includes editorial clarifications and new features that facilitate more use cases, in an effort to enable wider developer and browser adoption.</p>
+            Level 3 includes editorial clarifications and new features that facilitate more use cases, in an effort to enable wider developer and browser adoption.</p>
     </section>
 
     <section id="intro" class="informative">
@@ -187,7 +187,7 @@ eventTarget.dispatchEvent(event2);</code>
         <section>
             <h2><code>PointerEvent</code> interface</h2>
             <div>
-              <pre class="idl">
+<pre class="idl">
 dictionary PointerEventInit : MouseEventInit {
     long        pointerId = 0;
     double      width = 1;
@@ -223,7 +223,7 @@ interface PointerEvent : MouseEvent {
     [SecureContext] sequence&lt;PointerEvent> getCoalescedEvents();
     sequence&lt;PointerEvent> getPredictedEvents();
 };
-              </pre>
+</pre>
                 <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
                     <dt><dfn>pointerId</dfn></dt>
                         <dd>
@@ -247,8 +247,8 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>tangentialPressure</dfn></dt>
                         <dd>
-                          <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of <code>[-1,1]</code>, where <code>0</code> is the neutral position of the control. Note that some hardware may only support positive values in the range of <code>[0,1]</code>. For hardware and platforms that do not support tangential pressure, the value MUST be <code>0</code>.</p>
-                          <div class="note">Despite the property's name, in practice the hardware controls/sensors that generate the values for this property may not necessarily be pressure sensitive. As an example, in most cases the finger wheel on most airbrush/painting stylus implementations can be freely set, rather than requiring the user to apply a constant pressure on the wheel to prevent it from returning to the zero position.</div>
+                            <p>The normalized tangential pressure (also known as barrel pressure), typically set by an additional control (e.g. a finger wheel on an airbrush stylus), of the pointer input in the range of <code>[-1,1]</code>, where <code>0</code> is the neutral position of the control. Note that some hardware may only support positive values in the range of <code>[0,1]</code>. For hardware and platforms that do not support tangential pressure, the value MUST be <code>0</code>.</p>
+                            <div class="note">Despite the property's name, in practice the hardware controls/sensors that generate the values for this property may not necessarily be pressure sensitive. As an example, in most cases the finger wheel on most airbrush/painting stylus implementations can be freely set, rather than requiring the user to apply a constant pressure on the wheel to prevent it from returning to the zero position.</div>
                         </dd>
                     <dt><dfn>tiltX</dfn></dt>
                         <dd>
@@ -306,17 +306,17 @@ interface PointerEvent : MouseEvent {
                                 </tbody>
                             </table>
                             <p>If the device type cannot be detected by the user agent, then the value MUST be an empty string. If the user agent supports pointer device types other than those listed above, the value of <code>pointerType</code> SHOULD be vendor prefixed to avoid conflicting names for different types of devices. Future specifications MAY provide additional normative values for other device types.</p>
-                          <div class="note">See <a href="#example_2" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.</div>
+                            <div class="note">See <a href="#example_2" title="examples">Example 2</a> for a basic demonstration of how the <code>pointerType</code> can be used. Also note that developers should include some form of default handling to cover user agents that may have implemented their own custom <code>pointerType</code> values and for situations where <code>pointerType</code> is simply an empty string.</div>
                         </dd>
                     <dt><dfn>isPrimary</dfn></dt>
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
                         </dd>
-                     <dt><dfn>getCoalescedEvents()</dfn></dt>
+                    <dt><dfn>getCoalescedEvents()</dfn></dt>
                         <dd>
                             <p>A method that returns the list of <a>coalesced events</a>.</p>
                         </dd>
-                     <dt><dfn>getPredictedEvents()</dfn></dt>
+                    <dt><dfn>getPredictedEvents()</dfn></dt>
                         <dd>
                             <p>A method that returns the list of <a>predicted events</a>.</p>
                         </dd>
@@ -325,8 +325,8 @@ interface PointerEvent : MouseEvent {
                 <p>The <dfn>PointerEventInit</dfn> dictionary is used by the {{PointerEvent}} interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the {{MouseEventInit}} dictionary defined in [[UIEVENTS]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
 
                 <p>The [=event constructing steps=] for <dfn>PointerEvent</dfn>
-                   clones <a>PointerEventInit</a>'s <a data-lt="PointerEventInit.coalescedEvents"><code>coalescedEvents</code></a> to <a>coalesced events list</a> and
-                   clones <a>PointerEventInit</a>'s <a data-lt="PointerEventInit.predictedEvents"><code>predictedEvents</code></a> to <a>predicted events list</a>.</p>
+                    clones <a>PointerEventInit</a>'s <a data-lt="PointerEventInit.coalescedEvents"><code>coalescedEvents</code></a> to <a>coalesced events list</a> and
+                    clones <a>PointerEventInit</a>'s <a data-lt="PointerEventInit.predictedEvents"><code>predictedEvents</code></a> to <a>predicted events list</a>.</p>
 
 
                 <div class="note">The <code>PointerEvent</code> interface inherits from {{MouseEvent}}, defined in [[[UIEVENTS]]].
@@ -408,98 +408,98 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, or {{GlobalEventHandlers/pointerup}} set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
 
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
-                   then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
+                    then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
 
                 <p>Fire the event to the determined target. The user agent SHOULD treat the target as if the pointing device has moved over it for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]].</p>
 
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[UIEVENTS]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
-                  <h4><dfn>Attributes and default actions</dfn></h4>
-                        <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a>Pointer Event types</a>.</p>
-                        <table id="pointer-event-type-table" class="simple">
-                            <thead><tr>
-                                <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerover}}</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerenter}}</td>
-                                    <td>No</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerdown}}</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
-                                        <br>Canceling this event also prevents subsequent firing of <a>compatibility mouse events</a>.</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointermove}}</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Varies: when the pointer is primary, all default actions of <code>mousemove</code></td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerrawupdate}}</td>
-                                    <td>Yes</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerup}}</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Varies: when the pointer is primary, all default actions of <code>mouseup</code></td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointercancel}}</td>
-                                    <td>Yes</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerout}}</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/pointerleave}}</td>
-                                    <td>No</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/gotpointercapture}}</td>
-                                    <td>Yes</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                                <tr>
-                                    <td>{{GlobalEventHandlers/lostpointercapture}}</td>
-                                    <td>Yes</td>
-                                    <td>No</td>
-                                    <td>None</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <h4><dfn>Attributes and default actions</dfn></h4>
+                    <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a>Pointer Event types</a>.</p>
+                    <table id="pointer-event-type-table" class="simple">
+                        <thead><tr>
+                            <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerover}}</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerenter}}</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerdown}}</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Varies: when the pointer is primary, all default actions of the <code>mousedown</code> event
+                                    <br>Canceling this event also prevents subsequent firing of <a>compatibility mouse events</a>.</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointermove}}</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Varies: when the pointer is primary, all default actions of <code>mousemove</code></td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerrawupdate}}</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerup}}</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Varies: when the pointer is primary, all default actions of <code>mouseup</code></td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointercancel}}</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerout}}</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/pointerleave}}</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/gotpointercapture}}</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                            <tr>
+                                <td>{{GlobalEventHandlers/lostpointercapture}}</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>None</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by canceling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a>declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancelation of events facilitates performance optimizations by the user agent.</p>
+                    <p>Viewport manipulations (panning and zooming) — generally, as a result of a <a>direct manipulation</a> interaction — are intentionally NOT a default action of pointer events, meaning that these behaviors (e.g. panning a page as a result of moving a finger on a touchscreen) cannot be suppressed by canceling a pointer event. Authors must instead use <code>touch-action</code> to explicitly <a>declare the direct manipulation behavior</a> for a region of the document. Removing this dependency on the cancelation of events facilitates performance optimizations by the user agent.</p>
 
-                  <p>For {{GlobalEventHandlers/pointerenter}} and {{GlobalEventHandlers/pointerleave}} events, the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>false</code>; for all other pointer events in the table above, the attribute SHOULD be <code>true</code>.</p>
+                    <p>For {{GlobalEventHandlers/pointerenter}} and {{GlobalEventHandlers/pointerleave}} events, the {{EventInit/composed}} [[DOM]] attribute SHOULD be <code>false</code>; for all other pointer events in the table above, the attribute SHOULD be <code>true</code>.</p>
 
-                  <p>For all pointer events in the table above, the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
-                        <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
-                        <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
-                        <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events, all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
+                    <p>For all pointer events in the table above, the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
+                    <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (i.e. <code>target</code> and <code>relatedTarget</code>).</div>
+                    <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
+                    <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events, all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
                 </section>
 
                 <section>
@@ -513,7 +513,7 @@ interface PointerEvent : MouseEvent {
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
                     <div class="note">
-                      <p>As defined in the section for <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a>, even after the {{GlobalEventHandlers/lostpointercapture}} event has been dispatched,
+                        <p>As defined in the section for <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a>, even after the {{GlobalEventHandlers/lostpointercapture}} event has been dispatched,
                         the corresponding <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, if any, would still be dispatched to the capturing target.</p>
                     </div>
                 </section>
@@ -528,7 +528,7 @@ interface PointerEvent : MouseEvent {
                             <div class="note">User agents can trigger panning or zooming through multiple pointer types (such as touch and pen), and therefore the start of a pan or zoom action may result in the suppression of various pointers, including pointers with different pointer types.</div>
                         </li>
                         <li>As part of the drag operation initiation algorithm as defined in the <a data-cite="html/#drag-and-drop-processing-model">drag and drop processing model</a> [[HTML]],
-                         for the pointer that caused the drag operation.</li>
+                            for the pointer that caused the drag operation.</li>
                     </ul>
                     <div class="note">
                         <p>Other scenarios in which the user agent MAY <a>suppress a pointer event stream</a> include:
@@ -542,10 +542,10 @@ interface PointerEvent : MouseEvent {
 
                     <p>The user agent MUST run the following steps to <a>suppress a pointer event stream</a>:</p>
                     <ul>
-                      <li>Fire a {{GlobalEventHandlers/pointercancel}} event.</li>
-                      <li>Fire a {{GlobalEventHandlers/pointerout}} event.</li>
-                      <li>Fire a {{GlobalEventHandlers/pointerleave}} event.</li>
-                      <li><a>Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
+                        <li>Fire a {{GlobalEventHandlers/pointercancel}} event.</li>
+                        <li>Fire a {{GlobalEventHandlers/pointerout}} event.</li>
+                        <li>Fire a {{GlobalEventHandlers/pointerleave}} event.</li>
+                        <li><a>Implicitly release the pointer capture</a> if the pointer is currently captured.</li>
                     </ul>
                 </section>
             </section>
@@ -555,51 +555,51 @@ interface PointerEvent : MouseEvent {
                 <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
                 <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
                 <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
-                <pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
+<pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
-function spherical2tilt(altitudeAngle, azimuthAngle){
+function spherical2tilt(altitudeAngle, azimuthAngle) {
   const radToDeg = 180/Math.PI;
 
   let tiltXrad = 0;
   let tiltYrad = 0;
 
-  if(altitudeAngle == 0){
+  if (altitudeAngle == 0) {
     // the pen is in the X-Y plane
-    if(azimuthAngle == 0 || azimuthAngle == 2*Math.PI){
+    if (azimuthAngle == 0 || azimuthAngle == 2*Math.PI) {
       // pen is on positive X axis
       tiltXrad = Math.PI/2;
     }
-    if(azimuthAngle == Math.PI/2){
+    if (azimuthAngle == Math.PI/2) {
       // pen is on positive Y axis
       tiltYrad = Math.PI/2;
     }
-    if(azimuthAngle == Math.PI){
+    if (azimuthAngle == Math.PI) {
       // pen is on negative X axis
       tiltXrad = -Math.PI/2;
     }
-    if(azimuthAngle == 3*Math.PI/2){
+    if (azimuthAngle == 3*Math.PI/2) {
       // pen is on negative Y axis
       tiltYrad = -Math.PI/2;
     }
-    if(azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2){
+    if (azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2) {
       tiltXrad = Math.PI/2;
       tiltYrad = Math.PI/2;
     }
-    if(azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI){
+    if (azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI) {
       tiltXrad = -Math.PI/2;
       tiltYrad = Math.PI/2;
     }
-    if(azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2){
+    if (azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2) {
       tiltXrad = -Math.PI/2;
       tiltYrad = -Math.PI/2;
     }
-    if(azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI){
+    if (azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI) {
       tiltXrad = Math.PI/2;
       tiltYrad = -Math.PI/2;
     }
   }
 
-  if(altitudeAngle != 0){
+  if (altitudeAngle != 0) {
     const tanAlt = Math.tan(altitudeAngle);
 
     tiltXrad = Math.atan(Math.cos(azimuthAngle) / tanAlt);
@@ -609,25 +609,25 @@ function spherical2tilt(altitudeAngle, azimuthAngle){
   return {"tiltX":tiltXrad*radToDeg, "tiltY":tiltYrad*radToDeg};
 }
 
-function tilt2spherical(tiltX, tiltY){
+function tilt2spherical(tiltX, tiltY) {
   const tiltXrad = tiltX * Math.PI/180;
   const tiltYrad = tiltY * Math.PI/180;
 
   // calculate azimuth angle
   let azimuthAngle = 0;
 
-  if(tiltX == 0){
-    if(tiltY &gt; 0){
+  if (tiltX == 0) {
+    if (tiltY &gt; 0) {
       azimuthAngle = Math.PI/2;
     }
-    else if(tiltY &lt; 0){
+    else if (tiltY &lt; 0) {
       azimuthAngle = 3*Math.PI/2;
     }
-  } else if(tiltY == 0){
-    if(tiltX &lt; 0){
+  } else if (tiltY == 0) {
+    if (tiltX &lt; 0) {
       azimuthAngle = Math.PI;
     }
-  } else if(Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
+  } else if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90) {
     // not enough information to calculate azimuth
     azimuthAngle = 0;
   } else {
@@ -636,7 +636,7 @@ function tilt2spherical(tiltX, tiltY){
     const tanY = Math.tan(tiltYrad);
 
     azimuthAngle = Math.atan2(tanY, tanX);
-    if(azimuthAngle &lt; 0){
+    if (azimuthAngle &lt; 0) {
       azimuthAngle += 2*Math.PI;
     }
   }
@@ -644,11 +644,11 @@ function tilt2spherical(tiltX, tiltY){
   // calculate altitude angle
   let altitudeAngle = 0;
 
-  if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90){
+  if (Math.abs(tiltX) == 90 || Math.abs(tiltY) == 90) {
       altitudeAngle = 0
-  } else if (tiltX == 0){
+  } else if (tiltX == 0) {
     altitudeAngle = Math.PI/2 - Math.abs(tiltYrad);
-  } else if(tiltY == 0){
+  } else if (tiltY == 0) {
     altitudeAngle = Math.PI/2 - Math.abs(tiltXrad);
   } else {
     // Non-boundary case: neither tiltX nor tiltY is equal to 0 or +-90
@@ -682,7 +682,7 @@ function tilt2spherical(tiltX, tiltY){
                 <div class="note">Authors can prevent the firing of certain <a>compatibility mouse events</a> by canceling the {{GlobalEventHandlers/pointerdown}} event (if the <code>isPrimary</code> property is <code>true</code>). This sets the <code>PREVENT MOUSE EVENT</code> flag on the pointer. Note, however, that this does not prevent the <code>mouseover</code>, <code>mouseenter</code>, <code>mouseout</code>, or <code>mouseleave</code> events from firing.</div>
             </section>
             <section>
-                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointermove</dfn> event</h3>
+                <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointermove</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointermove}} when a pointer changes any properties that don't fire
                 {{GlobalEventHandlers/pointerdown}} or {{GlobalEventHandlers/pointerup}} events. This includes any changes to coordinates, pressure, tangential pressure,
                 tilt, twist, contact geometry (i.e. <code>width</code> and <code>height</code>) or <a>chorded buttons</a>.</p>
@@ -764,37 +764,37 @@ function tilt2spherical(tiltX, tiltY){
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
                 <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a>,
-                  <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
-                  events defined in [[UIEVENTS]].  These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
+                    <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
+                    events defined in [[UIEVENTS]].  These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
                 <p>These events MUST be of type <code>PointerEvent</code>, and are subject to the additional requirements mentioned in the rest of this section.</p>
                 <section>
-                  <h4>Event attributes</h4>
-                  <p>For these events, all <code>PointerEvent</code> specific attributes (defined in this spec) other than <code>pointerId</code> and <code>pointerType</code> MUST have their default values. In addition:</p>
-                  <ul>
-                    <li>If the events are generated by a pointing device, their <code>pointerId</code> and <code>pointerType</code> MUST be the same as the PointerEvents that caused these events.</li>
-                    <li>If the events are generated by a non-pointing device (such as voice recognition software or a keyboard interaction), <code>pointerId</code> MUST be <code>-1</code> and <code>pointerType</code> MUST be an empty string.</li>
-                  </ul>
+                    <h4>Event attributes</h4>
+                    <p>For these events, all <code>PointerEvent</code> specific attributes (defined in this spec) other than <code>pointerId</code> and <code>pointerType</code> MUST have their default values. In addition:</p>
+                    <ul>
+                        <li>If the events are generated by a pointing device, their <code>pointerId</code> and <code>pointerType</code> MUST be the same as the PointerEvents that caused these events.</li>
+                        <li>If the events are generated by a non-pointing device (such as voice recognition software or a keyboard interaction), <code>pointerId</code> MUST be <code>-1</code> and <code>pointerType</code> MUST be an empty string.</li>
+                    </ul>
                 </section>
                 <section>
-                  <h4>Event coordinates</h4>
-                  <p>As noted in {{PointerEvent}}, [[[CSSOM-VIEW]]] proposes to redefine the various coordinate properties (<code>screenX</code>, <code>screenY</code>, <code>pageX</code>, <code>pageY</code>, <code>clientX</code>,
-                      <code>clientY</code>, <code>x</code>, <code>y</code>, <code>offsetX</code>, <code>offsetY</code>) as <code>double</code>, to allow for fractional coordinates.
-                      However, this change — when applied only to {{PointerEvent}}, but not to regular {{MouseEvent}} — has proven to lead to web compatibility issues with legacy code
-                      in the case of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>. For this reason, user agents that have implemented the proposed
-                      change in [[[CSSOM-VIEW]]] only for {{PointerEvent}} MUST convert the various coordinate properties for the <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>
-                      to <code>long</code> values (as defined in the original [[[UIEVENTS]]]) using <a data-cite="ECMASCRIPT#sec-math.floor">Math.floor</a> [[ECMASCRIPT]].</p>
+                    <h4>Event coordinates</h4>
+                    <p>As noted in {{PointerEvent}}, [[[CSSOM-VIEW]]] proposes to redefine the various coordinate properties (<code>screenX</code>, <code>screenY</code>, <code>pageX</code>, <code>pageY</code>, <code>clientX</code>,
+                        <code>clientY</code>, <code>x</code>, <code>y</code>, <code>offsetX</code>, <code>offsetY</code>) as <code>double</code>, to allow for fractional coordinates.
+                        However, this change — when applied only to {{PointerEvent}}, but not to regular {{MouseEvent}} — has proven to lead to web compatibility issues with legacy code
+                        in the case of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>. For this reason, user agents that have implemented the proposed
+                        change in [[[CSSOM-VIEW]]] only for {{PointerEvent}} MUST convert the various coordinate properties for the <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>
+                        to <code>long</code> values (as defined in the original [[[UIEVENTS]]]) using <a data-cite="ECMASCRIPT#sec-math.floor">Math.floor</a> [[ECMASCRIPT]].</p>
                 </section>
                 <section>
-                  <h4>Event dispatch</h4>
-                  <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in [[UIEVENTS]] except when <em>all</em> of the following conditions are met:</p>
-                  <ul>
-                    <li>event |e| is fired in response to a user interaction event |t|,</li>
-                    <li>event |t| is a <code>PointerEvent</code>,</li>
-                    <li>event |t| was dispatched while the corresponding pointer was captured, and</li>
-                    <li>the capturing target of event |t| is [=connected=] [[DOM]] at the moment event |e| is being dispatched.</li>
-                  </ul>
-                  <p>When these conditions are met, event |e| MUST be dispatched to the capturing target of event |t|, and event |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</p>
-                  <div class="note">When |t| is a <code>PointerEvent</code>, its type depends on native platform convention: if |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if |e| is a <code>click</code> or <code>auxclick</code> event, |t| is a {{GlobalEventHandlers/pointerup}} event.</div>
+                    <h4>Event dispatch</h4>
+                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in [[UIEVENTS]] except when <em>all</em> of the following conditions are met:</p>
+                    <ul>
+                        <li>event |e| is fired in response to a user interaction event |t|,</li>
+                        <li>event |t| is a <code>PointerEvent</code>,</li>
+                        <li>event |t| was dispatched while the corresponding pointer was captured, and</li>
+                        <li>the capturing target of event |t| is [=connected=] [[DOM]] at the moment event |e| is being dispatched.</li>
+                    </ul>
+                    <p>When these conditions are met, event |e| MUST be dispatched to the capturing target of event |t|, and event |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</p>
+                    <div class="note">When |t| is a <code>PointerEvent</code>, its type depends on native platform convention: if |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if |e| is a <code>click</code> or <code>auxclick</code> event, |t| is a {{GlobalEventHandlers/pointerup}} event.</div>
                 </section>
             </section>
         </section>
@@ -804,13 +804,13 @@ function tilt2spherical(tiltX, tiltY){
         <h1>Extensions to the `Element` interface</h1>
         <div>
             <p>The following section describes extensions to the existing {{Element}} interface to facilitate the setting and releasing of pointer capture.</p>
-            <pre class="idl">
+<pre class="idl">
 partial interface Element {
   undefined setPointerCapture (long pointerId);
   undefined releasePointerCapture (long pointerId);
   boolean hasPointerCapture (long pointerId);
 };
-            </pre>
+</pre>
             <dl data-dfn-for="Element" data-link-for="Element">
                 <dt><dfn>setPointerCapture()</dfn></dt>
                 <dd>
@@ -832,7 +832,7 @@ partial interface Element {
         <h1>Extensions to the `GlobalEventHandlers` mixin</h1>
         <div>
             <p>The following section describes extensions to the existing {{GlobalEventHandlers}} mixin to facilitate the event handler registration.</p>
-            <pre class="idl">
+<pre class="idl">
 partial interface mixin GlobalEventHandlers {
     attribute EventHandler onpointerover;
     attribute EventHandler onpointerenter;
@@ -846,7 +846,7 @@ partial interface mixin GlobalEventHandlers {
     attribute EventHandler ongotpointercapture;
     attribute EventHandler onlostpointercapture;
 };
-            </pre>
+</pre>
             <dl data-dfn-for="GlobalEventHandlers" data-link-for="GlobalEventHandlers">
                 <dt><dfn>onpointerover</dfn></dt>
                 <dd>
@@ -902,11 +902,11 @@ partial interface mixin GlobalEventHandlers {
         <h1>Extensions to the `Navigator` interface</h1>
         <div>
             <p>The {{Navigator}} interface is defined in [[HTML]]. This specification extends the <code>Navigator</code> interface to provide device detection support.</p>
-            <pre class="idl">
+<pre class="idl">
 partial interface Navigator {
     readonly  attribute long maxTouchPoints;
 };
-            </pre>
+</pre>
             <dl data-dfn-for="Navigator" data-link-for="Navigator">
                 <dt><dfn>maxTouchPoints</dfn></dt>
                 <dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
@@ -949,45 +949,45 @@ partial interface Navigator {
         </section>
 
         <section>
-          <h2>Determining supported direct manipulation behavior</h2>
-          <p>When a user interacts with an element using a <a>direct manipulation</a> pointer (such as touch or stylus on a touchscreen), the effect of that input is determined by the value of the <code>touch-action</code> property, and the default direct manipulation behaviors of the element and its ancestors, as follows:</p>
-          <ul>
-            <li>A direct manipulation interaction for panning and zooming <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way that affects the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
-            <li>A direct manipulation interaction for panning is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest inclusive ancestor that is a [=scroll container=] (as defined in [[CSS-OVERFLOW-3]]).</li>
-            <li>A direct manipulation interaction for zooming is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and the <code>document</code> element of the [=top-level browsing context=] (as defined in [[HTML]]).</li>
-            <li>Once panning or zooming has been started, and the user agent has already determined whether or not the gesture should be handled as a user agent direct manipulation behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a {{GlobalEventHandlers/pointerdown}} handler script will not result in the user agent aborting or suppressing any of the pan or zoom behavior for that input for as long as that pointer is active.</li>
-            <li>Similarly, in the case of the various <code>touch-action</code> values of <code>pan-*</code>, once the user agent has determined whether to handle a gesture directly or not at the start of the gesture, a subsequent change in the direction of the same gesture SHOULD be ignored by the user agent for as long as that pointer is active. For instance, if an element has been set to <code>touch-action: pan-y</code> (meaning that only vertical panning is handled by the user agent), and a touch gesture starts off horizontally, no vertical panning should occur if the user changes the direction of their gesture to be vertical while their finger is still touching the screen.</li>
-          </ul>
+            <h2>Determining supported direct manipulation behavior</h2>
+            <p>When a user interacts with an element using a <a>direct manipulation</a> pointer (such as touch or stylus on a touchscreen), the effect of that input is determined by the value of the <code>touch-action</code> property, and the default direct manipulation behaviors of the element and its ancestors, as follows:</p>
+            <ul>
+                <li>A direct manipulation interaction for panning and zooming <dfn data-lt="conforming-touch-behavior">conforms to an element's <code>touch-action</code></dfn> if the behavior is allowed in the coordinate space of the element. Note that if CSS transforms have been applied, the element's coordinate space may differ from the screen coordinate in a way that affects the conformity here; for example, the X axis of an element rotated by 90 degrees with respect to the screen will be parallel to the Y-axis of the screen coordinate.</li>
+                <li>A direct manipulation interaction for panning is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and its nearest inclusive ancestor that is a [=scroll container=] (as defined in [[CSS-OVERFLOW-3]]).</li>
+                <li>A direct manipulation interaction for zooming is supported if it <a data-lt="conforming-touch-behavior">conforms</a> to the <code>touch-action</code> property of each element between the hit tested element and the <code>document</code> element of the [=top-level browsing context=] (as defined in [[HTML]]).</li>
+                <li>Once panning or zooming has been started, and the user agent has already determined whether or not the gesture should be handled as a user agent direct manipulation behavior, any changes to the relevant <code>touch-action</code> value will be ignored for the duration of the action. For instance, programmatically changing the <code>touch-action</code> value for an element from <code>auto</code> to <code>none</code> as part of a {{GlobalEventHandlers/pointerdown}} handler script will not result in the user agent aborting or suppressing any of the pan or zoom behavior for that input for as long as that pointer is active.</li>
+                <li>Similarly, in the case of the various <code>touch-action</code> values of <code>pan-*</code>, once the user agent has determined whether to handle a gesture directly or not at the start of the gesture, a subsequent change in the direction of the same gesture SHOULD be ignored by the user agent for as long as that pointer is active. For instance, if an element has been set to <code>touch-action: pan-y</code> (meaning that only vertical panning is handled by the user agent), and a touch gesture starts off horizontally, no vertical panning should occur if the user changes the direction of their gesture to be vertical while their finger is still touching the screen.</li>
+            </ul>
 
-          <div class="note">Some user agents support panning and zooming interactions involving multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers is out of scope for this specification.</div>
+            <div class="note">Some user agents support panning and zooming interactions involving multiple concurrent pointers (e.g. multi-touch). Methods for processing or associating the <code>touch-action</code> values of multiple concurrent pointers is out of scope for this specification.</div>
         </section>
 
         <section>
-          <h2><dfn data-lt="touch-action values">Details of <code>touch-action</code> values</dfn></h2>
-          <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport panning and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
-          <div class="note">The terms "panning" and "scrolling" are considered synonymous (or, more aptly, "panning" is "scrolling" using a direct manipulation input). Defining an interaction or gesture for triggering panning/scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values, are out of scope for this specification.</div>
-          <dl>
-            <dt>auto</dt>
-            <dd>The user agent MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
-            <dt>none</dt>
-            <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
-            <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.<p>
-            <dt>manipulation</dt>
-            <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
-          </dl>
-          <div class="note"><a data-cite="compat/#touch-action">Additional <code>touch-action</code> values</a> common in implementations are defined in [[COMPAT]].</div>
-          <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
-          <div class="note">
-            <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
-               For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is <code>0</code> and <code>pan-x pan-y</code> otherwise.
-               This allows pointer event handlers to define the behavior for upward panning/scrolling that start from the top of the document.</p>
-            <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).
-               For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical panning of the document.
-               When the carousel reaches its right-most extent, it may change its <code>touch-action</code> to <code>pan-y pan-right</code> so that a subsequent scroll operation beyond its extent can scroll the document within the viewport if possible.
-               It's not possible to change the behavior of a panning/scrolling operation while it is taking place.</p>
-          </div>
-          <div class="note">Disabling some default direct manipulation behaviors for panning and zooming may allow user agents to respond to other behaviors more quickly. For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled. In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
+            <h2><dfn data-lt="touch-action values">Details of <code>touch-action</code> values</dfn></h2>
+            <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport panning and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
+            <div class="note">The terms "panning" and "scrolling" are considered synonymous (or, more aptly, "panning" is "scrolling" using a direct manipulation input). Defining an interaction or gesture for triggering panning/scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values, are out of scope for this specification.</div>
+            <dl>
+                <dt>auto</dt>
+                <dd>The user agent MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
+                <dt>none</dt>
+                <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
+                <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
+                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.<p>
+                <dt>manipulation</dt>
+                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
+            </dl>
+            <div class="note"><a data-cite="compat/#touch-action">Additional <code>touch-action</code> values</a> common in implementations are defined in [[COMPAT]].</div>
+            <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
+            <div class="note">
+                <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
+                    For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is <code>0</code> and <code>pan-x pan-y</code> otherwise.
+                    This allows pointer event handlers to define the behavior for upward panning/scrolling that start from the top of the document.</p>
+                <p>The direction-specific pan values can also be used for composing a component that implements custom panning with pointer event handling within an element that scrolls natively (or vice-versa).
+                    For example, an image carousel may use <code>pan-y</code> to ensure it receives pointer events for any horizontal pan operations without interfering with vertical panning of the document.
+                    When the carousel reaches its right-most extent, it may change its <code>touch-action</code> to <code>pan-y pan-right</code> so that a subsequent scroll operation beyond its extent can scroll the document within the viewport if possible.
+                    It's not possible to change the behavior of a panning/scrolling operation while it is taking place.</p>
+            </div>
+            <div class="note">Disabling some default direct manipulation behaviors for panning and zooming may allow user agents to respond to other behaviors more quickly. For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled. In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
 <pre id="example_5" class="example" title="Disallowing all direct manipulation behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
@@ -1035,17 +1035,17 @@ partial interface Navigator {
     <section>
         <h1><dfn class="export">Pointer capture</dfn></h1>
         <section class='informative'>
-          <h2>Introduction</h2>
-        <p>Pointer capture allows the events for a particular pointer (including any <a>compatibility mouse events</a>) to be retargeted to a particular element other than the normal <a>hit test</a> result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
-        <figure id="figure_slider">
-            <img src="images/slider.png" alt="Custom Volume Slider">
-            <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After {{GlobalEventHandlers/pointerdown}} on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
-        </figure>
+            <h2>Introduction</h2>
+            <p>Pointer capture allows the events for a particular pointer (including any <a>compatibility mouse events</a>) to be retargeted to a particular element other than the normal <a>hit test</a> result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
+            <figure id="figure_slider">
+                <img src="images/slider.png" alt="Custom Volume Slider">
+                <figcaption>Example of a custom slider control that chooses a value by sliding the thumb element back and forth. After {{GlobalEventHandlers/pointerdown}} on the thumb, pointer capture can be used to allow the user to slide the thumb even if the pointer drifts off of it.</figcaption>
+            </figure>
         </section>
         <section>
             <h2><dfn data-lt="set pointer capture">Setting pointer capture</dfn></h2>
             <p>Pointer capture is set on an |element| of type {{Element}} by calling the <code>element.setPointerCapture(pointerId)</code> method.
-               When this method is invoked, the user agent MUST run the following steps:</p>
+                When this method is invoked, the user agent MUST run the following steps:</p>
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then [=exception/throw=] a {{"NotFoundError"}} {{DOMException}}.</li>
                 <li>Let the |pointer| be the <a>active pointer</a> specified by the given <code>pointerId</code>.
@@ -1076,15 +1076,15 @@ partial interface Navigator {
         <section>
             <h2><dfn data-lt="implicitly release the pointer capture|implicitly releasing pointer capture">Implicit release of pointer capture</dfn></h2>
             <p>Immediately after firing the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} events,
-               the user agent MUST clear the <a>pending pointer capture target override</a>
-               for the <code>pointerId</code> of the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} event that was just dispatched,
-               and then run <a>process pending pointer capture</a> steps to fire {{GlobalEventHandlers/lostpointercapture}} if necessary.
-               After running <a>process pending pointer capture</a> steps,
-               if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
-               to reflect the current position of the pointer with no capture.</p>
+                the user agent MUST clear the <a>pending pointer capture target override</a>
+                for the <code>pointerId</code> of the {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointercancel}} event that was just dispatched,
+                and then run <a>process pending pointer capture</a> steps to fire {{GlobalEventHandlers/lostpointercapture}} if necessary.
+                After running <a>process pending pointer capture</a> steps,
+                if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
+                to reflect the current position of the pointer with no capture.</p>
             <p>When the <a>pointer capture target override</a> is no longer [=connected=] [[DOM]],
-               the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
-               and also a PointerEvent named {{GlobalEventHandlers/lostpointercapture}} corresponding to the captured pointer SHOULD be fired at the document.</p>
+                the <a>pending pointer capture target override</a> and <a>pointer capture target override</a> nodes SHOULD be cleared
+                and also a PointerEvent named {{GlobalEventHandlers/lostpointercapture}} corresponding to the captured pointer SHOULD be fired at the document.</p>
             <p>When a pointer lock [[PointerLock]] is successfully applied on an element, the user agent MUST run the steps as if the <a data-lt='Element.releasePointerCapture'>releasePointerCapture()</a> method has been called if any element is set to be captured or pending to be captured.
 
         </section>
@@ -1147,39 +1147,39 @@ partial interface Navigator {
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
             </ul>
 
-            <pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
-                <code>&lt;style&gt;
-                    /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
-                    so that all events on the canvas element are given to the application instead. */
+<pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
+<code>&lt;style&gt;
+    /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
+    so that all events on the canvas element are given to the application instead. */
 
-                    canvas { touch-action: none; }
-                &lt;/style&gt;
+    canvas { touch-action: none; }
+&lt;/style&gt;
 
-                &lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+&lt;canvas id="drawSurface" width="500px" height="500px" style="border:1px solid black;"&gt;&lt;/canvas&gt;
 
-                &lt;script&gt;
-                    const canvas = document.getElementById("drawSurface"),
-                    context = canvas.getContext("2d");
+&lt;script&gt;
+    const canvas = document.getElementById("drawSurface"),
+    context = canvas.getContext("2d");
 
-                    canvas.addEventListener("pointermove", (e)=> {
+    canvas.addEventListener("pointermove", (e)=> {
 
-                        if (e.getCoalescedEvents) {
-                            for (let coalesced_event of e.getCoalescedEvents()) {
-                                paint(coalesced_event); // Paint all raw/non-coalesced points
-                            }
-                        } else {
-                            paint(e); // Paint the final coalesced point
-                        }
-                    });
+        if (e.getCoalescedEvents) {
+            for (let coalesced_event of e.getCoalescedEvents()) {
+                paint(coalesced_event); // Paint all raw/non-coalesced points
+            }
+        } else {
+            paint(e); // Paint the final coalesced point
+        }
+    });
 
-                    function paint(event) {
-                        if(event.buttons>0) {
-                            context.fillRect(event.clientX, event.clientY, 5, 5);
-                        }
-                    }
+    function paint(event) {
+        if (event.buttons>0) {
+            context.fillRect(event.clientX, event.clientY, 5, 5);
+        }
+    }
 
-                &lt;/script&gt;</code>
-            </pre>
+&lt;/script&gt;</code>
+</pre>
 
             <div class="note">The PointerEvent's attributes will be initialized in a way that best represents
             the events in the coalesced events list. The specific method by which user agents should do this is not covered by
@@ -1263,28 +1263,28 @@ partial interface Navigator {
                 pointer events are dispatched earlier than the timestamp of one or more of the predicted events.</p>
             </div>
 
-            <pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
-                <code>
-                let predicted_points = [];
-                window.addEventListener("pointermove", function(event) {
-                    // Clear the previously drawn predicted points.
-                    for (let e of predicted_points.reverse()) {
-                        clearPoint(e.pageX, e.pageY);
-                    }
+<pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
+<code>
+let predicted_points = [];
+window.addEventListener("pointermove", function(event) {
+    // Clear the previously drawn predicted points.
+    for (let e of predicted_points.reverse()) {
+        clearPoint(e.pageX, e.pageY);
+    }
 
-                    // Draw the actual movements that happened since the last received event.
-                    for (let e of event.getCoalescedEvents()) {
-                        drawPoint(e.pageX, e.pageY);
-                    }
-                
-                    // Draw the current predicted points to reduce the perception of latency.
-                    predicted_points = event.getPredictedEvents();
-                    for (let e of predicted_points) {
-                        drawPoint(e.pageX, e.pageY);
-                    }
-                });
-                </code>
-            </pre>
+    // Draw the actual movements that happened since the last received event.
+    for (let e of event.getCoalescedEvents()) {
+        drawPoint(e.pageX, e.pageY);
+    }
+
+    // Draw the current predicted points to reduce the perception of latency.
+    predicted_points = event.getPredictedEvents();
+    for (let e of predicted_points) {
+        drawPoint(e.pageX, e.pageY);
+    }
+});
+</code>
+</pre>
         </section>
 
         <section>
@@ -1301,7 +1301,7 @@ partial interface Navigator {
             </ol>
 
             <p>When a trusted <a>PointerEvent</a>'s {{Event/target}} is changed, user agents SHOULD, for each event in the
-               <a>coalesced events list</a> and <a>predicted events list</a>:</p>
+                <a>coalesced events list</a> and <a>predicted events list</a>:</p>
             <ol>
                 <li>Set the event's {{Event/target}} to match the {{Event/target}} of the "parent" pointer event.</li>
             </ol>
@@ -1338,22 +1338,22 @@ partial interface Navigator {
                 <li>Set <a data-lt="effective position of the legacy mouse pointer">effective legacy mouse pointer position</a> to |T|.</li>
             </ol>
             <div class="note">
-              <p> The <a>effective position of the legacy mouse pointer</a> models the fact that we cannot always have a direct mapping
+                <p>The <a>effective position of the legacy mouse pointer</a> models the fact that we cannot always have a direct mapping
                 from pointer transition events (i.e., <code>pointerover</code>, <code>pointerout</code>, <code>pointerenter</code>
                 and <code>pointerleave</code>) to corresponding legacy mouse transition events (i.e., <code>mouseover</code>,
                 <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>).  The following animation illustrates a case
                 where a user agent needs to dispatch more legacy mouse transition events than pointer transition events to be able to
                 reconcile two primary pointers using a single legacy mouse input.</p>
 
-              <figure id="legacy-pointer-transition">
-                <video src="images/legacy-pointer-animation.webm" controls></video>
-                <figcaption>
-                  Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the single legacy mouse input
-                  (orange cursor) to move between the two pointers.
-                </figcaption>
-              </figure>
+                <figure id="legacy-pointer-transition">
+                    <video src="images/legacy-pointer-animation.webm" controls></video>
+                    <figcaption>
+                        Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the single legacy mouse input
+                        (orange cursor) to move between the two pointers.
+                    </figcaption>
+                </figure>
 
-              <p>In this animation, note the time period between the mouse click and the touch tap.  Button 1 receives no
+                <p>In this animation, note the time period between the mouse click and the touch tap.  Button 1 receives no
                 <code>pointerout</code> event (because the "real" mouse pointer didn't leave the button rectangle within
                 this period), but Button 1 receives a <code>mouseout</code> event when the <a>effective position of the
                 legacy mouse pointer</a> moves to Button 2 on touch tap.  Similarly, in the time period between the touch
@@ -1564,7 +1564,7 @@ partial interface Navigator {
     <section class="appendix informative">
         <h1>Revision history</h1>
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
-           See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
+            See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
             <li><a href="https://github.com/w3c/pointerevents/pull/464">Add clarification about <code>pointercancel</code> coordinates/properties</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/437">Define a section for suppressing a pointer event stream</a></li>
@@ -1609,5 +1609,5 @@ partial interface Navigator {
         </ul>
     </section>
     <!-- appendix -->
-  </body>
+</body>
 </html>
