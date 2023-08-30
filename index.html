@@ -1123,13 +1123,18 @@ partial interface Navigator {
 
             <p>A <a>PointerEvent</a> has an associated <dfn>coalesced events list</dfn> (a list of
             zero or more <code>PointerEvent</code>s). For trusted {{GlobalEventHandlers/pointermove}} and
-            {{GlobalEventHandlers/pointerrawupdate}} events, the list is a sequence of all <code>PointerEvent</code>s
-            that were coalesced into this event. The "parent" trusted {{GlobalEventHandlers/pointermove}} and
+            {{GlobalEventHandlers/pointerrawupdate}} events within a [=secure context=] the list is a sequence
+            of all <code>PointerEvent</code>s that were coalesced into this event.
+            The "parent" trusted {{GlobalEventHandlers/pointermove}} and
             {{GlobalEventHandlers/pointerrawupdate}} event represents an accumulation of these coalesced events,
             but may have additional processing (for example to align with the display refresh rate).
             As a result, the coalesced events lists for these events always contain at least one event.
+            In a [=non secure context=], the coalesced events list contains the a copy of the "parent" event itself,
+            for compatibility.
             For all other trusted event types, it is an empty list. Untrusted events have their
             <a>coalesced events list</a> initialized to the value passed to the constructor.</p>
+
+            <p></p>
 
             <div class="note">Since a trusted parent event is a summary or aggregation of the
             coalesced events, developers should only need to process either the parent events
