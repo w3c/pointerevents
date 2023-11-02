@@ -1096,14 +1096,14 @@ partial interface Navigator {
                 if the pointer supports hover, user agent MUST also send corresponding boundary events necessary
                 to reflect the current position of the pointer with no capture.</p>
             <p>When the <a>pointer capture target override</a> is no longer [=connected=] [[DOM]],
-                the <a>pending pointer capture target override</a> node SHOULD be cleared and
                 the <a>pointer capture target override</a> SHOULD be set to the document.</p>
-                <div class="note">
-                    This will result in a {{GlobalEventHandlers/lostpointercapture}} event corresponding to the captured pointer being fired at the document
-                    during the next <a>Process pending pointer capture</a>.
-                </div>
             <p>When the <a>pending pointer capture target override</a> is no longer [=connected=] [[DOM]],
                 the <a>pending pointer capture target override</a> node SHOULD be cleared.</p>
+            <div class="note">
+                The previous two paragraphs result in a {{GlobalEventHandlers/lostpointercapture}} event
+                corresponding to the captured pointer being fired at the document
+                during the next <a>Process pending pointer capture</a> after the capture node is removed.
+            </div>
             <p>When a pointer lock [[PointerLock]] is successfully applied on an element, the user agent MUST run the steps as if the <a data-lt='Element.releasePointerCapture'>releasePointerCapture()</a> method has been called if any element is set to be captured or pending to be captured.
 
         </section>
