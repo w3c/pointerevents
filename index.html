@@ -813,13 +813,12 @@ function tilt2spherical(tiltX, tiltY) {
                     <h4>Event dispatch</h4>
                     <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in [[UIEVENTS]] except when <em>all</em> of the following conditions are met:</p>
                     <ul>
-                        <li>event |e| is fired in response to a user interaction event |t|,</li>
-                        <li>event |t| is a <code>PointerEvent</code>,</li>
+                        <li>event |e| is fired in response to a user interaction event |t| which is a <code>PointerEvent</code>,</li>
                         <li>event |t| was dispatched while the corresponding pointer was captured, and</li>
                         <li>the capturing target of event |t| is [=connected=] [[DOM]] at the moment event |e| is being dispatched.</li>
                     </ul>
                     <p>When these conditions are met, event |e| MUST be dispatched to the capturing target of event |t|, and event |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</p>
-                    <div class="note">When |t| is a <code>PointerEvent</code>, its type depends on native platform convention: if |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if |e| is a <code>click</code> or <code>auxclick</code> event, |t| is a {{GlobalEventHandlers/pointerup}} event.</div>
+                    <div class="note">When |e| is a <code>click</code> or <code>auxclick</code> event, |t| is always a {{GlobalEventHandlers/pointerup}} event.  When |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event, depending on native platform convention.</div>
                 </section>
             </section>
         </section>
