@@ -813,11 +813,13 @@ function tilt2spherical(tiltX, tiltY) {
                     <h4>Event dispatch</h4>
                     <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in the [[UIEVENTS]] spec except for the overrides defined in the algorithm below:</p>
                     <ol>
-                        <li>Let |t| be the user interaction event that caused the firing of |e|.</li>
-                        <div class="note">
-                            <p>Event |t| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
-                            <p>When |t| is a <code>PointerEvent</code>, |t| is a {{GlobalEventHandlers/pointerup}} except for a <code>contextmenu</code> event where |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event depending on native platform convention.</p>
-                        </div>
+                        <li>
+                            <p>Let |t| be the user interaction event that caused the firing of |e|.</p>
+                            <div class="note">
+                                <p>Event |t| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
+                                <p>When |t| is a <code>PointerEvent</code>, |t| is a {{GlobalEventHandlers/pointerup}} except for a <code>contextmenu</code> event where |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event depending on native platform convention.</p>
+                            </div>
+                        </li>
 
                         <li>If |t| is not a <code>PointerEvent</code>, the dispatch of |e| MUST follow the [[UIEVENTS]] spec.</li>
 
