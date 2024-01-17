@@ -825,7 +825,7 @@ function tilt2spherical(tiltX, tiltY) {
 
                         <li>Otherwise, if |e| is a <code>contextmenu</code> event, the target of |e| MUST be the target of |t|.</li>
 
-                        <li>Otherwise (|e| is a <code>click</code> or <code>auxclick</code> event): let |td| and |tu| be the targets of the corresponding <code>pointerdown</code> and <code>pointerup</code> events respectively.  If both |td| and |tu| are [=connected=] [[DOM]] at the moment event |e| is being dispatched, the target of |e| MUST be the nearest common inclusive ancestor of |td| and |tu| in the DOM; otherwise, |e| is not disaptched at all.</li>
+                        <li>Otherwise (|e| is a <code>click</code> or <code>auxclick</code> event): let |td| and |tu| be the targets of the corresponding <code>pointerdown</code> and <code>pointerup</code> events respectively.  If both |td| and |tu| are [=connected=] [[DOM]] at the moment event |e| is being dispatched, the target of |e| MUST be the nearest common inclusive ancestor of |td| and |tu| in the DOM; otherwise, |e| is not dispatched at all.</li>
                     </ol>
                 </section>
             </section>
