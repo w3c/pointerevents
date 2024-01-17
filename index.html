@@ -814,20 +814,20 @@ function tilt2spherical(tiltX, tiltY) {
                     <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in the [[UIEVENTS]] spec except for the overrides defined in the algorithm below:</p>
                     <ol>
                         <li>
-                            <p>Let |t| be the user interaction event that caused the firing of |e|.</p>
+                            <p>Let |u| be the user interaction event that caused the firing of |e|.</p>
                             <div class="note">
-                                <p>Event |t| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
-                                <p>When |t| is a <code>PointerEvent</code>, |t| is a {{GlobalEventHandlers/pointerup}} except for a <code>contextmenu</code> event where |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event depending on native platform convention.</p>
+                                <p>Event |u| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
+                                <p>When |u| is a <code>PointerEvent</code>, |u| is a {{GlobalEventHandlers/pointerup}} except for a <code>contextmenu</code> event where |u| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event depending on native platform convention.</p>
                             </div>
                         </li>
 
-                        <li>If |t| is not a <code>PointerEvent</code>, the dispatch of |e| MUST follow the [[UIEVENTS]] spec.</li>
+                        <li>If |u| is not a <code>PointerEvent</code>, the dispatch of |e| MUST follow the [[UIEVENTS]] spec (the remaining steps below are skipped).</li>
 
-                        <li>Otherwise, if |t| was dispatched while the corresponding pointer was captured, and the capturing target of event |t| is [=connected=] [[DOM]] at the moment event |e| is being dispatched, then the target of |e| MUST be the capturing target of event |t|, and |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</li>
+                        <li>If |e| is a <code>contextmenu</code> event, or |u| was dispatched while the corresponding pointer was captured, then let |t| be the target of |u|.</li>
 
-                        <li>Otherwise, if |e| is a <code>contextmenu</code> event, the target of |e| MUST be the target of |t|.</li>
+                        <li>Otherwise (|e| is a <code>click</code> or <code>auxclick</code> event for which |u| is a <code>pointerup</code> event that was dispatched uncaptured) let |t| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment event |e| is being dispatched.</li>
 
-                        <li>Otherwise (|e| is a <code>click</code> or <code>auxclick</code> event): let |td| and |tu| be the targets of the corresponding <code>pointerdown</code> and <code>pointerup</code> events respectively.  The target of |e| MUST be the nearest common inclusive ancestor of |td| and |tu| in the DOM at the moment event |e| is being dispatched; if there is no such ancestor, |e| is not dispatched at all.</li>
+                        <li>Dispatch |e| to |t| following the [[UIEVENTS]] spec.  If |u| was dispatched while the corresponding pointer was captured, |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</li>
                     </ol>
                 </section>
             </section>
