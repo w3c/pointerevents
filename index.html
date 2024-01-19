@@ -811,29 +811,29 @@ function tilt2spherical(tiltX, tiltY) {
                 </section>
                 <section>
                     <h4>Event dispatch</h4>
-                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |event| MUST follow the dispatch process defined in the [[UIEVENTS]] spec except that |event| target is overridden using the algorithm below:</p>
+                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event MUST follow the dispatch process defined in the [[UIEVENTS]] spec except that the event target is overridden using the algorithm below:</p>
                     <ol>
                         <li>
-                            <p>Let |user event| be the user interaction event that caused the firing of |event|.</p>
+                            <p>Let |event| be the <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event being dispatched, and |user_event| be the user interaction event that caused the firing of |event|.</p>
                             <div class="note">
-                                <p>Event |user event| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
-                                <p>When |user event| is a <code>PointerEvent</code>, |user event| is a {{GlobalEventHandlers/pointerup}} for a <code>click</code> or <code>auxclick</code> event, and either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event (depending on native platform convention) for a <code>contextmenu</code> event.</p>
+                                <p>Event |user_event| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
+                                <p>When |user_event| is a <code>PointerEvent</code>, |user_event| is a {{GlobalEventHandlers/pointerup}} for a <code>click</code> or <code>auxclick</code> event, and either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event (depending on native platform convention) for a <code>contextmenu</code> event.</p>
                             </div>
                         </li>
 
-                        <li>If |user event| is not a <code>PointerEvent</code>, dispatch |event| following the [[UIEVENTS]] spec without overriding |event| target and skip the remaining steps below.</li>
+                        <li>If |user_event| is not a <code>PointerEvent</code>, dispatch |event| following the [[UIEVENTS]] spec without overriding |event| target and skip the remaining steps below.</li>
 
                         <li>
                             <p>Define |target| as follows:</p>
 
-                            <p>If |event| is a <code>contextmenu</code> event, or |user event| was dispatched while the corresponding pointer was captured, then let |target| be the target of |user event|.</p>
+                            <p>If |event| is a <code>contextmenu</code> event, or |user_event| was dispatched while the corresponding pointer was captured, then let |target| be the target of |user_event|.</p>
 
-                            <p>Otherwise (|event| is a <code>click</code> or <code>auxclick</code> event for which |user event| is a <code>pointerup</code> event that was dispatched uncaptured) let |target| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment |event| is being dispatched.</p>
+                            <p>Otherwise (|event| is a <code>click</code> or <code>auxclick</code> event for which |user_event| is a <code>pointerup</code> event that was dispatched uncaptured) let |target| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment |event| is being dispatched.</p>
                         </li>
 
                         <li>
                           <p>Dispatch |event| to |target| following the [[UIEVENTS]] spec.</p>
-                          <div class="note">If |user event| was captured, |event| is dispatched to the capturing target of |user event| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code> has been dispatched already.</div>
+                          <div class="note">If |user_event| was captured, |event| is dispatched to the capturing target of |user_event| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code> has been dispatched already.</div>
                         </li>
                     </ol>
                 </section>
