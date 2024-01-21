@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <title>Pointer Events</title>
-    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
-    <script src='https://www.w3.org/Tools/respec/respec-w3c' class='remove' defer></script>
-    <script class='remove'>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class="remove">
         var respecConfig = {
             specStatus: "ED",
             shortName: "pointerevents3",
@@ -64,7 +63,7 @@
     </style>
 </head>
 <body>
-    <section id='abstract'>
+    <section id="abstract">
         <p>The features in this specification extend or modify those found in Pointer Events, a W3C Recommendation that describes events and related interfaces for handling hardware agnostic pointer input from devices including a mouse, pen, touchscreen, etc. For compatibility with existing mouse based content, this specification also describes a mapping to fire Mouse Events for other pointer device types.</p>
     </section>
 
@@ -408,20 +407,20 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h3>Firing events using the <code>PointerEvent</code> interface</h3>
                 <p>To <dfn>fire a pointer event</dfn> named |e| means to [=fire an event=] named |e| using <a>PointerEvent</a> whose attributes are set as defined in {{PointerEvent}} Interface and <a>Attributes and Default Actions</a>.</p>
-                <p>If the event is not a {{GlobalEventHandlers/gotpointercapture}}, {{GlobalEventHandlers/lostpointercapture}}, <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.
+                <p>If the event is not a {{GlobalEventHandlers/gotpointercapture}}, {{GlobalEventHandlers/lostpointercapture}}, <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.</p>
 
-                <p>The target object at which the event is fired is determined as follows:
+                <p>The target object at which the event is fired is determined as follows:</p>
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, set the target to <a>pointer capture target override</a> object.</li>
                     <li>Otherwise, set the target to the object returned by normal <a>hit test</a> mechanisms (out of scope for this specification).</li>
                 </ul>
 
-                <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].
+                <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].</p>
 
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, or {{GlobalEventHandlers/pointerup}} set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
 
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
-                    then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.
+                    then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.</p>
 
                 <p>Fire the event to the determined target.
                     The user agent SHOULD treat the target as if the pointing device has moved over it from the |previous target|
@@ -556,7 +555,7 @@ interface PointerEvent : MouseEvent {
                             for the pointer that caused the drag operation.</li>
                     </ul>
                     <div class="note">
-                        <p>Other scenarios in which the user agent MAY <a>suppress a pointer event stream</a> include:
+                        <p>Other scenarios in which the user agent MAY <a>suppress a pointer event stream</a> include:</p>
                         <ul>
                             <li>A device's screen orientation is changed while a pointer is active.</li>
                             <li>The user attempts to interact using more simultaneous pointer inputs than the device supports.</li>
@@ -749,7 +748,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-event-type="event">pointerup</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerup}} when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the user agent MUST also <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} followed by a pointer event named {{GlobalEventHandlers/pointerleave}} after dispatching the {{GlobalEventHandlers/pointerup}} event.</p>
-                <p>All {{GlobalEventHandlers/pointerup}} events have a <code>pressure</code> value of <code>0</code>.
+                <p>All {{GlobalEventHandlers/pointerup}} events have a <code>pressure</code> value of <code>0</code>.</p>
                 <p>The user agent MUST also <a>implicitly release the pointer capture</a> if the pointer is currently captured.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
             </section>
@@ -901,12 +900,12 @@ partial interface mixin GlobalEventHandlers {
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointercancel}} event type.
                 </dd>
-                
+
                 <dt><dfn>onpointerout</dfn></dt>
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerout}} event type.
                 </dd>
-                
+
                 <dt><dfn>onpointerleave</dfn></dt>
                 <dd>
                     The [=event handler IDL attribute=] for the {{GlobalEventHandlers/pointerleave}} event type.
@@ -997,7 +996,7 @@ partial interface Navigator {
                 <dt>none</dt>
                 <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
                 <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.<p>
+                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.</dd>
                 <dt>manipulation</dt>
                 <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
             </dl>
@@ -1059,7 +1058,7 @@ partial interface Navigator {
     </section>
     <section>
         <h1><dfn class="export">Pointer capture</dfn></h1>
-        <section class='informative'>
+        <section class="informative">
             <h2>Introduction</h2>
             <p>Pointer capture allows the events for a particular pointer (including any <a>compatibility mouse events</a>) to be retargeted to a particular element other than the normal <a>hit test</a> result of the pointer's location. This is useful in scenarios like a custom slider control (e.g. similar to the [[HTML]] <code>&lt;input type="range"&gt;</code> control). Pointer capture can be set on the slider thumb element, allowing the user to slide the control back and forth even if the pointer slides off of the thumb.</p>
             <figure id="figure_slider">
@@ -1073,7 +1072,7 @@ partial interface Navigator {
                 When this method is invoked, the user agent MUST run the following steps:</p>
             <ol>
                 <li>If the <code>pointerId</code> provided as the method's argument does not match any of the <a data-lt="active pointer">active pointers</a>, then [=exception/throw=] a {{"NotFoundError"}} {{DOMException}}.</li>
-                <li>Let the |pointer| be the <a>active pointer</a> specified by the given <code>pointerId</code>.
+                <li>Let the |pointer| be the <a>active pointer</a> specified by the given <code>pointerId</code>.</li>
                 <li>If the |element| is not [=connected=] [[DOM]], [=exception/throw=] an {{"InvalidStateError"}} {{DOMException}}.</li>
                 <li>If this method is invoked while the |element|'s [=Node/node document=] [[DOM]] has a locked element ([[PointerLock]] {{DocumentOrShadowRoot/pointerLockElement}}),
                     [=exception/throw=] an {{"InvalidStateError"}} {{DOMException}}.</li>
@@ -1116,8 +1115,7 @@ partial interface Navigator {
                 corresponding to the captured pointer being fired at the document
                 during the next <a>Process pending pointer capture</a> after the capture node is removed.
             </div>
-            <p>When a pointer lock [[PointerLock]] is successfully applied on an element, the user agent MUST run the steps as if the <a data-lt='Element.releasePointerCapture'>releasePointerCapture()</a> method has been called if any element is set to be captured or pending to be captured.
-
+            <p>When a pointer lock [[PointerLock]] is successfully applied on an element, the user agent MUST run the steps as if the <a data-lt="Element.releasePointerCapture">releasePointerCapture()</a> method has been called if any element is set to be captured or pending to be captured.</p>
         </section>
     </section>
     <section>
@@ -1251,7 +1249,7 @@ partial interface Navigator {
 
         <section>
             <h2><dfn>Predicted events</dfn></h2>
-            
+
             <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements,
             can make a prediction (based on past points, and the speed/trajectory of the movement) what
             the position of future pointer movements may be. Applications can use this information with
