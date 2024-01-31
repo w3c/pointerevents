@@ -810,15 +810,31 @@ function tilt2spherical(tiltX, tiltY) {
                 </section>
                 <section>
                     <h4>Event dispatch</h4>
-                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event |e| MUST follow the dispatch process defined in [[UIEVENTS]] except when <em>all</em> of the following conditions are met:</p>
-                    <ul>
-                        <li>event |e| is fired in response to a user interaction event |t|,</li>
-                        <li>event |t| is a <code>PointerEvent</code>,</li>
-                        <li>event |t| was dispatched while the corresponding pointer was captured, and</li>
-                        <li>the capturing target of event |t| is [=connected=] [[DOM]] at the moment event |e| is being dispatched.</li>
-                    </ul>
-                    <p>When these conditions are met, event |e| MUST be dispatched to the capturing target of event |t|, and event |e| MUST be dispatched after the dispatch of the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code>.</p>
-                    <div class="note">When |t| is a <code>PointerEvent</code>, its type depends on native platform convention: if |e| is a <code>contextmenu</code> event, |t| is either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event; if |e| is a <code>click</code> or <code>auxclick</code> event, |t| is a {{GlobalEventHandlers/pointerup}} event.</div>
+                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event MUST follow the dispatch process defined in the [[UIEVENTS]] spec except that the event target is overridden using the algorithm below:</p>
+                    <ol>
+                        <li>
+                            <p>Let |event| be the <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event being dispatched, and |userEvent| be the user interaction event that caused the firing of |event|.</p>
+                            <div class="note">
+                                <p>Event |userEvent| could be a non-<code>PointerEvent</code>; for example, it is a <code>KeyboardEvent</code> when a <code>click</code> event dispatch is caused by hitting the spacebar on a checkbox element.</p>
+                                <p>When |userEvent| is a <code>PointerEvent</code>, |userEvent| is a {{GlobalEventHandlers/pointerup}} for a <code>click</code> or <code>auxclick</code> event, and either a {{GlobalEventHandlers/pointerdown}} or a {{GlobalEventHandlers/pointerup}} event (depending on native platform convention) for a <code>contextmenu</code> event.</p>
+                            </div>
+                        </li>
+
+                        <li>If |userEvent| is not a <code>PointerEvent</code>, dispatch |event| following the [[UIEVENTS]] spec without overriding |event| target and skip the remaining steps below.</li>
+
+                        <li>
+                            <p>Define |target| as follows:</p>
+
+                            <p>If |event| is a <code>contextmenu</code> event, or |userEvent| was dispatched while the corresponding pointer was captured, then let |target| be the target of |userEvent|.</p>
+
+                            <p>Otherwise (|event| is a <code>click</code> or <code>auxclick</code> event for which |userEvent| is a <code>pointerup</code> event that was dispatched uncaptured) let |target| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment |event| is being dispatched.</p>
+                        </li>
+
+                        <li>
+                          <p>Dispatch |event| to |target| following the [[UIEVENTS]] spec.</p>
+                          <div class="note">If |userEvent| was captured, |event| is dispatched to the capturing target of |userEvent| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same <code>pointerId</code> has been dispatched already.</div>
+                        </li>
+                    </ol>
                 </section>
             </section>
         </section>
