@@ -609,7 +609,7 @@ interface PointerEvent : MouseEvent {
                 <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
                 <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
                 <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
-<pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
+<pre id="example_6" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
 function spherical2tilt(altitudeAngle, azimuthAngle) {
   const radToDeg = 180/Math.PI;
@@ -1058,17 +1058,17 @@ partial interface Navigator {
             </div>
             <div class="note">Disabling some default direct manipulation behaviors for panning and zooming may allow user agents to respond to other behaviors more quickly. For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled. In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_5" class="example" title="Disallowing all direct manipulation behaviors">
+<pre id="example_7" class="example" title="Disallowing all direct manipulation behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Allowing horizontal panning only">
+<pre id="example_8" class="example" title="Allowing horizontal panning only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_7" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
+<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
@@ -1078,7 +1078,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
+<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1091,7 +1091,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
+<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1222,7 +1222,7 @@ partial interface Navigator {
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
             </ul>
 
-<pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
+<pre id="example_12" class="example" title="Basic canvas drawing application using the coalesced events list">
 <code>&lt;style&gt;
     /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
     so that all events on the canvas element are given to the application instead. */
@@ -1338,7 +1338,7 @@ partial interface Navigator {
                 pointer events are dispatched earlier than the timestamp of one or more of the predicted events.</p>
             </div>
 
-<pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
+<pre id="example_13" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
 <code>
 let predicted_points = [];
 window.addEventListener("pointermove", function(event) {
