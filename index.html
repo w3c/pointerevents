@@ -213,8 +213,8 @@ dictionary PointerEventInit : MouseEventInit {
     double      azimuthAngle;
     DOMString   pointerType = "";
     boolean     isPrimary = false;
-    sequence&lt;PointerEvent> coalescedEvents = [];
-    sequence&lt;PointerEvent> predictedEvents = [];
+    sequence&lt;PointerEvent&gt; coalescedEvents = [];
+    sequence&lt;PointerEvent&gt; predictedEvents = [];
 };
 
 [Exposed=Window]
@@ -232,8 +232,8 @@ interface PointerEvent : MouseEvent {
     readonly        attribute double      azimuthAngle;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
-    [SecureContext] sequence&lt;PointerEvent> getCoalescedEvents();
-    sequence&lt;PointerEvent> getPredictedEvents();
+    [SecureContext] sequence&lt;PointerEvent&gt; getCoalescedEvents();
+    sequence&lt;PointerEvent&gt; getPredictedEvents();
 };
 </pre>
                 <dl data-dfn-for="PointerEvent" data-link-for="PointerEvent">
@@ -247,7 +247,7 @@ interface PointerEvent : MouseEvent {
                         </dd>
                     <dt><dfn>width</dfn></dt>
                         <dd>
-                            <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of <code>1</code>>.</p>
+                            <p>The width (magnitude on the X axis), in CSS pixels (see [[CSS21]]), of the <a>contact geometry</a> of the pointer. This value MAY be updated on each event for a given pointer. For inputs that typically lack contact geometry (such as a traditional mouse), and in cases where the actual geometry of the input is not detected by the hardware, the <a>user agent</a> MUST return a default value of <code>1</code>.</p>
                         </dd>
                     <dt><dfn>height</dfn></dt>
                         <dd>
@@ -605,19 +605,19 @@ function spherical2tilt(altitudeAngle, azimuthAngle) {
       // pen is on negative Y axis
       tiltYrad = -Math.PI/2;
     }
-    if (azimuthAngle&gt;0 && azimuthAngle&lt;Math.PI/2) {
+    if (azimuthAngle&gt;0 &amp;&amp; azimuthAngle&lt;Math.PI/2) {
       tiltXrad = Math.PI/2;
       tiltYrad = Math.PI/2;
     }
-    if (azimuthAngle&gt;Math.PI/2 && azimuthAngle&lt;Math.PI) {
+    if (azimuthAngle&gt;Math.PI/2 &amp;&amp; azimuthAngle&lt;Math.PI) {
       tiltXrad = -Math.PI/2;
       tiltYrad = Math.PI/2;
     }
-    if (azimuthAngle&gt;Math.PI && azimuthAngle&lt;3*Math.PI/2) {
+    if (azimuthAngle&gt;Math.PI &amp;&amp; azimuthAngle&lt;3*Math.PI/2) {
       tiltXrad = -Math.PI/2;
       tiltYrad = -Math.PI/2;
     }
-    if (azimuthAngle&gt;3*Math.PI/2 && azimuthAngle&lt;2*Math.PI) {
+    if (azimuthAngle&gt;3*Math.PI/2 &amp;&amp; azimuthAngle&lt;2*Math.PI) {
       tiltXrad = Math.PI/2;
       tiltYrad = -Math.PI/2;
     }
@@ -1206,7 +1206,7 @@ partial interface Navigator {
     const canvas = document.getElementById("drawSurface"),
     context = canvas.getContext("2d");
 
-    canvas.addEventListener("pointermove", (e)=> {
+    canvas.addEventListener("pointermove", (e)=&gt; {
 
         if (e.getCoalescedEvents) {
             for (let coalesced_event of e.getCoalescedEvents()) {
@@ -1218,7 +1218,7 @@ partial interface Navigator {
     });
 
     function paint(event) {
-        if (event.buttons>0) {
+        if (event.buttons&gt;0) {
             context.fillRect(event.clientX, event.clientY, 5, 5);
         }
     }
