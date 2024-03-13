@@ -9,8 +9,3 @@ This repo holds the sources for the [Pointer Events](https://w3c.github.io/point
 - Some of the [specification issues are test related](https://github.com/w3c/pointerevents/issues?q=is%3Aissue+is%3Aopen+label%3Atest)
 - Tests can be [run manually](http://wpt.live/pointerevents/)
 - WPT has a list of the [latest generated test results](https://wpt.fyi/results/pointerevents)
-
-# Implementation status:
-- Blink: [Shipped](https://www.chromestatus.com/feature/4504699138998272)
-- Gecko: [Partially shipped](https://platform-status.mozilla.org/#pointer-events)
-- WebKit: [Partially shipped](https://webkit.org/status/#specification-pointer-events-level-2)
