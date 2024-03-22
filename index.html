@@ -423,18 +423,14 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.</p>
 
-                <p>Fire the event to the determined target.
-                    The user agent SHOULD treat the target as if the pointing device has moved over it from the |previous target|
-                    for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]].
-                    If the |needs over event| flag is set, an over event is needed even if the target element is the same.
-                </p>
+                <p>Fire the event to the determined target.  Before firing this event, the user agent SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
 
-                <p>Save the determined target as the |previous target| for the given pointer,
-                    and reset the |needs over event| flag to <code>false</code>.
-                    If the |previous target| at any point will no longer be [=connected=] [[DOM]],
-                    update the |previous target| to the nearest still [=connected=] [[DOM]] parent
-                    following the event path corresponding to dispatching events to the previous target,
-                    and set the |needs over event| flag to <code>true</code>.
+                <p>Save the determined target as the |previousTarget| for the given pointer,
+                    and reset the |needsOverEvent| flag to <code>false</code>.
+                    If the |previousTarget| at any point will no longer be [=connected=] [[DOM]],
+                    update the |previousTarget| to the nearest still [=connected=] [[DOM]] parent
+                    following the event path corresponding to dispatching events to the |previousTarget|,
+                    and set the |needsOverEvent| flag to <code>true</code>.
                 </p>
 
                 <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[UIEVENTS]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
