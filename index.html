@@ -423,7 +423,9 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.</p>
 
-                <p>Fire the event to the determined target.  Before firing this event, the user agent SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
+                <p>Before firing this event, the user agent SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
+
+                <p>Fire the event to the determined target.</p>
 
                 <p>Save the determined target as the |previousTarget| for the given pointer,
                     and reset the |needsOverEvent| flag to <code>false</code>.
