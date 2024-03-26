@@ -197,13 +197,13 @@ eventTarget.dispatchEvent(event2);</code>
     <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
     &lt;script&gt;
     window.addEventListener("pointerdown", assignPenColor);
-    window.addEventListener("pointerMove", assignPenColor);
+    window.addEventListener("pointermove", assignPenColor);
     const colorMap = new Map();
 
     function assignPenColor(event) {
         const uniqueId = event.deviceProperties.uniqueId;
         // Check if a unique Id exists.
-        if (!uniqueId) {
+        if (uniqueId == -1) {
             return;
         }
         // Check if a color has been assigned to the device.
