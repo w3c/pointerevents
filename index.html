@@ -203,7 +203,7 @@ eventTarget.dispatchEvent(event2);</code>
     function assignPenColor(event) {
         const uniqueId = event.deviceProperties.uniqueId;
         // Check if a unique Id exists.
-        if (uniqueId == -1) {
+        if (uniqueId == 0) {
             return;
         }
         // Check if a color has been assigned to the device.
@@ -723,7 +723,7 @@ function tilt2spherical(tiltX, tiltY) {
             <h2><code>DeviceProperties</code> interface</h2>
             <pre class="idl">
                 dictionary DevicePropertiesInit {
-                    long uniqueId = -1;
+                    long uniqueId = 0;
                 };
 
                 [Exposed=Window]
@@ -735,8 +735,8 @@ function tilt2spherical(tiltX, tiltY) {
             <dl data-dfn-for="DeviceProperties" data-link-for="DeviceProperties">
                 <dt><dfn>uniqueId</dfn></dt>
                     <dd>
-                        <p>A unique identifier for the pointing device. If the hardware supports multiple pointers, pointer events generated from pointing devices MUST only get a <code>uniqueId</code> if those pointers are uniquely identifiable over the session. If the pointer is uniquely identifiable, the assigned <code>uniqueId</code> to that pointing device will remain constant for the remainder of the session. The <code>uniqueId</code> value of <code>-1</code> MUST be reserved and used to indicate events whose generating device could not be identified. Like <a href="#dom-pointerevent-pointerid">pointerId</a>, to minimize the chance of fingerprinting and tracking across different pages or domains, the <code>uniqueId</code> MUST only be associated explicitly with that particular pointing device for the lifetime of the page / session, and a new randomized <code>uniqueId</code> MUST be chosen the next time that particular pointing device is used again in a new session.</p>
-                        <div class="note">Due to digitizer and pointing device hardware constraints, a <code>uniqueId</code> is not guaranteed to be available for all pointer events from a pointing device. For example, the device may not report its hardware id to the digitizer in time for <code>pointerdown</code> to have a <code>uniqueId</code>. In such a case, the <code>uniqueId</code> may initially be <code>-1</code> and change to a valid value.</div>
+                        <p>A unique identifier for the pointing device. If the hardware supports multiple pointers, pointer events generated from pointing devices MUST only get a <code>uniqueId</code> if those pointers are uniquely identifiable over the session. If the pointer is uniquely identifiable, the assigned <code>uniqueId</code> to that pointing device will remain constant for the remainder of the session. The <code>uniqueId</code> value of <code>0</code> MUST be reserved and used to indicate events whose generating device could not be identified. Like <a href="#dom-pointerevent-pointerid">pointerId</a>, to minimize the chance of fingerprinting and tracking across different pages or domains, the <code>uniqueId</code> MUST only be associated explicitly with that particular pointing device for the lifetime of the page / session, and a new randomized <code>uniqueId</code> MUST be chosen the next time that particular pointing device is used again in a new session.</p>
+                        <div class="note">Due to digitizer and pointing device hardware constraints, a <code>uniqueId</code> is not guaranteed to be available for all pointer events from a pointing device. For example, the device may not report its hardware id to the digitizer in time for <code>pointerdown</code> to have a <code>uniqueId</code>. In such a case, the <code>uniqueId</code> may initially be <code>0</code> and change to a valid value.</div>
                     </dd>
             </dl>
         </section>
