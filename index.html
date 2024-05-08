@@ -244,7 +244,7 @@ dictionary PointerEventInit : MouseEventInit {
     boolean     isPrimary = false;
     sequence&lt;PointerEvent> coalescedEvents = [];
     sequence&lt;PointerEvent> predictedEvents = [];
-    DeviceProperties deviceProperties;
+    DeviceProperties? deviceProperties = null;
 };
 
 [Exposed=Window]
@@ -262,7 +262,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute double      azimuthAngle;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
-    readonly        attribute DeviceProperties deviceProperties;
+    readonly        attribute DeviceProperties? deviceProperties;
     [SecureContext] sequence&lt;PointerEvent> getCoalescedEvents();
     sequence&lt;PointerEvent> getPredictedEvents();
 };
