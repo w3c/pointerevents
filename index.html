@@ -191,6 +191,34 @@ pointerEventInitDict.coalescedEvents = [p1, p2];
 const event2 = new PointerEvent("pointermove", pointerEventInitDict);
 eventTarget.dispatchEvent(event2);</code>
 </pre>
+<pre id="example_5" class="example" title="Assigning a pen color on PointerDown">
+    <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+    &lt;script&gt;
+    window.addEventListener("pointerdown", assignPenColor);
+    window.addEventListener("pointermove", assignPenColor);
+    const colorMap = new Map();
+
+    function assignPenColor(event) {
+        const uniqueId = event.persistentDeviceId;
+        // Check if a unique Id exists.
+        if (uniqueId == 0) {
+            return;
+        }
+        // Check if a color has been assigned to the device.
+        if (map.has(uniqueId)) {
+            return;
+        }
+        // Assign a color to the device.
+        let newColor = getNewColor();
+        map.set(uniqueId, newColor);
+        return newColor;
+    }
+
+    function getNewColor() {
+        /* return some color value */
+    }
+    &lt;/script&gt;</code>
+</pre>
     </section>
 
     <section>
@@ -212,6 +240,7 @@ dictionary PointerEventInit : MouseEventInit {
     double      azimuthAngle;
     DOMString   pointerType = "";
     boolean     isPrimary = false;
+    long        persistentDeviceId = 0;
     sequence&lt;PointerEvent&gt; coalescedEvents = [];
     sequence&lt;PointerEvent&gt; predictedEvents = [];
 };
@@ -231,6 +260,7 @@ interface PointerEvent : MouseEvent {
     readonly        attribute double      azimuthAngle;
     readonly        attribute DOMString   pointerType;
     readonly        attribute boolean     isPrimary;
+    readonly        attribute long        persistentDeviceId;
     [SecureContext] sequence&lt;PointerEvent&gt; getCoalescedEvents();
     sequence&lt;PointerEvent&gt; getPredictedEvents();
 };
@@ -322,6 +352,11 @@ interface PointerEvent : MouseEvent {
                     <dt><dfn>isPrimary</dfn></dt>
                         <dd>
                             <p>Indicates if the pointer represents the <a>primary pointer</a> of this pointer type.</p>
+                        </dd>
+                    <dt><dfn>persistentDeviceId</dfn></dt>
+                        <dd>
+                            <p>A unique identifier for the pointing device. If the hardware supports multiple pointers, pointer events generated from pointing devices MUST only get a <code>persistentDeviceId</code> if those pointers are uniquely identifiable over the session. If the pointer is uniquely identifiable, the assigned <code>persistentDeviceId</code> to that pointing device will remain constant for the remainder of the session. The <code>persistentDeviceId</code> value of <code>0</code> MUST be reserved and used to indicate events whose generating device could not be identified. Like <a href="#dom-pointerevent-pointerid">pointerId</a>, to minimize the chance of fingerprinting and tracking across different pages or domains, the <code>persistentDeviceId</code> MUST only be associated explicitly with that particular pointing device for the lifetime of the page / session, and a new randomized <code>persistentDeviceId</code> MUST be chosen the next time that particular pointing device is used again in a new session.</p>
+                            <div class="note">Due to digitizer and pointing device hardware constraints, a <code>persistentDeviceId</code> is not guaranteed to be available for all pointer events from a pointing device. For example, the device may not report its hardware id to the digitizer in time for <code>pointerdown</code> to have a <code>persistentDeviceId</code>. In such a case, the <code>persistentDeviceId</code> may initially be <code>0</code> and change to a valid value.</div>
                         </dd>
                     <dt><dfn>getCoalescedEvents()</dfn></dt>
                         <dd>
@@ -576,7 +611,7 @@ interface PointerEvent : MouseEvent {
                 <p>Pointer Events include two complementary sets of attributes to express the orientation of a transducer relative to the X-Y plane: <code>tiltX</code> / <code>tiltY</code> (introduced in the original Pointer Events specification), and <code>azimuthAngle</code> / <code>altitudeAngle</code> (adopted from the <a href="https://w3c.github.io/touch-events/">Touch Events - Level 2</a> specification).</p>
                 <p>Depending on the specific hardware and platform, user agents will likely only receive one set of values for the transducer orientation relative to the screen plane — either <code>tiltX</code> / <code>tiltY</code> or <code>altitudeAngle</code> / <code>azimuthAngle</code>. User agents MUST use the following algorithm for converting these values.</p>
                 <p>When the user agent calculates <code>tiltX</code> / <code>tiltY</code> from <code>azimuthAngle</code> / <code>altitudeAngle</code> it SHOULD round the final integer values using <a data-cite="ECMASCRIPT#sec-math.round">Math.round</a> [[ECMASCRIPT]] rules.</p>
-<pre id="example_12" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
+<pre id="example_6" class="example" title="Converting between tiltX/tiltY and altitudeAngle/azimuthAngle"><code>/* Converting between tiltX/tiltY and altitudeAngle/azimuthAngle */
 
 function spherical2tilt(altitudeAngle, azimuthAngle) {
   const radToDeg = 180/Math.PI;
@@ -681,7 +716,6 @@ function tilt2spherical(tiltX, tiltY) {
 </pre>
             </section>
         </section>
-
         <section>
             <h2><dfn>Pointer Event types</dfn></h2>
             <p>Below are the event types defined in this specification.</p>
@@ -1026,17 +1060,17 @@ partial interface Navigator {
             </div>
             <div class="note">Disabling some default direct manipulation behaviors for panning and zooming may allow user agents to respond to other behaviors more quickly. For example, with <code>auto</code> user agents typically add 300ms of delay before <code>click</code> to allow for double-tap gestures to be handled. In these cases, explicitly setting <code>touch-action: none</code> or <code>touch-action: manipulation</code> will remove this delay. Note that the methods for determining a tap or double-tap gesture are out of scope for this specification.</div>
         </section>
-<pre id="example_5" class="example" title="Disallowing all direct manipulation behaviors">
+<pre id="example_7" class="example" title="Disallowing all direct manipulation behaviors">
 <code>&lt;div style=&quot;touch-action: none;&quot;&gt;
     This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_6" class="example" title="Allowing horizontal panning only">
+<pre id="example_8" class="example" title="Allowing horizontal panning only">
 <code>&lt;div style=&quot;touch-action: pan-x;&quot;&gt;
     This element receives pointer events when not panning in the horizontal direction.
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_7" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
+<pre id="example_9" class="example" title="Child regions that disallow direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: none;&quot;&gt;
         This element receives pointer events for all direct manipulation interactions that otherwise lead to panning or zooming.
@@ -1046,7 +1080,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_8" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
+<pre id="example_10" class="example" title="Intermediate parent that disallows direct manipulation behaviors for panning and zooming">
 <code>&lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1059,7 +1093,7 @@ partial interface Navigator {
     &lt;/div&gt;
 &lt;/div&gt;</code>
 </pre>
-<pre id="example_9" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
+<pre id="example_11" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
 &lt;div style=&quot;overflow: auto;&quot;&gt;
     &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
         &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
@@ -1189,7 +1223,7 @@ partial interface Navigator {
                 <li>Empty <a>coalesced events list</a> and <a>predicted events list</a> of their own.</li>
             </ul>
 
-<pre id="example_10" class="example" title="Basic canvas drawing application using the coalesced events list">
+<pre id="example_12" class="example" title="Basic canvas drawing application using the coalesced events list">
 <code>&lt;style&gt;
     /* Disable intrinsic user agent direct manipulation behaviors (such as panning or zooming)
     so that all events on the canvas element are given to the application instead. */
@@ -1305,7 +1339,7 @@ partial interface Navigator {
                 pointer events are dispatched earlier than the timestamp of one or more of the predicted events.</p>
             </div>
 
-<pre id="example_11" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
+<pre id="example_13" class="example" title="Conceptual approach to drawing using coalesced events and predicted events">
 <code>
 let predicted_points = [];
 window.addEventListener("pointermove", function(event) {
