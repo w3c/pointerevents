@@ -1639,52 +1639,10 @@ window.addEventListener("pointermove", function(event) {
     </section>
     <section class="appendix informative">
         <h1>Revision history</h1>
-        <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
+        <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents3]] specification.
             See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
-            <li><a href="https://github.com/w3c/pointerevents/pull/494">Rewrite the dispatch algorithm for click-like events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/491">Explain how a removed DOM node should be handled for boundary events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/490">Handle pointer capture node removal asynchronously</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/464">Add clarification about <code>pointercancel</code> coordinates/properties</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/437">Define a section for suppressing a pointer event stream</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/419">Remove should from boundary events note and move to normative must</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/418">Make fact that <code>click</code>/<code>contextmenu</code> are not compat mouse events normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/414">Make note about buttons/buttons and compat events normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/413">Make note about UAs not firing compat events if they support touch events normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/412">Move first part of the note about dispatched event order into normative text</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/411">Move elements of <code>pointerId</code> informative note to normative text</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/410">Make "Converting..." section normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/404">Add note about rounding coordinates for click, auxclick, contextmenu</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/403">Expand prose about preventing compatibility mouse events and make it normative</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/398">Clarify <code>pointercancel</code> firing behavior on drag</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/393">Tweak definition of predicted events to deal with untrusted events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/391">Tweak the definition of coalesced event list to deal with untrusted events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/390">Update targets of predicted and coalesced events when trusted event target changes</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/388">Remove mention of animation frame callback</a> as the reason for user agents delaying dispatch of <code>pointermove</code></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/386">Task queue is not reliable HTML concept. Use event loop instead</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/383">Explicit note about <code>pointerrawmove</code> having an empty predicted event list</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/382">Expand the definition/explanation of predicted events timestamps</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/379">Expand explanation for non-coalesced events</a> (to cover all <q>measurable properties</q>, not just position)</li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/376">Clarify the rationale and purpose of <code>touch-action</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/364">Add new section explaining coalesced and predicted events</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/351">Add a SHOULD clause about pan gestures and what happens if a gesture suddenly changes direction</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/350">Major refactoring: refer to "direct manipulation" rather than "touch"</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/349">Reword/expand <code>touch-action</code> definition</a> (scope it clearly to just panning/zooming actions)</li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/348">Add more info to note about <code>click</code>/<code>contextmenu</code> and user agent heuristics</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/347">Reword note about primary/non-primary pointers</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/345">Change reserved <code>pointerId</code> for non-pointer events from <code>0</code> to <code>-1</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/334">Add note about <code>touch-action</code> and iframe/embedded browsing contexts</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/324">Fix tilt to spherical calculation</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/323">Update <code>azimuthAngle</code>, <code>altitudeAngle</code>, <code>tiltX</code>, <code>tiltY</code> to not require default values in pointer events web IDL</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/318">Add secure context criteria to <code>pointerrawupdate</code> and <code>getCoalescedEvents</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/317">Change the type of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> to PointerEvent</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/316">Add <code>altitudeAngle</code>/<code>azimuthAngle</code></a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/307">Add <code>getPredictedEvents</code> API.</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/306">Introduce <code>getCoalescedEvents</code> API, <code>pointerrawupdate</code> event.</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/300">Clarify active document for active pointers.</a></li>
-            <li><a href="https://github.com/w3c/pointerevents/pull/294">Add direction-specific <code>touch-action</code> values</a>
-                (<code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code>) and
-                clarified behavior of existing <code>pan-x</code> and <code>pan-y</code> values.</li>
+            <li><a href="https://github.com/w3c/pointerevents/pull/495">Add <code>persistentDeviceId</code> to <code>PointerEvent</code></a></li>
         </ul>
     </section>
     <!-- appendix -->
