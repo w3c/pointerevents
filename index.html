@@ -996,7 +996,7 @@ partial interface Navigator {
             <h2>The <dfn><code>touch-action</code></dfn> CSS property</h2>
             <table class="simple">
                 <tr><th>Name:</th><td><code>touch-action</code></td></tr>
-                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
+                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> | <code>pan-inline</code> | <code>pan-inline-start</code> | <code>pan-inline-end</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> | <code>pan-block</code> | <code>pan-block-start</code> | <code>pan-block-end</code> ] ] | <code>manipulation</code></td></tr>
                 <tr><th>Initial:</th><td><code>auto</code></td></tr>
                 <tr><th>Applies to:</th><td>all elements except: non-replaced inline elements, table rows, row groups, table columns, and column groups.</td></tr>
                 <tr><th>Inherited:</th><td>no</td></tr>
@@ -1038,17 +1038,21 @@ partial interface Navigator {
             <p>The <code>touch-action</code> property covers direct manipulation behaviors related to viewport panning and zooming. Any additional user agent behaviors, such as text selection/highlighting, or activating links and form controls, MUST NOT be affected by this CSS property.</p>
             <div class="note">The terms "panning" and "scrolling" are considered synonymous (or, more aptly, "panning" is "scrolling" using a direct manipulation input). Defining an interaction or gesture for triggering panning/scrolling, or for triggering behavior for the <code>auto</code> or <code>none</code> values, are out of scope for this specification.</div>
             <dl>
-                <dt>auto</dt>
+                <dt><code>auto</code></dt>
                 <dd>The user agent MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
-                <dt>none</dt>
+                <dt><code>none</code></dt>
                 <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
-                <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (eg. <code>pan-y</code>), the axis cannot be changed during panning.</dd>
-                <dt>manipulation</dt>
+                <dt><code>pan-x</code>, <code>pan-left</code>, <code>pan-right</code></dt>
+                <dt><code>pan-inline</code>, <code>pan-inline-start</code>, <code>pan-inline-end</code></dt>
+                <dt><code>pan-y</code>, <code>pan-up</code>, <code>pan-down</code></dt>
+                <dt><code>pan-block</code>, <code>pan-block-start</code>, <code>pan-block-end</code></dt>
+                <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the axes or directions specified by the <code>pan-*</code> value used. Once panning has started, the direction can be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (using <code>pan-x</code>, <code>pan-y</code>, <code>pan-block</code>, or <code>pan-inline</code>), the axis cannot be changed during panning.</dd>
+                <dt><code>manipulation</code></dt>
                 <dd>The user agent MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
             </dl>
             <div class="note"><a data-cite="compat/#touch-action">Additional <code>touch-action</code> values</a> common in implementations are defined in [[COMPAT]].</div>
-            <div class="note">The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</div>
+            <p>The <code>touch-action</code> property only applies to elements that support both the CSS <code>width</code> and <code>height</code> properties (see [[CSS21]]). This restriction is designed to facilitate user agent optimizations for <em>low-latency</em> <a>direct manipulation</a> panning and zooming. For elements not supported by default, such as <code>&lt;span&gt;</code> which is a <em>non-replaced inline element</em>, authors can set the <code>display</code> CSS property to a value, such as <code>block</code>, that supports <code>width</code> and <code>height</code>. Future specifications could extend this API to all elements.</p>
+            <p><code>touch-action</code> supports both <em>physical</em> and <em>logical</em> values, as defined in [[!CSS-WRITING-MODES-3]]. <code>pan-x</code> and <code>pan-y</code> refer to the horizontal and vertical axes. <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, and <code>pan-down</code> are [=physical=] direction values. In contrast, <code>pan-inline</code> refers to the abstract [=inline axis=], and <code>pan-block</code> to the [=block axis=]. The remaining logical values (<code>pan-inline-start</code>, <code>pan-inline-end</code>, <code>pan-block-start</code>, <code>pan-block-end</code>) are [=flow-relative=] – their physical meaning depends on the element's [=writing mode=].</p>
             <div class="note">
                 <p>The direction-specific pan values are useful for customizing some overscroll behaviors.
                     For example, to implement a simple pull-to-refresh effect the document's <code>touch-action</code> can be set to <code>pan-x pan-down</code> whenever the scroll position is <code>0</code> and <code>pan-x pan-y</code> otherwise.
