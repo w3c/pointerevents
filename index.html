@@ -1212,6 +1212,10 @@ partial interface Navigator {
             or all of the coalesced events, but not both.
             </div>
 
+            <div class="note">
+                When a trusted event containing a <a>coalesced events list</a> is re-dispatched from JavaScript, the event dispatch algorithm sets the {{Event/isTrusted}} bit of the event to <code>false</code> but the same bits in the <a>coalesced events list</a> remain unchaged from their original <code>true</code> values.
+            </div>
+
             <p>The events in the coalesced events list of a trusted event will have:</p>
             <ul>
                 <li>Monotonically increasing {{Event/timeStamp}} values [[DOM]] — all coalesced events have a
@@ -1315,10 +1319,16 @@ partial interface Navigator {
             For all other trusted event types, it is an empty list.
             Untrusted events have their <a>predicted events list</a> initialized to the value passed to the
             constructor.</p>
+
             <div class="note">
                 <p>While <code>pointerrawupdate</code> events may have a non-empty <a>coalesced events list</a>,
                 their <a>predicted events list</a> will, for performance reasons, usually be an empty list.</p>
             </div>
+
+            <div class="note">
+                When a trusted event containing a <a>predicted events list</a> is re-dispatched from JavaScript, the event dispatch algorithm sets the {{Event/isTrusted}} bit of the event to <code>false</code> but the same bits in the <a>predicted events list</a> remain unchaged from their original <code>true</code> values.
+            </div>
+
             <p>The number of events in the list and how far they are from the current timestamp are determined by
             the user agent and the prediction algorithm it uses.</p>
 
