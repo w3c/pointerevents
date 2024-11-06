@@ -1302,7 +1302,7 @@ partial interface Navigator {
             <h2><dfn>Predicted events</dfn></h2>
 
             <p>Some user agents have built-in algorithms which, after a series of confirmed pointer movements,
-            can make a prediction (based on past points, and the speed/trajectory of the movement) what
+            can make a prediction (based on the preceding events for the current gesture, and the speed/trajectory of the movement) what
             the position of future pointer movements may be. Applications can use this information with
             the <a data-lt="PointerEvent.getPredictedEvents"><code>getPredictedEvents()</code></a> method to speculatively "draw ahead" to a predicted position
             to reduce perceived latency, and then discarding these predicted points once the actual points
@@ -1538,6 +1538,7 @@ window.addEventListener("pointermove", function(event) {
         <p>Pointer events contain additional information (where supported by the user's device), such as the angle or tilt at which a pen input is held, the geometry of the contact surface, and the pressure exerted on the stylus or touch screen. Information about angle, tilt, geometry and pressure are directly related to sensors on the user's device, meaning that this specification allows an origin access to these sensors.</p>
         <p>This sensor data, as well as the ability to determine the type of input mechanism (mouse, touch, pen) used, may be used to infer characteristics of a user, or of the user's device and environment. These inferred characteristics and any device/environment information may themselves be sensitive — for instance, they may allow a malicious site to further infer if a user is using assistive technologies. This information can also be potentially used for the purposes of building a user profile and/or attempting to "fingerprint" and track a particular user.</p>
         <p>As mitigation, user agents may consider including the ability for users to disable access to particular sensor data (such as angle, tilt, pressure), and/or to make it available only after an explicit opt-in from the user.</p>
+        <p>This specification defines the method by which authors can access "predicted events". The specification does not, itself, define the algorithms that user agents should use for their prediction. The specification authors envisage the algorithms to only rely on preceding pointer events related to the current gesture that a user is performing. It is the responsibility of user agents to ensure that their specific implementation of a prediction algorithm does not rely on any additional data - such as the user's full interaction history across different sites - that could reveal sensitive information about a user or be used to "fingerprint" and track them.</p>
         <p>Beyond these considerations, the working group believes that this specification:</p>
         <ul>
             <li>Does not expose personally-identifiable information.</li>
