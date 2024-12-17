@@ -735,7 +735,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerover}} when any of the following occurs:</p>
                 <ul>
                     <li>A pointing device is moved into the <a>hit test</a> boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>A <a data-lt="boundary-events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
+                    <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
             </section>
@@ -745,7 +745,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerenter}} when any of the following occurs:</p>
                 <ul>
                     <li>A pointing device is moved into the <a>hit test</a> boundaries of an element or one of its descendants.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>A <a data-lt="boundary-events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element or one of its descendants to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
+                    <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element or one of its descendants to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
                 <div class="note">This event type is similar to {{GlobalEventHandlers/pointerover}} but with two differences: {{GlobalEventHandlers/pointerenter}} does not bubble, and its dispatch considers the <a>hit test</a> boundaries of even descendant elements.</div>
@@ -821,7 +821,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} when any of the following occurs:</p>
                 <ul>
                     <li>A pointing device is moved out of the <a>hit test</a> boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>A <a data-lt="boundary-events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
+                    <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires a {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
@@ -832,7 +832,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerleave}} when any of the following occurs:</p>
                 <ul>
                     <li>A pointing device is moved out of the <a>hit test</a> boundaries of an element and all of its descendants.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
-                    <li>A <a data-lt="boundary-events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element and all of its descendants to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
+                    <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element and all of its descendants to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires the {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
