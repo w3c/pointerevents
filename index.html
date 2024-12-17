@@ -612,7 +612,7 @@ interface PointerEvent : MouseEvent {
             <section>
                 <h3><dfn data-lt="events-from-layout-changes">Boundary events caused by layout changes</dfn></h3>
                 <p>A pointing device that moved relative to the screen surface or underwent some change in any of its properties fires various events as defined in <a>Pointer Event types</a>.  For a stationary pointing device (that neither moved relative to the screen surface nor underwent any change in any properties), the user agent MUST fire certain boundary events after a layout change that affected the <a>hit test</a> target for the pointer, see {{GlobalEventHandlers/pointerover}}, {{GlobalEventHandlers/pointerenter}}, {{GlobalEventHandlers/pointerout}} and {{GlobalEventHandlers/pointerleave}} for details.  The user agent MAY delay the firing of these boundary events because of performance reasons (e.g. to avoid too many hit-tests or layout changes caused by boundary event listeners).</p>
-                <div class="note">A stationary pointing device (that neither moved relative to the screen surface nor underwent any change in any properties) never fires a {{GlobalEventHandlers/pointermove} event.</div>
+                <div class="note">A stationary pointing device (that neither moved relative to the screen surface nor underwent any change in any properties) never fires a {{GlobalEventHandlers/pointermove}} event.</div>
             </section>
 
             <section>
