@@ -1500,7 +1500,7 @@ window.addEventListener("pointermove", function(event) {
         <ul>
             <li>For sizes and coordinates, the values should be no more precise than 1/10th of a discrete physical pixel of the current device's screen</li>
             <li>For pressures and other analog attributes, these should allow for a maximum of 256 distinct values</li>
-            <li>For angles, the minimum precision should at least be 1 degree</li>
+            <li>For angles, the precision should be no more than <code>0.1</code> degrees</li>
         </ul>
         <p>This specification defines the method by which authors can access "predicted events". The specification does not, itself, define the algorithms that user agents should use for their prediction. The specification authors envisage the algorithms to only rely on preceding pointer events related to the current gesture that a user is performing. It is the responsibility of user agents to ensure that their specific implementation of a prediction algorithm does not rely on any additional data - such as the user's full interaction history across different sites - that could reveal sensitive information about a user or be used to "fingerprint" and track them.</p>
         <p>Beyond these considerations, the working group believes that this specification:</p>
