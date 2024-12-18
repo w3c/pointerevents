@@ -1498,7 +1498,7 @@ window.addEventListener("pointermove", function(event) {
         <p>As mitigation, user agents may consider including the ability for users to disable access to particular sensor data (such as angle, tilt, pressure), and/or to make it available only after an explicit opt-in from the user.</p>
         <p>Factory calibration information for sensors may be used to fingerprint individual devices, based on specific fluctuations and characteristics of sensor data. While this specification defines many of the sensor-related event attributes with <code>float</code> and <code>double</code> precision, we recommend that implementations limit the sensor data they expose to a practically useful precision:</p>
         <ul>
-            <li>For sizes and coordinates, the minimum precision should be precise enough to differentiate physical pixels of the current device's screen</li>
+            <li>For sizes and coordinates, the values should be no more precise than 1/10th of a discrete physical pixel of the current device's screen</li>
             <li>For pressures and other analog values, the minimum precision should allow for at least 256 distinct values, to avoid significant banding or perceivable stepped jumps in values</li>
             <li>For angles, the minimum precision should at least be 1 degree</li>
         </ul>
