@@ -446,7 +446,7 @@ interface PointerEvent : MouseEvent {
                 <p>To <dfn>fire a pointer event</dfn> named |e| means to [=fire an event=] named |e| using <a>PointerEvent</a> whose attributes are set as defined in {{PointerEvent}} Interface and <a>Attributes and Default Actions</a>.</p>
                 <p>If the event is not a {{GlobalEventHandlers/gotpointercapture}}, {{GlobalEventHandlers/lostpointercapture}}, <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, run the <a>process pending pointer capture</a> steps for this <code>PointerEvent</code>.</p>
 
-                <p>The target object at which the event is fired is determined as follows:</p>
+                <p><dfn>Determine the target</dfn> at which the event is fired as follows:</p>
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, set the target to <a>pointer capture target override</a> object.</li>
                     <li>Otherwise, set the target to the object returned by normal <a>hit test</a> mechanisms (out of scope for this specification).</li>
@@ -454,7 +454,7 @@ interface PointerEvent : MouseEvent {
 
                 <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].</p>
 
-                <p>If the event is {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, or {{GlobalEventHandlers/pointerup}} set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
+                <p>If the event is {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointermove}}, or {{GlobalEventHandlers/pointerup}}, set <a>active document</a> for the event's <code>pointerId</code> to |targetDocument|.</p>
 
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this <code>pointerId</code> to the target element as described in <a>implicit pointer capture</a>.</p>
@@ -734,7 +734,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerover</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerover}} when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved into the <a>hit test</a> boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved into an element.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
@@ -744,7 +744,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerenter</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerenter}} when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved into the <a>hit test</a> boundaries of an element or one of its descendants.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved into an element or one of its descendants.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element or one of its descendants to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
@@ -820,7 +820,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved out of the <a>hit test</a> boundaries of an element.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved out of an element.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires a {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
@@ -831,7 +831,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerleave</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerleave}} when any of the following occurs:</p>
                 <ul>
-                    <li>A pointing device is moved out of the <a>hit test</a> boundaries of an element and all of its descendants.  Note that <code>setPointerCapture()</code> or <code>releasePointerCapture()</code> might have changed the <a>hit test</a> target.  Also note that while a pointer is captured it is considered to be always inside the boundaries of the capturing element for the purpose of firing boundary events.</li>
+                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved out of an element and all of its descendants.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element and all of its descendants to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires the {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
