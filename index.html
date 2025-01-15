@@ -734,7 +734,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerover</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerover}} when any of the following occurs:</p>
                 <ul>
-                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved into an element.</li>
+                    <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved into an element.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
@@ -744,7 +744,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerenter</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerenter}} when any of the following occurs:</p>
                 <ul>
-                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved into an element or one of its descendants.</li>
+                    <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved into an element or one of its descendants.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element or one of its descendants to move underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
@@ -820,7 +820,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerout</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerout}} when any of the following occurs:</p>
                 <ul>
-                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved out of an element.</li>
+                    <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved out of an element.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires a {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
@@ -831,7 +831,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointerleave</dfn> event</h3>
                 <p>The user agent MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointerleave}} when any of the following occurs:</p>
                 <ul>
-                    <li>The step to <a>determine the target</a> of a pointer determines that the pointer has moved out of an element and all of its descendants.</li>
+                    <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved out of an element and all of its descendants.</li>
                     <li>A <a data-lt="events-from-layout-changes">layout change</a> causes the <a>hit test</a> boundaries of an element and all of its descendants to move away from underneath an uncaptured primary pointer of a stationary pointing device.</li>
                     <li>After the user agent fires the {{GlobalEventHandlers/pointerup}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerup}}).</li>
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
