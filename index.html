@@ -579,7 +579,7 @@ interface PointerEvent : MouseEvent {
 
                 <section>
                     <h4>Suppressing a pointer event stream</h4>
-                    <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that a pointer is unlikely to continue to produce events.  Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
+                    <p>The user agent MUST <dfn>suppress a pointer event stream</dfn> when it detects that the web page is unlikely to continue to receive pointer events with a specific <code>pointerId</code>. Any of the following scenarios satisfy this condition (there MAY be additional scenarios):</p>
                     <ul>
                         <li>The user agent has opened a modal dialog or menu.</li>
                         <li>A pointer input device is physically disconnected, or a hoverable pointer input device (e.g. a hoverable pen/stylus) has left the hover range detectable by the digitizer.</li>
