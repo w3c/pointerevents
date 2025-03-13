@@ -60,6 +60,7 @@
         .issue {background: #fcc !important;}
         pre.idl::before, pre.example::before { font-family: sans-serif !important; }
         ol:not([data-class='note-list'])>li { margin-bottom: 1em; }
+        img, video { max-width: 100%; }
     </style>
 </head>
 <body>
@@ -1477,7 +1478,10 @@ window.addEventListener("pointermove", function(event) {
                 reconcile two primary pointers using a single legacy mouse input.</p>
 
                 <figure id="legacy-pointer-transition">
-                    <video src="images/legacy-pointer-animation.webm" controls></video>
+                    <video controls>
+                        <source src="images/legacy-pointer-animation.webm" type="video/webm" />
+                        <source src="images/legacy-pointer-animation.mp4" type="video/mp4" />
+                    </video>
                     <figcaption>
                         Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the single legacy mouse input
                         (orange cursor) to move between the two pointers.
