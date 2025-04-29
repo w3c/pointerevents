@@ -16,4 +16,4 @@ jobs:
           W3C_WG_DECISION_URL: https://github.com/w3c/pointerevents/pull/330#issuecomment-692924562
           W3C_BUILD_OVERRIDE: |
              shortName: pointerevents3
-             specStatus: WD
+             specStatus: CRD
