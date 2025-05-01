@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>Pointer Events</title>
+    <meta name="color-scheme" content="light dark">
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
     <script class="remove">
         var respecConfig = {
@@ -337,7 +338,7 @@ interface PointerEvent : MouseEvent {
                     <dt><dfn>pointerType</dfn></dt>
                         <dd>
                             <p>Indicates the device type that caused the event (such as mouse, pen, touch). If the user agent is to <a>fire a pointer event</a> for a mouse, pen/stylus, or touch input device, then the value of <code>pointerType</code> MUST be according to the following table:</p>
-                            <table class="simple">
+                            <table id="pointer-type-table" class="data">
                                 <thead>
                                     <tr><th>Pointer Device Type</th><th><code>pointerType</code> Value</th></tr>
                                 </thead>
@@ -394,7 +395,7 @@ interface PointerEvent : MouseEvent {
                 <section>
                     <h4>The <code>button</code> property</h4>
                     <p>To identify button state transitions in any pointer event (and not just {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}}), the <code>button</code> property indicates the device button whose state change fired the event.</p>
-                    <table class="simple">
+                    <table class="data">
                         <thead><tr><th>Device Button Changes</th><th><code>button</code></th></tr></thead>
                         <tbody>
                             <tr><td>Neither buttons nor touch/pen contact changed since last event</td><td>-1</td></tr>
@@ -412,7 +413,7 @@ interface PointerEvent : MouseEvent {
                 <section>
                     <h4>The <code>buttons</code> property</h4>
                     <p>The <code>buttons</code> property gives the current state of the device buttons as a bitmask (same as in <code>MouseEvent</code>, but with an expanded set of possible values).</p>
-                    <table class="simple">
+                    <table class="data">
                         <thead><tr><th>Current state of device buttons</th><th><code>buttons</code></th></tr></thead>
                         <tbody>
                             <tr><td><strong>Mouse moved with no buttons pressed</strong>,<br> Pen moved while hovering with no buttons pressed</td><td>0</td></tr>
@@ -477,7 +478,7 @@ interface PointerEvent : MouseEvent {
                 <section>
                     <h4><dfn>Attributes and default actions</dfn></h4>
                     <p>The <code>bubbles</code> and <code>cancelable</code> properties and the default actions for the event types defined in this specification appear in the following table. Details of each of these event types are provided in <a>Pointer Event types</a>.</p>
-                    <table id="pointer-event-type-table" class="simple">
+                    <table id="pointer-event-type-table" class="data">
                         <thead><tr>
                             <th>Event Type</th><th>Bubbles</th><th>Cancelable</th><th>Default Action</th></tr>
                         </thead>
@@ -1033,7 +1034,7 @@ partial interface Navigator {
         <div class="note">While the issue of pointers used to manipulate the viewport is generally limited to touch input (where a user's finger can both interact with content and pan/zoom the page), certain user agents may also allow the same types of (direct or indirect) manipulation for other pointer types. For instance, on mobile/tablet devices, users may also be able to scroll using a stylus. While, for historical reasons, the <code>touch-action</code> CSS property defined in this specification appears to refer only to touch inputs, it does in fact apply to all forms of pointer inputs that allow <a>direct manipulation</a> for panning and zooming.</div>
         <section>
             <h2>The <dfn><code>touch-action</code></dfn> CSS property</h2>
-            <table class="simple">
+            <table class="def">
                 <tr><th>Name:</th><td><code>touch-action</code></td></tr>
                 <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
                 <tr><th>Initial:</th><td><code>auto</code></td></tr>
@@ -1317,7 +1318,7 @@ partial interface Navigator {
             <div class="note">
                 <p>Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
                 events dispatched by the user agent:</p>
-                <table class="simple">
+                <table class="data">
                     <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
                     <tbody>
                         <tr><td>pointer ({{PointerEvent/pointerId}}=2) coordinate change</td><td>{{GlobalEventHandlers/pointerrawupdate}} ({{PointerEvent/pointerId}}=2) w/ one coalesced event</td></tr>
