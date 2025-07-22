@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Legacy pointer animation</title>
+  </head>
+  <style type="text/css">
+    /* pointers */
+    .pointer-indicator {
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    #mouse-pointer {
+        height: 30px;
+        width: 30px;
+        top: 230px;
+        left: 30px;
+        background-image: url("mouse.png");
+        z-index: 3;
+        opacity: 0;
+    }
+    #legacy-pointer {
+        height: 25px;
+        width: 25px;
+        top: 235px;
+        left: 40px;
+        background-image: url("legacy.png");
+        z-index: 2;
+        opacity: 0;
+    }
+    #touch-pointer {
+        height: 50px;
+        width: 50px;
+        top: 130px;
+        left: 330px;
+        background-image: url("touch.png");
+        z-index: 3;
+        opacity: 0;
+    }
+
+    /* fake button */
+    .button {
+        border: 2px solid #949494;
+        border-radius: 8px;
+        height: 2em;
+        width: 100px;
+        position: absolute;
+        text-align: center;
+        top: 115px;
+        z-index: 1;
+        line-height: 2.05em;
+        font-weight: bold;
+        font-family: helvetica, arial;
+        font-size: 0.9em;
+        background: #f0f0f0;
+        color: #222;
+    }
+
+    #button-1 {
+        left: 100px;
+    }
+
+    #button-2 {
+        left: 300px;
+    }
+
+    @keyframes mouse-pointer-move-animation {
+        10% { left: 30px; top: 230px;  }
+        20% { left: 130px; top: 130px; opacity: 1; }
+        90% { left: 130px; top: 130px; opacity: 1; }
+    }
+    @keyframes touch-pointer-opacity-animation {
+        50% { opacity: 0; }
+        56% { opacity: 1; }
+        70% { opacity: 1; }
+        75% { opacity: 0; }
+    }
+    @keyframes legacy-pointer-move-animation {
+        10% { left: 40px; top: 235px; opacity: 1; }
+        25% { left: 140px; top: 135px; }
+        65% { left: 140px; top: 135px; }
+        68% { left: 355px; top: 135px; }
+        90% { left: 355px; top: 135px; }
+        95% { left: 140px; top: 135px; opacity: 1; }
+    }
+    @keyframes mouse-pointer-down-up-animation {
+        25% { transform: none; }
+        30% { transform: scale(0.8) }
+        35% { transform: none; }
+    }
+    @keyframes touch-pointer-down-up-animation {
+        56% { transform: none; }
+        59% { transform: scale(0.8) }
+        64% { transform: scale(0.8) }
+        67% { transform: none; }
+    }
+    @keyframes legacy-pointer-down-up-animation {
+        30% { transform: none; }
+        35% { transform: scale(0.8) }
+        40% { transform: none; }
+        75% { transform: none; }
+        80% { transform: scale(0.8) }
+        85% { transform: none; }
+    }
+
+    html.animated div {
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+    }
+
+    html.animated #mouse-pointer {
+        animation-name: mouse-pointer-move-animation, mouse-pointer-down-up-animation;
+    }
+
+    html.animated #touch-pointer {
+        animation-name: touch-pointer-opacity-animation, touch-pointer-down-up-animation;
+    }
+
+    html.animated #legacy-pointer {
+        animation-name: legacy-pointer-move-animation, legacy-pointer-down-up-animation;
+    }
+
+    @keyframes button-1-animation {
+        16% { background-color: #f0f0f0; }
+        20% { background-color: lightgrey; }
+        90% { background-color: lightgrey; }
+        94% { background-color: #f0f0f0; }
+    }
+
+    @keyframes button-2-animation {
+        56% { background-color: #f0f0f0; }
+        59% { background-color: lightgrey; }
+        64% { background-color: lightgrey; }
+        67% { background-color: #f0f0f0; }
+    }
+
+    html.animated #button-1 {
+        animation-name: button-1-animation;
+    }
+
+    html.animated #button-2 {
+        animation-name: button-2-animation;
+    }
+
+  </style>
+  <body>
+    <!-- original https://github.com/mustaqahmed/web/tree/master/pe-legacy-pointer-animation -->
+    <!-- modified slightly for aesthetics/clarity -->
+    <div id="mouse-pointer" class="pointer-indicator"></div>
+    <div id="legacy-pointer" class="pointer-indicator"></div>
+    <div id="touch-pointer" class="pointer-indicator"></div>
+    <div id="button-1" class="button">Button 1</div>
+    <div id="button-2" class="button">Button 2</div>
+  </body>
+  <script>
+    window.onload = () => document.documentElement.classList.add('animated');
+  </script>
+</html>
