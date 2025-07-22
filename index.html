@@ -461,8 +461,6 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this {{PointerEvent/pointerId}} to the target element as described in <a>implicit pointer capture</a>.</p>
 
-                <p>Run <a href="html.spec.whatwg.org/#popover-light-dismiss">light dismiss open popovers</a> given the event.</p>
-
                 <p>Before firing this event, the [=user agent=] SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
 
                 <p>Fire the event to the determined target.</p>
@@ -906,6 +904,8 @@ function tilt2spherical(tiltX, tiltY) {
                             <div class="note">If |userEvent| was captured, |event| is dispatched to the capturing target of |userEvent| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same {{PointerEvent/pointerId}} has been dispatched already.</div>
                         </li>
                     </ol>
+
+                    <p>Before a |click| event is dispatched, the <a href="html.spec.whatwg.org/#popover-light-dismiss">light dismiss open popovers</a> algorithm MUST be run given the target of the corresponding <code>pointerdown</code> event and the target of the corresponding <code>pointerup</code> event.</p>
                 </section>
             </section>
         </section>
