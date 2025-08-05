@@ -900,12 +900,14 @@ function tilt2spherical(tiltX, tiltY) {
                         </li>
 
                         <li>
+                          <p>If |event| is a <code>click</code> event, then <a href="https://html.spec.whatwg.org/#run-light-dismiss-activities">run light dismiss activities</a> given |event|.</p>
+                        </li>
+
+                        <li>
                             <p>Dispatch |event| to |target| following the [[UIEVENTS]] spec.</p>
                             <div class="note">If |userEvent| was captured, |event| is dispatched to the capturing target of |userEvent| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same {{PointerEvent/pointerId}} has been dispatched already.</div>
                         </li>
                     </ol>
-
-                    <p>Before a |click| event is dispatched, the <a href="html.spec.whatwg.org/#popover-light-dismiss">light dismiss open popovers</a> algorithm MUST be run given the target of the corresponding <code>pointerdown</code> event and the target of the corresponding <code>pointerup</code> event.</p>
                 </section>
             </section>
         </section>
