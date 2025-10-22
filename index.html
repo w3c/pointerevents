@@ -82,7 +82,6 @@
             <li>{{GlobalEventHandlers/pointerrawupdate}} event, for high frequency events</li>
             <li>access associated <a href="#coalesced-events">coalesced events</a>,  for a more precise handling of pointer movement data</li>
             <li>access built-in <a href="#predicted-events">predicted events</a>, to reduce perceived latency</li>
-            <li>new CSS <a><code>touch-action</code> values</a>: <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code></li>
         </ul>
         <p>
             This revision also includes clarifications:
@@ -1027,7 +1026,7 @@ partial interface Navigator {
             <h2>The <dfn><code>touch-action</code></dfn> CSS property</h2>
             <table class="def">
                 <tr><th>Name:</th><td><code>touch-action</code></td></tr>
-                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ [ <code>pan-x</code> | <code>pan-left</code> | <code>pan-right</code> ] || [ <code>pan-y</code> | <code>pan-up</code> | <code>pan-down</code> ] ] | <code>manipulation</code></td></tr>
+                <tr><th>Value:</th><td><code>auto</code> | <code>none</code> | [ <code>pan-x</code> || <code>pan-y</code> ] | <code>manipulation</code></td></tr>
                 <tr><th>Initial:</th><td><code>auto</code></td></tr>
                 <tr><th>Applies to:</th><td>all elements except: non-replaced inline elements, table rows, row groups, table columns, and column groups</td></tr>
                 <tr><th>Inherited:</th><td>no</td></tr>
@@ -1075,8 +1074,8 @@ partial interface Navigator {
                 <dd>The [=user agent=] MAY consider any permitted direct manipulation behaviors related to panning and zooming of the viewport that begin on the element.</dd>
                 <dt>none</dt>
                 <dd>Direct manipulation interactions that begin on the element MUST NOT trigger behaviors related to viewport panning and zooming.</dd>
-                <dt>pan-x<br>pan-left<br>pan-right<br>pan-y<br>pan-up<br>pan-down</dt>
-                <dd>The [=user agent=] MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (for instance, with <code>pan-x</code> or <code>pan-y</code>), the axis cannot be changed during panning.</dd>
+                <dt>pan-x<br>pan-y</dt>
+                <dd>The [=user agent=] MAY consider direct manipulation interactions that begin on the element only for the purposes of panning that starts in any of the directions specified by all of the listed values. Once panning has started, the direction may be reversed by the user even if panning that starts in the reversed direction is disallowed. In contrast, when panning is restricted to a single axis (with <code>pan-x</code> or <code>pan-y</code>), the axis cannot be changed during panning.</dd>
                 <dt>manipulation</dt>
                 <dd>The [=user agent=] MAY consider direct manipulation interactions that begin on the element only for the purposes of panning and <strong>continuous</strong> zooming (such as pinch-zoom), but MUST NOT trigger other related behaviors that rely on multiple activations that must happen within a set period of time (such as double-tap to zoom, or double-tap and hold for single-finger zoom).</dd>
             </dl>
@@ -1125,15 +1124,6 @@ partial interface Navigator {
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code>
-</pre>
-<pre id="example_9" class="example" title="Intermediate parent that restricts allowed direct manipulation behaviors for panning and zooming">
-&lt;div style=&quot;overflow: auto;&quot;&gt;
-    &lt;div style=&quot;touch-action: pan-y pan-left;&quot;&gt;
-        &lt;div style=&quot;touch-action: pan-x;&quot;&gt;
-            This element receives pointer events when not panning to the left.
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
 </pre>
     </section>
     <section>
@@ -1711,6 +1701,8 @@ window.addEventListener("pointermove", function(event) {
         <p>The following is an informative summary of substantial and major editorial changes between publications of this specification, relative to the [[PointerEvents2]] specification.
             See the <a href="https://github.com/w3c/pointerevents/commits">complete revision history of the Editor's Drafts of this specification</a>.</p>
         <ul>
+            <li><a href="https://github.com/w3c/pointerevents/pull/557">Remove direction-specific <code>touch-action</code> values</a>
+                (<code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code>)</li>
             <li><a href="https://github.com/w3c/pointerevents/pull/537">Clarify what happens with a failed pointer capture set/release</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/533">Security/privacy addition for precision</a></li>
             <li><a href="https://github.com/w3c/pointerevents/pull/532">Update boundary event behavior for a stationary pointing device</a></li>
