@@ -1019,8 +1019,22 @@ partial interface Navigator {
 </pre>
             <dl data-dfn-for="Navigator" data-link-for="Navigator">
                 <dt><dfn>maxTouchPoints</dfn></dt>
-                <dd><p>The maximum number of simultaneous touch contacts supported by the device. In the case of devices with multiple digitizers (e.g. multiple touchscreens), the value MUST be the maximum of the set of maximum supported contacts by each individual digitizer.</p>
-                <p>For example, suppose a device has 3 touchscreens, which support 2, 5, and 10 simultaneous touch contacts, respectively. The value of <code>maxTouchPoints</code> should be <code>10</code>.</p>
+                <dd><p>The getter steps are:
+                    <ol>
+                        <li>Let |emulated maxTouchPoints| be the result of
+                          <a data-cite="WEBDRIVER-BIDI#webdriver-bidi-emulated-max-touch-points">WebDriver BiDi emulated max touch points</a>
+                          [[!WEBDRIVER-BIDI]].</li>
+                        <li>If |emulated maxTouchPoints| is not null, return
+                            |emulated maxTouchPoints|.</li>
+                        <li><p>Return the maximum number of simultaneous touch contacts supported by
+                            the device. In the case of devices with multiple digitizers (e.g.
+                            multiple touchscreens), the value MUST be the maximum of the set of
+                            maximum supported contacts by each individual digitizer.</p>
+                            <p>For example, suppose a device has 3 touchscreens, which support 2, 5,
+                                and 10 simultaneous touch contacts, respectively. The value of
+                                <code>maxTouchPoints</code> should be <code>10</code>.</p>
+                        </li>
+                    </ol>
                 </dd>
             </dl>
             <div class="note">While a <code>maxTouchPoints</code> value of greater than <code>0</code> indicates the user's device is capable of supporting touch input, it does not necessarily mean the user <em>will</em> use touch input. Authors should be careful to also consider other input modalities that could be present on the system, such as mouse, pen, or screen readers.</div>
