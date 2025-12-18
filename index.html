@@ -729,6 +729,170 @@ function tilt2spherical(tiltX, tiltY) {
         </section>
 
         <section>
+	        <h3>PointerEvent Algorithms</h3>
+		    <section>
+		        <h4>initialize a {{PointerEvent}}</h4>
+                <p>
+                    To <dfn class="export">initialize a PointerEvent</dfn> with |event|, |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
+                </p>
+                <ol  class="algorithm">
+		            <li>[=Initialize a MouseEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
+                    <li>Initialize all other attributes to default {{PointerEvent}} values.</li>
+                </ol>
+		    </section>
+	        <section>
+		        <h4>create a {{PointerEvent}}</h4>
+                <p>
+                    To <dfn class="export"
+                    data-lt="creating a PointerEvent
+                    |created a PointerEvent">create a {{PointerEvent}}</dfn> with |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
+                </p>
+			    <ol class="algorithm">
+			        <li>Let |event| be the result of
+                        [=creating an event=] using {{PointerEvent}}</li>
+			        <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
+			        <li>Return |event|</li>
+              </ol>
+		    </section>
+		    <section>
+		        <h4><dfn class="export"
+                    data-lt="creating PointerEvent from MouseEvent
+                            |created PointerEvent from MouseEvent"
+                    >create {{PointerEvent}} from {{MouseEvent}}</dfn></h4>
+			    <ol class="algorithm">
+			        <li>Let |eventType|, a {{DOMString}} containing the event type</li>
+			        <li>Let |mouseevent|, the corresponding {{MouseEvent}}</li>
+			        <li>Let |event| be the result of
+				        [=creating an event=] using {{PointerEvent}}</li>
+			        <li>Let |target| be the |mouseevent|.{{Event/target}}</li>
+			        <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |target|</li>
+			        <li>Copy {{MouseEvent}} attributes from |mouseevent| into |event|</li>
+			        <li>Return |event|</li>
+                </ol>
+            </section>
+		    <section>
+		        <h4><dfn class="export">maybe send pointerout event</dfn></h4>
+			    <ol class="algorithm">
+			        <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+			        <li>Set pointerevent attributes
+				<p class="ednote">TODO.</p></li>
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+		        </ol>
+            </section>
+		    <section>
+		        <h4><dfn class="export">maybe send pointerleave event</dfn></h4>
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+			        <li>Set pointerevent attributes
+				<p class="ednote">TODO.</p></li>
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+		        </ol>
+            </section>
+		    <section>
+		        <h4><dfn class="export">maybe send pointerover event</dfn></h4>
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+			        <li>Set pointerevent attributes
+				<p class="ednote">TODO.</p></li>
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+		    </section>
+		    <section>
+		        <h4><dfn class="export">maybe send pointerenter event</dfn></h4>
+
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+			        <li>Set pointerevent attributes
+                <p class="ednote">TODO.</p></li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+		    </section>
+		    <section>
+		        <h4><dfn class="export">maybe send pointermove event</dfn></h4>
+
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+			<p class="ednote">
+			Can this send pointermove and pointerrawupdate? Or do we need 2 methods?
+			</p>
+			<p class="ednote">
+			What is needed to properly define how pointermove events are coalesced?
+			</p>
+                    </li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+			        <li>Set pointerevent attributes
+
+				<p class="ednote">TODO.</p>
+                    </li>
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+		    </section>
+
+		    <section>
+		        <h4><dfn class="export">maybe send pointerdown event</dfn></h4>
+
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+			<p class="note">
+			Unlike mousedown events,
+			<a href="https://w3c.github.io/pointerevents/#the-pointerdown-event">pointerdown</a>
+			events are not nested when multiple buttons are pressed.
+			The MouseEvent is passed so that the fields can be copied into the PointerEvent.
+			</p>
+                    </li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
+			        <li>Set pointerevent attributes
+				<p class="ednote">TODO.</p>
+                    </li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+            </section>
+
+            <section>
+                <h4><dfn class="export">maybe send pointerrawupdate event</dfn></h4>
+
+                <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+            </section>
+
+		    <section>
+		        <h4><dfn class="export">maybe send pointerup event</dfn></h4>
+
+			    <ol class="algorithm">
+                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+
+
+			<p class="ednote">
+			Unlike mouseup events, {{GlobalEventHandlers/pointerup}} events are not nested when multiple buttons are pressed. The MouseEvent is passed so that the fields can be copied into the PointerEvent.
+			</p>
+                    </li>
+			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
+			        <li>Set pointerevent attributes
+				<p class="ednote">
+				TODO.
+				</p>
+                    </li>
+			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+			        <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+		    </section>
+
+        </section>
+
+        <section>
             <h2><dfn>Pointer Event types</dfn></h2>
             <p>Below are the event types defined in this specification.</p>
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}}) may also fire <a>compatibility mouse events</a>.</p>
