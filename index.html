@@ -2720,7 +2720,7 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this {{PointerEvent/pointerId}} to the target element as described in <a>implicit pointer capture</a>.</p>
 
-                <p>Before firing this event, the  <a data-cite="infra">user agent</a> SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{pointerover}} event is needed even if the target element is the same.</p>
+                <p>Before firing this event, the  <a data-cite="infra">user agent</a> SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a href="#mouse-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{pointerover}} event is needed even if the target element is the same.</p>
 
                 <p>Fire the event to the determined target.</p>
 
@@ -3274,8 +3274,8 @@ function tilt2spherical(tiltX, tiltY) {
 
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
-                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a>,
-                    <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
+                <p>This section is an addition to <code>click</code>,
+                    <code>auxclick</code> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
                     events defined in [[UIEVENTS]].  These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
                 <p>These events MUST be of type <code>PointerEvent</code>, and are subject to the additional requirements mentioned in the rest of this section.</p>
                 <section>
@@ -4416,6 +4416,128 @@ window.addEventListener("pointermove", function(event) {
         </dl>
     </section>
 
+<section>
+<h2 id="legacy-event-initializers">Legacy Event Initializers</h2>
+
+<p><em>This section is normative.
+The following features are obsolete and should only be implemented by
+<a data-cite="infra">user agents</a> that require compatibility with legacy software. See also the <a data-cite="uievents#legacy-event-initializers">legacy event initializers</a> in [[UIEvents]].</em>
+
+<h3 id="idl-interface-MouseEvent-initializers">Initializers for interface MouseEvent</h3>
+
+		<pre class="idl">
+		partial interface MouseEvent {
+			// Deprecated in this specification
+			undefined initMouseEvent(DOMString typeArg,
+				optional boolean bubblesArg = false,
+				optional boolean cancelableArg = false,
+				optional Window? viewArg = null,
+				optional long detailArg = 0,
+				optional long screenXArg = 0,
+				optional long screenYArg = 0,
+				optional long clientXArg = 0,
+				optional long clientYArg = 0,
+				optional boolean ctrlKeyArg = false,
+				optional boolean altKeyArg = false,
+				optional boolean shiftKeyArg = false,
+				optional boolean metaKeyArg = false,
+				optional short buttonArg = 0,
+				optional EventTarget? relatedTargetArg = null);
+		};
+		</pre>
+
+		<dl data-dfn-for="MouseEvent">
+			<dt><dfn method>initMouseEvent(typeArg)</dfn></dt>
+			<dd>
+				Initializes attributes of a {{MouseEvent}} object. This
+				method has the same behavior as <code>UIEvent.initUIEvent()</code>.
+
+				<p class="warning">
+				The <code>initMouseEvent</code> method is deprecated, but
+				supported for backwards-compatibility with widely-deployed
+				implementations.
+				</p>
+
+				<dl class="parameters">
+					<dt>DOMString typeArg</dt>
+					<dd>
+						Refer to the {{Event/initEvent()}} method for a description of this parameter.
+					</dd>
+
+					<dt>boolean bubblesArg</dt>
+					<dd>
+						Refer to the {{Event/initEvent()}} method for a description of this parameter.
+					</dd>
+
+					<dt>boolean cancelableArg</dt>
+					<dd>
+						Refer to the {{Event/initEvent()}} method for a description of this parameter.
+					</dd>
+
+					<dt>Window? viewArg</dt>
+					<dd>
+						Specifies {{UIEvent/view}}. This value MAY be <code>null</code>.
+					</dd>
+
+					<dt>long detailArg</dt>
+					<dd>
+						Specifies {{UIEvent/detail}}.
+					</dd>
+
+					<dt>long screenXArg</dt>
+					<dd>
+						Specifies {{MouseEvent/screenX}}.
+					</dd>
+
+					<dt>long screenYArg</dt>
+					<dd>
+						Specifies {{MouseEvent/screenY}}.
+					</dd>
+
+					<dt>long clientXArg</dt>
+					<dd>
+						Specifies {{MouseEvent/clientX}}.
+					</dd>
+
+					<dt>long clientYArg</dt>
+					<dd>
+						Specifies {{MouseEvent/clientY}}.
+					</dd>
+
+					<dt>boolean ctrlKeyArg</dt>
+					<dd>
+						Specifies {{MouseEvent/ctrlKey}}.
+					</dd>
+
+					<dt>boolean altKeyArg</dt>
+					<dd>
+						Specifies {{MouseEvent/altKey}}.
+					</dd>
+
+					<dt>boolean shiftKeyArg</dt>
+					<dd>
+						Specifies {{MouseEvent/shiftKey}}.
+					</dd>
+
+					<dt>boolean metaKeyArg</dt>
+					<dd>
+						Specifies {{MouseEvent/metaKey}}.
+					</dd>
+
+					<dt>short buttonArg</dt>
+					<dd>
+						Specifies {{MouseEvent/button}}.
+					</dd>
+
+					<dt>EventTarget? relatedTargetArg</dt>
+					<dd>
+						Specifies {{MouseEvent/relatedTarget}}. This value MAY
+						be <code>null</code>.
+					</dd>
+				</dl>
+			</dd>
+		</dl>
+    </section>
     <section class="appendix">
         <h1>Acknowledgments</h1>
         <p>Many thanks to lots of people for their proposals and recommendations, some of which are incorporated into this document. The group's Chair acknowledges contributions from the following past and present group members and participants:
