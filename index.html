@@ -1053,7 +1053,7 @@ dictionary MouseEventInit : EventModifierInit {
             </li>
 			<li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
 
-			<li>Let |targetDomPath| = <a>calculate DOM path</a></li>
+			<li>Let |targetDomPath| = [=tree/inclusive ancestors=] of |target|</li>
 
 			<li>Generate events for leaving the current element:
 
