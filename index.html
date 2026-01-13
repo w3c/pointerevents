@@ -668,156 +668,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 
 
-	    <h4>Event Modifier Initializers</h4>
-
-		<p>
-            The {{MouseEvent}} and {{KeyboardEvent}} interfaces share a set of keyboard modifier attributes and support a mechanism for retrieving additional modifier states. The following dictionary enables authors to initialize keyboard modifier attributes of the {{MouseEvent}} and {{KeyboardEvent}} interfaces, as well as the additional modifier states queried via {{KeyboardEvent/getModifierState()}}. The steps for constructing events using this dictionary are defined in the <a href="#constructing-mouse-events">MouseEvent constructors</a> section.
-        </p>
-		<pre class="idl">
-dictionary EventModifierInit : UIEventInit {
-	boolean ctrlKey = false;
-	boolean shiftKey = false;
-	boolean altKey = false;
-	boolean metaKey = false;
-
-	boolean modifierAltGraph = false;
-	boolean modifierCapsLock = false;
-	boolean modifierFn = false;
-	boolean modifierFnLock = false;
-	boolean modifierHyper = false;
-	boolean modifierNumLock = false;
-	boolean modifierScrollLock = false;
-	boolean modifierSuper = false;
-	boolean modifierSymbol = false;
-	boolean modifierSymbolLock = false;
-};
-		</pre>
-
-		<dl dfn-for="EventModifierInit">
-			<dt><dfn>ctrlKey</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the <code>ctrlKey</code> attribute of the {{MouseEvent}} or {{KeyboardEvent}} objects to <code>true</code> if the <code class='keycap'>Control</code> key modifier is to be considered active, <code>false</code> otherwise.
-                </p>
-				<p>
-                    When <code>true</code>, implementations must also initialize the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Control</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>shiftKey</dfn></dt>
-			<dd>
-            <p>
-                Initializes the <code>shiftKey</code> attribute of the {{MouseEvent}} or {{KeyboardEvent}} objects to <code>true</code> if the <code class='keycap'>Shift</code> key modifier is to be considered active, <code>false</code> otherwise.
-            </p>
-			<p>
-				When <code>true</code>, implementations must also initialize the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Shift</code> must return <code>true</code>.
-			</dd>
-			<dt><dfn>altKey</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the <code>altKey</code> attribute of the {{MouseEvent}} or {{KeyboardEvent}} objects to <code>true</code> if the <code class='keycap'>Alt</code> (alternative) (or <code class='keycap'>Option</code>) key modifier is to be considered active, <code>false</code> otherwise.
-                </p>
-				<p>
-                    When <code>true</code>, implementations must also initialize the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Alt</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>metaKey</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the <code>metaKey</code> attribute of the {{MouseEvent}} or {{KeyboardEvent}} objects to <code>true</code> if the <code class='keycap'>Meta</code> key modifier is to be considered active, <code>false</code> otherwise.
-                </p>
-				<p>
-				    When <code>true</code>, implementations must also initialize the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with either the parameter <code class='keycap'>Meta</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>modifierAltGraph</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>AltGraph</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>modifierCapsLock</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>CapsLock</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>modifierFn</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Fn</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>modifierFnLock</dfn></dt>
-			<dd>
-				<p>
-                    Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>FnLock</code> must return <code>true</code>.
-                </p>
-			</dd>
-
-			<dt><dfn>modifierHyper</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Hyper</code> must return <code>true</code>.
-			</dd>
-
-			<dt><dfn>modifierNumLock</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>NumLock</code> must return <code>true</code>.
-			</dd>
-
-			<dt><dfn>modifierScrollLock</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>ScrollLock</code> must return <code>true</code>.
-			</dd>
-
-			<dt><dfn>modifierSuper</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Super</code> must return <code>true</code>.
-			</dd>
-
-			<dt><dfn>modifierSymbol</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>Symbol</code> must return <code>true</code>.
-			</dd>
-
-			<dt><dfn>modifierSymbolLock</dfn></dt>
-			<dd>
-				Initializes the event object's key modifier state such that calls to the {{MouseEvent/getModifierState()}} or {{KeyboardEvent/getModifierState()}} when provided with the parameter <code class='keycap'>SymbolLock</code> must return <code>true</code>.
-			</dd>
-		</dl>
-
-		
-            <h5>Constructing Mouse Events</h5>
-
-			<p>
-                Generally, when a constructor of an {{Event}} interface, or of an interface inherited from the {{Event}} interface, is invoked, the steps described in [[DOM]] should be followed. However the {{MouseEvent}} interfaces provide additional dictionary members for initializing the internal state of the {{Event}} object's key modifiers: specifically, the internal state queried for using the {{MouseEvent/getModifierState()}} methods. This section supplements the [[DOM]] steps for intializing a new {{MouseEvent}} object with these optional modifier states.
-            </p>
-			<p>
-                For the purposes of constructing a {{MouseEvent}}, or object derived from these objects using the algorithm below, all {{MouseEvent}}, and derived objects have <dfn>internal key modifier state</dfn> which can be set and retrieved using the <a data-cite="uievents/#keys-modifiers">key modifier names</a> described in the <a data-cite="UIEvents-Key/#keys-modifier">Modifier Keys table</a> in [[UIEvents-Key]].
-            </p>
-			<p>
-                The following steps supplement the algorithm defined for constructing events in [[DOM]]:
-            </p>
-            <ul>
-                <li>
-			        If the {{Event}} being constructed is a {{MouseEvent}} object or an object that derives from it, and a {{EventModifierInit}} argument was provided to the constructor, then run the following sub-steps:
-                    <ul>
-                        <li>
-                            For each {{EventModifierInit}} argument, if the dictionary member begins with the string <code>"modifier"</code>, then let the <dfn>key modifier name</dfn> be the dictionary member's name excluding the prefix <code>"modifier"</code>, and set the {{Event}} object's [=internal key modifier state=] that matches the [=key modifier name=] to the corresponding value.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-
-
 
 	    <h4>MouseEvent Algorithms</h4>
+
 
 
 		    <h5>Native OS Requirements</h5>
@@ -846,6 +699,31 @@ dictionary EventModifierInit : UIEventInit {
 			    <li>The x,y mouse coordinates relative to the UA's window viewport</li>
 			    <li>Which keyboard modifiers are currently being held</li>
             </ul>
+
+            
+		
+            <h5>Constructing Mouse Events</h5>
+
+			<p>
+                Generally, when a constructor of an {{Event}} interface, or of an interface inherited from the {{Event}} interface, is invoked, the steps described in [[DOM]] should be followed. However the {{MouseEvent}} interfaces provide additional dictionary members for initializing the internal state of the {{Event}} object's key modifiers: specifically, the internal state queried for using the {{MouseEvent/getModifierState()}} methods. This section supplements the [[DOM]] steps for intializing a new {{MouseEvent}} object with these optional modifier states.
+            </p>
+			<p>
+                For the purposes of constructing a {{MouseEvent}}, or object derived from these objects using the algorithm below, all {{MouseEvent}}, and derived objects have <dfn>internal key modifier state</dfn> which can be set and retrieved using the <a data-cite="uievents/#keys-modifiers">key modifier names</a> described in the <a data-cite="UIEvents-Key/#keys-modifier">Modifier Keys table</a> in [[UIEvents-Key]].
+            </p>
+			<p>
+                The following steps supplement the algorithm defined for constructing events in [[DOM]]:
+            </p>
+            <ul>
+                <li>
+			        If the {{Event}} being constructed is a {{MouseEvent}} object or an object that derives from it, and a {{EventModifierInit}} argument was provided to the constructor, then run the following sub-steps:
+                    <ul>
+                        <li>
+                            For each {{EventModifierInit}} argument, if the dictionary member begins with the string <code>"modifier"</code>, then let the <dfn>key modifier name</dfn> be the dictionary member's name excluding the prefix <code>"modifier"</code>, and set the {{Event}} object's [=internal key modifier state=] that matches the [=key modifier name=] to the corresponding value.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
 
 
 		    <h5>Global State for MouseEvent</h5>
