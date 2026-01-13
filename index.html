@@ -51,7 +51,7 @@
             noIDLSorting: true,
             doJsonLd: true,
             xref: {
-                specs: ["uievents", "css2"],
+                specs: ["uievents", "css2", "cssom-view"],
                 profile: "web-platform"
             },
             mdn: "pointerevents",
@@ -766,6 +766,17 @@ dictionary MouseEventInit : EventModifierInit {
 			of the mouse event.
             </p>
 
+            <h5><dfn>hit test</dfn></h4>
+
+			<ol class="algorithm">
+                <li>Let |pos|, the x,y coordinates relative to the viewport</li>
+
+
+			    <li>Return [[CSSOM-View]]'s {{Document/elementFromPoint()}} with |pos| (the frontmost DOM element at |pos|)
+			    <p class="note">
+			    To account for <a data-cite="html/#inert">inert</a> or <a data-cite="html/#concept-fe-disabled">disabled</a> elements. this should call {{Document/elementsFromPoint()}} and reject invalid elements.
+			</p></li>
+            </ol>
 		
 		    <h5>initialize a {{MouseEvent}}</h5>
 
