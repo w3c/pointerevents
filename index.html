@@ -2599,7 +2599,7 @@ interface PointerEvent : MouseEvent {
                 <p><dfn>Determine the target</dfn> at which the event is fired as follows:</p>
                 <ul>
                     <li>If the <a>pointer capture target override</a> has been set for the pointer, set the target to <a>pointer capture target override</a> object.</li>
-                    <li>Otherwise, set the target to the object returned by normal <a>hit test</a> mechanisms (out of scope for this specification).</li>
+                    <li>Otherwise, set the target to the object returned by <a>hit test</a>.</li>
                 </ul>
 
                 <p>Let |targetDocument| be target's [=Node/node document=] [[DOM]].</p>
