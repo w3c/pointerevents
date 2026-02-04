@@ -166,11 +166,26 @@
 </head>
 <body>
     <section id="abstract">
-        <p>The features in this specification extend or modify those found in Pointer Events, a W3C Recommendation that describes events and related interfaces for handling hardware-agnostic pointer input from devices including a mouse, pen, or touchscreen. For compatibility with existing mouse-based content, this specification also describes a mapping to fire Mouse Events for other pointer device types.</p>
+        <p>
+            The Pointer Events specification defines a unified hardware-agnostic framework for handling input from various devices, including mice, touchscreens, and pens/styluses. By providing a single set of events (e.g., pointerdown, pointermove, pointerup), it allows developers to support diverse input methods without writing device-specific logic for each.
+        </p>
+        <p>
+            This specification also defines Mouse and Wheel Events, as well as a mapping to fire Mouse Events for other pointer device types.
+        </p>
     </section>
 
     <section id="sotd">
-        <p>This specification is an update to [[PointerEvents3]]. It includes editorial clarifications and new features that facilitate more use cases.</p>
+        <p>
+            This specification is an update to [[PointerEvents3]] specification. It also includes the Mouse and Wheel Events, previously in the [[UIEVENTS]] specification.
+        
+        <p>
+            This revision includes new features:
+        
+        <ul>
+            <li><code>persistentDeviceId</code> to provide a stable identifier for input devices across multiple interactions.</li>
+            <li>new CSS <a><code>touch-action</code> values</a>: <code>pan-left</code>, <code>pan-right</code>, <code>pan-up</code>, <code>pan-down</code></li>
+        </ul>
+
     </section>
 
     <section id="intro" class="informative">
