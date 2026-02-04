@@ -704,6 +704,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
             <h5>Constructing Mouse Events</h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<p>
                 Generally, when a constructor of an {{Event}} interface, or of an interface inherited from the {{Event}} interface, is invoked, the steps described in [[DOM]] should be followed. However the {{MouseEvent}} interfaces provide additional dictionary members for initializing the internal state of the {{Event}} object's key modifiers: specifically, the internal state queried for using the {{MouseEvent/getModifierState()}} methods. This section supplements the [[DOM]] steps for intializing a new {{MouseEvent}} object with these optional modifier states.
             </p>
@@ -728,6 +731,8 @@ dictionary MouseEventInit : EventModifierInit {
 
 		    <h5>Global State for MouseEvent</h5>
 
+            <p class="warning">
+                This section needs to be revised.
 
 			    <h6>User Agent-Level State</h6>
 
@@ -755,6 +760,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		    <h5>Internal State for MouseEvent</h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<p>
                 A {{MouseEvent}} has the following internal flags that are used to track the state of various modifier keys:
 				<dfn>shift flag</dfn>,
@@ -768,17 +776,23 @@ dictionary MouseEventInit : EventModifierInit {
 
             <h5><dfn>hit test</dfn></h4>
 
-			<ol class="algorithm">
+            <p class="warning">
+                This section needs to be revised.
+
+            <ol class="algorithm">
                 <li>Let |pos|, the x,y coordinates relative to the viewport</li>
 
 
 			    <li>Return [[CSSOM-View]]'s {{Document/elementFromPoint()}} with |pos| (the frontmost DOM element at |pos|)
 			    <p class="note">
 			    To account for <a data-cite="html/#inert">inert</a> or <a data-cite="html/#concept-fe-disabled">disabled</a> elements. this should call {{Document/elementsFromPoint()}} and reject invalid elements.
-			</p></li>
+			    </p></li>
             </ol>
 		
 		    <h5>initialize a {{MouseEvent}}</h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
             <p>
                 To <dfn class="export">initialize a MouseEvent</dfn> with |event|, |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
@@ -822,6 +836,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>set mouse event modifiers</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			<li>Let |event| be the {{MouseEvent}} to update</li>
 			<li>Set |event|'s <a>shift flag</a> if <a>key modifier state</a> includes "Shift", unset it otherwise</li>
@@ -840,6 +857,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>create a cancelable MouseEvent</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			<li>Let |eventType|, a DOMString containing a valid {{MouseEvent}} type</li>
 			<li>Let |eventTarget|, the {{EventTarget}} of the event</li>
@@ -856,6 +876,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>create a non-cancelable MouseEvent</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			<li>Let |eventType|, a DOMString containing a valid {{MouseEvent}} type</li>
 			<li>Let |eventTarget|, the {{EventTarget}} of the event</li>
@@ -871,6 +894,10 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>calculate MouseEvent button attribute</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
+
             <p>This will return a button ID suitable for storing in the {{MouseEvent}}'s {{MouseEvent/button}} attribute.</p>
 			<ol class="algorithm">
 			<li>Let |mbutton|, an ID that identifies a mouse button</li>
@@ -885,6 +912,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>set MouseEvent attributes from native</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |event|, the {{MouseEvent}} to initialize</li>
@@ -903,6 +933,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>handle native mouse down</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |native|, the native mousedown</li>
@@ -940,6 +973,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>handle native mouse up</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			    <li>Let |native|, the native mouseup
 			    <p class="note">
@@ -969,6 +1005,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>handle native mouse click</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			<li>Let |native|, the native mouse click
 			<p class="note">
@@ -983,6 +1022,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>send click event</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |native|, the native mousedown</li>
@@ -1032,6 +1074,9 @@ dictionary MouseEventInit : EventModifierInit {
 		
 		    <h5><dfn>handle native mouse double click</dfn></h5>
 
+            <p class="warning">
+                This section needs to be revised.
+
 			<ol class="algorithm">
 			<li>Let |native|, the native mouse double click
 			<p class="note">
@@ -1055,6 +1100,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>handle native mouse move</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |native|, the native mouse move
@@ -1183,6 +1231,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 		
 		    <h5><dfn>maybe show context menu</dfn></h5>
+
+            <p class="warning">
+                This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |native|, the native mousedown or pointer event</li>
