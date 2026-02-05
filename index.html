@@ -894,9 +894,13 @@ function tilt2spherical(tiltX, tiltY) {
                         <li>
                             <p>Define |target| as follows:</p>
 
-                            <p>If |event| is a <code>contextmenu</code> event, or |userEvent| was dispatched while the corresponding pointer was captured, then let |target| be the target of |userEvent|.</p>
+                            <ol>
+                                <li>If |event| is a <code>contextmenu</code> event, or |userEvent| was dispatched while the corresponding pointer was captured, then let |target| be the target of |userEvent|.</li>
 
-                            <p>Otherwise (|event| is a <code>click</code> or <code>auxclick</code> event for which |userEvent| is a <code>pointerup</code> event that was dispatched uncaptured) let |target| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment |event| is being dispatched.</p>
+                                <li>Otherwise, if the nearest ancestor |specialAncestor| of the <code>pointerup</code> target that is a <a>pointerup-activated element</a> is not also an ancestor of the <code>pointerdown</code> target, let |target| be |specialAncestor|.</li>
+
+                                <li>Otherwise, let |target| be the nearest common inclusive ancestor of the corresponding <code>pointerdown</code> and <code>pointerup</code> targets in the DOM at the moment |event| is being dispatched.</li>
+                            </ol>
                         </li>
 
                         <li>
@@ -904,6 +908,10 @@ function tilt2spherical(tiltX, tiltY) {
                             <div class="note">If |userEvent| was captured, |event| is dispatched to the capturing target of |userEvent| even though the {{GlobalEventHandlers/lostpointercapture}} event with the same {{PointerEvent/pointerId}} has been dispatched already.</div>
                         </li>
                     </ol>
+
+                    <p>Other specifications can define elements to be a <dfn>pointerup-activated element</dfn>.  They should do this for elements that are typically activated by a pointerup gesture even when the pointerdown gesture occurred elsewhere.</p>
+
+                    <p class="note">Typical examples of <a>pointerup-activated elements</a> might be things like menu items, or options in a select or combobox popup.</p>
                 </section>
             </section>
         </section>
