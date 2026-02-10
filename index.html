@@ -519,7 +519,7 @@ interface MouseEvent : UIEvent {
 					    The value of {{MouseEvent/button}} is not updated for events not caused by the depression/release of a mouse button. In these scenarios, take care not to interpret the value <code>0</code> as the left button, but rather as the default value.
 					</p>
 					<p class="note">
-					    Some <a>default actions</a> related to events such as [=mousedown=] and [=mouseup=] depend on the specific mouse button in use.
+					    Some <a>default actions</a> related to events such as {{mousedown}} and {{mouseup}} depend on the specific mouse button in use.
 					</p>
                     <p>
                         The [=un-initialized value=] of this attribute MUST be <code>0</code>.
@@ -532,7 +532,7 @@ interface MouseEvent : UIEvent {
                         During any mouse events, {{MouseEvent/buttons}} MUST be used to indicate which combination of mouse buttons are currently being pressed, expressed as a bitmask.
                     </p>
 					<p class="note">
-					    Though similarly named, the values for the {{MouseEvent/buttons}} attribute and the {{MouseEvent/button}} attribute are very different. The value of {{MouseEvent/button}} is assumed to be valid during [=mousedown=] / [=mouseup=] event handlers, whereas the {{MouseEvent/buttons}} attribute reflects the state of the mouse's buttons for any trusted {{MouseEvent}} object (while it is being dispatched), because it can represent the "no button currently active" state (0).
+					    Though similarly named, the values for the {{MouseEvent/buttons}} attribute and the {{MouseEvent/button}} attribute are very different. The value of {{MouseEvent/button}} is assumed to be valid during {{mousedown}} / {{mouseup}} event handlers, whereas the {{MouseEvent/buttons}} attribute reflects the state of the mouse's buttons for any trusted {{MouseEvent}} object (while it is being dispatched), because it can represent the "no button currently active" state (0).
 					</p>
 
 					<p>
@@ -552,7 +552,7 @@ interface MouseEvent : UIEvent {
 					    Because the sum of any set of button values is a unique number, a content author can use a bitwise operation to determine how many buttons are currently being pressed and which buttons they are, for an arbitrary number of mouse buttons on a device. For example, the value <code>3</code> indicates that the left and right button are currently both pressed, while the value <code>5</code> indicates that the left and middle button are currently both pressed.
                     </p>
 					<p class="note">
-					    Some <a>default actions</a> related to events such as [=mousedown=] and [=mouseup=] depend on the specific mouse button in use.
+					    Some <a>default actions</a> related to events such as {{mousedown}} and {{mouseup}} depend on the specific mouse button in use.
 					</p>
                     <p>
                         The [=un-initialized value=] of this attribute MUST be <code>0</code>.
@@ -672,7 +672,7 @@ dictionary MouseEventInit : EventModifierInit {
 				<dt><dfn>relatedTarget</dfn></dt>
 				<dd>
 					<p>
-                        The {{MouseEvent/relatedTarget}} should be initialized to the element whose bounds the mouse pointer just left (in the case of a [=mouseover=] or [=mouseenter=] event) or the element whose bounds the mouse pointer is entering (in the case of a [=mouseout=] or [=mouseleave=] or [=focusout=] event). For other events, this value need not be assigned (and will default to null).
+                        The {{MouseEvent/relatedTarget}} should be initialized to the element whose bounds the mouse pointer just left (in the case of a {{mouseover}} or {{mouseenter}} event) or the element whose bounds the mouse pointer is entering (in the case of a {{mouseout}} or {{mouseleave}} or [=focusout=] event). For other events, this value need not be assigned (and will default to null).
 					</p>
 				</dd>
 			</dl>
@@ -1287,7 +1287,7 @@ dictionary MouseEventInit : EventModifierInit {
      <tbody>
       <tr>
        <td class="cell-number">1
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">
        <td>
       <tr>
@@ -1297,19 +1297,19 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved into element A...</em>
       <tr>
        <td class="cell-number">2
-       <td>[=mouseover=]
+       <td>{{mouseover}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">3
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">4
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">A
-       <td>Multiple [=mousemove=] events
+       <td>Multiple {{mousemove}} events
       <tr>
        <td class="cell-number">
        <td>
@@ -1317,12 +1317,12 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved out of element A...</em>
       <tr>
        <td class="cell-number">5
-       <td>[=mouseout=]
+       <td>{{mouseout}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">6
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">A
        <td>
     </table>
@@ -1340,7 +1340,7 @@ dictionary MouseEventInit : EventModifierInit {
      <tbody>
       <tr>
        <td class="cell-number">1
-       <td>[=mousemove=]</a>
+       <td>{{mousemove}}</a>
        <td style="text-align:center">
        <td>
       <tr>
@@ -1350,19 +1350,19 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved into element A...</em>
       <tr>
        <td class="cell-number">2
-       <td>[=mouseover=]
+       <td>{{mouseover}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">3
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">4
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">A
-       <td>Multiple [=mousemove=] events
+       <td>Multiple {{mousemove}} events
       <tr>
        <td class="cell-number">
        <td>
@@ -1370,24 +1370,24 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved into nested element B...</em>
       <tr>
        <td class="cell-number">5
-       <td>[=mouseout=]
+       <td>{{mouseout}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">6
-       <td>[=mouseover=]
+       <td>{{mouseover}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">7
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">8
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">B
-       <td>Multiple [=mousemove=] events
+       <td>Multiple {{mousemove}} events
       <tr>
        <td class="cell-number">
        <td>
@@ -1395,24 +1395,24 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved from element B into A...</em>
       <tr>
        <td class="cell-number">9
-       <td>[=mouseout=]
+       <td>{{mouseout}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">10
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">11
-       <td>[=mouseover=]
+       <td>{{mouseover}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">12
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">A
-       <td>Multiple [=mousemove=] events
+       <td>Multiple {{mousemove}} events
       <tr>
        <td class="cell-number">
        <td>
@@ -1420,12 +1420,12 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved out of element A...</em>
       <tr>
        <td class="cell-number">13
-       <td>[=mouseout=]
+       <td>{{mouseout}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">14
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">A
        <td>
     </table>
@@ -1452,7 +1452,7 @@ dictionary MouseEventInit : EventModifierInit {
      <tbody>
       <tr>
        <td class="cell-number">1
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">
        <td>
       <tr>
@@ -1462,29 +1462,29 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved into element C, the topmost element in the stack</em>
       <tr>
        <td class="cell-number">2
-       <td>[=mouseover=]
+       <td>{{mouseover}}
        <td style="text-align:center">C
        <td>
       <tr>
        <td class="cell-number">3
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">A
        <td>
       <tr>
        <td class="cell-number">4
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">5
-       <td>[=mouseenter=]
+       <td>{{mouseenter}}
        <td style="text-align:center">C
        <td>
       <tr>
        <td class="cell-number">6
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td style="text-align:center">C
-       <td>Multiple [=mousemove=] events
+       <td>Multiple {{mousemove}} events
       <tr>
        <td class="cell-number">
        <td>
@@ -1492,28 +1492,28 @@ dictionary MouseEventInit : EventModifierInit {
        <td><em>Pointing device is moved out of element C...</em>
       <tr>
        <td class="cell-number">7
-       <td>[=mouseout=]
+       <td>{{mouseout}}
        <td style="text-align:center">C
        <td>
       <tr>
        <td class="cell-number">8
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">C
        <td>
       <tr>
        <td class="cell-number">9
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">B
        <td>
       <tr>
        <td class="cell-number">10
-       <td>[=mouseleave=]
+       <td>{{mouseleave}}
        <td style="text-align:center">A
        <td>
     </table>
 
 		<p class="note">
-		    The [=mouseover=]/[=mouseout=] events are only fired once, while [=mouseenter=]/[=mouseleave=] events are fired three times (once to each element).
+		    The {{mouseover}}/{{mouseout}} events are only fired once, while {{mouseenter}}/{{mouseleave}} events are fired three times (once to each element).
 		</p>
 
 		<p>
@@ -1529,65 +1529,65 @@ dictionary MouseEventInit : EventModifierInit {
      <tbody>
       <tr>
        <td class="cell-number">1
-       <td>[=mousedown=]
+       <td>{{mousedown}}
        <td>
       <tr>
        <td class="cell-number">2
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td>OPTIONAL, multiple events, some limits
       <tr>
        <td class="cell-number">3
-       <td>[=mouseup=]
+       <td>{{mouseup}}
        <td>
       <tr>
        <td class="cell-number">4
-       <td>[=click=]
+       <td>{{click}}
        <td>
       <tr>
        <td class="cell-number">5
-       <td>[=mousemove=]
+       <td>{{mousemove}}
        <td>OPTIONAL, multiple events, some limits
       <tr>
        <td class="cell-number">6
-       <td>[=mousedown=]
+       <td>{{mousedown}}
        <td>
       <tr>
        <td class="cell-number">7
-       <td>[=mousemove=]</a>
+       <td>{{mousemove}}</a>
        <td>OPTIONAL, multiple events, some limits
       <tr>
        <td class="cell-number">8
-       <td>[=mouseup=]</a>
+       <td>{{mouseup}}</a>
        <td>
       <tr>
        <td class="cell-number">9
-       <td>[=click=]
+       <td>{{click}}
        <td>
       <tr>
        <td class="cell-number">10
-       <td>[=dblclick=]
+       <td>{{dblclick}}
        <td>
     </table>
 
 		<p class="note">
-		The lag time, degree, distance, and number of [=mousemove=] events allowed between the [=mousedown=] and [=mouseup=] events while still firing a [=click=] or [=dblclick=] event will be implementation-, device-, and platform-specific. This tolerance can aid users that have physical disabilities like unsteady hands when these users interact with a pointing device.
+		The lag time, degree, distance, and number of {{mousemove}} events allowed between the {{mousedown}} and {{mouseup}} events while still firing a {{click}} or {{dblclick}} event will be implementation-, device-, and platform-specific. This tolerance can aid users that have physical disabilities like unsteady hands when these users interact with a pointing device.
 		</p>
 
 		<p>
             Each implementation will determine the appropriate <a>hysteresis</a>
-		tolerance, but in general SHOULD fire [=click=] and [=dblclick=]
-		events when the event target of the associated [=mousedown=] and
-		[=mouseup=] events is the same element with no [=mouseout=] or
-		[=mouseleave=] events intervening, and SHOULD fire [=click=] and
-		[=dblclick=] events on the nearest common inclusive ancestor when the
-		associated [=mousedown=] and [=mouseup=] event targets are
+		tolerance, but in general SHOULD fire {{click}} and {{dblclick}}
+		events when the event target of the associated {{mousedown}} and
+		{{mouseup}} events is the same element with no {{mouseout}} or
+		{{mouseleave}} events intervening, and SHOULD fire {{click}} and
+		{{dblclick}} events on the nearest common inclusive ancestor when the
+		associated {{mousedown}} and {{mouseup}} event targets are
 		different.
         </p>
 
 		<p class="example">
-		If a [=mousedown=] event was targeted at an HTML document's <a data-lt="the body element">body
-		element</a>, and the corresponding [=mouseup=] event was targeted at
-		the <a>document element</a>, then the [=click=] event will be dispatched
+		If a {{mousedown}} event was targeted at an HTML document's <a data-lt="the body element">body
+		element</a>, and the corresponding {{mouseup}} event was targeted at
+		the <a>document element</a>, then the {{click}} event will be dispatched
 		to the <a>document element</a>, since it is the nearest common inclusive
 		ancestor.
 		</p>
@@ -1598,13 +1598,13 @@ dictionary MouseEventInit : EventModifierInit {
 
 		<p class="example">
 		If the target element is removed from the DOM as the result of a
-		[=mousedown=] event, no events for that element will be dispatched
-		for [=mouseup=], [=click=], or [=dblclick=], nor any default
-		activation events. However, the [=mouseup=] event will still be
+		{{mousedown}} event, no events for that element will be dispatched
+		for {{mouseup}}, {{click}}, or {{dblclick}}, nor any default
+		activation events. However, the {{mouseup}} event will still be
 		dispatched on the element that is exposed to the mouse after the removal
 		of the initial target element. Similarly, if the target element is
-		removed from the DOM during the dispatch of a [=mouseup=] event, the
-		[=click=] and subsequent events will not be dispatched.
+		removed from the DOM during the dispatch of a {{mouseup}} event, the
+		{{click}} and subsequent events will not be dispatched.
 		</p>
 
 	<h4>Mouse Event Types</h4>
@@ -1614,7 +1614,7 @@ dictionary MouseEventInit : EventModifierInit {
 		Ancestors of the targeted element MAY use bubbling to obtain
 		notification of mouse events which occur within its descendent elements.
 
-	<h5><dfn>auxclick</dfn></h5>
+	<h5><dfn class="export" data-dfn-type="event">auxclick</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -1660,7 +1660,7 @@ dictionary MouseEventInit : EventModifierInit {
         </ul>
     </table>
             <p>
-			The [=auxclick=] event type MUST be dispatched on the <a>topmost
+			The {{auxclick}} event type MUST be dispatched on the <a>topmost
 			event target</a> indicated by the pointer, when the user presses
 			down and releases the non-primary pointer button, or otherwise activates
 			the pointer in a manner that simulates such an action. The actuation
@@ -1670,27 +1670,27 @@ dictionary MouseEventInit : EventModifierInit {
 			device button.
 
 			<p>
-            The [=auxclick=] event should only be fired for the non-primary pointer
+            The {{auxclick}} event should only be fired for the non-primary pointer
 			buttons (i.e., when {{MouseEvent/button}} value is not <code>0</code>,
 			{{MouseEvent/buttons}} value is greater than <code>1</code>). The primary button
 			(like the left button on a standard mouse) MUST NOT fire
-			[=auxclick=] events. See [=click=] for a corresponding event that
+			{{auxclick}} events. See {{click}} for a corresponding event that
 			is associated with the primary button.
 
 			<p>
-            The [=auxclick=] event MAY be preceded by the [=mousedown=] and
-			[=mouseup=] events on the same element, disregarding changes
+            The {{auxclick}} event MAY be preceded by the {{mousedown}} and
+			{{mouseup}} events on the same element, disregarding changes
 			between other node types (e.g., text nodes).  Depending upon the
-			environment configuration, the [=auxclick=] event MAY be dispatched
-			if one or more of the event types [=mouseover=],
-			[=mousemove=], and [=mouseout=] occur between the press and
+			environment configuration, the {{auxclick}} event MAY be dispatched
+			if one or more of the event types {{mouseover}},
+			{{mousemove}}, and {{mouseout}} occur between the press and
 			release of the pointing device button.
 
 			<p>
-            The <a>default action</a> of the [=auxclick=] event type varies
+            The <a>default action</a> of the {{auxclick}} event type varies
 			based on the [=Event/target=] of the event and the value of the
 			{{MouseEvent/button}} or {{MouseEvent/buttons}} attributes. Typical
-			<a>default actions</a> of the [=auxclick=] event type are as follows:
+			<a>default actions</a> of the {{auxclick}} event type are as follows:
 
 			<ul><li>
                 If the [=Event/target=] has associated activation behavior,
@@ -1711,8 +1711,8 @@ dictionary MouseEventInit : EventModifierInit {
 });
 </code></pre>
 			<p class="note">
-			In the case of right button, the [=auxclick=] event is dispatched after
-			any [=contextmenu=] event. Note that some user agents swallow all input
+			In the case of right button, the {{auxclick}} event is dispatched after
+			any {{contextmenu}} event. Note that some user agents swallow all input
 			events while a context menu is being displayed, so auxclick may not be
 			available to applications in such scenarios.
 			See <a href="#example-auxclick-right"></a> for more clarification.
@@ -1732,7 +1732,7 @@ myDiv.addEventListener("auxclick", function(e) {
 });
 </code></pre>
 
-		<h5><dfn>click</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">click</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -1778,7 +1778,7 @@ myDiv.addEventListener("auxclick", function(e) {
         </ul>
     </table>
             <p>
-			The [=click=] event type MUST be dispatched on the <a>topmost
+			The {{click}} event type MUST be dispatched on the <a>topmost
 			event target</a> indicated by the pointer, when the user presses
 			down and releases the primary pointer button, or otherwise activates
 			the pointer in a manner that simulates such an action. The actuation
@@ -1788,22 +1788,22 @@ myDiv.addEventListener("auxclick", function(e) {
 			device button.
 
 			<p>
-			The [=click=] event should only be fired for the primary pointer
+			The {{click}} event should only be fired for the primary pointer
 			button (i.e., when {{MouseEvent/button}} value is <code>0</code>,
 			{{MouseEvent/buttons}} value is <code>1</code>). Secondary buttons
 			(like the middle or right button on a standard mouse) MUST NOT fire
-			[=click=] events. See [=auxclick=] for a corresponding event that
+			{{click}} events. See {{auxclick}} for a corresponding event that
 			is associated with the non-primary buttons.
 
 			<p>
-			The [=click=] event MAY be preceded by the [=mousedown=] and
-			[=mouseup=] events on the same element, disregarding changes
+			The {{click}} event MAY be preceded by the {{mousedown}} and
+			{{mouseup}} events on the same element, disregarding changes
 			between other node types (e.g., text nodes).  Depending upon the
-			environment configuration, the [=click=] event MAY be dispatched
-			if one or more of the event types [=mouseover=],
-			[=mousemove=], and [=mouseout=] occur between the press and
-			release of the pointing device button.  The [=click=] event MAY
-			also be followed by the [=dblclick=] event.
+			environment configuration, the {{click}} event MAY be dispatched
+			if one or more of the event types {{mouseover}},
+			{{mousemove}}, and {{mouseout}} occur between the press and
+			release of the pointing device button.  The {{click}} event MAY
+			also be followed by the {{dblclick}} event.
 
 			<p class="example">
 			If a user mouses down on a text node child of a
@@ -1813,33 +1813,33 @@ myDiv.addEventListener("auxclick", function(e) {
 			block of that <code>&lt;p&gt;</code> element (i.e., the pointer is
 			between lines of the same text block, but not over the text node per
 			se), then subsequently mouses up, this will likely still trigger a
-			[=click=] event (if it falls within the normal temporal
-			<a>hysteresis</a> for a [=click=]), since the user has stayed
+			{{click}} event (if it falls within the normal temporal
+			<a>hysteresis</a> for a {{click}}), since the user has stayed
 			within the scope of the same element. Note that user-agent-generated
 			mouse events are not dispatched on text nodes.
 			</p>
 
 			<p>
 			In addition to being associated with pointer devices, the
-			[=click=] event type MUST be dispatched as part of an element
+			{{click}} event type MUST be dispatched as part of an element
 			activation.
 
 			<p class="note">
 			For maximum accessibility, content authors are encouraged to use the
-			[=click=] event type when defining activation behavior for custom
+			{{click}} event type when defining activation behavior for custom
 			controls, rather than other pointing-device event types such as
-			[=mousedown=] or [=mouseup=], which are more device-specific.
-			Though the [=click=] event type has its origins in pointer
+			{{mousedown}} or {{mouseup}}, which are more device-specific.
+			Though the {{click}} event type has its origins in pointer
 			devices (e.g., a mouse), subsequent implementation enhancements have
 			extended it beyond that association, and it can be considered a
 			device-independent event type for element activation.
 			</p>
 
 			<p>
-			The <a>default action</a> of the [=click=] event type varies
+			The <a>default action</a> of the {{click}} event type varies
 			based on the [=Event/target=] of the event and the value of the
 			{{MouseEvent/button}} or {{MouseEvent/buttons}} attributes. Typical
-			<a>default actions</a> of the [=click=] event type are as follows:
+			<a>default actions</a> of the {{click}} event type are as follows:
 
 		    <ul>
 				<li>If the [=Event/target=] has associated activation behavior,
@@ -1849,7 +1849,7 @@ myDiv.addEventListener("auxclick", function(e) {
 				action</a> MUST be to give that element document focus.</li>
 			</ul>
 
-		<h5><dfn>contextmenu</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">contextmenu</dfn></h5>
 
 	<table class="event-definition">
     <tbody>
@@ -1895,14 +1895,14 @@ myDiv.addEventListener("auxclick", function(e) {
 
 			<p>
 			When the {{contextmenu}} event is triggered by right mouse button, the
-			{{contextmenu}} event MUST be dispatched after the [=mousedown=] event.
+			{{contextmenu}} event MUST be dispatched after the {{mousedown}} event.
 
 			<p class="note">
 			Depending on the platform, the {{contextmenu}} event may be dispatched
-			before or after the [=mouseup=] event.
+			before or after the {{mouseup}} event.
 			</p>
 
-		<h5><dfn>dblclick</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">dblclick</dfn></h5>
 
 <table class="event-definition">
     <tbody>
@@ -1958,28 +1958,28 @@ myDiv.addEventListener("auxclick", function(e) {
 			of a pointing device is clicked twice over an element. The
 			definition of a double click depends on the environment
 			configuration, except that the event target MUST be the same between
-			[=mousedown=], [=mouseup=], and [=dblclick=]. This event
-			type MUST be dispatched after the event type [=click=] if a click
+			{{mousedown}}, {{mouseup}}, and {{dblclick}}. This event
+			type MUST be dispatched after the event type {{click}} if a click
 			and double click occur simultaneously, and after the event type
-			[=mouseup=] otherwise.
+			{{mouseup}} otherwise.
 
 			<p>
-			As with the [=click=] event, the [=dblclick=] event should
+			As with the {{click}} event, the {{dblclick}} event should
 			only be fired for the primary pointer button. Secondary buttons MUST
-			NOT fire [=dblclick=] events.
+			NOT fire {{dblclick}} events.
 
 			<p class="note">
-			Canceling the [=click=] event does not affect the firing of a
-			[=dblclick=] event.
+			Canceling the {{click}} event does not affect the firing of a
+			{{dblclick}} event.
 			</p>
 
-			As with the [=click=] event type, the <a>default action</a> of
-			the [=dblclick=] event type varies based on the [=Event/target=] of the event and the value of the {{MouseEvent/button}}
+			As with the {{click}} event type, the <a>default action</a> of
+			the {{dblclick}} event type varies based on the [=Event/target=] of the event and the value of the {{MouseEvent/button}}
 			or {{MouseEvent/buttons}} attributes. The typical
-			<a>default actions</a> of the [=dblclick=] event type match those
-			of the [=click=] event type.
+			<a>default actions</a> of the {{dblclick}} event type match those
+			of the {{click}} event type.
 
-		<h5><dfn>mousedown</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mousedown</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2008,7 +2008,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			<ul>
 <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
 <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the [=mousedown=], {{UIEvent/detail}} will contain the value <code>1</code></li>
+<li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the {{mousedown}}, {{UIEvent/detail}} will contain the value <code>1</code></li>
 <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
 the screen</li>
 <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
@@ -2034,17 +2034,17 @@ within the containing element</li>
 			button is pressed over an element.
 
 			<p class="note">
-			Many implementations use the [=mousedown=] event to begin a
+			Many implementations use the {{mousedown}} event to begin a
 			variety of contextually dependent <a>default actions</a>. These
 			default actions can be prevented if this event is canceled. Some of
 			these default actions could include: beginning a drag/drop
 			interaction with an image or link, starting text selection, etc.
 			Additionally, some implementations provide a mouse-driven panning
 			feature that is activated when the middle mouse button is pressed at
-			the time the [=mousedown=] event is dispatched.
+			the time the {{mousedown}} event is dispatched.
 			</p>
 
-		<h5><dfn>mouseenter</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mouseenter</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2099,7 +2099,7 @@ within the containing element</li>
 			is moved onto the boundaries of an element or one of its descendent
 			elements.  A <a data-cite="infra">user agent</a> MUST also dispatch this event when the
 			element or one of its descendants moves to be underneath the primary
-			pointing device. This event type is similar to [=mouseover=], but
+			pointing device. This event type is similar to {{mouseover}}, but
 			differs in that it does not bubble, and MUST NOT be dispatched when
 			the pointer device moves from an element onto the boundaries of one
 			of its descendent elements.
@@ -2108,10 +2108,10 @@ within the containing element</li>
 			There are similarities between this event type and the CSS
 			<a href="http://www.w3.org/TR/CSS2/selector.html#dynamic-pseudo-classes"
 			title="Selectors"><code>:hover</code> pseudo-class</a> [[CSS2]].
-			See also the [=mouseleave=] event type.
+			See also the {{mouseleave}} event type.
 			</p>
 
-		<h5><dfn>mouseleave</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mouseleave</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2166,7 +2166,7 @@ within the containing element</li>
 			is moved off of the boundaries of an element and all of its
 			descendent elements.  A <a data-cite="infra">user agent</a> MUST also dispatch this event
 			when the element or one of its descendants moves to be no longer underneath
-			the primary pointing device. This event type is similar to [=mouseout=],
+			the primary pointing device. This event type is similar to {{mouseout}},
 			but differs in that does not bubble, and that it MUST NOT be
 			dispatched until the pointing device has left the boundaries of the
 			element and the boundaries of all of its children.
@@ -2175,10 +2175,10 @@ within the containing element</li>
 			There are similarities between this event type and the CSS
 			<a href="http://www.w3.org/TR/CSS2/selector.html#dynamic-pseudo-classes"
 			title="Selectors"><code>:hover</code> pseudo-class</a> [[CSS2]].
-			See also the [=mouseenter=] event type.
+			See also the {{mouseenter}} event type.
 			</p>
 
-		<h5><dfn>mousemove</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mousemove</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2231,7 +2231,7 @@ within the containing element</li>
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved while it is over an element.  The frequency rate of events
 			while the pointing device is moved is implementation-, device-, and
-			platform-specific, but multiple consecutive [=mousemove=] events
+			platform-specific, but multiple consecutive {{mousemove}} events
 			SHOULD be fired for sustained pointer-device movement, rather than a
 			single event for each instance of mouse movement.  Implementations
 			are encouraged to determine the optimal frequency rate to balance
@@ -2239,7 +2239,7 @@ within the containing element</li>
 
 			<p class="note">
 			In some implementation environments, such as a browser,
-			[=mousemove=] events can continue to fire if the user began a
+			{{mousemove}} events can continue to fire if the user began a
 			drag operation (e.g., a mouse button is pressed) and the pointing
 			device has left the boundary of the user agent.
 			</p>
@@ -2250,7 +2250,7 @@ within the containing element</li>
 			user agents.
 			</p>
 
-		<h5><dfn>mouseout</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mouseout</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2304,15 +2304,15 @@ within the containing element</li>
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved off of the boundaries of an element or when the element is
 			moved to be no longer underneath the primary pointing device.
-			This event type is similar to [=mouseleave=], but differs in that
+			This event type is similar to {{mouseleave}}, but differs in that
 			does bubble, and that it MUST be dispatched when the pointer device
 			moves from an element onto the boundaries of one of its descendent elements.
 
 			<p class="note">
-			See also the [=mouseover=] event type.
+			See also the {{mouseover}} event type.
 			</p>
 
-		<h5><dfn>mouseover</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">mouseover</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2366,15 +2366,15 @@ within the containing element</li>
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved onto the boundaries of an element or when the element is
 			moved to be underneath the primary pointing device.
-			This event type is similar to [=mouseenter=], but differs in
+			This event type is similar to {{mouseenter}}, but differs in
 			that it bubbles, and that it MUST be dispatched when the pointer device moves onto the
 			boundaries of an element whose ancestor element is the [=Event/target=] for the same <a>event listener</a> instance.
 
 			<p class="note">
-			See also the [=mouseout=] event type.
+			See also the {{mouseout}} event type.
 			</p>
 
-		        <h5><dfn>mouseup</dfn></h5>
+		        <h5><dfn class="export" data-dfn-type="event">mouseup</dfn></h5>
 
 <table class="event-definition">
      <tbody>
@@ -2430,7 +2430,7 @@ within the containing element</li>
 
 			<p class="note">
 			In some implementation environments, such as a browser, a
-			[=mouseup=] event can be dispatched even if the pointing device
+			{{mouseup}} event can be dispatched even if the pointing device
 			has left the boundary of the user agent, e.g., if the user began a
 			drag operation with a mouse button pressed.
 			</p>
@@ -3318,10 +3318,10 @@ function tilt2spherical(tiltX, tiltY) {
 
 	The sign (positive or negative) of the values of the deltaX, deltaY, and deltaZ attributes
 	MUST be consistent between multiple dispatches of the
-	[=wheel=] event while the
+	{{wheel}} event while the
 	motion of the actual wheel device is rotating/moving in the same direction.
 	If a user agent scrolls as the default action of the
-	[=wheel=] event then the sign
+	{{wheel}} event then the sign
 	of the <a>delta</a> SHOULD be given by a right-hand coordinate system where positive X,
 	Y, and Z axes are directed towards the right-most edge, bottom-most edge, and farthest
 	depth (away from the user) of the document, respectively.
@@ -3350,7 +3350,7 @@ function tilt2spherical(tiltX, tiltY) {
 	<h4 id="interface-wheelevent">Interface WheelEvent</h4>
 
 		The {{WheelEvent}} interface provides specific contextual information
-		associated with [=wheel=] events.
+		associated with {{wheel}} events.
 
 		To create an instance of the {{WheelEvent}} interface, use the {{WheelEvent}} constructor,
 		passing an optional {{WheelEventInit}} dictionary.
@@ -3395,7 +3395,7 @@ function tilt2spherical(tiltX, tiltY) {
 
 				<dt><dfn>deltaX</dfn></dt>
 				<dd>
-					In user agents where the default action of the [=wheel=]
+					In user agents where the default action of the {{wheel}}
 					event is to scroll, the value MUST be the measurement along the
 					x-axis (in pixels, lines, or pages) to be scrolled in the case
 					where the event is not cancelled. Otherwise, this is an
@@ -3408,7 +3408,7 @@ function tilt2spherical(tiltX, tiltY) {
 
 				<dt><dfn>deltaY</dfn></dt>
 				<dd>
-					In user agents where the default action of the [=wheel=]
+					In user agents where the default action of the {{wheel}}
 					event is to scroll, the value MUST be the measurement along the
 					y-axis (in pixels, lines, or pages) to be scrolled in the case
 					where the event is not cancelled. Otherwise, this is an
@@ -3421,7 +3421,7 @@ function tilt2spherical(tiltX, tiltY) {
 
 				<dt><dfn>deltaZ</dfn></dt>
 				<dd>
-					In user agents where the default action of the [=wheel=]
+					In user agents where the default action of the {{wheel}}
 					event is to scroll, the value MUST be the measurement along the
 					z-axis (in pixels, lines, or pages) to be scrolled in the case
 					where the event is not cancelled. Otherwise, this is an
@@ -3492,14 +3492,14 @@ function tilt2spherical(tiltX, tiltY) {
 
 	<h4 id="events-wheel-types">Wheel Event Types</h4>
 
-		<h5 id="event-type-wheel"><dfn>wheel</dfn></h5>
+		<h5><dfn class="export" data-dfn-type="event">wheel</dfn></h5>
 
 <table class="event-definition">
     <tbody>
     	<tr>
     	<th>Type</th>
     	<td><strong><code>wheel</code></strong></td>
-		</tr>                                                  |
+		</tr>
 		<tr>
 			<th>Interface</th>
 			<td>{{WheelEvent}}</td>
@@ -3561,10 +3561,10 @@ function tilt2spherical(tiltX, tiltY) {
 			(such as a mouse-ball, certain tablets or touchpads, etc.) has
 			emulated such an action. Depending on the platform and input device,
 			diagonal wheel <a>deltas</a> MAY be delivered either as a single
-			[=wheel=] event with multiple non-zero axes or as separate
-			[=wheel=] events for each non-zero axis.
+			{{wheel}} event with multiple non-zero axes or as separate
+			{{wheel}} events for each non-zero axis.
 
-			The typical <a>default action</a> of the [=wheel=] event type is
+			The typical <a>default action</a> of the {{wheel}} event type is
 			to scroll (or in some cases, zoom) the document by the indicated
 			amount.  If this event is canceled, the implementation MUST NOT
 			scroll or zoom the document (or perform whatever other
