@@ -795,7 +795,7 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
             <ol class="algorithm">
-                <li>Let |pos|, the x,y coordinates relative to the viewport</li>
+                <li>Let |pos| be the x,y coordinates relative to the viewport</li>
 
 
 			    <li>Return [[CSSOM-View]]'s {{Document/elementFromPoint()}} with |pos| (the frontmost DOM element at |pos|)
@@ -833,10 +833,10 @@ dictionary MouseEventInit : EventModifierInit {
                     <a>Set mouse event modifiers</a> with |event|
                 </li>
 				<li>
-                    Set |event|.{{MouseEvent/button}} = 0
+                    Set |event|.{{MouseEvent/button}} to 0
                 </li>
 				<li>
-                    Set |event|.{{MouseEvent/buttons}} = <a>mouse button bitmask</a>
+                    Set |event|.{{MouseEvent/buttons}} to <a>mouse button bitmask</a>
                 </li>
                 <li>
 			        <a>Initialize PointerLock attributes for MouseEvent</a> with |event|
@@ -862,26 +862,26 @@ dictionary MouseEventInit : EventModifierInit {
 		    <li>Set |event|'s <a>altgraph flag</a> if <a>key modifier state</a> includes "AltGraph", unset it otherwise</li>
 			<li>Set |event|'s <a>meta flag</a> if <a>key modifier state</a> includes "Meta", unset it otherwise</li>
 
-			<li>Set |event|.{{MouseEvent/shiftKey}} = true if the event's <a>shift flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/ctrlKey}} = true if the event's <a>control flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/altKey}} = true if the event's <a>alt flag</a> or <a>altgraph flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/metaKey}} = true if the event's <a>meta flag</a> is set, false otherwise</li>
+			<li>Set |event|.{{MouseEvent/shiftKey}} to true if the event's <a>shift flag</a> is set, false otherwise</li>
+			<li>Set |event|.{{MouseEvent/ctrlKey}} to true if the event's <a>control flag</a> is set, false otherwise</li>
+			<li>Set |event|.{{MouseEvent/altKey}} to true if the event's <a>alt flag</a> or <a>altgraph flag</a> is set, false otherwise</li>
+			<li>Set |event|.{{MouseEvent/metaKey}} to true if the event's <a>meta flag</a> is set, false otherwise</li>
             </ol>
 		
 
 		
-		    <h5><dfn>create a cancelable MouseEvent</dfn></h5>
+		    <h5><dfn data-lt="creating a cancelable MouseEvent">create a cancelable MouseEvent</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |eventType|, a DOMString containing a valid {{MouseEvent}} type</li>
-			<li>Let |eventTarget|, the {{EventTarget}} of the event</li>
-			<li>Let |bubbles| be "true"</li>
-			<li>Let |cancelable| be "true"</li>
+			<li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
+			<li>Let |eventTarget| be the {{EventTarget}} of the event</li>
+			<li>Let |bubbles| be true</li>
+			<li>Let |cancelable| be true</li>
 
-			<li>Let |event| = the result of <a data-lt="creating an event">creating a new event</a> using {{MouseEvent}}</li>
+			<li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
 			<li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
 			<li>Return |event|</li>
             </ol>
@@ -889,18 +889,18 @@ dictionary MouseEventInit : EventModifierInit {
 		
 
 		
-		    <h5><dfn>create a non-cancelable MouseEvent</dfn></h5>
+		    <h5><dfn data-lt="creating a non-cancelable MouseEvent">create a non-cancelable MouseEvent</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |eventType|, a DOMString containing a valid {{MouseEvent}} type</li>
-			<li>Let |eventTarget|, the {{EventTarget}} of the event</li>
+			<li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
+			<li>Let |eventTarget| be the {{EventTarget}} of the event</li>
 			<li>Let |bubbles| be "false"</li>
 			<li>Let |cancelable| be "false"</li>
 
-			<li>Let |event| = the result of <a data-lt="creating an event">creating a new event</a> using {{MouseEvent}}</li>
+			<li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
 			<li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
 			<li>Return |event|</li>
             </ol>
@@ -915,7 +915,7 @@ dictionary MouseEventInit : EventModifierInit {
 
             <p>This will return a button ID suitable for storing in the {{MouseEvent}}'s {{MouseEvent/button}} attribute.</p>
 			<ol class="algorithm">
-			<li>Let |mbutton|, an ID that identifies a mouse button</li>
+			<li>Let |mbutton| be an ID that identifies a mouse button</li>
 			<li>If |mbutton| is the primary mouse button, then return 0</li>
 			<li>If |mbutton| is the auxiliary (middle)  mouse button, then return 1</li>
 			<li>If |mbutton| is the secondary mouse button, then return 2</li>
@@ -932,14 +932,14 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |event|, the {{MouseEvent}} to initialize</li>
-			<li>Let |native|, the native mouse event
+			<li>Let |event| be the {{MouseEvent}} to initialize</li>
+			<li>Let |native| be the native mouse event
 			<p class="ednote">TODO.</p>
                 </li>
 			<li>If |event|.{{Event/type}} is one of [ mousedown, mouseup ], then
                 <ol>
 				<li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-				<li>Set |event|.{{MouseEvent/button}} = <a>calculate MouseEvent button attribute</a> with |mbutton|</li>
+				<li>Set |event|.{{MouseEvent/button}} to <a>calculate MouseEvent button attribute</a> with |mbutton|</li>
                 </ol>
             </li>
             </ol>
@@ -953,7 +953,7 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mousedown</li>
+			<li>Let |native| be the native mousedown</li>
 			<li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
 
 			<li>Update the <a>mouse button bitmask</a> as follows:
@@ -967,11 +967,11 @@ dictionary MouseEventInit : EventModifierInit {
 				</p>
                 </li>
                 </ol></li>
-			<li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
-			<li>Let |event| = <a>create a cancelable MouseEvent</a> with "mousedown", |target|</li>
+			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+			<li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mousedown", |target|</li>
 			<li><a>Set MouseEvent attributes from native</a> with |native|</li>
 			<li><a>Maybe send pointerdown event</a> with |event|</li>
-			<li>Let |result| = <a>dispatch</a> |event| at |target|</li>
+			<li>Let |result| be <a>dispatch</a> |event| at |target|</li>
 			<li>If |result| is true and |target| is a <a data-cite="html#focusable-area">focusable area</a> that is <a data-cite="html#click-focusable">click focusable</a>, then
 				<ol>
                     <li>Run the <a>focusing steps</a> at |target|</li>
@@ -992,7 +992,7 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			    <li>Let |native|, the native mouseup
+			    <li>Let |native| be the native mouseup
 			    <p class="note">
 			    Other mouse events can occur between the mousedown and mouseup.
 			    </p>
@@ -1006,8 +1006,8 @@ dictionary MouseEventInit : EventModifierInit {
 				    <li>If |mbutton| is the auxiliary (middle) mouse button, then clear the 0x04 bit</li>
                     </ol>
                 </li>
-			    <li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
-			    <li>Let |event| = <a>create a cancelable MouseEvent</a> with "mouseup", |target|</li>
+			    <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+			    <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mouseup", |target|</li>
 			    <li><a>Set MouseEvent attributes from native</a> with |native|</li>
 
 			    <li><a>Maybe send pointerup event</a> with |event|</li>
@@ -1024,12 +1024,12 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mouse click
+			<li>Let |native| be the native mouse click
 			<p class="note">
 			The platform should call this immediately after <a>handle native mouse up</a> for mouseups that generate clicks.
 			</p>
             </li>
-			<li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
+			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
 
 			<li><a>Send click event</a> with |native| and |target|.</li>
             </ol>
@@ -1042,17 +1042,17 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mousedown</li>
-			<li>Let |target|, the {{EventTarget}} of the event</li>
-			<li>Let |mbutton| = 1  (primary mouse button by default)</li>
+			<li>Let |native| be the native mousedown</li>
+			<li>Let |target| be the {{EventTarget}} of the event</li>
+			<li>Let |mbutton| be 1  (primary mouse button by default)</li>
 			<li>If |native| is valid, then
 				<ol class="algorithm">
 			    <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
                 </ol>
             </li>
-			<li>Set |eventType| = "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
+			<li>Set |eventType| to "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
 
-			<li>Let |event| = <a>create a PointerEvent</a> with |eventType| and |target|</li>
+			<li>Let |event| be the result of <a>creating a PointerEvent</a> with |eventType| and |target|</li>
 
 			<li>If |native| is valid, then
 				<ol class="algorithm">
@@ -1093,7 +1093,7 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mouse double click
+			<li>Let |native| be the native mouse double click
 			<p class="note">
 			This should be called immediately after handle native mouse click for mouse clicks that generate double clicks.
 			</p>
@@ -1102,9 +1102,9 @@ dictionary MouseEventInit : EventModifierInit {
 
 			<li>If |mbutton| is not the primary mouse button, then return</li>
 
-			<li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
+			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
 
-			<li>Let |event| = <a>create a PointerEvent</a> with "dblclick" and |target|</li>
+			<li>Let |event| be the result of <a>creating a PointerEvent</a> with "dblclick" and |target|</li>
 			<li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
 			<li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
 			<li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
@@ -1120,14 +1120,14 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mouse move
+			<li>Let |native| be the native mouse move
 			<p class="issue">
 			This algorithm makes assumptions about the dispatch of PointerEvents because they are not currently specified explicitly. Once <a href="https://github.com/w3c/pointerevents/issues/285">pointerevents/285</a> is resolved this may need to be updated.
 			</p>
             </li>
-			<li>Let |target| = <a>hit test</a> with viewport-relative coordinates from |native|</li>
+			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
 
-			<li>Let |targetDomPath| = [=tree/inclusive ancestors=] of |target|</li>
+			<li>Let |targetDomPath| be [=tree/inclusive ancestors=] of |target|</li>
 
 			<li>Generate events for leaving the current element:
 
@@ -1135,7 +1135,7 @@ dictionary MouseEventInit : EventModifierInit {
 			    <li>If <a>last mouse element</a> is defined and not equal to |target|, then
 
 					<ol class="algorithm">
-			        <li>Let |mouseout| = <a>create a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
+			        <li>Let |mouseout| be the result of <a>creating a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
 
 					<p class="ednote">
 					TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
@@ -1162,7 +1162,7 @@ dictionary MouseEventInit : EventModifierInit {
 						</p>
 
 						<ol class="algorithm">
-			            <li>Let |mouseleave| = <a>create a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
+			            <li>Let |mouseleave| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
 
 						<li>Set |mouseleave|.{{Event.composed}}
  = false
@@ -1173,7 +1173,7 @@ dictionary MouseEventInit : EventModifierInit {
                         </li>
 						<li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
 
-						<li>Let |result| = <a>dispatch</a> |mouseleave| at |element|</li>
+						<li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
                         </ol>
                         </li>
                 </li>
@@ -1185,7 +1185,7 @@ dictionary MouseEventInit : EventModifierInit {
 			    <li>If |target| is not <a>last mouse element</a>, then
 
 					<ol class="algorithm">
-			        <li>Let |mouseover| = <a>create a cancelable MouseEvent</a> with "mouseover" and |target|
+			        <li>Let |mouseover| be the result of <a>creating a cancelable MouseEvent</a> with "mouseover" and |target|
 
 					<p class="ednote">
 					TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
@@ -1208,7 +1208,7 @@ dictionary MouseEventInit : EventModifierInit {
 						</p>
 
 						<ol class="algorithm">
-			            <li>Let |mouseenter| = <a>create a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
+			            <li>Let |mouseenter| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
 
 						<li>Set |mouseenter|.{{Event.composed}}
  = false
@@ -1225,7 +1225,7 @@ dictionary MouseEventInit : EventModifierInit {
 						Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
 						</p>
                         </li>
-						<li>Let |result| = <a>dispatch</a> |mouseenter| at |element|</li>
+						<li>Let |result| be <a>dispatch</a> |mouseenter| at |element|</li>
                     </ol>
                     </li>
 					<li>Set <a>last mouse element</a> to |target|</li>
@@ -1234,7 +1234,7 @@ dictionary MouseEventInit : EventModifierInit {
                 </li>
             </ol>
             </li>
-			<li>Let |mousemove| = <a>create a cancelable MouseEvent</a> with "mousemove" and |element|</li>
+			<li>Let |mousemove| be the result of <a>creating a cancelable MouseEvent</a> with "mousemove" and |element|</li>
 
 			<li><a>Set PointerLock attributes for mousemove</a></li>
 
@@ -1251,16 +1251,16 @@ dictionary MouseEventInit : EventModifierInit {
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native|, the native mousedown or pointer event</li>
-			<li>Let |target|, the {{EventTarget}} of the event</li>
+			<li>Let |native| be the native mousedown or pointer event</li>
+			<li>Let |target| be the {{EventTarget}} of the event</li>
 				<ol class="algorithm">
-			    <li>Let |menuevent| = <a>create a PointerEvent</a> with "contextmenu", |target|</li>
+			    <li>Let |menuevent| be the result of <a>creating a PointerEvent</a> with "contextmenu", |target|</li>
 				<li>If |native| is valid, then
 					<ol class="algorithm">
 			        <li><a>Set MouseEvent attributes from native</a> with |native|</li>
                     </ol>
                 </li>
-				<li>Let |result| = <a>dispatch</a> |menuevent| at |target|</li>
+				<li>Let |result| be <a>dispatch</a> |menuevent| at |target|</li>
 				<li>If |result| is true, then show the UA context menu</li>
                 </ol>
 			<p class="note">
@@ -2974,8 +2974,8 @@ function tilt2spherical(tiltX, tiltY) {
                             |created PointerEvent from MouseEvent"
                     >create {{PointerEvent}} from {{MouseEvent}}</dfn></h4>
 			    <ol class="algorithm">
-			        <li>Let |eventType|, a {{DOMString}} containing the event type</li>
-			        <li>Let |mouseevent|, the corresponding {{MouseEvent}}</li>
+			        <li>Let |eventType| be a {{DOMString}} containing the event type</li>
+			        <li>Let |mouseevent| be the corresponding {{MouseEvent}}</li>
 			        <li>Let |event| be the result of
 				        [=creating an event=] using {{PointerEvent}}</li>
 			        <li>Let |target| be the |mouseevent|.{{Event/target}}</li>
@@ -2987,7 +2987,7 @@ function tilt2spherical(tiltX, tiltY) {
 		    <section>
 		        <h4><dfn class="export">maybe send pointerout event</dfn></h4>
 			    <ol class="algorithm">
-			        <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+			        <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
 			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
 			        <li>Set pointerevent attributes
 				<p class="ednote">TODO.</p></li>
@@ -2998,7 +2998,7 @@ function tilt2spherical(tiltX, tiltY) {
 		    <section>
 		        <h4><dfn class="export">maybe send pointerleave event</dfn></h4>
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
 			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
 			        <li>Set pointerevent attributes
 				<p class="ednote">TODO.</p></li>
@@ -3009,7 +3009,7 @@ function tilt2spherical(tiltX, tiltY) {
 		    <section>
 		        <h4><dfn class="export">maybe send pointerover event</dfn></h4>
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
 			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
 			        <li>Set pointerevent attributes
 				<p class="ednote">TODO.</p></li>
@@ -3021,7 +3021,7 @@ function tilt2spherical(tiltX, tiltY) {
 		        <h4><dfn class="export">maybe send pointerenter event</dfn></h4>
 
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
 			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
 			        <li>Set pointerevent attributes
                 <p class="ednote">TODO.</p></li>
@@ -3033,7 +3033,7 @@ function tilt2spherical(tiltX, tiltY) {
 		        <h4><dfn class="export">maybe send pointermove event</dfn></h4>
 
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
 			<p class="ednote">
 			Can this send pointermove and pointerrawupdate? Or do we need 2 methods?
 			</p>
@@ -3055,7 +3055,7 @@ function tilt2spherical(tiltX, tiltY) {
 		        <h4><dfn class="export">maybe send pointerdown event</dfn></h4>
 
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
 			        <p class="note">
 			            Unlike <code>mousedown</code> events, {{pointerdown}}
 			            events are not nested when multiple buttons are pressed.
@@ -3075,7 +3075,7 @@ function tilt2spherical(tiltX, tiltY) {
                 <h4><dfn class="export">maybe send pointerrawupdate event</dfn></h4>
 
                 <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
 			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
 			        <li>[=dispatch=] |pointerout| at |target|</li>
                 </ol>
@@ -3085,7 +3085,7 @@ function tilt2spherical(tiltX, tiltY) {
 		        <h4><dfn class="export">maybe send pointerup event</dfn></h4>
 
 			    <ol class="algorithm">
-                    <li>Let |mouseout|, the corresponding mouseout {{MouseEvent}}
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
 			        <p class="note">
 			            Unlike <code>mouseup</code> events, {{pointerup}} events are not nested when multiple buttons are pressed. The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
 			        </p>
