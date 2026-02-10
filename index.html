@@ -569,7 +569,7 @@ interface MouseEvent : UIEvent {
                     </p>
 				</dd>
 
-				<dt><dfn method>getModifierState(keyArg)</dfn></dt>
+				<dt><dfn>getModifierState(keyArg)</dfn></dt>
 				<dd>
                     <p>
 					    Queries the state of a modifier using a key value.
@@ -600,7 +600,7 @@ dictionary MouseEventInit : EventModifierInit {
 	EventTarget? relatedTarget = null;
 };
             </pre>
-			<dl dfn-for="MouseEventInit">
+			<dl data-dfn-for="MouseEventInit">
 				<dt><dfn>screenX</dfn></dt>
 				<dd>
 					<p>
@@ -672,7 +672,7 @@ dictionary MouseEventInit : EventModifierInit {
 				<dt><dfn>relatedTarget</dfn></dt>
 				<dd>
 					<p>
-                        The {{relatedTarget}} should be initialized to the element whose bounds the mouse pointer just left (in the case of a [=mouseover=] or [=mouseenter=] event) or the element whose bounds the mouse pointer is entering (in the case of a [=mouseout=] or [=mouseleave=] or [=focusout=] event). For other events, this value need not be assigned (and will default to null).
+                        The {{MouseEvent/relatedTarget}} should be initialized to the element whose bounds the mouse pointer just left (in the case of a [=mouseover=] or [=mouseenter=] event) or the element whose bounds the mouse pointer is entering (in the case of a [=mouseout=] or [=mouseleave=] or [=focusout=] event). For other events, this value need not be assigned (and will default to null).
 					</p>
 				</dd>
 			</dl>
@@ -1263,11 +1263,11 @@ dictionary MouseEventInit : EventModifierInit {
 				<li>Let |result| be <a>dispatch</a> |menuevent| at |target|</li>
 				<li>If |result| is true, then show the UA context menu</li>
                 </ol>
+            </li>
+            </ol>
 			<p class="note">
 			To handle a context menu triggered by the keyboard, call this algorithm with |native| = null and |target| = currently focused element.
 			</p>
-            </li>
-            </ol>
 		
 
 
@@ -1853,8 +1853,7 @@ myDiv.addEventListener("auxclick", function(e) {
 
 	<table class="event-definition">
     <tbody>
-      <tr>
-        <tr><th>Type</th>
+      <tr><th>Type</th>
 	    <td><strong><code>contextmenu</code></strong></td>
 		<tr><th>Interface</th>
 		<td>{{PointerEvent}}</td>
@@ -3460,14 +3459,14 @@ function tilt2spherical(tiltX, tiltY) {
 			};
 			</pre>
 
-			<dl dfn-for="WheelEventInit">
-				<dt><dfn dict-member>deltaX</dfn></dt>
+			<dl data-dfn-for="WheelEventInit">
+				<dt><dfn>deltaX</dfn></dt>
 				<dd>See <code>deltaZ</code> attribute.</dd>
 
-				<dt><dfn dict-member>deltaY</dfn></dt>
+				<dt><dfn>deltaY</dfn></dt>
 				<dd>See <code>deltaZ</code> attribute.</dd>
 
-				<dt><dfn dict-member>deltaZ</dfn></dt>
+				<dt><dfn>deltaZ</dfn></dt>
 				<dd>
 					Initializes the {{WheelEvent/deltaZ}} attribute of the {{WheelEvent}}
 					object. Relative positive values for this attribute (as well as
@@ -3479,7 +3478,7 @@ function tilt2spherical(tiltX, tiltY) {
 					opposite directions.
 				</dd>
 
-				<dt><dfn dict-member>deltaMode</dfn></dt>
+				<dt><dfn>deltaMode</dfn></dt>
 				<dd>
 					Initializes the {{WheelEvent/deltaMode}} attribute on the
 					{{WheelEvent}} object to the enumerated values 0, 1, or 2, which
@@ -4337,7 +4336,7 @@ window.addEventListener("pointermove", function(event) {
             <dt><dfn>contact geometry</dfn></dt>
                 <dd>The bounding box of an input (most commonly, touch) on a digitizer. This typically refers to devices with coarser pointer input resolution than a single pixel. Some devices do not report this data at all.</dd>
             <dt><dfn>delta</dfn></dt>
-                <dd>The estimated scroll amount (in pixels, lines, or pages) that the user agent will scroll or zoom the page in response to the physical movement of an input device that supports the {{WheelEvent}} interface (such as a mouse wheel or touch pad). The value of a <a>delta</a> (e.g., the {{WheelEvent/deltaX}}, {{WheelEvent/deltaY}}, or {{WheelEvent/deltaZ}} attributes) is to be interpreted in the context of the current {{WheelEvent/deltaMode}} property. The relationship between the physical movement of a wheel (or other device) and whether the <a>delta</a> is positive or negative is environment and device dependent. However, if a user agent scrolls as the <a>default action</a> then the sign of the <a>delta</a> is given by a right-hand coordinate system where positive X,Y, and Z axes are directed towards the right-most edge, bottom-most edge, and farthest depth (away from the user) of the <a for=/>document</a>, respectively.</dd>
+                <dd>The estimated scroll amount (in pixels, lines, or pages) that the user agent will scroll or zoom the page in response to the physical movement of an input device that supports the {{WheelEvent}} interface (such as a mouse wheel or touch pad). The value of a <a>delta</a> (e.g., the {{WheelEvent/deltaX}}, {{WheelEvent/deltaY}}, or {{WheelEvent/deltaZ}} attributes) is to be interpreted in the context of the current {{WheelEvent/deltaMode}} property. The relationship between the physical movement of a wheel (or other device) and whether the <a>delta</a> is positive or negative is environment and device dependent. However, if a user agent scrolls as the <a>default action</a> then the sign of the <a>delta</a> is given by a right-hand coordinate system where positive X,Y, and Z axes are directed towards the right-most edge, bottom-most edge, and farthest depth (away from the user) of the [=document=], respectively.</dd>
 
             <dt><dfn>digitizer</dfn></dt>
                 <dd>A type of input sensing device in which a surface can detect input which is in contact and/or in close proximity. Most commonly, this is the surface that senses input from the touch contact or a pen/stylus.</dd>
@@ -4402,7 +4401,7 @@ The following features are obsolete and should only be implemented by
 		</pre>
 
 		<dl data-dfn-for="MouseEvent">
-			<dt><dfn method>initMouseEvent(typeArg)</dfn></dt>
+			<dt><dfn>initMouseEvent(typeArg)</dfn></dt>
 			<dd>
 				Initializes attributes of a {{MouseEvent}} object. This
 				method has the same behavior as <code>UIEvent.initUIEvent()</code>.
