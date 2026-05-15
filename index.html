@@ -100,7 +100,7 @@
 
     <section id="intro" class="informative">
         <h1>Introduction</h1>
-        <p>Today, most [[HTML]] content is used with and/or designed for mouse input. Those that handle input in a custom manner typically code to [[UIEVENTS]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens and pen input. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most [=user agents=] fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
+        <p>Today, most [[HTML]] content is used with and/or designed for mouse input. Those that handle input in a custom manner typically code to [[POINTEREVENTS4]] Mouse Events. Newer computing devices today, however, incorporate other forms of input, including touchscreens and pen input. Event types have been proposed for handling each of these forms of input individually. However, that approach often incurs unnecessary duplication of logic and event handling overhead when adding support for a new input type. This often creates a compatibility problem when content is written with only one device type in mind. Additionally, for compatibility with existing mouse-based content, most [=user agents=] fire Mouse Events for all input types. This makes it ambiguous whether a Mouse Event represents an actual mouse device or is being produced from another input type for compatibility, which makes it hard to code to both device types simultaneously.</p>
 
         <p>To reduce the cost of coding to multiple input types and also to help with the above described ambiguity with Mouse Events, this specification defines a more abstract form of input, called a <a>pointer</a>. A pointer can be any point of contact on the screen made by a mouse cursor, pen, touch (including multi-touch), or other pointing input device. This model makes it easier to write sites and applications that work well no matter what hardware the user has. For scenarios when device-specific handling is desired, this specification also defines properties for inspecting the device type which produced the event. The primary goal is to provide a single set of events and interfaces that allow for easier authoring for cross-device pointer input while still allowing for device-specific handling only when necessary for an augmented experience.</p>
         <p>An additional key goal is to enable multi-threaded user agents to handle <a>direct manipulation</a> actions for panning and zooming (for instance, with a finger or stylus on a touchscreen), without blocking on script execution.</p>
@@ -360,14 +360,14 @@ interface PointerEvent : MouseEvent {
                         </dd>
                 </dl>
 
-                <p>The <dfn>PointerEventInit</dfn> dictionary is used by the {{PointerEvent}} interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the {{MouseEventInit}} dictionary defined in [[UIEVENTS]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
+                <p>The <dfn>PointerEventInit</dfn> dictionary is used by the {{PointerEvent}} interface's constructor to provide a mechanism by which to construct untrusted (synthetic) pointer events. It inherits from the {{MouseEventInit}} dictionary now defined in [[POINTEREVENTS4]]. See the <a href="#examples" title="examples">examples</a> for sample code demonstrating how to fire an untrusted pointer event.</p>
 
                 <p>The [=event constructing steps=] for <dfn>PointerEvent</dfn>
                     clones {{PointerEventInit}}'s {{PointerEventInit/coalescedEvents}} to <a>coalesced events list</a> and
                     clones {{PointerEventInit}}'s {{PointerEventInit/predictedEvents}} to <a>predicted events list</a>.</p>
 
 
-                <div class="note">The <code>PointerEvent</code> interface inherits from {{MouseEvent}}, defined in [[[UIEVENTS]]].
+                <div class="note">The <code>PointerEvent</code> interface inherits from {{MouseEvent}}, defined in [[[POINTEREVENTS4]]].
                     Also note the proposed extension in [[[CSSOM-VIEW]]], which changes the various coordinate properties from <code>long</code>
                     to <code>double</code> to allow for fractional coordinates. For user agents that already implement this proposed extension for
                     {{PointerEvent}}, but <em>not</em> for regular {{MouseEvent}}, there are additional requirements when it comes to
@@ -377,9 +377,9 @@ interface PointerEvent : MouseEvent {
                 <h3>Button states</h3>
                 <section>
                     <h4><dfn data-lt="chorded buttons">Chorded button interactions</dfn></h4>
-                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[UIEVENTS]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
+                    <p>Some pointer devices, such as mouse or pen, support multiple buttons. In the [[POINTEREVENTS4]] Mouse Event model, each button press produces a <code>mousedown</code> and <code>mouseup</code> event. To better abstract this hardware difference and simplify cross-device input authoring, Pointer Events do not fire overlapping {{GlobalEventHandlers/pointerdown}} and {{GlobalEventHandlers/pointerup}} events for chorded button presses (depressing an additional button while another button on the pointer device is already depressed).</p>
                     <p>Instead, chorded button presses can be detected by inspecting changes to the <code>button</code> and <code>buttons</code> properties. The <code>button</code> and <code>buttons</code> properties are inherited from the {{MouseEvent}} interface, but with a change in semantics and values, as outlined in the following sections.</p>
-                    <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. However for <code>click</code>, <code>auxclick</code> and <code>contextmenu</code> the value of <code>button</code> and <code>buttons</code> MUST follow [[UIEVENTS]], as is the case for <a>compatibility mouse events</a> .</p>
+                    <p>The modifications to the <code>button</code> and <code>buttons</code> properties apply only to pointer events. However for <code>click</code>, <code>auxclick</code> and <code>contextmenu</code> the value of <code>button</code> and <code>buttons</code> MUST follow [[POINTEREVENTS4]], as is the case for <a>compatibility mouse events</a> .</p>
                 </section>
 
                 <section>
@@ -451,7 +451,7 @@ interface PointerEvent : MouseEvent {
                 <p>If the event is {{GlobalEventHandlers/pointerdown}}, the associated device is a direct manipulation device, and the target is an {{Element}},
                     then <a>set pointer capture</a> for this {{PointerEvent/pointerId}} to the target element as described in <a>implicit pointer capture</a>.</p>
 
-                <p>Before firing this event, the [=user agent=] SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of <a data-cite="uievents/#events-mouseevent-event-order">ensuring event ordering</a> [[UIEVENTS]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
+                <p>Before firing this event, the [=user agent=] SHOULD treat the target as if the pointing device has moved over it from the |previousTarget| for the purpose of [[[POINTEREVENTS4#mouse-event-order|ensuring event ordering]]] [[POINTEREVENTS4]]. If the |needsOverEvent| flag is set, a {{GlobalEventHandlers/pointerover}} event is needed even if the target element is the same.</p>
 
                 <p>Fire the event to the determined target.</p>
 
@@ -463,7 +463,7 @@ interface PointerEvent : MouseEvent {
                     and set the |needsOverEvent| flag to <code>true</code>.
                 </p>
 
-                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[UIEVENTS]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
+                <div class="note">Using the <a>pointer capture target override</a> as the target instead of the normal hit-test result may fire some boundary events, as defined by [[POINTEREVENTS4]]. This is the same as the pointer leaving its previous target and entering this new capturing target. When the capture is released, the same scenario may happen, as the pointer is leaving the capturing target and entering the hit-test target.</div>
 
                 <section>
                     <h4><dfn>Attributes and default actions</dfn></h4>
@@ -549,7 +549,7 @@ interface PointerEvent : MouseEvent {
 
                     <p>For all pointer events in the table above, the {{UIEvent/detail}} [[UIEVENTS]] attribute SHOULD be 0.</p>
                     <div class="note">Many user agents expose non-standard attributes <code>fromElement</code> and <code>toElement</code> in MouseEvents to support legacy content. We encourage those user agents to set the values of those (inherited) attributes in PointerEvents to <code>null</code> to transition authors to the use of standardized alternates (<code>target</code> and <code>relatedTarget</code>).</div>
-                    <p>Similar to <code>MouseEvent</code> {{MouseEventInit/relatedTarget}}, the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
+                    <p>Similar to <code>MouseEvent</code> [[[POINTEREVENTS4#dom-mouseevent-relatedtarget|relatedTarget]]], the <code>relatedTarget</code> should be initialized to the element whose bounds the pointer just left (in the case of a {{GlobalEventHandlers/pointerover}} or <code>pointerenter</code> event) or the element whose bounds the pointer is entering (in the case of a {{GlobalEventHandlers/pointerout}} or {{GlobalEventHandlers/pointerleave}}). For other pointer events, this value will default to null. Note that when an element receives the pointer capture all the following events for that pointer are considered to be inside the boundary of the capturing element.</p>
                     <p>For {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events, all the attributes except the ones defined in the table above should be the same as the Pointer Event that caused the user agent to run the <a>process pending pointer capture</a> steps and fire the {{GlobalEventHandlers/gotpointercapture}} and {{GlobalEventHandlers/lostpointercapture}} events.</p>
                 </section>
 
@@ -741,7 +741,7 @@ function tilt2spherical(tiltX, tiltY) {
                     <li>Before the user agent fires a {{GlobalEventHandlers/pointerdown}} event for a device that <a href=#mapping-for-devices-that-do-not-support-hover>does not support hover</a> (see {{GlobalEventHandlers/pointerdown}}).</li>
                 </ul>
                 <div class="note">This event type is similar to {{GlobalEventHandlers/pointerover}} but with two differences: {{GlobalEventHandlers/pointerenter}} does not bubble, and its dispatch considers the <a>hit test</a> boundaries of even descendant elements.</div>
-                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the {{GlobalEventHandlers/pointerleave}} event.</div>
+                <div class="note">There are similarities between this event type, the <code>mouseenter</code> event described in [[POINTEREVENTS4]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the {{GlobalEventHandlers/pointerleave}} event.</div>
             </section>
 
             <section>
@@ -805,7 +805,7 @@ function tilt2spherical(tiltX, tiltY) {
             <section>
                 <h3>The <dfn data-dfn-for="GlobalEventHandlers" data-dfn-type="event">pointercancel</dfn> event</h3>
                 <p>The [=user agent=] MUST <a>fire a pointer event</a> named {{GlobalEventHandlers/pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
-                <p>The values of the following properties of the {{GlobalEventHandlers/pointercancel}} event MUST match the values of the last dispatched pointer event with the same {{PointerEvent/pointerId}}: <code>width</code>, <code>height</code>, <code>pressure</code>, <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>, <code>altitudeAngle</code>, <code>azimuthAngle</code>, <code>pointerType</code>, <code>isPrimary</code>, and the coordinates inherited from [[UIEVENTS]]. The <code>coalescedEvents</code> and <code>predictedEvents</code> lists in the {{GlobalEventHandlers/pointercancel}} event MUST be empty, and the event's {{Event/cancelable}} attribute MUST be false.</p>
+                <p>The values of the following properties of the {{GlobalEventHandlers/pointercancel}} event MUST match the values of the last dispatched pointer event with the same {{PointerEvent/pointerId}}: <code>width</code>, <code>height</code>, <code>pressure</code>, <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>, <code>altitudeAngle</code>, <code>azimuthAngle</code>, <code>pointerType</code>, <code>isPrimary</code>, and the coordinates inherited from [[POINTEREVENTS4]]. The <code>coalescedEvents</code> and <code>predictedEvents</code> lists in the {{GlobalEventHandlers/pointercancel}} event MUST be empty, and the event's {{Event/cancelable}} attribute MUST be false.</p>
             </section>
 
             <section>
@@ -829,7 +829,7 @@ function tilt2spherical(tiltX, tiltY) {
                     <li>The user agent has detected a scenario to <a>suppress a pointer event stream</a>.</li>
                 </ul>
                 <div class="note">This event type is similar to {{GlobalEventHandlers/pointerout}} but with two differences: {{GlobalEventHandlers/pointerleave}} does not bubble, and its dispatch considers the <a>hit test</a> boundaries of even descendant elements.</div>
-                <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[UIEVENTS]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the {{GlobalEventHandlers/pointerenter}} event.</div>
+                <div class="note">There are similarities between this event type, the <code>mouseleave</code> event described in [[POINTEREVENTS4]], and the CSS <code>:hover</code> pseudo-class described in [[CSS21]]. See also the {{GlobalEventHandlers/pointerenter}} event.</div>
             </section>
 
             <section>
@@ -844,9 +844,9 @@ function tilt2spherical(tiltX, tiltY) {
 
             <section>
                 <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
-                <p>This section is an addition to <a data-cite="uievents/#event-type-click">click</a>,
-                    <a data-cite="uievents/#event-type-auxclick">auxclick</a> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
-                    events defined in [[UIEVENTS]].  These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
+                <p>This section is an addition to [[[POINTEREVENTS4#click|click]]],
+                    [[[POINTEREVENTS4#auxclick|auxclick]]] and [[[POINTEREVENTS4#contextmenu|contextmenu]]]
+                    events defined in [[POINTEREVENTS4]].  These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
                 <p>These events MUST be of type <code>PointerEvent</code>, and are subject to the additional requirements mentioned in the rest of this section.</p>
                 <section>
                     <h4>Event attributes</h4>
@@ -861,7 +861,7 @@ function tilt2spherical(tiltX, tiltY) {
                     <h4>Event coordinates</h4>
                     <p>As noted in {{PointerEvent}}, [[[CSSOM-VIEW]]] proposes to redefine the various coordinate properties (<code>screenX</code>, <code>screenY</code>, <code>pageX</code>, <code>pageY</code>, <code>clientX</code>,
                         <code>clientY</code>, <code>x</code>, <code>y</code>, <code>offsetX</code>, <code>offsetY</code>) as <code>double</code>, to allow for fractional coordinates.
-                        However, this change — when applied only to {{PointerEvent}}, but not to regular {{MouseEvent}} — has proven to lead to web compatibility issues with legacy code
+                        However, this change — when applied only to {{PointerEvent}}, but not to regular [[[POINTEREVENTS4#interface-mouseevent|MouseEvent]]] — has proven to lead to web compatibility issues with legacy code
                         in the case of <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>. For this reason, user agents that have implemented the proposed
                         change in [[[CSSOM-VIEW]]] only for {{PointerEvent}} MUST convert the various coordinate properties for the <code>click</code>, <code>auxclick</code>, and <code>contextmenu</code>
                         to <code>long</code> values (as defined in the original [[[UIEVENTS]]]) using <a data-cite="ECMASCRIPT#sec-math.floor">Math.floor</a> [[ECMASCRIPT]].</p>
@@ -869,7 +869,7 @@ function tilt2spherical(tiltX, tiltY) {
 
                 <section>
                     <h4>Event dispatch</h4>
-                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event MUST follow the dispatch process defined in the [[UIEVENTS]] spec except that the event target is overridden using the algorithm below:</p>
+                    <p>A <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event MUST follow the dispatch process defined in the [[POINTEREVENTS4]] spec except that the event target is overridden using the algorithm below:</p>
                     <ol>
                         <li>
                             <p>Let |event| be the <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event being dispatched, and |userEvent| be the user interaction event that caused the firing of |event|.</p>
@@ -1445,12 +1445,12 @@ window.addEventListener("pointermove", function(event) {
         <p>Compatibility mouse events can't be prevented when a pointer event {{EventListener}} is set to be {{AddEventListenerOptions/passive}} [[DOM]].</p>
         <section>
             <h2><dfn>Tracking the effective position of the legacy mouse pointer</dfn></h2>
-            <p>While only <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. For compatibility with scripts relying on MouseEvents, the mouse transition events (<code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>) SHOULD simulate the movement of a <em>single</em> legacy mouse input. This means that the entry/exit state for every event target is valid, in accordance with [[UIEVENTS]]. User agents SHOULD guarantee this by maintaining the <dfn data-lt="effective legacy mouse pointer position">effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
+            <p>While only <a>primary pointers</a> can produce compatibility mouse events, <a href="#multiple-primary-pointers">multiple primary pointers</a> can be active simultaneously, each producing its own compatibility mouse events. For compatibility with scripts relying on MouseEvents, the mouse transition events (<code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code>) SHOULD simulate the movement of a <em>single</em> legacy mouse input. This means that the entry/exit state for every event target is valid, in accordance with [[POINTEREVENTS4]]. User agents SHOULD guarantee this by maintaining the <dfn data-lt="effective legacy mouse pointer position">effective position of the legacy mouse pointer</dfn> in the document as follows.</p>
             <p>Right before firing a {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event, or a {{GlobalEventHandlers/pointerleave}} event at the <code>window</code>, the user agent SHOULD run the following steps:</p>
             <ol>
                 <li>Let |T| be the target of the {{GlobalEventHandlers/pointerdown}}, {{GlobalEventHandlers/pointerup}} or {{GlobalEventHandlers/pointermove}} event being dispatched. For the {{GlobalEventHandlers/pointerleave}} event, unset |T|.</li>
                 <li>If |T| and current <a>effective legacy mouse pointer position</a> are both unset or they are equal, terminate these steps.</li>
-                <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[UIEVENTS]] for a mouse moving from the current <a>effective legacy mouse pointer position</a> to |T|. Consider an unset value of either current <a>effective legacy mouse pointer position</a> or |T| as an out-of-window mouse position.</li>
+                <li>Dispatch <code>mouseover</code>, <code>mouseout</code>, <code>mouseenter</code> and <code>mouseleave</code> events as per [[POINTEREVENTS4]] for a mouse moving from the current <a>effective legacy mouse pointer position</a> to |T|. Consider an unset value of either current <a>effective legacy mouse pointer position</a> or |T| as an out-of-window mouse position.</li>
                 <li>Set <a>effective legacy mouse pointer position</a> to |T|.</li>
             </ol>
             <div class="note">
@@ -1636,10 +1636,10 @@ window.addEventListener("pointermove", function(event) {
                 <dd><p>Measurable properties represent values relating to continuous pointer sensor data that is expressed using a real number or an
                     integer from a large domain. For pointer events, <code>width</code>, <code>height</code>, <code>pressure</code>,
                     <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>,
-                    <code>altitudeAngle</code>, <code>azimuthAngle</code>, and the [[UIEVENTS]] Mouse Event model properties
+                    <code>altitudeAngle</code>, <code>azimuthAngle</code>, and the [[POINTEREVENTS4]] Mouse Event model properties
                     <code>screenX</code>, <code>screenY</code>, <code>clientX</code>, <code>clientY</code> are measurable properties.</p>
                     <p>In contrast {{PointerEvent/pointerId}}, <code>pointerType</code>, <code>isPrimary</code>, and the
-                    [[UIEVENTS]] Mouse Event model properties <code>button</code>, <code>buttons</code>, <code>ctrlKey</code>,
+                    [[POINTEREVENTS4]] Mouse Event model properties <code>button</code>, <code>buttons</code>, <code>ctrlKey</code>,
                     <code>shiftKey</code>, <code>altKey</code>, and <code>metaKey</code> are not considered measurable properties,
                     as they don't relate to sensor data.</p>
                     </dd>
