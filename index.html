@@ -3370,6 +3370,7 @@ function tilt2spherical(tiltX, tiltY) {
 				readonly attribute double deltaY;
 				readonly attribute double deltaZ;
 				readonly attribute unsigned long deltaMode;
+				readonly attribute boolean momentum;
 			};
 			</pre>
 
@@ -3445,6 +3446,18 @@ function tilt2spherical(tiltX, tiltY) {
 
 					The <a>un-initialized value</a> of this attribute MUST be
 					<code>0</code>.
+				</dd>
+
+				<dt><dfn>momentum</dfn></dt>
+				<dd>
+					This attribute must be <code>true</code> if this event is
+					synthesized by the platform to simulate scroll inertia after
+					the user has ended the physical scroll interaction (e.g.
+					lifted the finger from a trackpad after a fling), and
+					<code>false</code> otherwise.
+
+					The <a>un-initialized value</a> of this attribute MUST be
+					<code>false</code>.
 				</dd>
 			</dl>
 
