@@ -9,11 +9,11 @@ jobs:
     name: Build, Validate and Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: w3c/spec-prod@v2
         with:
           W3C_ECHIDNA_TOKEN: ${{ secrets.W3C_TR_TOKEN }}
           W3C_WG_DECISION_URL: https://github.com/w3c/pointerevents/pull/330#issuecomment-692924562
           W3C_BUILD_OVERRIDE: |
              shortName: pointerevents3
-             specStatus: WD
+             specStatus: CRD
