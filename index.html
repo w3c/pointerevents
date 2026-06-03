@@ -3469,9 +3469,15 @@ function tilt2spherical(tiltX, tiltY) {
 				double deltaY = 0.0;
 				double deltaZ = 0.0;
 				unsigned long deltaMode = 0;
+				boolean momentum = false;
 			};
 			</pre>
 
+			<p class="ednote">
+				TODO: The definitions below seem redundant when we already have the corresponding
+				attributes defined above. We need to clean this up like {{PointerEventInit}}.
+			</p>
+		
 			<dl data-dfn-for="WheelEventInit">
 				<dt><dfn>deltaX</dfn></dt>
 				<dd>See <code>deltaZ</code> attribute.</dd>
@@ -3500,6 +3506,11 @@ function tilt2spherical(tiltX, tiltY) {
 					({{WheelEvent/DOM_DELTA_LINE}}), or pages scrolled
 					({{WheelEvent/DOM_DELTA_PAGE}}) if the <a>rotation</a> of the
 					wheel would have resulted in scrolling.
+				</dd>
+
+				<dt><dfn>momentum</dfn></dt>
+				<dd>
+					Initializes the {{WheelEvent/momentum}} attribute.
 				</dd>
 			</dl>
 
