@@ -63,19 +63,19 @@
         ol:not([data-class='note-list'])>li { margin-bottom: 1em; }
         img, video { max-width: 100%; }
         .intro-dom {
-        	font-size: 0.9em;
-	        font-style: italic;
+            font-size: 0.9em;
+            font-style: italic;
         }
         /* Denotes a string displayed on the keycap. */
         code.keycap {
-        	padding: 0 2px;
-        	border: 1px solid black;
-        	border-radius: 3px;
+            padding: 0 2px;
+            border: 1px solid black;
+            border-radius: 3px;
         }
 
         @media screen and (prefers-color-scheme: dark) {
             code.keycap {
-        	    border: 1px solid lightgray;
+                border: 1px solid lightgray;
             }
         }
 /* Formatting for the event sequence tables.
@@ -543,7 +543,7 @@ interface MouseEvent : UIEvent {
             </p>
             <ul>
                 <li>
-			        If the {{Event}} being constructed is a {{MouseEvent}} object or an object that derives from it, and a {{EventModifierInit}} argument was provided to the constructor, then run the following sub-steps:
+                    If the {{Event}} being constructed is a {{MouseEvent}} object or an object that derives from it, and a {{EventModifierInit}} argument was provided to the constructor, then run the following sub-steps:
                     <ul>
                         <li>
                             For each {{EventModifierInit}} argument, if the dictionary member begins with the string <code>"modifier"</code>, then let the <dfn>key modifier name</dfn> be the dictionary member's name excluding the prefix <code>"modifier"</code>, and set the {{Event}} object's [=internal key modifier state=] that matches the [=key modifier name=] to the corresponding value.
@@ -554,12 +554,12 @@ interface MouseEvent : UIEvent {
 
 
 
-		    <h5>Global State for MouseEvent</h5>
+            <h5>Global State for MouseEvent</h5>
 
             <p class="warning">
                 This section needs to be revised.
 
-			    <h6>User Agent-Level State</h6>
+                <h6>User Agent-Level State</h6>
 
 				<p>
                     The UA must maintain the following values that are shared for the entire User Agent.
@@ -569,21 +569,21 @@ interface MouseEvent : UIEvent {
                 </p>
 
 
-			    <h6>Window-Level State</h6>
+                <h6>Window-Level State</h6>
 
 				<p>
                     The UA must maintain the following values that are shared for the Window.
                 </p>
                 <p>
-				    A <dfn>last mouse element</dfn> value (initially undefined) that keeps track of the last {{Element}} that we sent a MouseEvent to.
+                    A <dfn>last mouse element</dfn> value (initially undefined) that keeps track of the last {{Element}} that we sent a MouseEvent to.
                 </p>
                 <p>
-				    A <dfn>last mouse DOM path</dfn> value (initially empty) that contains a snapshot of the ancestors {{Element}}s of the <a>last mouse element</a> when the most recent mouse event was sent.
+                    A <dfn>last mouse DOM path</dfn> value (initially empty) that contains a snapshot of the ancestors {{Element}}s of the <a>last mouse element</a> when the most recent mouse event was sent.
                 </p>
 
 
 
-		    <h5>Internal State for MouseEvent</h5>
+            <h5>Internal State for MouseEvent</h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -593,13 +593,13 @@ interface MouseEvent : UIEvent {
 				<dfn>shift flag</dfn>,
 				<dfn>control flag</dfn>,
 				<dfn>alt flag</dfn>,
-			    <dfn>altgraph flag</dfn>,
+                <dfn>altgraph flag</dfn>,
 				and <dfn>meta flag</dfn>.
-			These flags are set if the corresponding modifier key was pressed at the time
-			of the mouse event.
+                These flags are set if the corresponding modifier key was pressed at the time
+                of the mouse event.
             </p>
 
-            <h5><dfn>hit test</dfn></h4>
+            <h5><dfn>hit test</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -608,13 +608,13 @@ interface MouseEvent : UIEvent {
                 <li>Let |pos| be the x,y coordinates relative to the viewport</li>
 
 
-			    <li>Return [[CSSOM-View]]'s {{Document/elementFromPoint()}} with |pos| (the frontmost DOM element at |pos|)
-			    <p class="note">
-			    To account for <a data-cite="html/#inert">inert</a> or <a data-cite="html/#concept-fe-disabled">disabled</a> elements. this should call {{Document/elementsFromPoint()}} and reject invalid elements.
-			    </p></li>
+                <li>Return [[CSSOM-View]]'s {{Document/elementFromPoint()}} with |pos| (the frontmost DOM element at |pos|)
+                <p class="note">
+                To account for <a data-cite="html/#inert">inert</a> or <a data-cite="html/#concept-fe-disabled">disabled</a> elements. this should call {{Document/elementsFromPoint()}} and reject invalid elements.
+                </p></li>
             </ol>
 		
-		    <h5>initialize a {{MouseEvent}}</h5>
+            <h5>initialize a {{MouseEvent}}</h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -649,17 +649,15 @@ interface MouseEvent : UIEvent {
                     Set |event|.{{MouseEvent/buttons}} to <a>mouse button bitmask</a>
                 </li>
                 <li>
-			        <a>Initialize PointerLock attributes for MouseEvent</a> with |event|
+                    <a>Initialize PointerLock attributes for MouseEvent</a> with |event|
                     <p class="issue">
                         We should provide a hook for PointerLock instead of hardcoding it here.
                     </p>
                 </li>
             </ol>
 
-		
 
-		
-		    <h5><dfn>set mouse event modifiers</dfn></h5>
+            <h5><dfn>set mouse event modifiers</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -669,7 +667,7 @@ interface MouseEvent : UIEvent {
 			<li>Set |event|'s <a>shift flag</a> if <a>key modifier state</a> includes "Shift", unset it otherwise</li>
 			<li>Set |event|'s <a>control flag</a> if <a>key modifier state</a> includes "Control", unset it otherwise</li>
 			<li>Set |event|'s <a>alt flag</a> if <a>key modifier state</a> includes "Alt", unset it otherwise</li>
-		    <li>Set |event|'s <a>altgraph flag</a> if <a>key modifier state</a> includes "AltGraph", unset it otherwise</li>
+            <li>Set |event|'s <a>altgraph flag</a> if <a>key modifier state</a> includes "AltGraph", unset it otherwise</li>
 			<li>Set |event|'s <a>meta flag</a> if <a>key modifier state</a> includes "Meta", unset it otherwise</li>
 
 			<li>Set |event|.{{MouseEvent/shiftKey}} to true if the event's <a>shift flag</a> is set, false otherwise</li>
@@ -679,8 +677,7 @@ interface MouseEvent : UIEvent {
             </ol>
 		
 
-		
-		    <h5><dfn data-lt="creating a cancelable MouseEvent">create a cancelable MouseEvent</dfn></h5>
+            <h5><dfn data-lt="creating a cancelable MouseEvent">create a cancelable MouseEvent</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -699,7 +696,7 @@ interface MouseEvent : UIEvent {
 		
 
 		
-		    <h5><dfn data-lt="creating a non-cancelable MouseEvent">create a non-cancelable MouseEvent</dfn></h5>
+            <h5><dfn data-lt="creating a non-cancelable MouseEvent">create a non-cancelable MouseEvent</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -717,8 +714,7 @@ interface MouseEvent : UIEvent {
 
 		
 
-		
-		    <h5><dfn>calculate MouseEvent button attribute</dfn></h5>
+            <h5><dfn>calculate MouseEvent button attribute</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -735,8 +731,7 @@ interface MouseEvent : UIEvent {
             </ol>
 		
 
-		
-		    <h5><dfn>set MouseEvent attributes from native</dfn></h5>
+            <h5><dfn>set MouseEvent attributes from native</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -756,8 +751,7 @@ interface MouseEvent : UIEvent {
 
 		
 
-		
-		    <h5><dfn>handle native mouse down</dfn></h5>
+            <h5><dfn>handle native mouse down</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -795,40 +789,35 @@ interface MouseEvent : UIEvent {
             </ol>
 		
 
-		
-		    <h5><dfn>handle native mouse up</dfn></h5>
+            <h5><dfn>handle native mouse up</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			    <li>Let |native| be the native mouseup
-			    <p class="note">
-			    Other mouse events can occur between the mousedown and mouseup.
-			    </p>
+                <li>Let |native| be the native mouseup
+                    <p class="note">
+                    Other mouse events can occur between the mousedown and mouseup.
+                    </p>
                 </li>
-			    <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-
-			    <li>Update the <a>mouse button bitmask</a> as follows:
-				    <ol class="algorithm">
-			        <li>If |mbutton| is the primary mouse button, then clear the 0x01 bit</li>
-				    <li>If |mbutton| is the secondary mouse button, then clear the 0x02 bit</li>
-				    <li>If |mbutton| is the auxiliary (middle) mouse button, then clear the 0x04 bit</li>
+                <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
+                <li>Update the <a>mouse button bitmask</a> as follows:
+                    <ol class="algorithm">
+                        <li>If |mbutton| is the primary mouse button, then clear the 0x01 bit</li>
+                        <li>If |mbutton| is the secondary mouse button, then clear the 0x02 bit</li>
+                        <li>If |mbutton| is the auxiliary (middle) mouse button, then clear the 0x04 bit</li>
                     </ol>
                 </li>
-			    <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-			    <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mouseup", |target|</li>
-			    <li><a>Set MouseEvent attributes from native</a> with |native|</li>
-
-			    <li><a>Maybe send pointerup event</a> with |event|</li>
-
-			    <li><a>dispatch</a> |event| at |target|</li>
+                <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+                <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mouseup", |target|</li>
+                <li><a>Set MouseEvent attributes from native</a> with |native|</li>
+                <li><a>Maybe send pointerup event</a> with |event|</li>
+                <li><a>dispatch</a> |event| at |target|</li>
             </ol>
 
 		
 
-		
-		    <h5><dfn>handle native mouse click</dfn></h5>
+            <h5><dfn>handle native mouse click</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -846,7 +835,7 @@ interface MouseEvent : UIEvent {
 		
 
 		
-		    <h5><dfn>send click event</dfn></h5>
+            <h5><dfn>send click event</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -857,7 +846,7 @@ interface MouseEvent : UIEvent {
 			<li>Let |mbutton| be 1  (primary mouse button by default)</li>
 			<li>If |native| is valid, then
 				<ol class="algorithm">
-			    <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
+                    <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
                 </ol>
             </li>
 			<li>Set |eventType| to "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
@@ -866,9 +855,9 @@ interface MouseEvent : UIEvent {
 
 			<li>If |native| is valid, then
 				<ol class="algorithm">
-			    <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
-				<li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
-				<li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
+                    <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
+                    <li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
+                    <li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
                 </ol>
             </li>
 			<li><a>dispatch</a> |event| at |target|
@@ -896,8 +885,7 @@ interface MouseEvent : UIEvent {
             </ol>
 		
 
-		
-		    <h5><dfn>handle native mouse double click</dfn></h5>
+            <h5><dfn>handle native mouse double click</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
@@ -923,120 +911,93 @@ interface MouseEvent : UIEvent {
             </ol>
 		
 
-		
-		    <h5><dfn>handle native mouse move</dfn></h5>
+            <h5><dfn>handle native mouse move</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
 			<li>Let |native| be the native mouse move
-			<p class="issue">
-			This algorithm makes assumptions about the dispatch of PointerEvents because they are not currently specified explicitly. Once <a href="https://github.com/w3c/pointerevents/issues/285">pointerevents/285</a> is resolved this may need to be updated.
-			</p>
+                <p class="issue">
+                This algorithm makes assumptions about the dispatch of PointerEvents because they are not currently specified explicitly. Once <a href="https://github.com/w3c/pointerevents/issues/285">pointerevents/285</a> is resolved this may need to be updated.
+                </p>
             </li>
 			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-
 			<li>Let |targetDomPath| be [=tree/inclusive ancestors=] of |target|</li>
-
 			<li>Generate events for leaving the current element:
-
 				<ol class="algorithm">
-			    <li>If <a>last mouse element</a> is defined and not equal to |target|, then
-
-					<ol class="algorithm">
-			        <li>Let |mouseout| be the result of <a>creating a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
-
-					<p class="ednote">
-					TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
-					</p>
-                    </li>
-                    </ol>
+                    <li>If <a>last mouse element</a> is defined and not equal to |target|, then
+                        <ol class="algorithm">
+                            <li>Let |mouseout| be the result of <a>creating a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
+                                <p class="ednote">
+                                TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
+                                </p>
+                            </li>
+                        </ol>
 					<li><a>Maybe send pointerout event</a> with |mouseout|</li>
-
 					<li><a>Dispatch</a> |mouseout| at |target|
-
 						<p class="note">
 						Verify behavior when canceled (appears to have no effect).
 						</p>
                     </li>
 					<li>Let |leaveElements| be a copy of <a>last mouse DOM path</a> with all elements common to |targetDomPath| removed.</li>
-
 					<li>For each |element| in |leaveElements|, do
-
 						<p class="ednote">
 						Handle case where |element| has been deleted.
 						Also case where it has been moved: Should the DOM mutation have triggered
 						a mouseleave event? Should we sent it now? Should it be dropped?
 						Need to verify what current browsers do.
 						</p>
-
-						<ol class="algorithm">
-			            <li>Let |mouseleave| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
-
-						<li>Set |mouseleave|.{{Event.composed}}
- = false
-
-							<p class="note">
-							Check compat: Value of event.composed. Spec says false. Chrome/Linux = true. Firefox/Linux = false.
-							</p>
-                        </li>
-						<li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
-
-						<li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
+                        <ol class="algorithm">
+                            <li>Let |mouseleave| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
+                            <li>Set |mouseleave|.{{Event.composed}} = false
+                                <p class="note">
+                                Check compat: Value of event.composed. Spec says false. Chrome/Linux = true. Firefox/Linux = false.
+                                </p>
+                            </li>
+                            <li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
+                            <li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
                         </ol>
-                        </li>
-                </li>
+                    </li>
                 </ol>
             </li>
 			<li>Generate events for entering the new element:
-
 				<ol class="algorithm">
-			    <li>If |target| is not <a>last mouse element</a>, then
-
-					<ol class="algorithm">
-			        <li>Let |mouseover| be the result of <a>creating a cancelable MouseEvent</a> with "mouseover" and |target|
-
-					<p class="ednote">
-					TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
-					</p>
-                    </li>
-					<li><a>Maybe send pointerover event</a> with |mouseover|</li>
-
-					<li><a>Dispatch</a> |mouseout| at |target|
-
-						<p class="note">
-						Need to verify behavior when canceled (appears to have no effect).
-						</p>
-                    </li>
-					<li>Let |enterElements| be a copy of |targetDomPath| with all elements common to <a>last mouse DOM path</a> removed.</li>
-
-					<li>For each |element| in |enterElements|, do
-
-						<p class="note">
-						Handle case where |element| has been deleted or moved.
-						</p>
+                    <li>If |target| is not <a>last mouse element</a>, then
+                        <ol class="algorithm">
+                            <li>Let |mouseover| be the result of <a>creating a cancelable MouseEvent</a> with "mouseover" and |target|
+                                <p class="ednote">
+                                    TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
+                                </p>
+                            </li>
+                            <li><a>Maybe send pointerover event</a> with |mouseover|</li>
+                            <li><a>Dispatch</a> |mouseout| at |target|
+                                <p class="note">
+                                Need to verify behavior when canceled (appears to have no effect).
+                                </p>
+                            </li>
+                            <li>Let |enterElements| be a copy of |targetDomPath| with all elements common to <a>last mouse DOM path</a> removed.</li>
+                            <li>For each |element| in |enterElements|, do
+                                <p class="note">
+                                    Handle case where |element| has been deleted or moved.
+                                </p>
 
 						<ol class="algorithm">
-			            <li>Let |mouseenter| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
-
-						<li>Set |mouseenter|.{{Event.composed}}
- = false
-
-							<p class="note">
-							Check compat: Value of event.composed. Spec says false.
-							Chrome/Linux = true.
-							Firefox/Linux = false.
-							</p>
-                        </li>
-						<li><a>Maybe send pointerenter event</a> with |mouseenter|
-
-						<p class="note">
-						Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
-						</p>
-                        </li>
-						<li>Let |result| be <a>dispatch</a> |mouseenter| at |element|</li>
-                    </ol>
+                            <li>Let |mouseenter| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
+                            <li>Set |mouseenter|.{{Event.composed}} = false
+                                <p class="note">
+                                Check compat: Value of event.composed. Spec says false.
+                                Chrome/Linux = true.
+                                Firefox/Linux = false.
+                                </p>
+                            </li>
+                            <li><a>Maybe send pointerenter event</a> with |mouseenter|
+                                <p class="note">
+                                    Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
+                                </p>
+                            </li>
+                            <li>Let |result| be <a>dispatch</a> |mouseenter| at |element|</li>
+                        </ol>
                     </li>
 					<li>Set <a>last mouse element</a> to |target|</li>
 					<li>Set <a>last mouse DOM path</a> to |targetDomPath|</li>
@@ -1045,200 +1006,194 @@ interface MouseEvent : UIEvent {
             </ol>
             </li>
 			<li>Let |mousemove| be the result of <a>creating a cancelable MouseEvent</a> with "mousemove" and |element|</li>
-
 			<li><a>Set PointerLock attributes for mousemove</a></li>
-
 			<li><a>Maybe send pointermove event</a> with |mousemove|</li>
-
 			<li><a>Dispatch</a> |mousemove| at |element|</li>
             </ol>
 		
 
-		
-		    <h5><dfn>maybe show context menu</dfn></h5>
+            <h5><dfn>maybe show context menu</dfn></h5>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native| be the native mousedown or pointer event</li>
-			<li>Let |target| be the {{EventTarget}} of the event
-				<ol class="algorithm">
-			    <li>Let |menuevent| be the result of <a>creating a PointerEvent</a> with "contextmenu", |target|</li>
-				<li>If |native| is valid, then
-					<ol class="algorithm">
-			        <li><a>Set MouseEvent attributes from native</a> with |native|</li>
+                <li>Let |native| be the native mousedown or pointer event</li>
+                <li>Let |target| be the {{EventTarget}} of the event
+                    <ol class="algorithm">
+                        <li>Let |menuevent| be the result of <a>creating a PointerEvent</a> with "contextmenu", |target|</li>
+                        <li>If |native| is valid, then
+                            <ol class="algorithm">
+                                <li><a>Set MouseEvent attributes from native</a> with |native|</li>
+                            </ol>
+                        </li>
+                        <li>Let |result| be <a>dispatch</a> |menuevent| at |target|</li>
+                        <li>If |result| is true, then show the UA context menu</li>
                     </ol>
                 </li>
-				<li>Let |result| be <a>dispatch</a> |menuevent| at |target|</li>
-				<li>If |result| is true, then show the UA context menu</li>
-                </ol>
-            </li>
             </ol>
 			<p class="note">
-			To handle a context menu triggered by the keyboard, call this algorithm with |native| = null and |target| = currently focused element.
+                To handle a context menu triggered by the keyboard, call this algorithm with |native| = null and |target| = currently focused element.
 			</p>
 		
 
-
-
-	    <h4>Mouse Event Order</h4>
+        <h4>Mouse Event Order</h4>
 
 		<p>
             Certain mouse events defined in this specification MUST occur in a set order relative to one another. The following shows the event sequence that MUST occur when a pointing device's cursor is moved over an element:
         </p>
         <table class="event-sequence-table">
-     <thead>
-      <tr>
-       <td class="cell-number">#
-       <th>Event Type
-       <th style="text-align:center">Element
-       <th>Notes
-     <tbody>
-      <tr>
-       <td class="cell-number">1
-       <td>{{mousemove}}
-       <td style="text-align:center">
-       <td>
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved into element A...</em>
-      <tr>
-       <td class="cell-number">2
-       <td>{{mouseover}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">3
-       <td>{{mouseenter}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">4
-       <td>{{mousemove}}
-       <td style="text-align:center">A
-       <td>Multiple {{mousemove}} events
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved out of element A...</em>
-      <tr>
-       <td class="cell-number">5
-       <td>{{mouseout}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">6
-       <td>{{mouseleave}}
-       <td style="text-align:center">A
-       <td>
-    </table>
+            <thead>
+                <tr>
+                <td class="cell-number">#
+                <th>Event Type
+                <th style="text-align:center">Element
+                <th>Notes
+            <tbody>
+                <tr>
+                <td class="cell-number">1
+                <td>{{mousemove}}
+                <td style="text-align:center">
+                <td>
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved into element A...</em>
+                <tr>
+                <td class="cell-number">2
+                <td>{{mouseover}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">3
+                <td>{{mouseenter}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">4
+                <td>{{mousemove}}
+                <td style="text-align:center">A
+                <td>Multiple {{mousemove}} events
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved out of element A...</em>
+                <tr>
+                <td class="cell-number">5
+                <td>{{mouseout}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">6
+                <td>{{mouseleave}}
+                <td style="text-align:center">A
+                <td>
+        </table>
 		<p>
             When a pointing device is moved into an element <em>A</em>, and then into a nested element <em>B</em> and then back out again, the following sequence of events MUST occur:
         </p>
 
-   <table class="event-sequence-table">
-     <thead>
-      <tr>
-       <td class="cell-number">
-       <th>Event Type
-       <th style="text-align:center">Element
-       <th>Notes
-     <tbody>
-      <tr>
-       <td class="cell-number">1
-       <td>{{mousemove}}</a>
-       <td style="text-align:center">
-       <td>
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved into element A...</em>
-      <tr>
-       <td class="cell-number">2
-       <td>{{mouseover}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">3
-       <td>{{mouseenter}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">4
-       <td>{{mousemove}}
-       <td style="text-align:center">A
-       <td>Multiple {{mousemove}} events
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved into nested element B...</em>
-      <tr>
-       <td class="cell-number">5
-       <td>{{mouseout}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">6
-       <td>{{mouseover}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">7
-       <td>{{mouseenter}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">8
-       <td>{{mousemove}}
-       <td style="text-align:center">B
-       <td>Multiple {{mousemove}} events
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved from element B into A...</em>
-      <tr>
-       <td class="cell-number">9
-       <td>{{mouseout}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">10
-       <td>{{mouseleave}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">11
-       <td>{{mouseover}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">12
-       <td>{{mousemove}}
-       <td style="text-align:center">A
-       <td>Multiple {{mousemove}} events
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved out of element A...</em>
-      <tr>
-       <td class="cell-number">13
-       <td>{{mouseout}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">14
-       <td>{{mouseleave}}
-       <td style="text-align:center">A
-       <td>
-    </table>
+        <table class="event-sequence-table">
+            <thead>
+                <tr>
+                <td class="cell-number">
+                <th>Event Type
+                <th style="text-align:center">Element
+                <th>Notes
+            <tbody>
+                <tr>
+                <td class="cell-number">1
+                <td>{{mousemove}}
+                <td style="text-align:center">
+                <td>
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved into element A...</em>
+                <tr>
+                <td class="cell-number">2
+                <td>{{mouseover}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">3
+                <td>{{mouseenter}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">4
+                <td>{{mousemove}}
+                <td style="text-align:center">A
+                <td>Multiple {{mousemove}} events
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved into nested element B...</em>
+                <tr>
+                <td class="cell-number">5
+                <td>{{mouseout}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">6
+                <td>{{mouseover}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">7
+                <td>{{mouseenter}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">8
+                <td>{{mousemove}}
+                <td style="text-align:center">B
+                <td>Multiple {{mousemove}} events
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved from element B into A...</em>
+                <tr>
+                <td class="cell-number">9
+                <td>{{mouseout}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">10
+                <td>{{mouseleave}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">11
+                <td>{{mouseover}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">12
+                <td>{{mousemove}}
+                <td style="text-align:center">A
+                <td>Multiple {{mousemove}} events
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved out of element A...</em>
+                <tr>
+                <td class="cell-number">13
+                <td>{{mouseout}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">14
+                <td>{{mouseleave}}
+                <td style="text-align:center">A
+                <td>
+        </table>
 
 		<p>
             Sometimes elements can be visually overlapped using CSS. In the following example, three elements labeled A, B, and C all have the same dimensions and absolute position on a web page. Element C is a child of B, and B is a child of A in the DOM:
@@ -1252,135 +1207,135 @@ interface MouseEvent : UIEvent {
             When the pointing device is moved from outside the element stack to the element labeled C and then moved out again, the following series of events MUST occur:
         </p>
 
-	    <table class="event-sequence-table">
-     <thead>
-      <tr>
-       <td class="cell-number">
-       <th>Event Type
-       <th style="text-align:center">Element
-       <th>Notes
-     <tbody>
-      <tr>
-       <td class="cell-number">1
-       <td>{{mousemove}}
-       <td style="text-align:center">
-       <td>
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved into element C, the topmost element in the stack</em>
-      <tr>
-       <td class="cell-number">2
-       <td>{{mouseover}}
-       <td style="text-align:center">C
-       <td>
-      <tr>
-       <td class="cell-number">3
-       <td>{{mouseenter}}
-       <td style="text-align:center">A
-       <td>
-      <tr>
-       <td class="cell-number">4
-       <td>{{mouseenter}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">5
-       <td>{{mouseenter}}
-       <td style="text-align:center">C
-       <td>
-      <tr>
-       <td class="cell-number">6
-       <td>{{mousemove}}
-       <td style="text-align:center">C
-       <td>Multiple {{mousemove}} events
-      <tr>
-       <td class="cell-number">
-       <td>
-       <td style="text-align:center">
-       <td><em>Pointing device is moved out of element C...</em>
-      <tr>
-       <td class="cell-number">7
-       <td>{{mouseout}}
-       <td style="text-align:center">C
-       <td>
-      <tr>
-       <td class="cell-number">8
-       <td>{{mouseleave}}
-       <td style="text-align:center">C
-       <td>
-      <tr>
-       <td class="cell-number">9
-       <td>{{mouseleave}}
-       <td style="text-align:center">B
-       <td>
-      <tr>
-       <td class="cell-number">10
-       <td>{{mouseleave}}
-       <td style="text-align:center">A
-       <td>
-    </table>
+        <table class="event-sequence-table">
+            <thead>
+                <tr>
+                <td class="cell-number">
+                <th>Event Type
+                <th style="text-align:center">Element
+                <th>Notes
+            <tbody>
+                <tr>
+                <td class="cell-number">1
+                <td>{{mousemove}}
+                <td style="text-align:center">
+                <td>
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved into element C, the topmost element in the stack</em>
+                <tr>
+                <td class="cell-number">2
+                <td>{{mouseover}}
+                <td style="text-align:center">C
+                <td>
+                <tr>
+                <td class="cell-number">3
+                <td>{{mouseenter}}
+                <td style="text-align:center">A
+                <td>
+                <tr>
+                <td class="cell-number">4
+                <td>{{mouseenter}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">5
+                <td>{{mouseenter}}
+                <td style="text-align:center">C
+                <td>
+                <tr>
+                <td class="cell-number">6
+                <td>{{mousemove}}
+                <td style="text-align:center">C
+                <td>Multiple {{mousemove}} events
+                <tr>
+                <td class="cell-number">
+                <td>
+                <td style="text-align:center">
+                <td><em>Pointing device is moved out of element C...</em>
+                <tr>
+                <td class="cell-number">7
+                <td>{{mouseout}}
+                <td style="text-align:center">C
+                <td>
+                <tr>
+                <td class="cell-number">8
+                <td>{{mouseleave}}
+                <td style="text-align:center">C
+                <td>
+                <tr>
+                <td class="cell-number">9
+                <td>{{mouseleave}}
+                <td style="text-align:center">B
+                <td>
+                <tr>
+                <td class="cell-number">10
+                <td>{{mouseleave}}
+                <td style="text-align:center">A
+                <td>
+        </table>
 
 		<p class="note">
-		    The {{mouseover}}/{{mouseout}} events are only fired once, while {{mouseenter}}/{{mouseleave}} events are fired three times (once to each element).
+            The {{mouseover}}/{{mouseout}} events are only fired once, while {{mouseenter}}/{{mouseleave}} events are fired three times (once to each element).
 		</p>
 
 		<p>
             The following is the typical sequence of events when a button associated with a pointing device (e.g., a mouse button or trackpad) is pressed and released over an element:
         </p>
 
-		 <table class="event-sequence-table">
-     <thead>
-      <tr>
-       <td class="cell-number">
-       <th>Event Type
-       <th>Notes
-     <tbody>
-      <tr>
-       <td class="cell-number">1
-       <td>{{mousedown}}
-       <td>
-      <tr>
-       <td class="cell-number">2
-       <td>{{mousemove}}
-       <td>OPTIONAL, multiple events, some limits
-      <tr>
-       <td class="cell-number">3
-       <td>{{mouseup}}
-       <td>
-      <tr>
-       <td class="cell-number">4
-       <td>{{click}}
-       <td>
-      <tr>
-       <td class="cell-number">5
-       <td>{{mousemove}}
-       <td>OPTIONAL, multiple events, some limits
-      <tr>
-       <td class="cell-number">6
-       <td>{{mousedown}}
-       <td>
-      <tr>
-       <td class="cell-number">7
-       <td>{{mousemove}}</a>
-       <td>OPTIONAL, multiple events, some limits
-      <tr>
-       <td class="cell-number">8
-       <td>{{mouseup}}</a>
-       <td>
-      <tr>
-       <td class="cell-number">9
-       <td>{{click}}
-       <td>
-      <tr>
-       <td class="cell-number">10
-       <td>{{dblclick}}
-       <td>
-    </table>
+        <table class="event-sequence-table">
+            <thead>
+                <tr>
+                <td class="cell-number">
+                <th>Event Type
+                <th>Notes
+            <tbody>
+                <tr>
+                <td class="cell-number">1
+                <td>{{mousedown}}
+                <td>
+                <tr>
+                <td class="cell-number">2
+                <td>{{mousemove}}
+                <td>OPTIONAL, multiple events, some limits
+                <tr>
+                <td class="cell-number">3
+                <td>{{mouseup}}
+                <td>
+                <tr>
+                <td class="cell-number">4
+                <td>{{click}}
+                <td>
+                <tr>
+                <td class="cell-number">5
+                <td>{{mousemove}}
+                <td>OPTIONAL, multiple events, some limits
+                <tr>
+                <td class="cell-number">6
+                <td>{{mousedown}}
+                <td>
+                <tr>
+                <td class="cell-number">7
+                <td>{{mousemove}}
+                <td>OPTIONAL, multiple events, some limits
+                <tr>
+                <td class="cell-number">8
+                <td>{{mouseup}}
+                <td>
+                <tr>
+                <td class="cell-number">9
+                <td>{{click}}
+                <td>
+                <tr>
+                <td class="cell-number">10
+                <td>{{dblclick}}
+                <td>
+        </table>
 
 		<p class="note">
-		The lag time, degree, distance, and number of {{mousemove}} events allowed between the {{mousedown}} and {{mouseup}} events while still firing a {{click}} or {{dblclick}} event will be implementation-, device-, and platform-specific. This tolerance can aid users that have physical disabilities like unsteady hands when these users interact with a pointing device.
+            The lag time, degree, distance, and number of {{mousemove}} events allowed between the {{mousedown}} and {{mouseup}} events while still firing a {{click}} or {{dblclick}} event will be implementation-, device-, and platform-specific. This tolerance can aid users that have physical disabilities like unsteady hands when these users interact with a pointing device.
 		</p>
 
 		<p>
@@ -1419,56 +1374,57 @@ interface MouseEvent : UIEvent {
 
 	<h4>Mouse Event Types</h4>
 
-		The Mouse event types are listed below. In the case of nested elements,
+		<p>The Mouse event types are listed below. In the case of nested elements,
 		mouse event types are always targeted at the most deeply nested element.
 		Ancestors of the targeted element MAY use bubbling to obtain
-		notification of mouse events which occur within its descendent elements.
+		notification of mouse events which occur within its descendent elements.</p>
 
 	<h5><dfn class="export" data-dfn-type="event">auxclick</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>auxclick</code></strong>
-      <tr>
-       <th>Interface
-       <td>{{PointerEvent}}
-      <tr>
-       <th>Sync / Async
-       <td>Sync
-      <tr>
-       <th>Bubbles
-       <td>Yes
-      <tr>
-       <th>Trusted Targets
-       <td><code>Element</code>       <tr>
-       <th>Cancelable
-       <td>Yes
-      <tr>
-       <th>Composed
-       <td>Yes
-      <tr>
-       <th>Default action
-       <td>Varies
-      <tr>
-       <th>Context<br> (trusted events)
-       <td>
-        <ul>
-         <li>{{Event.target}} : [=topmost event target=]
-         <li>{{UIEvent.view}} : {{Window}}
-         <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
-         <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
-         <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
-         <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
-         <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
-         <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
-         <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
-         <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
-         <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
-         <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [[PointerEvents]] spec.
-        </ul>
-    </table>
+    <table class="event-definition">
+        <tbody>
+            <tr>
+            <th>Type
+            <td><strong><code>auxclick</code></strong>
+            <tr>
+            <th>Interface
+            <td>{{PointerEvent}}
+            <tr>
+            <th>Sync / Async
+            <td>Sync
+            <tr>
+            <th>Bubbles
+            <td>Yes
+            <tr>
+            <th>Trusted Targets
+            <td><code>Element</code>       <tr>
+            <th>Cancelable
+            <td>Yes
+            <tr>
+            <th>Composed
+            <td>Yes
+            <tr>
+            <th>Default action
+            <td>Varies
+            <tr>
+            <th>Context<br> (trusted events)
+            <td>
+            <ul>
+                <li>{{Event.target}} : [=topmost event target=]
+                <li>{{UIEvent.view}} : {{Window}}
+                <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
+                <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
+                <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
+                <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
+                <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
+                <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
+                <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
+                <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
+                <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
+                <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [[PointerEvents]] spec.
+            </ul>
+            </table>
+
             <p>
 			The {{auxclick}} event type MUST be dispatched on the <a>topmost
 			event target</a> indicated by the pointer, when the user presses
@@ -1544,49 +1500,50 @@ myDiv.addEventListener("auxclick", function(e) {
 
 		<h5><dfn class="export" data-dfn-type="event">click</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>click</code></strong>
-      <tr>
-       <th>Interface
-       <td>{{PointerEvent}}
-      <tr>
-       <th>Sync / Async
-       <td>Sync
-      <tr>
-       <th>Bubbles
-       <td>Yes
-      <tr>
-       <th>Trusted Targets
-       <td><code>Element</code>       <tr>
-       <th>Cancelable
-       <td>Yes
-      <tr>
-       <th>Composed
-       <td>Yes
-      <tr>
-       <th>Default action
-       <td>Varies
-      <tr>
-       <th>Context<br> (trusted events)
-       <td>
-        <ul>
-         <li>{{Event.target}} : [=topmost event target=]
-         <li>{{UIEvent.view}} : {{Window}}
-         <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
-         <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
-         <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
-         <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
-         <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
-         <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
-         <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
-         <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
-         <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
-         <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [PointerEvents] spec.
-        </ul>
-    </table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                <th>Type
+                <td><strong><code>click</code></strong>
+                <tr>
+                <th>Interface
+                <td>{{PointerEvent}}
+                <tr>
+                <th>Sync / Async
+                <td>Sync
+                <tr>
+                <th>Bubbles
+                <td>Yes
+                <tr>
+                <th>Trusted Targets
+                <td><code>Element</code>       <tr>
+                <th>Cancelable
+                <td>Yes
+                <tr>
+                <th>Composed
+                <td>Yes
+                <tr>
+                <th>Default action
+                <td>Varies
+                <tr>
+                <th>Context<br> (trusted events)
+                <td>
+                <ul>
+                    <li>{{Event.target}} : [=topmost event target=]
+                    <li>{{UIEvent.view}} : {{Window}}
+                    <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
+                    <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
+                    <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
+                    <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
+                    <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
+                    <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
+                    <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
+                    <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
+                    <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
+                    <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [PointerEvents] spec.
+                </ul>
+        </table>
+
             <p>
 			The {{click}} event type MUST be dispatched on the <a>topmost
 			event target</a> indicated by the pointer, when the user presses
@@ -1651,7 +1608,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			{{MouseEvent/button}} or {{MouseEvent/buttons}} attributes. Typical
 			<a>default actions</a> of the {{click}} event type are as follows:
 
-		    <ul>
+            <ul>
 				<li>If the [=Event/target=] has associated activation behavior,
 				the <a>default action</a> MUST be to execute that activation
 				behavior.</li>
@@ -1661,45 +1618,46 @@ myDiv.addEventListener("auxclick", function(e) {
 
 		<h5><dfn class="export" data-dfn-type="event">contextmenu</dfn></h5>
 
-	<table class="event-definition">
-    <tbody>
-      <tr><th>Type</th>
-	    <td><strong><code>contextmenu</code></strong></td>
-		<tr><th>Interface</th>
-		<td>{{PointerEvent}}</td>
-		<tr><th>Sync / Async</th>
-		<td>Sync</td>
-		<tr><th>Bubbles</th>
-		<td>Yes</td>
-		<tr><th>Trusted Targets</th>
-		<td><code>Element</code></td>
-		<tr><th>Cancelable</th>
-		<td>Yes</td>
-		<tr><th>Composed</th>
-		<td>Yes</td>
-		<tr><th>Default action</th>
-		<td>Invoke a context menu if supported.</td>
-		<tr><th>Context<br>(trusted events)</th>
-	    <td><ul>
-			<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-			<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-			<li>{{UIEvent}}.{{UIEvent/detail}} : 0</li>
-			<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
-			<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
-			<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
-			<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
-			<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
-			<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
-			<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-			<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-			<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code>modifier was active, otherwise <code>false</code></li>
-			<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code>  modifier was active, otherwise <code>false</code></li>
-			<li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-			<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-			<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
-			</ul>
-		</td></tr>
-	</table>
+        <table class="event-definition">
+            <tbody>
+                <tr><th>Type</th>
+                <td><strong><code>contextmenu</code></strong></td>
+                <tr><th>Interface</th>
+                <td>{{PointerEvent}}</td>
+                <tr><th>Sync / Async</th>
+                <td>Sync</td>
+                <tr><th>Bubbles</th>
+                <td>Yes</td>
+                <tr><th>Trusted Targets</th>
+                <td><code>Element</code></td>
+                <tr><th>Cancelable</th>
+                <td>Yes</td>
+                <tr><th>Composed</th>
+                <td>Yes</td>
+                <tr><th>Default action</th>
+                <td>Invoke a context menu if supported.</td>
+                <tr><th>Context<br>(trusted events)</th>
+                <td><ul>
+                    <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                    <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                    <li>{{UIEvent}}.{{UIEvent/detail}} : 0</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code>modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code>  modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                    </ul>
+                </td></tr>
+        </table>
+
 			<p>
 			A <a data-cite="infra">user agent</a> MUST dispatch this event before invoking a context menu.
 
@@ -1714,54 +1672,57 @@ myDiv.addEventListener("auxclick", function(e) {
 
 		<h5><dfn class="export" data-dfn-type="event">dblclick</dfn></h5>
 
-<table class="event-definition">
-    <tbody>
-    <tr>
-    	<th>Type</th>
-    	<td><strong><code>dblclick</code></strong></td>
-	</tr>
-	<tr>
-		<th>Interface</th>
-		<td>{{MouseEvent}}</td>
-	</tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td>
-	</tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td>
-	</tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td>
-	</tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td>
-	</tr>
-	<tr>
-		<th>Composed</th><td>Yes</td>
-	</tr>
-	<tr>
-		<th>Default action</th><td>None</td>
-	</tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+            <tr>
+                <th>Type</th>
+                <td><strong><code>dblclick</code></strong></td>
+            </tr>
+            <tr>
+                <th>Interface</th>
+                <td>{{MouseEvent}}</td>
+            </tr>
+            <tr>
+                <th>Sync / Async</th><td>Sync</td>
+            </tr>
+            <tr>
+                <th>Bubbles</th><td>Yes</td>
+            </tr>
+            <tr>
+                <th>Trusted Targets</th><td><code>Element</code></td>
+            </tr>
+            <tr>
+                <th>Cancelable</th><td>Yes</td>
+            </tr>
+            <tr>
+                <th>Composed</th><td>Yes</td>
+            </tr>
+            <tr>
+                <th>Default action</th><td>None</td>
+            </tr>
+            <tr>
+                <th>Context<br> (trusted events)</th>
+                <td>
+                    <ul>
+                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                        <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
 
 			<p>
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when the primary button
@@ -1791,54 +1752,57 @@ myDiv.addEventListener("auxclick", function(e) {
 
 		<h5><dfn class="export" data-dfn-type="event">mousedown</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mousedown</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td></tr>
-	<tr>
-		<th>Composed</th><td>Yes</td></tr>
-	<tr>
-		<th>Default action</th><td>Varies: Start a drag/drop operation; start a text selection; start a scroll/pan
-		 interaction (in combination with the middle mouse button, if supported)</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the {{mousedown}}, {{UIEvent/detail}} will contain the value <code>1</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                <th>Type
+                <td><strong><code>mousedown</code></strong>
+                </tr>
+                <tr>
+                <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                <th>Bubbles</th><td>Yes</td></tr>
+                <tr>
+                <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                <th>Cancelable</th><td>Yes</td></tr>
+                <tr>
+                <th>Composed</th><td>Yes</td></tr>
+                <tr>
+                <th>Default action</th><td>Varies: Start a drag/drop operation; start a text selection; start a scroll/pan
+                interaction (in combination with the middle mouse button, if supported)</td></tr>
+                <tr>
+                <th>Context<br> (trusted events)</th>
+                <td>
+                    <ul>
+                        <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                        <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the {{mousedown}}, {{UIEvent/detail}} will contain the value <code>1</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                        the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                        the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                        within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                        within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                        within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                        within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
 
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			button is pressed over an element.
@@ -1856,63 +1820,66 @@ within the containing element</li>
 
 		<h5><dfn class="export" data-dfn-type="event">mouseenter</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mouseenter</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>No</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>No</td></tr>
-	<tr>
-		<th>Composed</th><td>No</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-		     a pointing device is exiting, if any.</li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                <th>Type
+                <td><strong><code>mouseenter</code></strong>
+                </tr>
+                <tr>
+                <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                <th>Bubbles</th><td>No</td></tr>
+                <tr>
+                <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                <th>Cancelable</th><td>No</td></tr>
+                <tr>
+                <th>Composed</th><td>No</td></tr>
+                <tr>
+                <th>Default action</th><td>None</td></tr>
+                <tr>
+                <th>Context<br> (trusted events)</th>
+                <td>
+                    <ul>
+                        <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                        <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                        the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                        the screen</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                        within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                        within the viewport</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                        within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                        within the containing element</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
+                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
+                        a pointing device is exiting, if any.</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved onto the boundaries of an element or one of its descendent
 			elements.  A <a data-cite="infra">user agent</a> MUST also dispatch this event when the
 			element or one of its descendants moves to be underneath the primary
 			pointing device. This event type is similar to {{mouseover}}, but
 			differs in that it does not bubble, and MUST NOT be dispatched when
 			the pointer device moves from an element onto the boundaries of one
-			of its descendent elements.
+			of its descendent elements.</p>
 
 			<p class="note">
 			There are similarities between this event type and the CSS
@@ -1923,54 +1890,57 @@ within the containing element</li>
 
 		<h5><dfn class="export" data-dfn-type="event">mouseleave</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mouseleave</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>No</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>No</td></tr>
-	<tr>
-		<th>Composed</th><td>No</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-		     a pointing device is exiting, if any.</li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                <th>Type
+                <td><strong><code>mouseleave</code></strong>
+                    </tr>
+                <tr>
+                    <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                    <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                    <th>Bubbles</th><td>No</td></tr>
+                <tr>
+                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                    <th>Cancelable</th><td>No</td></tr>
+                <tr>
+                    <th>Composed</th><td>No</td></tr>
+                <tr>
+                    <th>Default action</th><td>None</td></tr>
+                <tr>
+                    <th>Context<br> (trusted events)</th>
+                    <td>
+                        <ul>
+                            <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
+                                        a pointing device is exiting, if any.</li>
+                        </ul>
+                    </td>
+                </tr>
+        </table>
 
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved off of the boundaries of an element and all of its
@@ -1990,53 +1960,56 @@ within the containing element</li>
 
 		<h5><dfn class="export" data-dfn-type="event">mousemove</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mousemove</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td></tr>
-	<tr>
-		<th>Composed</th><td>Yes</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                <th>Type
+                <td><strong><code>mousemove</code></strong>
+                </tr>
+                <tr>
+                    <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                    <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                    <th>Bubbles</th><td>Yes</td></tr>
+                <tr>
+                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                    <th>Cancelable</th><td>Yes</td></tr>
+                <tr>
+                    <th>Composed</th><td>Yes</td></tr>
+                <tr>
+                    <th>Default action</th><td>None</td></tr>
+                <tr>
+                    <th>Context<br> (trusted events)</th>
+                    <td>
+                        <ul>
+                            <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                        </ul>
+                    </td>
+                </tr>
+        </table>
 
 			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved while it is over an element.  The frequency rate of events
@@ -2062,61 +2035,64 @@ within the containing element</li>
 
 		<h5><dfn class="export" data-dfn-type="event">mouseout</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mouseout</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td></tr>
-	<tr>
-		<th>Composed</th><td>Yes</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-		     a pointing device is entering, if any.</li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                    <th>Type
+                    <td><strong><code>mouseout</code></strong>
+                </tr>
+                <tr>
+                    <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                    <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                    <th>Bubbles</th><td>Yes</td></tr>
+                <tr>
+                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                    <th>Cancelable</th><td>Yes</td></tr>
+                <tr>
+                    <th>Composed</th><td>Yes</td></tr>
+                <tr>
+                    <th>Default action</th><td>None</td></tr>
+                <tr>
+                    <th>Context<br> (trusted events)</th>
+                    <td>
+                        <ul>
+                            <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
+                                        a pointing device is entering, if any.</li>
+                        </ul>
+                    </td>
+                </tr>
+        </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved off of the boundaries of an element or when the element is
 			moved to be no longer underneath the primary pointing device.
 			This event type is similar to {{mouseleave}}, but differs in that
 			does bubble, and that it MUST be dispatched when the pointer device
-			moves from an element onto the boundaries of one of its descendent elements.
+			moves from an element onto the boundaries of one of its descendent elements.</p>
 
 			<p class="note">
 			See also the {{mouseover}} event type.
@@ -2124,119 +2100,125 @@ within the containing element</li>
 
 		<h5><dfn class="export" data-dfn-type="event">mouseover</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mouseover</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td></tr>
-	<tr>
-		<th>Composed</th><td>Yes</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-		     a pointing device is entering, if any.</li>
-			</ul></td></tr></table>
+        <table class="event-definition">
+            <tbody>
+                <tr>
+                    <th>Type
+                    <td><strong><code>mouseover</code></strong>
+                </tr>
+                <tr>
+                    <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                <tr>
+                    <th>Sync / Async</th><td>Sync</td></tr>
+                <tr>
+                    <th>Bubbles</th><td>Yes</td></tr>
+                <tr>
+                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                <tr>
+                    <th>Cancelable</th><td>Yes</td></tr>
+                <tr>
+                    <th>Composed</th><td>Yes</td></tr>
+                <tr>
+                    <th>Default action</th><td>None</td></tr>
+                <tr>
+                    <th>Context<br> (trusted events)</th>
+                    <td>
+                        <ul>
+                            <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                            the screen</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                            within the viewport</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                            within the containing element</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
+                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
+                                        a pointing device is entering, if any.</li>
+                        </ul>
+                    </td>
+                </tr>
+        </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved onto the boundaries of an element or when the element is
 			moved to be underneath the primary pointing device.
 			This event type is similar to {{mouseenter}}, but differs in
 			that it bubbles, and that it MUST be dispatched when the pointer device moves onto the
-			boundaries of an element whose ancestor element is the [=Event/target=] for the same <a>event listener</a> instance.
+			boundaries of an element whose ancestor element is the [=Event/target=] for the same <a>event listener</a> instance.</p>
 
 			<p class="note">
 			See also the {{mouseout}} event type.
 			</p>
 
-		        <h5><dfn class="export" data-dfn-type="event">mouseup</dfn></h5>
+            <h5><dfn class="export" data-dfn-type="event">mouseup</dfn></h5>
 
-<table class="event-definition">
-     <tbody>
-      <tr>
-       <th>Type
-       <td><strong><code>mouseup</code></strong>
-		</tr>
-	<tr>
-		<th>Interface</th><td>{{MouseEvent}}</td></tr>
-	<tr>
-		<th>Sync / Async</th><td>Sync</td></tr>
-	<tr>
-		<th>Bubbles</th><td>Yes</td></tr>
-	<tr>
-		<th>Trusted Targets</th><td><code>Element</code></td></tr>
-	<tr>
-		<th>Cancelable</th><td>Yes</td></tr>
-	<tr>
-		<th>Composed</th><td>Yes</td></tr>
-	<tr>
-		<th>Default action</th><td>None</td></tr>
-	<tr>
-		<th>Context<br> (trusted events)</th>
-		<td>
-			<ul>
-<li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-<li>{{UIEvent}}.{{UIEvent/detail}} : indicates the
-		     <a href="#current-click-count">current click count</a> incremented by one.</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-the screen</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-within the viewport</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-within the containing element</li>
-<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-<li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
-			</ul></td></tr></table>
+            <table class="event-definition">
+                <tbody>
+                    <tr>
+                        <th>Type
+                        <td><strong><code>mouseup</code></strong>
+                    </tr>
+                    <tr>
+                        <th>Interface</th><td>{{MouseEvent}}</td></tr>
+                    <tr>
+                        <th>Sync / Async</th><td>Sync</td></tr>
+                    <tr>
+                        <th>Bubbles</th><td>Yes</td></tr>
+                    <tr>
+                        <th>Trusted Targets</th><td><code>Element</code></td></tr>
+                    <tr>
+                        <th>Cancelable</th><td>Yes</td></tr>
+                    <tr>
+                        <th>Composed</th><td>Yes</td></tr>
+                    <tr>
+                        <th>Default action</th><td>None</td></tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                                <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                                <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the
+                                            <a href="#current-click-count">current click count</a> incremented by one.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
+                                the screen</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
+                                the screen</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
+                                within the viewport</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
+                                within the viewport</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
+                                within the containing element</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
+                                within the containing element</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
+                                <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
+                                <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
+                                <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
+                                <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+            </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
-			button is released over an element.
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			button is released over an element.</p>
 
 			<p class="note">
 			In some implementation environments, such as a browser, a
@@ -2752,128 +2734,127 @@ function tilt2spherical(tiltX, tiltY) {
         </section>
 
         <section>
-	        <h3>PointerEvent Algorithms</h3>
-		    <section>
-		        <h4>initialize a {{PointerEvent}}</h4>
+            <h3>PointerEvent Algorithms</h3>
+            <section>
+            <h4>initialize a {{PointerEvent}}</h4>
                 <p>
                     To <dfn class="export">initialize a PointerEvent</dfn> with |event|, |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
                 </p>
                 <ol  class="algorithm">
-		            <li>[=Initialize a MouseEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
+                    <li>[=Initialize a MouseEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
                     <li>Initialize all other attributes to default {{PointerEvent}} values.</li>
                 </ol>
-		    </section>
-	        <section>
-		        <h4>create a {{PointerEvent}}</h4>
+        </section>
+        <section>
+            <h4>create a {{PointerEvent}}</h4>
                 <p>
                     To <dfn class="export"
                     data-lt="creating a PointerEvent
                     |created a PointerEvent">create a {{PointerEvent}}</dfn> with |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
                 </p>
-			    <ol class="algorithm">
-			        <li>Let |event| be the result of
+                <ol class="algorithm">
+                    <li>Let |event| be the result of
                         [=creating an event=] using {{PointerEvent}}</li>
-			        <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
-			        <li>Return |event|</li>
-              </ol>
-		    </section>
-		    <section>
-		        <h4><dfn class="export"
+                    <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
+                    <li>Return |event|</li>
+                </ol>
+            </section>
+            <section>
+                <h4><dfn class="export"
                     data-lt="creating PointerEvent from MouseEvent
                             |created PointerEvent from MouseEvent"
                     >create {{PointerEvent}} from {{MouseEvent}}</dfn></h4>
-			    <ol class="algorithm">
-			        <li>Let |eventType| be a {{DOMString}} containing the event type</li>
-			        <li>Let |mouseevent| be the corresponding {{MouseEvent}}</li>
-			        <li>Let |event| be the result of
-				        [=creating an event=] using {{PointerEvent}}</li>
-			        <li>Let |target| be the |mouseevent|.{{Event/target}}</li>
-			        <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |target|</li>
-			        <li>Copy {{MouseEvent}} attributes from |mouseevent| into |event|</li>
-			        <li>Return |event|</li>
+                <ol class="algorithm">
+                    <li>Let |eventType| be a {{DOMString}} containing the event type</li>
+                    <li>Let |mouseevent| be the corresponding {{MouseEvent}}</li>
+                    <li>Let |event| be the result of
+                        [=creating an event=] using {{PointerEvent}}</li>
+                    <li>Let |target| be the |mouseevent|.{{Event/target}}</li>
+                    <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |target|</li>
+                    <li>Copy {{MouseEvent}} attributes from |mouseevent| into |event|</li>
+                    <li>Return |event|</li>
                 </ol>
             </section>
-		    <section>
-		        <h4><dfn class="export">maybe send pointerout event</dfn></h4>
-			    <ol class="algorithm">
-			        <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-			        <li>Set pointerevent attributes
-				<p class="ednote">TODO.</p></li>
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
-		        </ol>
-            </section>
-		    <section>
-		        <h4><dfn class="export">maybe send pointerleave event</dfn></h4>
-			    <ol class="algorithm">
+            <section>
+                <h4><dfn class="export">maybe send pointerout event</dfn></h4>
+                <ol class="algorithm">
                     <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-			        <li>Set pointerevent attributes
-				<p class="ednote">TODO.</p></li>
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
-		        </ol>
-            </section>
-		    <section>
-		        <h4><dfn class="export">maybe send pointerover event</dfn></h4>
-			    <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-			        <li>Set pointerevent attributes
-				<p class="ednote">TODO.</p></li>
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-		    </section>
-		    <section>
-		        <h4><dfn class="export">maybe send pointerenter event</dfn></h4>
-
-			    <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-			        <li>Set pointerevent attributes
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+                    <li>Set pointerevent attributes
                 <p class="ednote">TODO.</p></li>
                     <li>Let |target| be the |mouseout|.{{Event/target}}</li>
                     <li>[=dispatch=] |pointerout| at |target|</li>
                 </ol>
-		    </section>
-		    <section>
-		        <h4><dfn class="export">maybe send pointermove event</dfn></h4>
-
-			    <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-			<p class="ednote">
-			Can this send pointermove and pointerrawupdate? Or do we need 2 methods?
-			</p>
-			<p class="ednote">
-			What is needed to properly define how pointermove events are coalesced?
-			</p>
-                    </li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-			        <li>Set pointerevent attributes
-
-				<p class="ednote">TODO.</p>
-                    </li>
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
+            </section>
+            <section>
+                <h4><dfn class="export">maybe send pointerleave event</dfn></h4>
+                <ol class="algorithm">
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+                    <li>Set pointerevent attributes
+                <p class="ednote">TODO.</p></li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
                 </ol>
-		    </section>
+            </section>
+            <section>
+                <h4><dfn class="export">maybe send pointerover event</dfn></h4>
+                <ol class="algorithm">
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+                    <li>Set pointerevent attributes
+                <p class="ednote">TODO.</p></li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+            </section>
+            <section>
+                <h4><dfn class="export">maybe send pointerenter event</dfn></h4>
 
-		    <section>
-		        <h4><dfn class="export">maybe send pointerdown event</dfn></h4>
+                <ol class="algorithm">
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+                    <li>Set pointerevent attributes
+                <p class="ednote">TODO.</p></li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+            </section>
+            <section>
+                <h4><dfn class="export">maybe send pointermove event</dfn></h4>
 
-			    <ol class="algorithm">
+                <ol class="algorithm">
                     <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-			        <p class="note">
-			            Unlike <code>mousedown</code> events, {{pointerdown}}
-			            events are not nested when multiple buttons are pressed.
-			            The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
-			        </p>
+                        <p class="ednote">
+                        Can this send pointermove and pointerrawupdate? Or do we need 2 methods?
+                        </p>
+                        <p class="ednote">
+                        What is needed to properly define how pointermove events are coalesced?
+                        </p>
                     </li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
-			        <li>Set pointerevent attributes
-				<p class="ednote">TODO.</p>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
+                    <li>Set pointerevent attributes
+                        <p class="ednote">TODO.</p>
+                    </li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
+                </ol>
+            </section>
+
+            <section>
+                <h4><dfn class="export">maybe send pointerdown event</dfn></h4>
+
+                <ol class="algorithm">
+                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
+                    <p class="note">
+                        Unlike <code>mousedown</code> events, {{pointerdown}}
+                        events are not nested when multiple buttons are pressed.
+                        The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
+                    </p>
+                    </li>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
+                    <li>Set pointerevent attributes
+                        <p class="ednote">TODO.</p>
                     </li>
                     <li>Let |target| be the |mouseout|.{{Event/target}}</li>
                     <li>[=dispatch=] |pointerout| at |target|</li>
@@ -2885,30 +2866,30 @@ function tilt2spherical(tiltX, tiltY) {
 
                 <ol class="algorithm">
                     <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
                 </ol>
             </section>
 
-		    <section>
-		        <h4><dfn class="export">maybe send pointerup event</dfn></h4>
+            <section>
+                <h4><dfn class="export">maybe send pointerup event</dfn></h4>
 
-			    <ol class="algorithm">
+                <ol class="algorithm">
                     <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-			        <p class="note">
-			            Unlike <code>mouseup</code> events, {{pointerup}} events are not nested when multiple buttons are pressed. The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
-			        </p>
+                    <p class="note">
+                        Unlike <code>mouseup</code> events, {{pointerup}} events are not nested when multiple buttons are pressed. The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
+                    </p>
                     </li>
-			        <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
-			        <li>Set pointerevent attributes
-				<p class="ednote">
-				TODO.
-				</p>
+                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
+                    <li>Set pointerevent attributes
+                        <p class="ednote">
+                        TODO.
+                        </p>
                     </li>
-			        <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-			        <li>[=dispatch=] |pointerout| at |target|</li>
+                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
+                    <li>[=dispatch=] |pointerout| at |target|</li>
                 </ol>
-		    </section>
+            </section>
 
         </section>
 
@@ -2968,7 +2949,7 @@ function tilt2spherical(tiltX, tiltY) {
                 which is used for finding the <code>target</code> could be different from its coalesced events.</p>
                 <p>Note that if there is already another {{pointerrawupdate}} with the same {{PointerEvent/pointerId}} that hasn't been dispatched
                 in the [=event loop=], the
-                 <a data-cite="infra">user agent</a> MAY coalesce the new {{pointerrawupdate}} with that event instead of creating a new [=task=].
+                <a data-cite="infra">user agent</a> MAY coalesce the new {{pointerrawupdate}} with that event instead of creating a new [=task=].
                 This may cause {{pointerrawupdate}} to have coalesced events, and
                 they will all be delivered as <a>coalesced events</a> of one {{pointerrawupdate}} event as soon as
                 the event is processed in the [=event loop=].
@@ -3093,75 +3074,74 @@ function tilt2spherical(tiltX, tiltY) {
         </section>
     </section>
 
-    	<section>
-<h3 id="events-wheelevents">Wheel Events and interfaces</h3>
+    <section>
+        <h3 id="events-wheelevents">Wheel Events and interfaces</h3>
 
-	Wheels are devices that can be rotated in one or more spatial dimensions, and which can be associated with a pointer device. The coordinate system depends on the
-	environment configuration.
+        <p>Wheels are devices that can be rotated in one or more spatial dimensions, and which can be associated with a pointer device. The coordinate system depends on the environment configuration.</p>
 
-	<p class="example">
-	The user's environment might be configured to associate vertical scrolling
-	with rotation along the y-axis, horizontal scrolling with rotation along the
-	x-axis, and zooming with rotation along the z-axis.
-	</p>
+        <p class="example">
+        The user's environment might be configured to associate vertical scrolling
+        with rotation along the y-axis, horizontal scrolling with rotation along the
+        x-axis, and zooming with rotation along the z-axis.
+        </p>
 
-	The deltaX, deltaY, and deltaZ attributes of {{WheelEvent}} objects indicate
-	a measurement along their respective axes in units of pixels, lines, or
-	pages. The reported measurements are provided after an environment-specific
-	algorithm translates the actual rotation/movement of the wheel device into
-	the appropriate values and units.
+        <p>The deltaX, deltaY, and deltaZ attributes of {{WheelEvent}} objects indicate
+        a measurement along their respective axes in units of pixels, lines, or
+        pages. The reported measurements are provided after an environment-specific
+        algorithm translates the actual rotation/movement of the wheel device into
+        the appropriate values and units.</p>
 
-	<p class="note">
-	A user's environment settings can be customized to interpret actual rotation/movement
-	of a wheel device in different ways.
-	One movement of a common <q>dented</q> mouse wheel can produce a measurement of 162 pixels
-	(162 is just an example value, actual values can depend on the current screen
-	dimensions of the user-agent).
-	But a user can change their default environment settings to speed-up their mouse wheel,
-	increasing this number.
-	Furthermore, some mouse wheel software can support acceleration (the faster the wheel
-	is rotated/moved, the greater the <a>delta</a> of each measurement) or even sub-pixel <a>rotation</a>
-	measurements.
-	Because of this, authors can not assume a given <a>rotation</a> amount in one user agent will
-	produce the same <a>delta</a> value in all user agents.
-	</p>
+        <p class="note">
+        A user's environment settings can be customized to interpret actual rotation/movement
+        of a wheel device in different ways.
+        One movement of a common <q>dented</q> mouse wheel can produce a measurement of 162 pixels
+        (162 is just an example value, actual values can depend on the current screen
+        dimensions of the user-agent).
+        But a user can change their default environment settings to speed-up their mouse wheel,
+        increasing this number.
+        Furthermore, some mouse wheel software can support acceleration (the faster the wheel
+        is rotated/moved, the greater the <a>delta</a> of each measurement) or even sub-pixel <a>rotation</a>
+        measurements.
+        Because of this, authors can not assume a given <a>rotation</a> amount in one user agent will
+        produce the same <a>delta</a> value in all user agents.
+        </p>
 
-	The sign (positive or negative) of the values of the deltaX, deltaY, and deltaZ attributes
-	MUST be consistent between multiple dispatches of the
-	{{wheel}} event while the
-	motion of the actual wheel device is rotating/moving in the same direction.
-	If a user agent scrolls as the default action of the
-	{{wheel}} event then the sign
-	of the <a>delta</a> SHOULD be given by a right-hand coordinate system where positive X,
-	Y, and Z axes are directed towards the right-most edge, bottom-most edge, and farthest
-	depth (away from the user) of the document, respectively.
+        <p>The sign (positive or negative) of the values of the deltaX, deltaY, and deltaZ attributes
+        MUST be consistent between multiple dispatches of the
+        {{wheel}} event while the
+        motion of the actual wheel device is rotating/moving in the same direction.
+        If a user agent scrolls as the default action of the
+        {{wheel}} event then the sign
+        of the <a>delta</a> SHOULD be given by a right-hand coordinate system where positive X,
+        Y, and Z axes are directed towards the right-most edge, bottom-most edge, and farthest
+        depth (away from the user) of the document, respectively.</p>
 
-	<p class="note">
-	Individual user agents can (depending on their environment and hardware configuration)
-	interpret the same physical user interaction on the wheel differently.
-	For example, a vertical swipe on the edge of a trackpad from top to bottom can be
-	interpreted as a wheel action intended to either scroll the
-	page down or to pan the page up (i.e., resulting in either a positive or negative
-	deltaY value respectively).
-	</p>
+        <p class="note">
+        Individual user agents can (depending on their environment and hardware configuration)
+        interpret the same physical user interaction on the wheel differently.
+        For example, a vertical swipe on the edge of a trackpad from top to bottom can be
+        interpreted as a wheel action intended to either scroll the
+        page down or to pan the page up (i.e., resulting in either a positive or negative
+        deltaY value respectively).
+        </p>
 
-	A <a data-cite="infra">user agent</a> MUST create a <a>wheel event transaction</a> when the first wheel event
-	is fired, so that all subsequent wheel events within a implementation-specific amount of
-	time can be targetted at the same element. A <dfn>wheel event transaction</dfn> is series of
-	wheel events that are associated with a single user gesture. The
-	<a>wheel event transaction</a> MUST have an associated event target that is the
-	<a>topmost event target</a> at the time the first wheel event occurs in the group.
+        <p>A <a data-cite="infra">user agent</a> MUST create a <a>wheel event transaction</a> when the first wheel event
+        is fired, so that all subsequent wheel events within a implementation-specific amount of
+        time can be targetted at the same element. A <dfn>wheel event transaction</dfn> is series of
+        wheel events that are associated with a single user gesture. The
+        <a>wheel event transaction</a> MUST have an associated event target that is the
+        <a>topmost event target</a> at the time the first wheel event occurs in the group.</p>
 
-	<p class="example">
-	If a series of wheel events targetted in a scrollable element start above a child element,
-	later events for the same user gesture may occur over the child element.
-	</p>
+        <p class="example">
+        If a series of wheel events targetted in a scrollable element start above a child element,
+        later events for the same user gesture may occur over the child element.
+        </p>
 
-	<h4 id="interface-wheelevent"><code>WheelEvent</code> interface</h4>
+        <h4 id="interface-wheelevent"><code>WheelEvent</code> interface</h4>
 
-	<p>The {{WheelEvent}} interface provides specific contextual information associated with {{wheel}} events.</p>
+        <p>The {{WheelEvent}} interface provides specific contextual information associated with {{wheel}} events.</p>
 
-	<p>To create an instance of the {{WheelEvent}} interface, use the {{WheelEvent}} constructor, passing an optional {{WheelEventInit}} dictionary.</p>
+        <p>To create an instance of the {{WheelEvent}} interface, use the {{WheelEvent}} constructor, passing an optional {{WheelEventInit}} dictionary.</p>
 
 <pre class="idl">
 dictionary WheelEventInit : MouseEventInit {
@@ -3290,9 +3270,9 @@ interface WheelEvent : MouseEvent {
 
 <table class="event-definition">
     <tbody>
-    	<tr>
-    	<th>Type</th>
-    	<td><strong><code>wheel</code></strong></td>
+        <tr>
+        <th>Type</th>
+        <td><strong><code>wheel</code></strong></td>
 		</tr>
 		<tr>
 			<th>Interface</th>
@@ -3312,7 +3292,7 @@ interface WheelEvent : MouseEvent {
 			</tr>
 		<tr>
 			<th>Cancelable</th>
-			<td><a href="#cancelability-of-wheel-events">Varies</td>
+			<td><a href="#cancelability-of-wheel-events">Varies</a></td>
 			</tr>
 		<tr>
 			<th>Composed</th>
@@ -3345,7 +3325,7 @@ interface WheelEvent : MouseEvent {
 				<li>{{WheelEvent}}.{{WheelEvent/deltaZ}} : expected amount that the page will scroll along the z-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the z-axis</li>
 				<li>{{WheelEvent}}.{{WheelEvent/deltaMode}} : unit indicator (pixels, lines, or pages) for the deltaX, deltaY, and deltaZ attributes</li>
 				</ul>
-			 </td>
+			</td>
 		</tr>
 	</tbody>
 </table>
@@ -3389,7 +3369,6 @@ interface WheelEvent : MouseEvent {
 			<a href="https://dom.spec.whatwg.org/#observing-event-listeners">observes
 			that there are no non-passive listeners</a> for the event.
 			</p>
-
 
 </section>
 
@@ -3506,8 +3485,8 @@ partial interface Navigator {
                 <dd><p>The getter steps are:
                     <ol>
                         <li>Let |emulated maxTouchPoints| be the result of
-                          <a data-cite="WEBDRIVER-BIDI#webdriver-bidi-emulated-max-touch-points">WebDriver BiDi emulated max touch points</a>
-                          [[!WEBDRIVER-BIDI]].</li>
+                            <a data-cite="WEBDRIVER-BIDI#webdriver-bidi-emulated-max-touch-points">WebDriver BiDi emulated max touch points</a>
+                            [[!WEBDRIVER-BIDI]].</li>
                         <li>If |emulated maxTouchPoints| is not null, return
                             |emulated maxTouchPoints|.</li>
                         <li><p>Return the maximum number of simultaneous touch contacts supported by
@@ -3728,7 +3707,7 @@ partial interface Navigator {
             this approach helps in reducing the amount of event handling the  <a data-cite="infra">user agent</a> MUST perform,
             it will naturally reduce the granularity and fidelity when tracking a pointer position,
             particularly for fast and large movements. Using the
-           {{PointerEvent/getCoalescedEvents}} method
+            {{PointerEvent/getCoalescedEvents}} method
             it is possible for applications to access the raw, un-coalesced position changes. These
             allow for a more precise handling of pointer movement data. In the case of drawing
             applications, for instance, the un-coalesced events can be used to draw smoother curves that
@@ -3980,8 +3959,8 @@ window.addEventListener("pointermove", function(event) {
 
                 <figure id="legacy-pointer-transition">
                     <video controls>
-                        <source src="images/legacy-pointer-animation.webm" type="video/webm" />
-                        <source src="images/legacy-pointer-animation.mp4" type="video/mp4" />
+                        <source src="images/legacy-pointer-animation.webm" type="video/webm">
+                        <source src="images/legacy-pointer-animation.mp4" type="video/mp4">
                     </video>
                     <figcaption>
                         Simultaneous mouse pointer (white cursor) and touch pointer (white "hand" cursor) causing the single legacy mouse input
