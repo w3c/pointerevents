@@ -1390,22 +1390,11 @@ interface MouseEvent : UIEvent {
             <th>Interface
             <td>{{PointerEvent}}
             <tr>
-            <th>Sync / Async
-            <td>Sync
-            <tr>
             <th>Bubbles
             <td>Yes
             <tr>
-            <th>Trusted Targets
-            <td><code>Element</code>       <tr>
             <th>Cancelable
             <td>Yes
-            <tr>
-            <th>Composed
-            <td>Yes
-            <tr>
-            <th>Default action
-            <td>Varies
             <tr>
             <th>Context<br> (trusted events)
             <td>
@@ -1509,22 +1498,11 @@ myDiv.addEventListener("auxclick", function(e) {
                 <th>Interface
                 <td>{{PointerEvent}}
                 <tr>
-                <th>Sync / Async
-                <td>Sync
-                <tr>
                 <th>Bubbles
                 <td>Yes
                 <tr>
-                <th>Trusted Targets
-                <td><code>Element</code>       <tr>
                 <th>Cancelable
                 <td>Yes
-                <tr>
-                <th>Composed
-                <td>Yes
-                <tr>
-                <th>Default action
-                <td>Varies
                 <tr>
                 <th>Context<br> (trusted events)
                 <td>
@@ -1624,18 +1602,10 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td><strong><code>contextmenu</code></strong></td>
                 <tr><th>Interface</th>
                 <td>{{PointerEvent}}</td>
-                <tr><th>Sync / Async</th>
-                <td>Sync</td>
                 <tr><th>Bubbles</th>
                 <td>Yes</td>
-                <tr><th>Trusted Targets</th>
-                <td><code>Element</code></td>
                 <tr><th>Cancelable</th>
                 <td>Yes</td>
-                <tr><th>Composed</th>
-                <td>Yes</td>
-                <tr><th>Default action</th>
-                <td>Invoke a context menu if supported.</td>
                 <tr><th>Context<br>(trusted events)</th>
                 <td><ul>
                     <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
@@ -1659,7 +1629,7 @@ myDiv.addEventListener("auxclick", function(e) {
         </table>
 
 			<p>
-			A <a data-cite="infra">user agent</a> MUST dispatch this event before invoking a context menu.
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event before invoking a context menu.</p>
 
 			<p>
 			When the {{contextmenu}} event is triggered by right mouse button, the
@@ -1683,22 +1653,10 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td>{{MouseEvent}}</td>
             </tr>
             <tr>
-                <th>Sync / Async</th><td>Sync</td>
-            </tr>
-            <tr>
                 <th>Bubbles</th><td>Yes</td>
             </tr>
             <tr>
-                <th>Trusted Targets</th><td><code>Element</code></td>
-            </tr>
-            <tr>
                 <th>Cancelable</th><td>Yes</td>
-            </tr>
-            <tr>
-                <th>Composed</th><td>Yes</td>
-            </tr>
-            <tr>
-                <th>Default action</th><td>None</td>
             </tr>
             <tr>
                 <th>Context<br> (trusted events)</th>
@@ -1724,20 +1682,18 @@ myDiv.addEventListener("auxclick", function(e) {
             </tr>
         </table>
 
-			<p>
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when the primary button
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when the primary button
 			of a pointing device is clicked twice over an element. The
 			definition of a double click depends on the environment
 			configuration, except that the event target MUST be the same between
 			{{mousedown}}, {{mouseup}}, and {{dblclick}}. This event
 			type MUST be dispatched after the event type {{click}} if a click
 			and double click occur simultaneously, and after the event type
-			{{mouseup}} otherwise.
+			{{mouseup}} otherwise.</p>
 
-			<p>
-			As with the {{click}} event, the {{dblclick}} event should
+			<p>As with the {{click}} event, the {{dblclick}} event should
 			only be fired for the primary pointer button. Secondary buttons MUST
-			NOT fire {{dblclick}} events.
+			NOT fire {{dblclick}} events.</p>
 
 			<p class="note">
 			Canceling the {{click}} event does not affect the firing of a
@@ -1761,18 +1717,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                 <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                 <th>Bubbles</th><td>Yes</td></tr>
                 <tr>
-                <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                 <th>Cancelable</th><td>Yes</td></tr>
-                <tr>
-                <th>Composed</th><td>Yes</td></tr>
-                <tr>
-                <th>Default action</th><td>Varies: Start a drag/drop operation; start a text selection; start a scroll/pan
-                interaction (in combination with the middle mouse button, if supported)</td></tr>
                 <tr>
                 <th>Context<br> (trusted events)</th>
                 <td>
@@ -1804,8 +1751,8 @@ myDiv.addEventListener("auxclick", function(e) {
             </tr>
         </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
-			button is pressed over an element.
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			button is pressed over an element.</p>
 
 			<p class="note">
 			Many implementations use the {{mousedown}} event to begin a
@@ -1829,17 +1776,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                 <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                 <th>Bubbles</th><td>No</td></tr>
                 <tr>
-                <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                 <th>Cancelable</th><td>No</td></tr>
-                <tr>
-                <th>Composed</th><td>No</td></tr>
-                <tr>
-                <th>Default action</th><td>None</td></tr>
                 <tr>
                 <th>Context<br> (trusted events)</th>
                 <td>
@@ -1899,17 +1838,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                     <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                    <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                     <th>Bubbles</th><td>No</td></tr>
                 <tr>
-                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                     <th>Cancelable</th><td>No</td></tr>
-                <tr>
-                    <th>Composed</th><td>No</td></tr>
-                <tr>
-                    <th>Default action</th><td>None</td></tr>
                 <tr>
                     <th>Context<br> (trusted events)</th>
                     <td>
@@ -1942,14 +1873,14 @@ myDiv.addEventListener("auxclick", function(e) {
                 </tr>
         </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved off of the boundaries of an element and all of its
 			descendent elements.  A <a data-cite="infra">user agent</a> MUST also dispatch this event
 			when the element or one of its descendants moves to be no longer underneath
 			the primary pointing device. This event type is similar to {{mouseout}},
 			but differs in that does not bubble, and that it MUST NOT be
 			dispatched until the pointing device has left the boundaries of the
-			element and the boundaries of all of its children.
+			element and the boundaries of all of its children.</p>
 
 			<p class="note">
 			There are similarities between this event type and the CSS
@@ -1969,17 +1900,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                     <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                    <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                     <th>Bubbles</th><td>Yes</td></tr>
                 <tr>
-                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                     <th>Cancelable</th><td>Yes</td></tr>
-                <tr>
-                    <th>Composed</th><td>Yes</td></tr>
-                <tr>
-                    <th>Default action</th><td>None</td></tr>
                 <tr>
                     <th>Context<br> (trusted events)</th>
                     <td>
@@ -2011,14 +1934,14 @@ myDiv.addEventListener("auxclick", function(e) {
                 </tr>
         </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a pointing device
 			is moved while it is over an element.  The frequency rate of events
 			while the pointing device is moved is implementation-, device-, and
 			platform-specific, but multiple consecutive {{mousemove}} events
 			SHOULD be fired for sustained pointer-device movement, rather than a
 			single event for each instance of mouse movement.  Implementations
 			are encouraged to determine the optimal frequency rate to balance
-			responsiveness with performance.
+			responsiveness with performance.</p>
 
 			<p class="note">
 			In some implementation environments, such as a browser,
@@ -2044,17 +1967,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                     <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                    <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                     <th>Bubbles</th><td>Yes</td></tr>
                 <tr>
-                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                     <th>Cancelable</th><td>Yes</td></tr>
-                <tr>
-                    <th>Composed</th><td>Yes</td></tr>
-                <tr>
-                    <th>Default action</th><td>None</td></tr>
                 <tr>
                     <th>Context<br> (trusted events)</th>
                     <td>
@@ -2109,17 +2024,9 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                     <th>Interface</th><td>{{MouseEvent}}</td></tr>
                 <tr>
-                    <th>Sync / Async</th><td>Sync</td></tr>
-                <tr>
                     <th>Bubbles</th><td>Yes</td></tr>
                 <tr>
-                    <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                <tr>
                     <th>Cancelable</th><td>Yes</td></tr>
-                <tr>
-                    <th>Composed</th><td>Yes</td></tr>
-                <tr>
-                    <th>Default action</th><td>None</td></tr>
                 <tr>
                     <th>Context<br> (trusted events)</th>
                     <td>
@@ -2174,17 +2081,9 @@ myDiv.addEventListener("auxclick", function(e) {
                     <tr>
                         <th>Interface</th><td>{{MouseEvent}}</td></tr>
                     <tr>
-                        <th>Sync / Async</th><td>Sync</td></tr>
-                    <tr>
                         <th>Bubbles</th><td>Yes</td></tr>
                     <tr>
-                        <th>Trusted Targets</th><td><code>Element</code></td></tr>
-                    <tr>
                         <th>Cancelable</th><td>Yes</td></tr>
-                    <tr>
-                        <th>Composed</th><td>Yes</td></tr>
-                    <tr>
-                        <th>Default action</th><td>None</td></tr>
                     <tr>
                         <th>Context<br> (trusted events)</th>
                         <td>
@@ -3279,28 +3178,12 @@ interface WheelEvent : MouseEvent {
 			<td>{{WheelEvent}}</td>
 			</tr>
 		<tr>
-			<th>Sync / Async</th>
-			<td>Async</td>
-			</tr>
-		<tr>
 			<th>Bubbles</th>
 			<td>Yes</td>
 			</tr>
 		<tr>
-			<th>Trusted Targets</th>
-			<td><code>Element</code></td>
-			</tr>
-		<tr>
 			<th>Cancelable</th>
 			<td><a href="#cancelability-of-wheel-events">Varies</a></td>
-			</tr>
-		<tr>
-			<th>Composed</th>
-			<td>Yes</td>
-			</tr>
-		<tr>
-			<th>Default action </th>
-			<td>Scroll (or zoom) the document</td>
 			</tr>
 		<tr>
 			<th>Context<br> (trusted events)</th>
@@ -3330,20 +3213,20 @@ interface WheelEvent : MouseEvent {
 	</tbody>
 </table>
 
-			A <a data-cite="infra">user agent</a> MUST dispatch this event when a mouse wheel has
+			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a mouse wheel has
 			been rotated around any axis, or when an equivalent input device
 			(such as a mouse-ball, certain tablets or touchpads, etc.) has
 			emulated such an action. Depending on the platform and input device,
 			diagonal wheel <a>deltas</a> MAY be delivered either as a single
 			{{wheel}} event with multiple non-zero axes or as separate
-			{{wheel}} events for each non-zero axis.
+			{{wheel}} events for each non-zero axis.</p>
 
-			The typical <a>default action</a> of the {{wheel}} event type is
+			<p>The typical <a>default action</a> of the {{wheel}} event type is
 			to scroll (or in some cases, zoom) the document by the indicated
 			amount.  If this event is canceled, the implementation MUST NOT
 			scroll or zoom the document (or perform whatever other
 			implementation-specific default action is associated with this event
-			type).
+			type).</p>
 
 			<p class="note">
 			In some <a data-cite="infra">user agents</a>, or with some input devices, the speed
