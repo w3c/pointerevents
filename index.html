@@ -338,7 +338,7 @@ eventTarget.dispatchEvent(event2);</code>
 </pre>
     </section>
 
-    <h3>Mouse Events and Interfaces</h3>
+    <h2>Mouse Events and Interfaces</h2>
 	<p>The mouse event module originates from the [[HTML401]] <code>onclick</code>, <code>ondblclick</code>, <code>onmousedown</code>, <code>onmouseup</code>,	<code>onmouseover</code>, <code>onmousemove</code>, and	<code>onmouseout</code> attributes. This event module is specifically designed for use with pointing input devices, such as a mouse or a trackball.</p>
 
     <p class="intro-dom">Introduced in DOM Level 2, modified in this specification.</p>
@@ -351,7 +351,7 @@ eventTarget.dispatchEvent(event2);</code>
 
     <p class="note">When initializing {{MouseEvent}} objects using <code>initMouseEvent</code>,	implementations can use the client coordinates {{MouseEvent/clientX}} and {{MouseEvent/clientY}} for calculation of other coordinates (such	as target coordinates exposed by DOM Level 0 implementations or	other proprietary attributes, e.g., <code>pageX</code>).</p>
 
-    <h4><code>MouseEvent</code> interface</h4>
+    <h3><code>MouseEvent</code> interface</h3>
 
 <pre class="idl">
 dictionary MouseEventInit : EventModifierInit {
@@ -508,9 +508,9 @@ interface MouseEvent : UIEvent {
 
 
 
-    <h4>MouseEvent Algorithms</h4>
+    <h3>MouseEvent Algorithms</h3>
 
-    <h5>Native OS Requirements</h5>
+    <h4>Native OS Requirements</h4>
 
 	<p>The algorithms in this section assume that the native platform OS will provide the following:</p>
     <ul>
@@ -533,7 +533,7 @@ interface MouseEvent : UIEvent {
         <li>Which keyboard modifiers are currently being held</li>
     </ul>
 
-    <h5>Constructing Mouse Events</h5>
+    <h4>Constructing Mouse Events</h4>
 
     <p class="warning">This section needs to be revised.<p>
     <p>Generally, when a constructor of an {{Event}} interface, or of an interface inherited from the {{Event}} interface, is invoked, the steps described in [[DOM]] should be followed. However the {{MouseEvent}} interfaces provide additional dictionary members for initializing the internal state of the {{Event}} object's key modifiers: specifically, the internal state queried for using the {{MouseEvent/getModifierState()}} methods. This section supplements the [[DOM]] steps for intializing a new {{MouseEvent}} object with these optional modifier states.</p>
@@ -554,7 +554,7 @@ interface MouseEvent : UIEvent {
 
 
 
-            <h5>Global State for MouseEvent</h5>
+            <h4>Global State for MouseEvent</h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -583,7 +583,7 @@ interface MouseEvent : UIEvent {
 
 
 
-            <h5>Internal State for MouseEvent</h5>
+            <h4>Internal State for MouseEvent</h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -599,7 +599,7 @@ interface MouseEvent : UIEvent {
                 of the mouse event.
             </p>
 
-            <h5><dfn>hit test</dfn></h5>
+            <h4><dfn>hit test</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -614,7 +614,7 @@ interface MouseEvent : UIEvent {
                 </p></li>
             </ol>
 		
-            <h5>initialize a {{MouseEvent}}</h5>
+            <h4>initialize a {{MouseEvent}}</h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -657,139 +657,134 @@ interface MouseEvent : UIEvent {
             </ol>
 
 
-            <h5><dfn>set mouse event modifiers</dfn></h5>
+            <h4><dfn>set mouse event modifiers</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |event| be the {{MouseEvent}} to update</li>
-			<li>Set |event|'s <a>shift flag</a> if <a>key modifier state</a> includes "Shift", unset it otherwise</li>
-			<li>Set |event|'s <a>control flag</a> if <a>key modifier state</a> includes "Control", unset it otherwise</li>
-			<li>Set |event|'s <a>alt flag</a> if <a>key modifier state</a> includes "Alt", unset it otherwise</li>
-            <li>Set |event|'s <a>altgraph flag</a> if <a>key modifier state</a> includes "AltGraph", unset it otherwise</li>
-			<li>Set |event|'s <a>meta flag</a> if <a>key modifier state</a> includes "Meta", unset it otherwise</li>
-
-			<li>Set |event|.{{MouseEvent/shiftKey}} to true if the event's <a>shift flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/ctrlKey}} to true if the event's <a>control flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/altKey}} to true if the event's <a>alt flag</a> or <a>altgraph flag</a> is set, false otherwise</li>
-			<li>Set |event|.{{MouseEvent/metaKey}} to true if the event's <a>meta flag</a> is set, false otherwise</li>
+                <li>Let |event| be the {{MouseEvent}} to update</li>
+                <li>Set |event|'s <a>shift flag</a> if <a>key modifier state</a> includes "Shift", unset it otherwise</li>
+                <li>Set |event|'s <a>control flag</a> if <a>key modifier state</a> includes "Control", unset it otherwise</li>
+                <li>Set |event|'s <a>alt flag</a> if <a>key modifier state</a> includes "Alt", unset it otherwise</li>
+                <li>Set |event|'s <a>altgraph flag</a> if <a>key modifier state</a> includes "AltGraph", unset it otherwise</li>
+                <li>Set |event|'s <a>meta flag</a> if <a>key modifier state</a> includes "Meta", unset it otherwise</li>
+                <li>Set |event|.{{MouseEvent/shiftKey}} to true if the event's <a>shift flag</a> is set, false otherwise</li>
+                <li>Set |event|.{{MouseEvent/ctrlKey}} to true if the event's <a>control flag</a> is set, false otherwise</li>
+                <li>Set |event|.{{MouseEvent/altKey}} to true if the event's <a>alt flag</a> or <a>altgraph flag</a> is set, false otherwise</li>
+                <li>Set |event|.{{MouseEvent/metaKey}} to true if the event's <a>meta flag</a> is set, false otherwise</li>
             </ol>
 		
 
-            <h5><dfn data-lt="creating a cancelable MouseEvent">create a cancelable MouseEvent</dfn></h5>
+            <h4><dfn data-lt="creating a cancelable MouseEvent">create a cancelable MouseEvent</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
-			<li>Let |eventTarget| be the {{EventTarget}} of the event</li>
-			<li>Let |bubbles| be true</li>
-			<li>Let |cancelable| be true</li>
-
-			<li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
-			<li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
-			<li>Return |event|</li>
+                <li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
+                <li>Let |eventTarget| be the {{EventTarget}} of the event</li>
+                <li>Let |bubbles| be true</li>
+                <li>Let |cancelable| be true</li>
+                <li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
+                <li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
+                <li>Return |event|</li>
             </ol>
 
 		
 
 		
-            <h5><dfn data-lt="creating a non-cancelable MouseEvent">create a non-cancelable MouseEvent</dfn></h5>
+            <h4><dfn data-lt="creating a non-cancelable MouseEvent">create a non-cancelable MouseEvent</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
-			<li>Let |eventTarget| be the {{EventTarget}} of the event</li>
-			<li>Let |bubbles| be "false"</li>
-			<li>Let |cancelable| be "false"</li>
-
-			<li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
-			<li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
-			<li>Return |event|</li>
+                <li>Let |eventType| be a DOMString containing a valid {{MouseEvent}} type</li>
+                <li>Let |eventTarget| be the {{EventTarget}} of the event</li>
+                <li>Let |bubbles| be "false"</li>
+                <li>Let |cancelable| be "false"</li>
+                <li>Let |event| be the result of [=creating an event=] using {{MouseEvent}}</li>
+                <li><a>Initialize a MouseEvent</a> with |event|, |eventType|, |eventTarget|, |bubbles| and |cancelable|.</li>
+                <li>Return |event|</li>
             </ol>
 
 		
 
-            <h5><dfn>calculate MouseEvent button attribute</dfn></h5>
+            <h4><dfn>calculate MouseEvent button attribute</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
             <p>This will return a button ID suitable for storing in the {{MouseEvent}}'s {{MouseEvent/button}} attribute.</p>
 			<ol class="algorithm">
-			<li>Let |mbutton| be an ID that identifies a mouse button</li>
-			<li>If |mbutton| is the primary mouse button, then return 0</li>
-			<li>If |mbutton| is the auxiliary (middle)  mouse button, then return 1</li>
-			<li>If |mbutton| is the secondary mouse button, then return 2</li>
-			<li>If |mbutton| is the X1 (back) button, then return 3</li>
-			<li>If |mbutton| is the X2 (forward) button, then return 4</li>
-
+                <li>Let |mbutton| be an ID that identifies a mouse button</li>
+                <li>If |mbutton| is the primary mouse button, then return 0</li>
+                <li>If |mbutton| is the auxiliary (middle)  mouse button, then return 1</li>
+                <li>If |mbutton| is the secondary mouse button, then return 2</li>
+                <li>If |mbutton| is the X1 (back) button, then return 3</li>
+                <li>If |mbutton| is the X2 (forward) button, then return 4</li>
             </ol>
 		
 
-            <h5><dfn>set MouseEvent attributes from native</dfn></h5>
+            <h4><dfn>set MouseEvent attributes from native</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |event| be the {{MouseEvent}} to initialize</li>
-			<li>Let |native| be the native mouse event
-			<p class="ednote">TODO.</p>
+                <li>Let |event| be the {{MouseEvent}} to initialize</li>
+                <li>Let |native| be the native mouse event
+                    <p class="ednote">TODO.</p>
                 </li>
-			<li>If |event|.{{Event/type}} is one of [ mousedown, mouseup ], then
-                <ol>
-				<li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-				<li>Set |event|.{{MouseEvent/button}} to <a>calculate MouseEvent button attribute</a> with |mbutton|</li>
-                </ol>
-            </li>
+                <li>If |event|.{{Event/type}} is one of [ mousedown, mouseup ], then
+                    <ol>
+                        <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
+                        <li>Set |event|.{{MouseEvent/button}} to <a>calculate MouseEvent button attribute</a> with |mbutton|</li>
+                    </ol>
+                </li>
             </ol>
 
 		
 
-            <h5><dfn>handle native mouse down</dfn></h5>
+            <h4><dfn>handle native mouse down</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native| be the native mousedown</li>
-			<li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-
-			<li>Update the <a>mouse button bitmask</a> as follows:
-                <ol>
-				<li>If |mbutton| is the primary mouse button, then set the 0x01 bit</li>
-				<li>If |mbutton| is the secondary mouse button, then set the 0x02 bit</li>
-				<li>If |mbutton| is the auxiliary (middle) mouse button, then set the 0x04 bit
-
-				<p class="note">
-				Other buttons can be added starting with 0x08 .
-				</p>
+                <li>Let |native| be the native mousedown</li>
+                <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
+                <li>Update the <a>mouse button bitmask</a> as follows:
+                    <ol>
+                        <li>If |mbutton| is the primary mouse button, then set the 0x01 bit</li>
+                        <li>If |mbutton| is the secondary mouse button, then set the 0x02 bit</li>
+                        <li>If |mbutton| is the auxiliary (middle) mouse button, then set the 0x04 bit
+                            <p class="note">
+                                Other buttons can be added starting with 0x08 .
+                            </p>
+                        </li>
+                    </ol>
                 </li>
-                </ol></li>
-			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-			<li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mousedown", |target|</li>
-			<li><a>Set MouseEvent attributes from native</a> with |native|</li>
-			<li><a>Maybe send pointerdown event</a> with |event|</li>
-			<li>Let |result| be <a>dispatch</a> |event| at |target|</li>
-			<li>If |result| is true and |target| is a <a data-cite="html#focusable-area">focusable area</a> that is <a data-cite="html#click-focusable">click focusable</a>, then
-				<ol>
-                    <li>Run the <a>focusing steps</a> at |target|</li>
-                </ol>
-            </li>
-			<li>if |mbutton| is the secondary mouse button, then
-                <ol>
-				<li><a>Maybe show context menu</a> with |native|, |target|</li>
-                </ol>
-            </li>
+                <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+                <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mousedown", |target|</li>
+                <li><a>Set MouseEvent attributes from native</a> with |native|</li>
+                <li><a>Maybe send pointerdown event</a> with |event|</li>
+                <li>Let |result| be <a>dispatch</a> |event| at |target|</li>
+                <li>If |result| is true and |target| is a <a data-cite="html#focusable-area">focusable area</a> that is <a data-cite="html#click-focusable">click focusable</a>, then
+                    <ol>
+                        <li>Run the <a>focusing steps</a> at |target|</li>
+                    </ol>
+                </li>
+                <li>if |mbutton| is the secondary mouse button, then
+                    <ol>
+                        <li><a>Maybe show context menu</a> with |native|, |target|</li>
+                    </ol>
+                </li>
             </ol>
 		
 
-            <h5><dfn>handle native mouse up</dfn></h5>
+            <h4><dfn>handle native mouse up</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -817,202 +812,194 @@ interface MouseEvent : UIEvent {
 
 		
 
-            <h5><dfn>handle native mouse click</dfn></h5>
+            <h4><dfn>handle native mouse click</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native| be the native mouse click
-			<p class="note">
-			The platform should call this immediately after <a>handle native mouse up</a> for mouseups that generate clicks.
-			</p>
-            </li>
-			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-
-			<li><a>Send click event</a> with |native| and |target|.</li>
+                <li>Let |native| be the native mouse click
+                    <p class="note">
+                        The platform should call this immediately after <a>handle native mouse up</a> for mouseups that generate clicks.
+                    </p>
+                </li>
+                <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+                <li><a>Send click event</a> with |native| and |target|.</li>
             </ol>
 		
 
 		
-            <h5><dfn>send click event</dfn></h5>
+            <h4><dfn>send click event</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
 
 			<ol class="algorithm">
-			<li>Let |native| be the native mousedown</li>
-			<li>Let |target| be the {{EventTarget}} of the event</li>
-			<li>Let |mbutton| be 1  (primary mouse button by default)</li>
-			<li>If |native| is valid, then
-				<ol class="algorithm">
-                    <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-                </ol>
-            </li>
-			<li>Set |eventType| to "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
-
-			<li>Let |event| be the result of <a>creating a PointerEvent</a> with |eventType| and |target|</li>
-
-			<li>If |native| is valid, then
-				<ol class="algorithm">
-                    <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
-                    <li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
-                    <li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
-                </ol>
-            </li>
-			<li><a>dispatch</a> |event| at |target|
-
-			<p class="note">
-			See <a href="https://github.com/w3c/pointerevents/issues/100">pointerevents/100</a>
-			for info about browsers using PointerEvents and rounded coordinates.
-			</p>
-
-			<p class="ednote">
-			Any "default action" is handled during dispatch by triggering the
-			<a href="https://dom.spec.whatwg.org/#eventtarget-activation-behavior">activation behavior</a>
-			algorithm for the target. So there is no need for handle that here.
-			However, need to verify that the existing spec handles disabled/css-pointer-events/inert/...
-			</p>
-
-			<p class="note">
-			To handle `HTMLelement.click()`, call this algorithm with |native| = null and |target| = `HTMLelement`.
-			</p>
-
-			<p class="note">
-			To handle keyboard-initiated clicks, call this algorithm with |native| = null and |target| = currently focused element.
-			</p>
-            </li>
-            </ol>
-		
-
-            <h5><dfn>handle native mouse double click</dfn></h5>
-
-            <p class="warning">
-                This section needs to be revised.
-
-			<ol class="algorithm">
-			<li>Let |native| be the native mouse double click
-			<p class="note">
-			This should be called immediately after handle native mouse click for mouse clicks that generate double clicks.
-			</p>
-            </li>
-			<li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
-
-			<li>If |mbutton| is not the primary mouse button, then return</li>
-
-			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-
-			<li>Let |event| be the result of <a>creating a PointerEvent</a> with "dblclick" and |target|</li>
-			<li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
-			<li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
-			<li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
-
-			<li><a>dispatch</a> |event| at |target|</li>
-            </ol>
-		
-
-            <h5><dfn>handle native mouse move</dfn></h5>
-
-            <p class="warning">
-                This section needs to be revised.
-
-			<ol class="algorithm">
-			<li>Let |native| be the native mouse move
-                <p class="issue">
-                This algorithm makes assumptions about the dispatch of PointerEvents because they are not currently specified explicitly. Once <a href="https://github.com/w3c/pointerevents/issues/285">pointerevents/285</a> is resolved this may need to be updated.
-                </p>
-            </li>
-			<li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
-			<li>Let |targetDomPath| be [=tree/inclusive ancestors=] of |target|</li>
-			<li>Generate events for leaving the current element:
-				<ol class="algorithm">
-                    <li>If <a>last mouse element</a> is defined and not equal to |target|, then
-                        <ol class="algorithm">
-                            <li>Let |mouseout| be the result of <a>creating a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
-                                <p class="ednote">
-                                TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
-                                </p>
-                            </li>
-                        </ol>
-					<li><a>Maybe send pointerout event</a> with |mouseout|</li>
-					<li><a>Dispatch</a> |mouseout| at |target|
-						<p class="note">
-						Verify behavior when canceled (appears to have no effect).
-						</p>
-                    </li>
-					<li>Let |leaveElements| be a copy of <a>last mouse DOM path</a> with all elements common to |targetDomPath| removed.</li>
-					<li>For each |element| in |leaveElements|, do
-						<p class="ednote">
-						Handle case where |element| has been deleted.
-						Also case where it has been moved: Should the DOM mutation have triggered
-						a mouseleave event? Should we sent it now? Should it be dropped?
-						Need to verify what current browsers do.
-						</p>
-                        <ol class="algorithm">
-                            <li>Let |mouseleave| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
-                            <li>Set |mouseleave|.{{Event.composed}} = false
-                                <p class="note">
-                                Check compat: Value of event.composed. Spec says false. Chrome/Linux = true. Firefox/Linux = false.
-                                </p>
-                            </li>
-                            <li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
-                            <li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
-                        </ol>
-                    </li>
-                </ol>
-            </li>
-			<li>Generate events for entering the new element:
-				<ol class="algorithm">
-                    <li>If |target| is not <a>last mouse element</a>, then
-                        <ol class="algorithm">
-                            <li>Let |mouseover| be the result of <a>creating a cancelable MouseEvent</a> with "mouseover" and |target|
-                                <p class="ednote">
-                                    TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
-                                </p>
-                            </li>
-                            <li><a>Maybe send pointerover event</a> with |mouseover|</li>
-                            <li><a>Dispatch</a> |mouseout| at |target|
-                                <p class="note">
-                                Need to verify behavior when canceled (appears to have no effect).
-                                </p>
-                            </li>
-                            <li>Let |enterElements| be a copy of |targetDomPath| with all elements common to <a>last mouse DOM path</a> removed.</li>
-                            <li>For each |element| in |enterElements|, do
-                                <p class="note">
-                                    Handle case where |element| has been deleted or moved.
-                                </p>
-
-						<ol class="algorithm">
-                            <li>Let |mouseenter| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
-                            <li>Set |mouseenter|.{{Event.composed}} = false
-                                <p class="note">
-                                Check compat: Value of event.composed. Spec says false.
-                                Chrome/Linux = true.
-                                Firefox/Linux = false.
-                                </p>
-                            </li>
-                            <li><a>Maybe send pointerenter event</a> with |mouseenter|
-                                <p class="note">
-                                    Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
-                                </p>
-                            </li>
-                            <li>Let |result| be <a>dispatch</a> |mouseenter| at |element|</li>
-                        </ol>
-                    </li>
-					<li>Set <a>last mouse element</a> to |target|</li>
-					<li>Set <a>last mouse DOM path</a> to |targetDomPath|</li>
+                <li>Let |native| be the native mousedown</li>
+                <li>Let |target| be the {{EventTarget}} of the event</li>
+                <li>Let |mbutton| be 1  (primary mouse button by default)</li>
+                <li>If |native| is valid, then
+                    <ol class="algorithm">
+                        <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
                     </ol>
                 </li>
-            </ol>
-            </li>
-			<li>Let |mousemove| be the result of <a>creating a cancelable MouseEvent</a> with "mousemove" and |element|</li>
-			<li><a>Set PointerLock attributes for mousemove</a></li>
-			<li><a>Maybe send pointermove event</a> with |mousemove|</li>
-			<li><a>Dispatch</a> |mousemove| at |element|</li>
+                <li>Set |eventType| to "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
+                <li>Let |event| be the result of <a>creating a PointerEvent</a> with |eventType| and |target|</li>
+                <li>If |native| is valid, then
+                    <ol class="algorithm">
+                        <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
+                        <li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
+                        <li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
+                    </ol>
+                </li>
+                <li><a>dispatch</a> |event| at |target|
+                    <p class="note">
+                    See <a href="https://github.com/w3c/pointerevents/issues/100">pointerevents/100</a>
+                    for info about browsers using PointerEvents and rounded coordinates.
+                    </p>
+
+                    <p class="ednote">
+                    Any "default action" is handled during dispatch by triggering the
+                    <a href="https://dom.spec.whatwg.org/#eventtarget-activation-behavior">activation behavior</a>
+                    algorithm for the target. So there is no need for handle that here.
+                    However, need to verify that the existing spec handles disabled/css-pointer-events/inert/...
+                    </p>
+
+                    <p class="note">
+                    To handle `HTMLelement.click()`, call this algorithm with |native| = null and |target| = `HTMLelement`.
+                    </p>
+
+                    <p class="note">
+                    To handle keyboard-initiated clicks, call this algorithm with |native| = null and |target| = currently focused element.
+                    </p>
+                </li>
             </ol>
 		
 
-            <h5><dfn>maybe show context menu</dfn></h5>
+            <h4><dfn>handle native mouse double click</dfn></h4>
+
+            <p class="warning">
+                This section needs to be revised.
+
+			<ol class="algorithm">
+                <li>Let |native| be the native mouse double click
+                    <p class="note">
+                        This should be called immediately after handle native mouse click for mouse clicks that generate double clicks.
+                    </p>
+                </li>
+                <li>Let |mbutton| be an ID from |native| that identifies which mouse button was pressed</li>
+                <li>If |mbutton| is not the primary mouse button, then return</li>
+                <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+                <li>Let |event| be the result of <a>creating a PointerEvent</a> with "dblclick" and |target|</li>
+                <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
+                <li>If |event|.{{MouseEvent/screenX}} is not an integer value, then round it.</li>
+                <li>If |event|.{{MouseEvent/screenY}} is not an integer value, then round it.</li>
+                <li><a>dispatch</a> |event| at |target|</li>
+            </ol>
+		
+
+            <h4><dfn>handle native mouse move</dfn></h4>
+
+            <p class="warning">
+                This section needs to be revised.
+
+			<ol class="algorithm">
+                <li>Let |native| be the native mouse move
+                    <p class="issue">
+                    This algorithm makes assumptions about the dispatch of PointerEvents because they are not currently specified explicitly. Once <a href="https://github.com/w3c/pointerevents/issues/285">pointerevents/285</a> is resolved this may need to be updated.
+                    </p>
+                </li>
+                <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
+                <li>Let |targetDomPath| be [=tree/inclusive ancestors=] of |target|</li>
+                <li>Generate events for leaving the current element:
+                    <ol class="algorithm">
+                        <li>If <a>last mouse element</a> is defined and not equal to |target|, then
+                            <ol class="algorithm">
+                                <li>Let |mouseout| be the result of <a>creating a cancelable MouseEvent</a> with "mouseout" and <a>last mouse element</a>
+                                    <p class="ednote">
+                                    TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
+                                    </p>
+                                </li>
+                            </ol>
+                        <li><a>Maybe send pointerout event</a> with |mouseout|</li>
+                        <li><a>Dispatch</a> |mouseout| at |target|
+                            <p class="note">
+                            Verify behavior when canceled (appears to have no effect).
+                            </p>
+                        </li>
+                        <li>Let |leaveElements| be a copy of <a>last mouse DOM path</a> with all elements common to |targetDomPath| removed.</li>
+                        <li>For each |element| in |leaveElements|, do
+                            <p class="ednote">
+                            Handle case where |element| has been deleted.
+                            Also case where it has been moved: Should the DOM mutation have triggered
+                            a mouseleave event? Should we sent it now? Should it be dropped?
+                            Need to verify what current browsers do.
+                            </p>
+                            <ol class="algorithm">
+                                <li>Let |mouseleave| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseleave" and |element|</li>
+                                <li>Set |mouseleave|.{{Event.composed}} = false
+                                    <p class="note">
+                                    Check compat: Value of event.composed. Spec says false. Chrome/Linux = true. Firefox/Linux = false.
+                                    </p>
+                                </li>
+                                <li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
+                                <li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+                <li>Generate events for entering the new element:
+                    <ol class="algorithm">
+                        <li>If |target| is not <a>last mouse element</a>, then
+                            <ol class="algorithm">
+                                <li>Let |mouseover| be the result of <a>creating a cancelable MouseEvent</a> with "mouseover" and |target|
+                                    <p class="ednote">
+                                        TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
+                                    </p>
+                                </li>
+                                <li><a>Maybe send pointerover event</a> with |mouseover|</li>
+                                <li><a>Dispatch</a> |mouseout| at |target|
+                                    <p class="note">
+                                    Need to verify behavior when canceled (appears to have no effect).
+                                    </p>
+                                </li>
+                                <li>Let |enterElements| be a copy of |targetDomPath| with all elements common to <a>last mouse DOM path</a> removed.</li>
+                                <li>For each |element| in |enterElements|, do
+                                    <p class="note">
+                                        Handle case where |element| has been deleted or moved.
+                                    </p>
+
+                            <ol class="algorithm">
+                                <li>Let |mouseenter| be the result of <a>creating a non-cancelable MouseEvent</a> with "mouseenter" and |element|</li>
+                                <li>Set |mouseenter|.{{Event.composed}} = false
+                                    <p class="note">
+                                    Check compat: Value of event.composed. Spec says false.
+                                    Chrome/Linux = true.
+                                    Firefox/Linux = false.
+                                    </p>
+                                </li>
+                                <li><a>Maybe send pointerenter event</a> with |mouseenter|
+                                    <p class="note">
+                                        Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
+                                    </p>
+                                </li>
+                                <li>Let |result| be <a>dispatch</a> |mouseenter| at |element|</li>
+                            </ol>
+                        </li>
+                        <li>Set <a>last mouse element</a> to |target|</li>
+                        <li>Set <a>last mouse DOM path</a> to |targetDomPath|</li>
+                        </ol>
+                    </li>
+                </ol>
+                </li>
+                <li>Let |mousemove| be the result of <a>creating a cancelable MouseEvent</a> with "mousemove" and |element|</li>
+                <li><a>Set PointerLock attributes for mousemove</a></li>
+                <li><a>Maybe send pointermove event</a> with |mousemove|</li>
+                <li><a>Dispatch</a> |mousemove| at |element|</li>
+            </ol>
+		
+
+            <h4><dfn>maybe show context menu</dfn></h4>
 
             <p class="warning">
                 This section needs to be revised.
@@ -1037,7 +1024,7 @@ interface MouseEvent : UIEvent {
 			</p>
 		
 
-        <h4>Mouse Event Order</h4>
+        <h3>Mouse Event Order</h3>
 
 		<p>
             Certain mouse events defined in this specification MUST occur in a set order relative to one another. The following shows the event sequence that MUST occur when a pointing device's cursor is moved over an element:
@@ -1372,14 +1359,14 @@ interface MouseEvent : UIEvent {
 		{{click}} and subsequent events will not be dispatched.
 		</p>
 
-	<h4>Mouse Event Types</h4>
+	<h3>Mouse Event Types</h3>
 
 		<p>The Mouse event types are listed below. In the case of nested elements,
 		mouse event types are always targeted at the most deeply nested element.
 		Ancestors of the targeted element MAY use bubbling to obtain
 		notification of mouse events which occur within its descendent elements.</p>
 
-	<h5><dfn class="export" data-dfn-type="event">auxclick</dfn></h5>
+	<h4><dfn class="export" data-dfn-type="event">auxclick</dfn></h4>
 
     <table class="event-definition">
         <tbody>
@@ -1487,7 +1474,7 @@ myDiv.addEventListener("auxclick", function(e) {
 });
 </code></pre>
 
-		<h5><dfn class="export" data-dfn-type="event">click</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">click</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1594,7 +1581,7 @@ myDiv.addEventListener("auxclick", function(e) {
 				action</a> MUST be to give that element document focus.</li>
 			</ul>
 
-		<h5><dfn class="export" data-dfn-type="event">contextmenu</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">contextmenu</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1640,7 +1627,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			before or after the {{mouseup}} event.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">dblclick</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">dblclick</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1706,7 +1693,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			<a>default actions</a> of the {{dblclick}} event type match those
 			of the {{click}} event type.
 
-		<h5><dfn class="export" data-dfn-type="event">mousedown</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mousedown</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1765,7 +1752,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			the time the {{mousedown}} event is dispatched.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">mouseenter</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mouseenter</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1827,7 +1814,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			See also the {{mouseleave}} event type.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">mouseleave</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mouseleave</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1889,7 +1876,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			See also the {{mouseenter}} event type.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">mousemove</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mousemove</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -1956,7 +1943,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			user agents.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">mouseout</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mouseout</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -2013,7 +2000,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			See also the {{mouseover}} event type.
 			</p>
 
-		<h5><dfn class="export" data-dfn-type="event">mouseover</dfn></h5>
+		<h4><dfn class="export" data-dfn-type="event">mouseover</dfn></h4>
 
         <table class="event-definition">
             <tbody>
@@ -2070,7 +2057,7 @@ myDiv.addEventListener("auxclick", function(e) {
 			See also the {{mouseout}} event type.
 			</p>
 
-            <h5><dfn class="export" data-dfn-type="event">mouseup</dfn></h5>
+            <h4><dfn class="export" data-dfn-type="event">mouseup</dfn></h4>
 
             <table class="event-definition">
                 <tbody>
@@ -3165,53 +3152,53 @@ interface WheelEvent : MouseEvent {
 
 	<h4 id="events-wheel-types">Wheel Event Types</h4>
 
-		<h5><dfn class="export" data-dfn-type="event">wheel</dfn></h5>
+	<h4><dfn class="export" data-dfn-type="event">wheel</dfn></h4>
 
-<table class="event-definition">
-    <tbody>
-        <tr>
-        <th>Type</th>
-        <td><strong><code>wheel</code></strong></td>
-		</tr>
-		<tr>
-			<th>Interface</th>
-			<td>{{WheelEvent}}</td>
-			</tr>
-		<tr>
-			<th>Bubbles</th>
-			<td>Yes</td>
-			</tr>
-		<tr>
-			<th>Cancelable</th>
-			<td><a href="#cancelability-of-wheel-events">Varies</a></td>
-			</tr>
-		<tr>
-			<th>Context<br> (trusted events)</th>
-			<td>
-				<ul>
-				<li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
-				<li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-				<li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/screenX}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/screenY}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/clientX}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/clientY}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/button}} : if wheel is associated with a pointing device, value based on current button pressed, otherwise <code>0</code></li>
-				<li>{{MouseEvent}}.{{MouseEvent/buttons}} : if wheel is associated with a pointing device, value based on all buttons current depressed, <code>0</code> if no buttons pressed</li>
-				<li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any</li>
-				<li>{{WheelEvent}}.{{WheelEvent/deltaX}} : expected amount that the page will scroll along the x-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the x-axis</li>
-				<li>{{WheelEvent}}.{{WheelEvent/deltaY}} : expected amount that the page will scroll along the y-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the y-axis</li>
-				<li>{{WheelEvent}}.{{WheelEvent/deltaZ}} : expected amount that the page will scroll along the z-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the z-axis</li>
-				<li>{{WheelEvent}}.{{WheelEvent/deltaMode}} : unit indicator (pixels, lines, or pages) for the deltaX, deltaY, and deltaZ attributes</li>
-				</ul>
-			</td>
-		</tr>
-	</tbody>
-</table>
+    <table class="event-definition">
+        <tbody>
+            <tr>
+            <th>Type</th>
+            <td><strong><code>wheel</code></strong></td>
+            </tr>
+            <tr>
+                <th>Interface</th>
+                <td>{{WheelEvent}}</td>
+                </tr>
+            <tr>
+                <th>Bubbles</th>
+                <td>Yes</td>
+                </tr>
+            <tr>
+                <th>Cancelable</th>
+                <td><a href="#cancelability-of-wheel-events">Varies</a></td>
+                </tr>
+            <tr>
+                <th>Context<br> (trusted events)</th>
+                <td>
+                    <ul>
+                    <li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
+                    <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                    <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/screenX}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/screenY}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/clientX}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/clientY}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/button}} : if wheel is associated with a pointing device, value based on current button pressed, otherwise <code>0</code></li>
+                    <li>{{MouseEvent}}.{{MouseEvent/buttons}} : if wheel is associated with a pointing device, value based on all buttons current depressed, <code>0</code> if no buttons pressed</li>
+                    <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any</li>
+                    <li>{{WheelEvent}}.{{WheelEvent/deltaX}} : expected amount that the page will scroll along the x-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the x-axis</li>
+                    <li>{{WheelEvent}}.{{WheelEvent/deltaY}} : expected amount that the page will scroll along the y-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the y-axis</li>
+                    <li>{{WheelEvent}}.{{WheelEvent/deltaZ}} : expected amount that the page will scroll along the z-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the z-axis</li>
+                    <li>{{WheelEvent}}.{{WheelEvent/deltaMode}} : unit indicator (pixels, lines, or pages) for the deltaX, deltaY, and deltaZ attributes</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 			<p>A <a data-cite="infra">user agent</a> MUST dispatch this event when a mouse wheel has
 			been rotated around any axis, or when an equivalent input device
