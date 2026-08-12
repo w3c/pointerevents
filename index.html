@@ -837,11 +837,10 @@ function tilt2spherical(tiltX, tiltY) {
 
                 <ol class="algorithm">
                     <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-                    <p class="note">
-                        Unlike <code>mousedown</code> events, {{pointerdown}}
-                        events are not nested when multiple buttons are pressed.
-                        The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
-                    </p>
+                        <p class="note">
+                            Unlike <code>mousedown</code> events, {{pointerdown}}
+                            events are not nested when multiple buttons are pressed.
+                            The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.</p>
                     </li>
                     <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
                     <li>Set pointerevent attributes
@@ -919,7 +918,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
@@ -965,7 +963,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
@@ -1013,7 +1010,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1056,7 +1052,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1101,7 +1096,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1167,7 +1161,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1211,7 +1204,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1252,7 +1244,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
                             </ul>
                         </td>
@@ -1299,8 +1290,7 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
-                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
                     </tr>
@@ -1348,7 +1338,6 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
                             </ul>
                         </td>
                     </tr>
@@ -1388,8 +1377,7 @@ function tilt2spherical(tiltX, tiltY) {
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
                                 <li>{{UIEvent.view}} : {{Window}}</li>
-                                <li>{{UIEvent.detail}} : <code>0</code></li>
-                            </ul>
+                                                            </ul>
                         </td>
                     </tr>
                 </table>
@@ -3569,7 +3557,6 @@ myDiv.addEventListener("auxclick", function(e) {
                     <ul>
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                         <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                        <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                         <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                     </ul>
                 </td>
@@ -3616,7 +3603,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                             <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
                         </ul>
                     </td>
@@ -3663,7 +3649,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                         </ul>
                     </td>
                 </tr>
@@ -3715,7 +3700,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                             <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                         </ul>
                     </td>
@@ -3757,7 +3741,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                             <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                         </ul>
                     </td>
@@ -4038,7 +4021,6 @@ interface WheelEvent : MouseEvent {
                         <ul>
                             <li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                             <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any.</li>
                         </ul>
                     </td>
