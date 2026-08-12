@@ -496,7 +496,7 @@ interface PointerEvent : MouseEvent {
                     Also note the proposed extension in [[[CSSOM-VIEW]]], which changes the various coordinate properties from <code>long</code>
                     to <code>double</code> to allow for fractional coordinates. For user agents that already implement this proposed extension for
                     {{PointerEvent}}, but <em>not</em> for regular {{MouseEvent}}, there are additional requirements when it comes to
-                    the <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a>.</div>
+                    the <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code></a> events.</div>
             </div>
             <section>
                 <h3>Button states</h3>
@@ -689,7 +689,7 @@ interface PointerEvent : MouseEvent {
                         <li>Set the <dfn>pointer capture target override</dfn> to the <a>pending pointer capture target override</a>, if set. Otherwise, clear the <a>pointer capture target override</a>.</li>
                     </ol>
                     <div class="note">
-                        <p>As defined in the section for <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a>, even after the {{lostpointercapture}} event has been dispatched,
+                        <p>As defined in the section for <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code></a> events, even after the {{lostpointercapture}} event has been dispatched,
                         the corresponding <code>click</code>, <code>auxclick</code> or <code>contextmenu</code> event, if any, would still be dispatched to the capturing target.</p>
                     </div>
                 </section>
@@ -1008,7 +1008,38 @@ function tilt2spherical(tiltX, tiltY) {
             <p>Below are the event types defined in this specification.</p>
             <p>In the case of the <a>primary pointer</a>, these events (with the exception of {{gotpointercapture}} and {{lostpointercapture}}) may also fire <a>compatibility mouse events</a>.</p>
             <section>
-                <h3>The <dfn class="export" data-dfn-type="event">pointerover</dfn> event</h3>
+                <h3><dfn class="export" data-dfn-type="event">pointerover</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerover</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+                
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerover}} when any of the following occurs:</p>
                 <ul>
                     <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved into an element.</li>
@@ -1018,7 +1049,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn class="export" data-dfn-type="event">pointerenter</dfn> event</h3>
+                <h3><dfn class="export" data-dfn-type="event">pointerenter</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerenter</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerenter}} when any of the following occurs:</p>
                 <ul>
                     <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved into an element or one of its descendants.</li>
@@ -1030,7 +1092,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointerdown</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointerdown</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerdown</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerdown}} when a pointer enters the <a>active buttons state</a>. For mouse, this is when the device transitions from no buttons depressed to at least one button depressed. For touch, this is when physical contact is made with the <a>digitizer</a>. For pen, this is when the pen either makes physical contact with the digitizer without any button depressed, or transitions from no buttons depressed to at least one button depressed while hovering.</p>
                 <div class="note">For mouse (or other multi-button pointer devices), this means {{pointerdown}} and {{pointerup}} are not fired for all of the same circumstances as <code>mousedown</code> and <code>mouseup</code>. See <a>chorded buttons</a> for more information.</div>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the  <a data-cite="infra">user agent</a> MUST also <a>fire a pointer event</a> named {{pointerover}} followed by a pointer event named {{pointerenter}} prior to dispatching the {{pointerdown}} event.</p>
@@ -1038,7 +1131,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointermove</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointermove</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointermove</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointermove}} when a pointer changes any properties that don't fire
                 {{pointerdown}} or {{pointerup}} events. This includes any changes to coordinates, pressure, tangential pressure,
                 tilt, twist, contact geometry (<code>width</code> and <code>height</code>) or <a>chorded buttons</a>.</p>
@@ -1048,7 +1172,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointerrawupdate</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointerrawupdate</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerrawupdate</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a>
                 named {{pointerrawupdate}}, and only do so within a [=secure context=], when a pointer changes any properties that don't fire
                 <code>pointerdown</code> or <code>pointerup</code> events.  See <code>pointermove</code> event for a list of such properties.</p>
@@ -1079,7 +1234,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-event-type="event">pointerup</dfn> event</h3>
+                <h3><dfn data-event-type="event">pointerup</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerup</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerup}} when a pointer leaves the <a>active buttons state</a>. For mouse, this is when the device transitions from at least one button depressed to no buttons depressed. For touch, this is when physical contact is removed from the <a>digitizer</a>. For pen, this is when the pen is removed from the physical contact with the digitizer while no button is depressed, or transitions from at least one button depressed to no buttons depressed while hovering.</p>
                 <p>For input <a href=#mapping-for-devices-that-do-not-support-hover>devices that do not support hover</a>, the  <a data-cite="infra">user agent</a> MUST also <a>fire a pointer event</a> named {{pointerout}} followed by a pointer event named {{pointerleave}} after dispatching the {{pointerup}} event.</p>
                 <p>All {{pointerup}} events have a <code>pressure</code> value of <code>0</code>.</p>
@@ -1088,13 +1274,75 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointercancel</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointercancel</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointercancel</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointercancel}} when it detects a scenario to <a>suppress a pointer event stream</a>.</p>
                 <p>The values of the following properties of the {{pointercancel}} event MUST match the values of the last dispatched pointer event with the same {{PointerEvent/pointerId}}: <code>width</code>, <code>height</code>, <code>pressure</code>, <code>tangentialPressure</code>, <code>tiltX</code>, <code>tiltY</code>, <code>twist</code>, <code>altitudeAngle</code>, <code>azimuthAngle</code>, <code>pointerType</code>, <code>isPrimary</code>, and the coordinates inherited from Mouse Events. The <code>coalescedEvents</code> and <code>predictedEvents</code> lists in the {{pointercancel}} event MUST be empty, and the event's {{Event/cancelable}} attribute MUST be false.</p>
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointerout</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointerout</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerout</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerout}} when any of the following occurs:</p>
                 <ul>
                     <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved out of an element.</li>
@@ -1105,7 +1353,38 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">pointerleave</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">pointerleave</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>pointerleave</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{pointerleave}} when any of the following occurs:</p>
                 <ul>
                     <li>The step to <a>determine the target</a> of a pointer detects that the pointer has moved out of an element and all of its descendants.</li>
@@ -1118,17 +1397,79 @@ function tilt2spherical(tiltX, tiltY) {
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">gotpointercapture</dfn> event</h3>
+                <h3><dfn data-dfn-type="event">gotpointercapture</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>gotpointercapture</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
                 <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{gotpointercapture}} when an element receives pointer capture. This event is fired at the element that is receiving pointer capture. Subsequent events for that pointer will be fired at this element. See the <a>setting pointer capture</a> and <a>process pending pointer capture</a> sections.</p>
             </section>
 
             <section>
-                <h3>The <dfn data-dfn-type="event">lostpointercapture</dfn> event</h3>
-                <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{lostpointercapture}} after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. All subsequent events for the pointer except <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</a> follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
+                <h3><dfn data-dfn-type="event">lostpointercapture</dfn></h3>
+
+                <table class="event-definition">
+                    <tbody>
+                    <tr>
+                        <th>Type</th>
+                        <td><strong><code>lostpointercapture</code></strong></td>
+                    </tr>
+                    <tr>
+                        <th>Interface</th>
+                        <td>{{PointerEvent}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bubbles</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Cancelable</th>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <th>Context<br> (trusted events)</th>
+                        <td>
+                            <ul>
+                                <li>{{Event.target}} : [=topmost event target=]</li>
+                                <li>{{UIEvent.view}} : {{Window}}</li>
+                                <li>{{UIEvent.detail}} : <code>0</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
+                <p>The  <a data-cite="infra">user agent</a> MUST <a>fire a pointer event</a> named {{lostpointercapture}} after pointer capture is released for a pointer. This event MUST be fired prior to any subsequent events for the pointer after capture was released. This event is fired at the element from which pointer capture was removed. All subsequent events for the pointer except <a><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code></a> events follow normal hit testing mechanisms (out of scope for this specification) for determining the event target. See the <a>releasing pointer capture</a>, <a>implicit release of pointer capture</a>, and <a>process pending pointer capture</a> sections.</p>
             </section>
 
             <section>
-                <h3>The <dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code> events</dfn></h3>
+                <h3><dfn><code>click</code>, <code>auxclick</code>, and <code>contextmenu</code></dfn></h3>
                 <p>This section is an addition to <code>click</code>,
                     <code>auxclick</code> and <a data-cite="uievents/#event-type-contextmenu">contextmenu</a>
                     events. These events are typically tied to user interface activation, and are fired even from non-pointer input devices, such as keyboards.</p>
