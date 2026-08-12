@@ -219,125 +219,6 @@
     <section id="conformance">
     </section>
 
-    <section class="informative">
-        <h1>Examples</h1>
-        <p>The following are basic examples that demonstrate how some of the APIs in this specification might be used by authors. Further, more specific examples are provided in the relevant sections of this document.</p>
-<pre id="example_1" class="example" title="Feature detection and event binding">
-<code>/* Bind to either Pointer Events or traditional touch/mouse */
-
-if (window.PointerEvent) {
-    // if Pointer Events are supported, only listen to pointer events
-    target.addEventListener("pointerdown", function(e) {
-        // if necessary, apply separate logic based on e.pointerType
-        // for different touch/pen/mouse behavior
-        ...
-    });
-    ...
-} else {
-    // traditional touch/mouse event handlers
-    target.addEventListener('touchstart', function(e) {
-        // prevent compatibility mouse events and click
-        e.preventDefault();
-        ...
-    });
-    ...
-    target.addEventListener('mousedown', ...);
-    ...
-}
-
-// additional event listeners for keyboard handling
-...</code>
-</pre>
-<pre id="example_2" class="example" title="Detecting the type of input from a user">
-<code>window.addEventListener("pointerdown", detectInputType);
-
-function detectInputType(event) {
-    switch(event.pointerType) {
-        case "mouse":
-            /* mouse input detected */
-            break;
-        case "pen":
-            /* pen/stylus input detected */
-            break;
-        case "touch":
-            /* touch input detected */
-            break;
-        default:
-            /* pointerType is empty (could not be detected)
-            or UA-specific custom type */
-    }
-}</code></pre>
-
-<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
-<code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
-&lt;script&gt;
-window.addEventListener("pointerdown", checkPointerSize);
-
-function checkPointerSize(event) {
-    event.target.style.width = event.width + "px";
-    event.target.style.height = event.height + "px";
-}
-&lt;/script&gt;</code>
-</pre>
-<pre id="example_4" class="example" title="Firing untrusted pointer events from script">
-<code>const event1 = new PointerEvent("pointerover",
-  { bubbles: true,
-    cancelable: true,
-    composed: true,
-    pointerId: 42,
-    pointerType: "pen",
-    clientX: 300,
-    clientY: 500
-  });
-eventTarget.dispatchEvent(event1);
-
-let pointerEventInitDict =
-{
-  bubbles: true,
-  cancelable: true,
-  composed: true,
-  pointerId: 42,
-  pointerType: "pen",
-  clientX: 300,
-  clientY: 500,
-};
-const p1 = new PointerEvent("pointermove", pointerEventInitDict);
-pointerEventInitDict.clientX += 10;
-const p2 = new PointerEvent("pointermove", pointerEventInitDict);
-pointerEventInitDict.coalescedEvents = [p1, p2];
-const event2 = new PointerEvent("pointermove", pointerEventInitDict);
-eventTarget.dispatchEvent(event2);</code>
-</pre>
-<pre id="example_5" class="example" title="Assigning a pen color on PointerDown">
-    <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
-    &lt;script&gt;
-    window.addEventListener("pointerdown", assignPenColor);
-    window.addEventListener("pointermove", assignPenColor);
-    const colorMap = new Map();
-
-    function assignPenColor(event) {
-        const uniqueId = event.persistentDeviceId;
-        // Check if a unique Id exists.
-        if (uniqueId == 0) {
-            return;
-        }
-        // Check if a color has been assigned to the device.
-        if (map.has(uniqueId)) {
-            return;
-        }
-        // Assign a color to the device.
-        let newColor = getNewColor();
-        map.set(uniqueId, newColor);
-        return newColor;
-    }
-
-    function getNewColor() {
-        /* return some color value */
-    }
-    &lt;/script&gt;</code>
-</pre>
-    </section>
-
     <section>
         <h1>Pointer Events and interfaces</h1>
         <section>
@@ -4077,6 +3958,125 @@ interface WheelEvent : MouseEvent {
                 that there are no non-passive listeners</a> for the event.
                 </p>
 
+    </section>
+
+    <section class="informative">
+        <h1>Examples</h1>
+        <p>The following are basic examples that demonstrate how some of the APIs in this specification might be used by authors. Further, more specific examples are provided in the relevant sections of this document.</p>
+<pre id="example_1" class="example" title="Feature detection and event binding">
+<code>/* Bind to either Pointer Events or traditional touch/mouse */
+
+if (window.PointerEvent) {
+    // if Pointer Events are supported, only listen to pointer events
+    target.addEventListener("pointerdown", function(e) {
+        // if necessary, apply separate logic based on e.pointerType
+        // for different touch/pen/mouse behavior
+        ...
+    });
+    ...
+} else {
+    // traditional touch/mouse event handlers
+    target.addEventListener('touchstart', function(e) {
+        // prevent compatibility mouse events and click
+        e.preventDefault();
+        ...
+    });
+    ...
+    target.addEventListener('mousedown', ...);
+    ...
+}
+
+// additional event listeners for keyboard handling
+...</code>
+</pre>
+<pre id="example_2" class="example" title="Detecting the type of input from a user">
+<code>window.addEventListener("pointerdown", detectInputType);
+
+function detectInputType(event) {
+    switch(event.pointerType) {
+        case "mouse":
+            /* mouse input detected */
+            break;
+        case "pen":
+            /* pen/stylus input detected */
+            break;
+        case "touch":
+            /* touch input detected */
+            break;
+        default:
+            /* pointerType is empty (could not be detected)
+            or UA-specific custom type */
+    }
+}</code></pre>
+
+<pre id="example_3" class="example" title="Resizing an element to match the contact geometry">
+<code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+&lt;script&gt;
+window.addEventListener("pointerdown", checkPointerSize);
+
+function checkPointerSize(event) {
+    event.target.style.width = event.width + "px";
+    event.target.style.height = event.height + "px";
+}
+&lt;/script&gt;</code>
+</pre>
+<pre id="example_4" class="example" title="Firing untrusted pointer events from script">
+<code>const event1 = new PointerEvent("pointerover",
+  { bubbles: true,
+    cancelable: true,
+    composed: true,
+    pointerId: 42,
+    pointerType: "pen",
+    clientX: 300,
+    clientY: 500
+  });
+eventTarget.dispatchEvent(event1);
+
+let pointerEventInitDict =
+{
+  bubbles: true,
+  cancelable: true,
+  composed: true,
+  pointerId: 42,
+  pointerType: "pen",
+  clientX: 300,
+  clientY: 500,
+};
+const p1 = new PointerEvent("pointermove", pointerEventInitDict);
+pointerEventInitDict.clientX += 10;
+const p2 = new PointerEvent("pointermove", pointerEventInitDict);
+pointerEventInitDict.coalescedEvents = [p1, p2];
+const event2 = new PointerEvent("pointermove", pointerEventInitDict);
+eventTarget.dispatchEvent(event2);</code>
+</pre>
+<pre id="example_5" class="example" title="Assigning a pen color on PointerDown">
+    <code>&lt;div style="position:absolute; top:0px; left:0px; width:100px;height:100px;"&gt;&lt;/div&gt;
+    &lt;script&gt;
+    window.addEventListener("pointerdown", assignPenColor);
+    window.addEventListener("pointermove", assignPenColor);
+    const colorMap = new Map();
+
+    function assignPenColor(event) {
+        const uniqueId = event.persistentDeviceId;
+        // Check if a unique Id exists.
+        if (uniqueId == 0) {
+            return;
+        }
+        // Check if a color has been assigned to the device.
+        if (map.has(uniqueId)) {
+            return;
+        }
+        // Assign a color to the device.
+        let newColor = getNewColor();
+        map.set(uniqueId, newColor);
+        return newColor;
+    }
+
+    function getNewColor() {
+        /* return some color value */
+    }
+    &lt;/script&gt;</code>
+</pre>
     </section>
 
     <section>
