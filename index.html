@@ -2923,20 +2923,12 @@ interface MouseEvent : UIEvent {
             <tr>
             <th>Context<br> (trusted events)
             <td>
-            <ul>
-                <li>{{Event.target}} : [=topmost event target=]
-                <li>{{UIEvent.view}} : {{Window}}
-                <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
-                <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
-                <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
-                <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
-                <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
-                <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
-                <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
-                <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
-                <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
-                <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [[PointerEvents]] spec.
-            </ul>
+                <ul>
+                    <li>{{Event.target}} : [=topmost event target=]
+                    <li>{{UIEvent.view}} : {{Window}}
+                    <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
+                </ul>
+            </td></tr>
             </table>
 
             <p>
@@ -3031,20 +3023,12 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr>
                 <th>Context<br> (trusted events)
                 <td>
-                <ul>
-                    <li>{{Event.target}} : [=topmost event target=]
-                    <li>{{UIEvent.view}} : {{Window}}
-                    <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
-                    <li>{{MouseEvent.screenX}} : value based on the pointer position on the screen
-                    <li>{{MouseEvent.screenY}} : value based on the pointer position on the screen
-                    <li>{{MouseEvent.clientX}} : value based on the pointer position within the viewport
-                    <li>{{MouseEvent.clientY}} : value based on the pointer position within the viewport
-                    <li>{{MouseEvent.layerX}} : value based on the pointer position within the containing element
-                    <li>{{MouseEvent.layerY}} : value based on the pointer position within the containing element
-                    <li>{{MouseEvent.altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code>          <li>{{MouseEvent.button}} : value based on current button pressed
-                    <li>{{MouseEvent.buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed
-                    <li>{{MouseEvent.relatedTarget}} : <code>null</code>          <li>For {{PointerEvent}} specific attributes, see the [PointerEvents] spec.
-                </ul>
+                    <ul>
+                        <li>{{Event.target}} : [=topmost event target=]
+                        <li>{{UIEvent.view}} : {{Window}}
+                        <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
+                    </ul>
+                </td></tr>
         </table>
 
             <p>
@@ -3132,23 +3116,11 @@ myDiv.addEventListener("auxclick", function(e) {
                 <tr><th>Cancelable</th>
                 <td>Yes</td>
                 <tr><th>Context<br>(trusted events)</th>
-                <td><ul>
-                    <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                    <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                    <li>{{UIEvent}}.{{UIEvent/detail}} : 0</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                    <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                    <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code>modifier was active, otherwise <code>false</code></li>
-                    <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code>  modifier was active, otherwise <code>false</code></li>
-                    <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                    <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                <td>
+                    <ul>
+                        <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
+                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                        <li>{{UIEvent}}.{{UIEvent/detail}} : 0</li>
                     </ul>
                 </td></tr>
         </table>
@@ -3189,19 +3161,6 @@ myDiv.addEventListener("auxclick", function(e) {
                     <ul>
                         <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
                     </ul>
                 </td>
             </tr>
@@ -3252,25 +3211,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                         <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the {{mousedown}}, {{UIEvent/detail}} will contain the value <code>1</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                        the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                        the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                        within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                        within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                        within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                        within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
                     </ul>
                 </td>
             </tr>
@@ -3311,26 +3251,6 @@ myDiv.addEventListener("auxclick", function(e) {
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                         <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                        the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                        the screen</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                        within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                        within the viewport</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                        within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                        within the containing element</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-                        a pointing device is exiting, if any.</li>
                     </ul>
                 </td>
             </tr>
@@ -3373,26 +3293,6 @@ myDiv.addEventListener("auxclick", function(e) {
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                             <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-                                        a pointing device is exiting, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3435,25 +3335,6 @@ myDiv.addEventListener("auxclick", function(e) {
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                             <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
                         </ul>
                     </td>
                 </tr>
@@ -3502,26 +3383,6 @@ myDiv.addEventListener("auxclick", function(e) {
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                             <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-                                        a pointing device is entering, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3559,26 +3420,6 @@ myDiv.addEventListener("auxclick", function(e) {
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                             <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                             <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                            the screen</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                            within the viewport</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                            within the containing element</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/button}} : <code>0</code></li>
-                            <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=]  |
-                                        a pointing device is entering, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3615,27 +3456,7 @@ myDiv.addEventListener("auxclick", function(e) {
                             <ul>
                                 <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
                                 <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                                <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the
-                                            <a href="#current-click-count">current click count</a> incremented by one.</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/screenX}} : value based on the pointer position on
-                                the screen</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/screenY}} : value based on the pointer position on
-                                the screen</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/clientX}} : value based on the pointer position
-                                within the viewport</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/clientY}} : value based on the pointer position
-                                within the viewport</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/layerX}} : value based on the pointer position
-                                within the containing element</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/layerY}} : value based on the pointer position
-                                within the containing element</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class='keycap'>Alt</code> modifier was active, otherwise <code>false</code></li>
-                                <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class='keycap'>Control</code> modifier was active, otherwise <code>false</code></li>
-                                <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class='keycap'>Shift</code> modifier was active, otherwise <code>false</code></li>
-                                <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class='keycap'>Meta</code> modifier was active, otherwise <code>false</code></li>
-                                <li>{{MouseEvent}}.{{MouseEvent/button}} : value based on current button pressed</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/buttons}} : value based on all buttons currently depressed, <code>0</code> if no buttons pressed</li>
-                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : <code>null</code></li>
+                                <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one.</li>
                             </ul>
                         </td>
                     </tr>
@@ -3868,24 +3689,9 @@ interface WheelEvent : MouseEvent {
                     <th>Context<br> (trusted events)</th>
                     <td>
                         <ul>
-                        <li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
-                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                        <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenX}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/screenY}} : if the wheel is associated with a pointing device, the value based on the pointer position on the screen, otherwise <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientX}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/clientY}} : if the wheel is associated with a pointing device, the value based on the pointer position within the viewport, otherwise <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/altKey}} : <code>true</code> if <code class="keycap">Alt</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/ctrlKey}} : <code>true</code> if <code class="keycap">Control</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/shiftKey}} : <code>true</code> if <code class="keycap">Shift</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/metaKey}} : <code>true</code> if <code class="keycap">Meta</code> modifier was active, otherwise <code>false</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/button}} : if wheel is associated with a pointing device, value based on current button pressed, otherwise <code>0</code></li>
-                        <li>{{MouseEvent}}.{{MouseEvent/buttons}} : if wheel is associated with a pointing device, value based on all buttons current depressed, <code>0</code> if no buttons pressed</li>
-                        <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any</li>
-                        <li>{{WheelEvent}}.{{WheelEvent/deltaX}} : expected amount that the page will scroll along the x-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the x-axis</li>
-                        <li>{{WheelEvent}}.{{WheelEvent/deltaY}} : expected amount that the page will scroll along the y-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the y-axis</li>
-                        <li>{{WheelEvent}}.{{WheelEvent/deltaZ}} : expected amount that the page will scroll along the z-axis according to the deltaMode units; or an implementation-specific value of movement of a wheel around the z-axis</li>
-                        <li>{{WheelEvent}}.{{WheelEvent/deltaMode}} : unit indicator (pixels, lines, or pages) for the deltaX, deltaY, and deltaZ attributes</li>
+                            <li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
+                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
+                            <li>{{UIEvent}}.{{UIEvent/detail}} : <code>0</code></li>
                         </ul>
                     </td>
                 </tr>
