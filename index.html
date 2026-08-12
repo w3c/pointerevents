@@ -1830,7 +1830,7 @@ partial interface Navigator {
                 <p>Here is an example of the actual events happening with increasing {{Event/timeStamp}} values and the
                 events dispatched by the user agent:</p>
                 <table class="data">
-                    <thead><tr><th>Actual events</th><th>Dispatched events</th> </tr></thead>
+                    <thead><tr><th>Actual events</th><th>Dispatched events</th></tr></thead>
                     <tbody>
                         <tr><td>pointer ({{PointerEvent/pointerId}}=2) coordinate change</td><td>{{pointerrawupdate}} ({{PointerEvent/pointerId}}=2) w/ one coalesced event</td></tr>
                         <tr><td>pointer ({{PointerEvent/pointerId}}=1) coordinate change</td><td>{{pointerrawupdate}} ({{PointerEvent/pointerId}}=1) w/ one coalesced event</td></tr>
@@ -2791,50 +2791,58 @@ interface MouseEvent : UIEvent {
         <table class="event-sequence-table">
             <thead>
                 <tr>
-                <td class="cell-number">#
-                <th>Event Type
-                <th style="text-align:center">Element
-                <th>Notes
+                    <td class="cell-number">#</td>
+                    <th>Event Type</th>
+                    <th style="text-align:center">Element</th>
+                    <th>Notes</th>
+                </tr>
             <tbody>
                 <tr>
-                <td class="cell-number">1
-                <td>{{mousemove}}
-                <td style="text-align:center">
-                <td>
+                    <td class="cell-number">1</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center"></td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved into element A...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved into element A...</em></td>
+                </tr>
                 <tr>
-                <td class="cell-number">2
-                <td>{{mouseover}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">2</td>
+                    <td>{{mouseover}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">3
-                <td>{{mouseenter}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">3</td>
+                    <td>{{mouseenter}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">4
-                <td>{{mousemove}}
-                <td style="text-align:center">A
-                <td>Multiple {{mousemove}} events
+                    <td class="cell-number">4</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center">A</td>
+                    <td>Multiple {{mousemove}} events</td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved out of element A...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved out of element A...</em></td>
                 <tr>
-                <td class="cell-number">5
-                <td>{{mouseout}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">5</td>
+                    <td>{{mouseout}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">6
-                <td>{{mouseleave}}
-                <td style="text-align:center">A
+                    <td class="cell-number">6</td>
+                    <td>{{mouseleave}}</td>
+                    <td style="text-align:center">A</td>
+                </tr>
                 <td>
         </table>
 		<p>
@@ -2844,101 +2852,120 @@ interface MouseEvent : UIEvent {
         <table class="event-sequence-table">
             <thead>
                 <tr>
-                <td class="cell-number">
-                <th>Event Type
-                <th style="text-align:center">Element
-                <th>Notes
+                    <td class="cell-number"></td>
+                    <th>Event Type</th>
+                    <th style="text-align:center">Element</th>
+                    <th>Notes</th>
+                </tr>
             <tbody>
                 <tr>
-                <td class="cell-number">1
-                <td>{{mousemove}}
-                <td style="text-align:center">
-                <td>
+                    <td class="cell-number">1</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center"></td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved into element A...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved into element A...</em></td>
+                </tr>
                 <tr>
-                <td class="cell-number">2
-                <td>{{mouseover}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">2</td>
+                    <td>{{mouseover}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">3
-                <td>{{mouseenter}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">3</td>
+                    <td>{{mouseenter}}</td>
+                    <td style="text-align:center">A</td>
+                <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">4
-                <td>{{mousemove}}
-                <td style="text-align:center">A
-                <td>Multiple {{mousemove}} events
+                    <td class="cell-number">4</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center">A</td>
+                    <td>Multiple {{mousemove}} events</td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved into nested element B...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved into nested element B...</em></td>
+                </tr>
                 <tr>
-                <td class="cell-number">5
-                <td>{{mouseout}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">5</td>
+                    <td>{{mouseout}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">6
-                <td>{{mouseover}}
-                <td style="text-align:center">B
-                <td>
+                    <td class="cell-number">6</td>
+                    <td>{{mouseover}}</td>
+                    <td style="text-align:center">B</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">7
-                <td>{{mouseenter}}
-                <td style="text-align:center">B
-                <td>
+                    <td class="cell-number">7</td>
+                    <td>{{mouseenter}}</td>
+                    <td style="text-align:center">B</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">8
-                <td>{{mousemove}}
-                <td style="text-align:center">B
-                <td>Multiple {{mousemove}} events
+                    <td class="cell-number">8</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center">B</td>
+                    <td>Multiple {{mousemove}} events</td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved from element B into A...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved from element B into A...</em></td>
+                </tr>
                 <tr>
-                <td class="cell-number">9
-                <td>{{mouseout}}
-                <td style="text-align:center">B
-                <td>
+                    <td class="cell-number">9</td>
+                    <td>{{mouseout}}</td>
+                    <td style="text-align:center">B</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">10
-                <td>{{mouseleave}}
-                <td style="text-align:center">B
-                <td>
+                    <td class="cell-number">10</td>
+                    <td>{{mouseleave}}</td>
+                    <td style="text-align:center">B</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">11
-                <td>{{mouseover}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">11</td>
+                    <td>{{mouseover}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">12
-                <td>{{mousemove}}
-                <td style="text-align:center">A
-                <td>Multiple {{mousemove}} events
+                    <td class="cell-number">12</td>
+                    <td>{{mousemove}}</td>
+                    <td style="text-align:center">A</td>
+                    <td>Multiple {{mousemove}} events</td>
+                </tr>
                 <tr>
-                <td class="cell-number">
-                <td>
-                <td style="text-align:center">
-                <td><em>Pointing device is moved out of element A...</em>
+                    <td class="cell-number"></td>
+                    <td></td>
+                    <td style="text-align:center"></td>
+                    <td><em>Pointing device is moved out of element A...</em></td>
+                </tr>
                 <tr>
-                <td class="cell-number">13
-                <td>{{mouseout}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">13</td>
+                    <td>{{mouseout}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
                 <tr>
-                <td class="cell-number">14
-                <td>{{mouseleave}}
-                <td style="text-align:center">A
-                <td>
+                    <td class="cell-number">14</td>
+                    <td>{{mouseleave}}</td>
+                    <td style="text-align:center">A</td>
+                    <td></td>
+                </tr>
         </table>
 
 		<p>
