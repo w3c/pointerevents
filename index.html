@@ -917,7 +917,6 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
@@ -962,7 +961,6 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
@@ -1009,7 +1007,6 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
                             </ul>
                         </td>
                     </tr>
@@ -1051,8 +1048,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                            </ul>
+                                </ul>
                         </td>
                     </tr>
                 </table>
@@ -1095,8 +1091,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                            </ul>
+                                </ul>
                         </td>
                     </tr>
                 </table>
@@ -1160,8 +1155,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                            </ul>
+                                </ul>
                         </td>
                     </tr>
                 </table>
@@ -1203,8 +1197,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                            </ul>
+                                </ul>
                         </td>
                     </tr>
                 </table>
@@ -1243,7 +1236,6 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
                             </ul>
                         </td>
@@ -1289,7 +1281,6 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
                                 <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                             </ul>
                         </td>
@@ -1337,8 +1328,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                            </ul>
+                                </ul>
                         </td>
                     </tr>
                 </table>
@@ -1376,8 +1366,7 @@ function tilt2spherical(tiltX, tiltY) {
                         <td>
                             <ul>
                                 <li>{{Event.target}} : [=topmost event target=]</li>
-                                <li>{{UIEvent.view}} : {{Window}}</li>
-                                                            </ul>
+                                <                            </ul>
                         </td>
                     </tr>
                 </table>
@@ -3212,7 +3201,6 @@ interface MouseEvent : UIEvent {
             <td>
                 <ul>
                     <li>{{Event.target}} : [=topmost event target=]
-                    <li>{{UIEvent.view}} : {{Window}}
                     <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
                 </ul>
             </td></tr>
@@ -3316,8 +3304,7 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td>
                     <ul>
                         <li>{{Event.target}} : [=topmost event target=]
-                        <li>{{UIEvent.view}} : {{Window}}
-                        <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
+                            <li>{{UIEvent.detail}} : indicates the [=current click count=]; the attribute value MUST be <code>1</code> when the user begins this action and increments by <code>1</code> for each click.
                     </ul>
                 </td></tr>
         </table>
