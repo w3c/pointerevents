@@ -2277,7 +2277,7 @@ interface MouseEvent : UIEvent {
                 <p>The {{MouseEvent/relatedTarget}} should be initialized to the element whose bounds the mouse pointer just left (in the case of a {{mouseover}} or {{mouseenter}} event) or the element whose bounds the mouse pointer is entering (in the case of a {{mouseout}} or {{mouseleave}} or [=focusout=] event). For other events, this value need not be assigned (and will default to null).</p>
             </dd>
 
-            <dt><dfn>getModifierState(keyArg)</dfn></dt>
+            <dt><dfn data-lt="getModifierState()"">getModifierState(keyArg)</dfn></dt>
             <dd>
                 <p>Queries the state of a modifier using a key value.</p>
                 <p>Returns <code>true</code> if it is a modifier key and the modifier is activated, <code>false</code> otherwise.</p>
@@ -4287,7 +4287,7 @@ The following features are obsolete and should only be implemented by
 		</pre>
 
 		<dl data-dfn-for="MouseEvent">
-			<dt><dfn>initMouseEvent(typeArg)</dfn></dt>
+			<dt><dfn data-lt="initMouseEvent()">initMouseEvent(typeArg)</dfn></dt>
 			<dd>
 				Initializes attributes of a {{MouseEvent}} object. This
 				method has the same behavior as <code>UIEvent.initUIEvent()</code>.
