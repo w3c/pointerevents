@@ -3401,7 +3401,6 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td>
                     <ul>
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : 0</li>
                     </ul>
                 </td></tr>
@@ -3445,7 +3444,6 @@ myDiv.addEventListener("auxclick", function(e) {
                 <th>Context<br> (trusted events)</th>
                 <td>
                     <ul>
-                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a></li>
                     </ul>
                 </td>
@@ -3499,7 +3497,6 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td>
                     <ul>
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one. For example, if no click happened before the {{mousedown}}, {{UIEvent/detail}} will contain the value <code>1</code></li>
                     </ul>
                 </td>
@@ -3543,7 +3540,6 @@ myDiv.addEventListener("auxclick", function(e) {
                 <td>
                     <ul>
                         <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                        <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
                         <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                     </ul>
                 </td>
@@ -3589,8 +3585,7 @@ myDiv.addEventListener("auxclick", function(e) {
                     <td>
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is exiting, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3635,8 +3630,7 @@ myDiv.addEventListener("auxclick", function(e) {
                     <td>
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                        </ul>
+                            </ul>
                     </td>
                 </tr>
         </table>
@@ -3686,8 +3680,7 @@ myDiv.addEventListener("auxclick", function(e) {
                     <td>
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3727,8 +3720,7 @@ myDiv.addEventListener("auxclick", function(e) {
                     <td>
                         <ul>
                             <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] a pointing device is entering, if any.</li>
                         </ul>
                     </td>
                 </tr>
@@ -3768,8 +3760,7 @@ myDiv.addEventListener("auxclick", function(e) {
                         <td>
                             <ul>
                                 <li>{{Event}}.{{Event/target}} : <a>topmost event target</a></li>
-                                <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                                <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one.</li>
+                                        <li>{{UIEvent}}.{{UIEvent/detail}} : indicates the <a href="#current-click-count">current click count</a> incremented by one.</li>
                             </ul>
                         </td>
                     </tr>
@@ -4007,8 +3998,7 @@ interface WheelEvent : MouseEvent {
                     <td>
                         <ul>
                             <li>{{Event}}.{{Event/target}} : element target for the current <a>wheel event transaction</a></li>
-                            <li>{{UIEvent}}.{{UIEvent/view}} : {{Window}}</li>
-                            <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any.</li>
+                                <li>{{MouseEvent}}.{{MouseEvent/relatedTarget}} : indicates the [=Event/target=] the pointing device is pointing at, if any.</li>
                         </ul>
                     </td>
                 </tr>
