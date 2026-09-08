@@ -1420,6 +1420,66 @@ function tilt2spherical(tiltX, tiltY) {
                         </li>
 
                         <li>
+                          <p>If |event| is a <code>click</code> event, then:</p>
+                          <ol>
+                            <li>
+                              <p>Let |pointerDownTarget|, |pointerDownX|, |pointerDownY|, |pointerUpTarget|, |pointerUpX|, and |pointerUpY| each be null.</p>
+                            </li>
+
+                            <li>
+                              <p>If |event| had corresponding <code>pointerdown</code> and <code>pointerup</code> events preceding it, then:</p>
+                              <ol>
+                                <li>
+                                  <p>Set |pointerDownTarget| to the corresponding <code>pointerdown</code> event's event target.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerDownX| to the corresponding <code>pointerdown</code> event's <code>clientX</code>.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerDownY| to the corresponding <code>pointerdown</code> event's <code>clientY</code>.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerUpTarget| to the corresponding <code>pointerup</code> event's event target.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerUpX| to the corresponding <code>pointerup</code> event's <code>clientX</code>.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerUpY| to the corresponding <code>pointerup</code> event's <code>clientY</code>.</p>
+                                </li>
+                              </ol>
+                            </li>
+
+                            <li>
+                              <p>Otherwise:</p>
+                              <ol>
+                                <li>
+                                  <p>Set |pointerDownTarget| and |pointerUpTarget| to |event|'s event target.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerDownX| and |pointerUpX| to |event|'s <code>clientX</code>.</p>
+                                </li>
+
+                                <li>
+                                  <p>Set |pointerDownY| and |pointerUpY| to |event|'s <code>clientY</code>.</p>
+                                </li>
+                              </ol>
+                            </li>
+
+                            <li>
+                              <p><a href="https://html.spec.whatwg.org/#run-light-dismiss-activities">Run light dismiss activities</a> given |pointerDownTarget|, |pointerDownX|, |pointerDownY|, |pointerUpTarget|, |pointerUpX|, and |pointerUpY|.</p>
+                            </li>
+                          </ol>
+
+                        </li>
+
+                        <li>
                             <p>Dispatch |event| to |target|.</p>
                             <div class="note">If |userEvent| was captured, |event| is dispatched to the capturing target of |userEvent| even though the {{lostpointercapture}} event with the same {{PointerEvent/pointerId}} has been dispatched already.</div>
                         </li>
