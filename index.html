@@ -727,17 +727,17 @@ function tilt2spherical(tiltX, tiltY) {
         <section>
             <h3>PointerEvent Algorithms</h3>
             <section>
-            <h4>initialize a {{PointerEvent}}</h4>
+                <h4>initialize a {{PointerEvent}}</h4>
                 <p>
                     To <dfn class="export">initialize a PointerEvent</dfn> with |event|, |eventType| and |eventTarget|, |bubbles|, and |cancelable|, run the following steps:
                 </p>
-                <ol  class="algorithm">
+                <ol class="algorithm">
                     <li>[=Initialize a MouseEvent=] with |event|, |eventType| and |eventTarget|, |bubbles| and |cancelable|</li>
                     <li>Initialize all other attributes to default {{PointerEvent}} values.</li>
                 </ol>
-        </section>
-        <section>
-            <h4>create a {{PointerEvent}}</h4>
+            </section>
+            <section>
+                <h4>create a {{PointerEvent}}</h4>
                 <p>
                     To <dfn class="export"
                     data-lt="creating a PointerEvent
@@ -766,121 +766,6 @@ function tilt2spherical(tiltX, tiltY) {
                     <li>Return |event|</li>
                 </ol>
             </section>
-            <section>
-                <h4><dfn class="export">maybe send pointerout event</dfn></h4>
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-                    <li>Set pointerevent attributes
-                <p class="ednote">TODO.</p></li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-            <section>
-                <h4><dfn class="export">maybe send pointerleave event</dfn></h4>
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-                    <li>Set pointerevent attributes
-                <p class="ednote">TODO.</p></li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-            <section>
-                <h4><dfn class="export">maybe send pointerover event</dfn></h4>
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-                    <li>Set pointerevent attributes
-                <p class="ednote">TODO.</p></li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-            <section>
-                <h4><dfn class="export">maybe send pointerenter event</dfn></h4>
-
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}</li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-                    <li>Set pointerevent attributes
-                <p class="ednote">TODO.</p></li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-            <section>
-                <h4><dfn class="export">maybe send pointermove event</dfn></h4>
-
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-                        <p class="ednote">
-                        Can this send pointermove and pointerrawupdate? Or do we need 2 methods?
-                        </p>
-                        <p class="ednote">
-                        What is needed to properly define how pointermove events are coalesced?
-                        </p>
-                    </li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|</li>
-                    <li>Set pointerevent attributes
-                        <p class="ednote">TODO.</p>
-                    </li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-
-            <section>
-                <h4><dfn class="export">maybe send pointerdown event</dfn></h4>
-
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-                        <p class="note">
-                            Unlike <code>mousedown</code> events, {{pointerdown}}
-                            events are not nested when multiple buttons are pressed.
-                            The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.</p>
-                    </li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
-                    <li>Set pointerevent attributes
-                        <p class="ednote">TODO.</p>
-                    </li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-
-            <section>
-                <h4><dfn class="export">maybe send pointerrawupdate event</dfn></h4>
-
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-
-            <section>
-                <h4><dfn class="export">maybe send pointerup event</dfn></h4>
-
-                <ol class="algorithm">
-                    <li>Let |mouseout| be the corresponding mouseout {{MouseEvent}}
-                    <p class="note">
-                        Unlike <code>mouseup</code> events, {{pointerup}} events are not nested when multiple buttons are pressed. The {{MouseEvent}} is passed so that the fields can be copied into the PointerEvent.
-                    </p>
-                    </li>
-                    <li>Let |pointerout| be the result of [=creating PointerEvent from MouseEvent=] with "pointerout" and |mouseout|
-                    <li>Set pointerevent attributes
-                        <p class="ednote">
-                        TODO.
-                        </p>
-                    </li>
-                    <li>Let |target| be the |mouseout|.{{Event/target}}</li>
-                    <li>[=dispatch=] |pointerout| at |target|</li>
-                </ol>
-            </section>
-
         </section>
 
         <section>
@@ -2553,7 +2438,7 @@ interface MouseEvent : UIEvent {
             <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
             <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mousedown", |target|</li>
             <li><a>Set MouseEvent attributes from native</a> with |native|</li>
-            <li><a>Maybe send pointerdown event</a> with |event|</li>
+            <li>Maybe send pointerdown event with |event|</li>
             <li>Let |result| be <a>dispatch</a> |event| at |target|</li>
             <li>If |result| is true and |target| is a <a data-cite="html#focusable-area">focusable area</a> that is <a data-cite="html#click-focusable">click focusable</a>, then
                 <ol>
@@ -2590,7 +2475,7 @@ interface MouseEvent : UIEvent {
             <li>Let |target| be <a>hit test</a> with viewport-relative coordinates from |native|</li>
             <li>Let |event| be the result of <a>creating a cancelable MouseEvent</a> with "mouseup", |target|</li>
             <li><a>Set MouseEvent attributes from native</a> with |native|</li>
-            <li><a>Maybe send pointerup event</a> with |event|</li>
+            <li>Maybe send pointerup event with |event|</li>
             <li><a>dispatch</a> |event| at |target|</li>
         </ol>
 
@@ -2705,7 +2590,7 @@ interface MouseEvent : UIEvent {
                                 </p>
                             </li>
                         </ol>
-                    <li><a>Maybe send pointerout event</a> with |mouseout|</li>
+                    <li>Maybe send pointerout event with |mouseout|</li>
                     <li><a>Dispatch</a> |mouseout| at |target|
                         <p class="note">
                         Verify behavior when canceled (appears to have no effect).
@@ -2726,7 +2611,7 @@ interface MouseEvent : UIEvent {
                                 Check compat: Value of event.composed. Spec says false. Chrome/Linux = true. Firefox/Linux = false.
                                 </p>
                             </li>
-                            <li><a>Maybe send pointerleave event</a> with |mouseleave|</li>
+                            <li>Maybe send pointerleave event with |mouseleave|</li>
                             <li>Let |result| be <a>dispatch</a> |mouseleave| at |element|</li>
                         </ol>
                     </li>
@@ -2741,7 +2626,7 @@ interface MouseEvent : UIEvent {
                                     TODO: Set |mouseout| attributes from |native|. +CSSOM attributes.
                                 </p>
                             </li>
-                            <li><a>Maybe send pointerover event</a> with |mouseover|</li>
+                            <li>Maybe send pointerover event with |mouseover|</li>
                             <li><a>Dispatch</a> |mouseout| at |target|
                                 <p class="note">
                                 Need to verify behavior when canceled (appears to have no effect).
@@ -2762,7 +2647,7 @@ interface MouseEvent : UIEvent {
                                 Firefox/Linux = false.
                                 </p>
                             </li>
-                            <li><a>Maybe send pointerenter event</a> with |mouseenter|
+                            <li>Maybe send pointerenter event with |mouseenter|
                                 <p class="note">
                                     Check compat for shadow DOM elements. Chrome/Linux fires this event at the element and the shadow root.
                                 </p>
@@ -2778,7 +2663,7 @@ interface MouseEvent : UIEvent {
             </li>
             <li>Let |mousemove| be the result of <a>creating a cancelable MouseEvent</a> with "mousemove" and |element|</li>
             <li><a>Set PointerLock attributes for mousemove</a></li>
-            <li><a>Maybe send pointermove event</a> with |mousemove|</li>
+            <li>Maybe send pointermove event with |mousemove|</li>
             <li><a>Dispatch</a> |mousemove| at |element|</li>
         </ol>
     
