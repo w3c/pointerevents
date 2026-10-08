@@ -13,6 +13,7 @@
             github: "w3c/pointerevents",
             testSuiteURI: "https://wpt.fyi/pointerevents/",
             caniuse: "pointer",
+            errata: "",
             formerEditors: [
                 {
                     name: "Matt Brubeck",
@@ -4167,8 +4168,8 @@ eventTarget.dispatchEvent(event2);</code>
     </section>
 
     <section>
-        <h1>Security and privacy considerations</h1>
-        <p>This appendix discusses security and privacy considerations for Pointer Events implementations. The discussion is limited to security and privacy issues that arise directly from implementation of the event model, APIs and events defined in this specification.</p>
+        <h2>Privacy and Security Considerations</h2>
+        <p>This appendix discusses privacy and security considerations for Pointer Events implementations. The discussion is limited to privacy and security issues that arise directly from implementation of the event model, APIs and events defined in this specification.</p>
         <p>Many of the event types defined in this specification are dispatched in response to user actions. This allows malicious event listeners to gain access to information users would typically consider confidential, e.g., the exact path/movement of a user's mouse/stylus/finger while interacting with a page.</p>
         <p>Pointer events contain additional information (where supported by the user's device), such as the angle or tilt at which a pen input is held, the geometry of the contact surface, and the pressure exerted on the stylus or touch screen. Information about angle, tilt, geometry and pressure are directly related to sensors on the user's device, meaning that this specification allows an origin access to these sensors.</p>
         <p>This sensor data, as well as the ability to determine the type of input mechanism (mouse, touch, pen) used, may be used to infer characteristics of a user, or of the user's device and environment. These inferred characteristics and any device/environment information may themselves be sensitive — for instance, they may allow a malicious site to further infer if a user is using assistive technologies. This information can also be potentially used for the purposes of building a user profile and/or attempting to "fingerprint" and track a particular user.</p>
