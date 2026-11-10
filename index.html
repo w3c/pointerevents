@@ -761,7 +761,8 @@ function tilt2spherical(tiltX, tiltY) {
                     <li>Let |event| be the result of
                         [=creating an event=] using {{PointerEvent}}</li>
                     <li>Let |target| be the |mouseevent|.{{Event/target}}</li>
-                    <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |target|</li>
+                    <li>[=Initialize a PointerEvent=] with |event|, |eventType| and |target|,
+                        |mouseevent|.{{Event/bubbles}} and |mouseevent|.{{Event/cancelable}}</li>
                     <li>Copy {{MouseEvent}} attributes from |mouseevent| into |event|</li>
                     <li>Return |event|</li>
                 </ol>
@@ -2513,7 +2514,8 @@ interface MouseEvent : UIEvent {
                 </ol>
             </li>
             <li>Set |eventType| to "click" if |mbutton| is the primary mouse button, otherwise "auxclick"</li>
-            <li>Let |event| be the result of <a>creating a PointerEvent</a> with |eventType| and |target|</li>
+            <li>Let |event| be the result of <a>creating a PointerEvent</a> with |eventType|, |target|,
+                <code>true</code> and <code>true</code></li>
             <li>If |native| is valid, then
                 <ol class="algorithm">
                     <li><a>Set MouseEvent attributes from native</a> with |event|, |native|</li>
@@ -2677,7 +2679,8 @@ interface MouseEvent : UIEvent {
             <li>Let |native| be the native mousedown or pointer event</li>
             <li>Let |target| be the {{EventTarget}} of the event
                 <ol class="algorithm">
-                    <li>Let |menuevent| be the result of <a>creating a PointerEvent</a> with "contextmenu", |target|</li>
+                    <li>Let |menuevent| be the result of <a>creating a PointerEvent</a> with "contextmenu", |target|,
+                        <code>true</code> and <code>true</code></li>
                     <li>If |native| is valid, then
                         <ol class="algorithm">
                             <li><a>Set MouseEvent attributes from native</a> with |native|</li>
